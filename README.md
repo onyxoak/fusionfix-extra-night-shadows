@@ -66,7 +66,7 @@ Full modified source, populated dependencies, license notices, build instruction
 
 FusionFix: **ThirteenAG and the FusionFix contributors**, whose work this modification builds on. [Original project](https://github.com/ThirteenAG/GTAIV.EFLC.FusionFix).
 
-Requirements, reproduction examples, and repeated gameplay testing: **Austin**. Implementation and release preparation were developed with **OpenAI Codex**. This is unofficial and is not endorsed by the FusionFix maintainers.
+Requirements, reproduction examples, and repeated gameplay testing: **onyxoak**. Implementation and release preparation were developed with **OpenAI Codex**. This is unofficial and is not endorsed by the FusionFix maintainers.
 
 FusionFix's GPL-3.0 license and attribution are retained. The modifications are provided under those terms; third-party components retain their own included licenses. Follow those licenses when modifying or redistributing. This release does not claim ownership of upstream FusionFix or third-party code.
 
