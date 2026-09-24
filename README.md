@@ -1,5 +1,7 @@
 # FusionFix Extra Night Shadows Fix (Unofficial)
 
+[Download the preview release](https://github.com/onyxoak/fusionfix-extra-night-shadows/releases/tag/build18-preview) — installer, complete source, and checksums.
+
 **Want vehicle shadows under streetlamps and headlight-cast shadows together?**
 
 This mod grew out of a frustrating nighttime tradeoff: getting the car's shadow under lamps, keeping headlight shadows while driving, and seeing Niko cast a shadow when walking in front of a car. In our test setup, attempts to combine those effects produced flickering and headlights that cut off or broke up depending on the car's direction.
