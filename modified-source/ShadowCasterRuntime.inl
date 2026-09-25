@@ -9,6 +9,7 @@ namespace OwnHeadlightCaster
     static uintptr_t base = 0;
     static std::atomic<uint32_t> passes{0}, deferredPasses{0}, ownPasses{0};
     static std::atomic<uint32_t> casterVisits{0}, carExcluded{0}, occupantsExcluded{0};
+    static std::atomic<uint32_t> trafficCarExcluded{0};
 
     static policy::Context Capture(void* renderPass) noexcept
     {
@@ -33,6 +34,12 @@ namespace OwnHeadlightCaster
         const auto kind = *reinterpret_cast<const uint32_t*>(base + guard::SlotKindRva + offset);
         const bool active = *reinterpret_cast<const uint8_t*>(base + guard::SlotActiveRva + offset) == 1;
         const auto car = CPlayer::findPlayerCar();
+        // On foot, exclude only the source vehicle from its own immediate
+        // headlight pass. Confirm the opaque key was selected by our submission
+        // adapter; do not infer an owner pointer or dereference that key.
+        if (bTrafficSelfShadowFix && !car && kind == 4 && active &&
+            CShadows::gStableHeadlightShadow.IsSelectedBeam(key))
+            result.trafficBeamKey = key;
         if (!policy::OwnBeam(slot, kind, active, key, car)) return result;
         result.car = car;
         result.ownBeam = true;
@@ -49,7 +56,7 @@ namespace OwnHeadlightCaster
         ++casterVisits;
         if (!bHeadlightShadows || !bVehicleNightShadows ||
             !policy::Exclude(context, entity, type, artificial)) return false;
-        if (type == 2) ++carExcluded;
+        if (type == 2) { ++carExcluded; if (context.trafficBeamKey) ++trafficCarExcluded; }
         else ++occupantsExcluded;
         return true;
     }
@@ -79,11 +86,13 @@ namespace ShadowDiagnostics
             std::ofstream log(path, std::ios::app);
             if (!startupWritten)
             {
-                log << "candidate=19 startup_guard " << startupGuardDetails << '\n';
-                log << "candidate=19 allocator_startup " << PlayerShadowAllocation::installStatus << '\n';
+                log << "candidate=21 startup_guard " << startupGuardDetails << '\n';
+                log << "candidate=21 allocator_startup " << PlayerShadowAllocation::installStatus << '\n';
                 if (log.good()) startupWritten = true;
             }
-            log << "candidate=19 tick=" << now << " admission_installed=" << admissionInstalled
+            log << "candidate=21 tick=" << now << " admission_installed=" << admissionInstalled
+                << " traffic_self_shadow_fix=" << bTrafficSelfShadowFix
+                << " traffic_car_excluded=" << OwnHeadlightCaster::trafficCarExcluded.load()
                 << " close_headlight_relevance=" << bCloseHeadlightRelevance << " caster_guard=" << guardPassed
                 << " caster_requested=" << casterMode << " caster_enabled=" << OwnHeadlightCaster::enabled.load()
                 << " allocation_mode=" << allocationMode << " allocation_ready=" << PlayerShadowAllocation::ready.load()

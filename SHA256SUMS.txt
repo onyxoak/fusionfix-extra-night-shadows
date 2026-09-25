@@ -1,2 +1,2 @@
-7B254D16315BBD07FAFE9CCC3827E613B4743D14434638EC8D2675CB0ACF6804  FusionFix-Extra-Night-Shadows-Unofficial-build19-manual-runtime.zip
-9F4A21ABF0C75B712A996F166288DF1010D5D67FAF31C62F4AD7A128C37A35A9  FusionFix-Extra-Night-Shadows-Unofficial-build19-source.zip
+1f60f9cfff6b0338f859b874ea707bb7fecb3e30bb474e34697d35ab3f59ae8e  FusionFix-Extra-Night-Shadows-1.1-manual-runtime.zip
+d12fc4d58ade0dfe83bd59a20dc7e433193f16e3ba316dc3112bc1fc2030838a  FusionFix-Extra-Night-Shadows-1.1-source.zip

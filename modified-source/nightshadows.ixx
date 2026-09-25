@@ -11,6 +11,7 @@ module;
 #include "ShadowCasterCE.hpp"
 #include "ShadowGuardDiagnostics.hpp"
 #include "CloseHeadlightRelevance.hpp"
+#include "ShadowReach.hpp"
 #include <fstream>
 #include <atomic>
 #include <intrin.h>
@@ -24,6 +25,7 @@ import settings;
 
 bool bHighResolutionNightShadows = false;
 static bool bCloseHeadlightRelevance = false;
+static bool bTrafficSelfShadowFix = false;
 
 namespace CShadows
 {
@@ -93,6 +95,14 @@ namespace CShadows
             return true;
         }
 
+        bool IsSelectedBeam(uintptr_t key)
+        {
+            const std::lock_guard<std::mutex> lock(stateMutex);
+            if (!key || !hasFrame || !playerValid) return false;
+            const auto identities = selector.ActiveIdentities();
+            return key == identities[0] || key == identities[1];
+        }
+
         bool ShouldCast(int directionAddress, int positionAddress, int stableKey)
         {
             // Keep policy bookkeeping coherent if render submissions are made
@@ -117,6 +127,13 @@ namespace CShadows
                     forward, 0.70710678f, 35.0f))
                 geometry.aimedAtPlayer = true;
             const auto identity = static_cast<uintptr_t>(static_cast<uint32_t>(stableKey));
+            // Reach changes selection relevance, never the light cone or atlas size.
+            if (!occupiedVehicle && fusionfix::shadows::WithinShadowReach(geometry.distanceSquared,
+                    FusionFixSettings.Get("PREF_HEADLIGHT_REACH")))
+            {
+                geometry.directionKnown = true;
+                geometry.aimedAtPlayer = true;
+            }
             const bool playerHeadlight = fusionfix::shadows::ce::IsVehicleBeam(identity, occupiedVehicle);
             const bool accepted = selector.Consider({identity, geometry, playerHeadlight});
             if (playerHeadlight)
@@ -252,6 +269,7 @@ public:
 
             CIniReader iniReader("");
             bCloseHeadlightRelevance = iniReader.ReadInteger("SHADOWS", "ExperimentalCloseHeadlightRelevance", 0) != 0;
+            bTrafficSelfShadowFix = iniReader.ReadInteger("SHADOWS", "ExperimentalTrafficSelfShadowFix", 0) != 0;
 
             // Validate BEFORE allocator and caster installation alter guarded bytes.
             const auto image = reinterpret_cast<const uint8_t*>(GetModuleHandleW(nullptr));
@@ -266,7 +284,7 @@ public:
             // Publication happens after all hooks are installed below.
             ShadowDiagnostics::guardPassed = casterGuard;
             ShadowDiagnostics::casterMode = casterMode;
-            ShadowDiagnostics::path = iniReader.GetIniPath().parent_path() / "GTAIV-shadow-candidate19.log";
+            ShadowDiagnostics::path = iniReader.GetIniPath().parent_path() / "GTAIV-shadow-candidate21.log";
 
             // [NIGHTSHADOWS]
             bHighResolutionNightShadows = iniReader.ReadInteger("SHADOWS", "HighResolutionNightShadows", 0) != 0;

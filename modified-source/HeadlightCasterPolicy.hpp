@@ -9,6 +9,7 @@ namespace fusionfix::shadows::caster
         std::uintptr_t car = 0;
         std::array<std::uintptr_t, 9> occupants{};
         bool ownBeam = false;
+        std::uintptr_t trafficBeamKey = 0; // Validated submitted beam; never dereferenced.
     };
 
     inline bool OwnBeam(std::uint32_t slot, std::uint32_t kind, bool active,
@@ -21,7 +22,9 @@ namespace fusionfix::shadows::caster
     inline bool Exclude(const Context& context, std::uintptr_t entity,
                         std::uint32_t type, bool artificial) noexcept
     {
-        if (!context.ownBeam || !context.car || !entity || !artificial) return false;
+        if (!entity || !artificial) return false;
+        if (type == 2 && ce::IsVehicleBeam(context.trafficBeamKey, entity)) return true;
+        if (!context.ownBeam || !context.car) return false;
         if (type == 2) return entity == context.car;
         if (type == 3)
             for (const auto occupant : context.occupants)
