@@ -2,14 +2,14 @@
 
 **Want vehicle shadows under streetlamps and headlight-cast shadows together?**
 
-This mod grew out of a frustrating nighttime tradeoff: getting the car's shadow under lamps, keeping headlight shadows while driving, and seeing Niko cast a shadow when walking in front of a car. In our test setup, attempts to combine those effects produced flickering and headlights that cut off or broke up depending on the car's direction.
+This mod grew out of a frustrating nighttime tradeoff: getting the car's shadow under lamps, keeping headlight shadows while driving, and seeing Niko cast a shadow when walking in front of a car. In my test setup, attempts to combine those effects produced flickering and headlights that cut off or broke up depending on the car's direction.
 
 This unofficial FusionFix modification targets those problems. It gives nearby lights around the player priority and prevents the occupied car from obstructing its own headlight shadow pass, while retaining the car's shadows from streetlamps.
 
 ## What it targets
 
 - Vehicle shadows cast by nearby streetlamps, including while you are driving.
-- Headlights casting shadows on nearby objects without the driving-only cutoff seen in our tests.
+- Headlights casting shadows on nearby objects without the driving-only cutoff seen in my tests.
 - Niko casting a shadow when walking through headlights, including nearby traffic headlights.
 - More stable selection of nearby shadow-casting lights when traffic passes.
 
@@ -25,7 +25,7 @@ It keeps FusionFix as the foundation. It does not add unlimited shadow slots or 
 
 ## Installation (manual package, September 25, 2026)
 
-This repack contains the experimental build 19 ASI. It contains no installer scripts, standalone EXE files, or nested archives. The ASI is still executable mod code; Nexus may require security review. Packaging verification is not a malware certification or a new gameplay test.
+This repack contains the experimental build 19 ASI. It contains no installer scripts, standalone EXE files, or nested archives. 
 
 1. Use GTA IV Complete Edition 1.2.0.59 with a working FusionFix 5.0.1 baseline and ASI loader. Run that installation once to generate its INI and CFG, then close GTA IV.
 2. Verify the game executable matches the audited SHA-256 below. Unlike the previous installer, manual copying cannot enforce this prerequisite. In PowerShell, run the following command with your actual game path, and compare the output before proceeding:
@@ -69,7 +69,7 @@ To undo this manual installation, close GTA IV and restore all three files from 
 
 Experimental build 19 adds close-range on-foot headlight relevance to the earlier player-focused shadow allocation and own-vehicle headlight exclusion. It prioritizes nearby beams that intersect a conservative body volume instead of relying only on a single player-position point. It does not enlarge the rendered light cone or remove the engine shadow budget.
 
-The Release/Win32 build succeeded. 96 new geometry checks and 39 existing light-volume checks passed. Austin reports that this build fixes the near-bumper player-shadow disappearance in his gameplay test. Screenshots document this setup; they are not proof that every car, location, or mod combination is fixed. No new FPS improvement is claimed. The immediate caster path is covered; the deferred caster path remains outside the earlier own-car exclusion fix.
+The Release/Win32 build succeeded. 96 new geometry checks and 39 existing light-volume checks passed. I tested this build in game and the near-bumper player shadow now appears in that scene. Screenshots document this setup; they are not proof that every car, location, or mod combination is fixed. No new FPS improvement is claimed. The immediate caster path is covered; the deferred caster path remains outside the earlier own-car exclusion fix.
 
 Some distant shadow flicker may remain. Test compatibility in your own setup and report the vehicle, location, other graphics mods, settings, and whether the issue occurs on foot or driving. The original Extra Night Shadows warning is hidden only when the earlier guarded fixes are active; that indicator is not proof of universal correctness.
 
@@ -89,6 +89,7 @@ This is the complete matching build 19 source, including its dependencies, not t
 
 FusionFix: **ThirteenAG and the FusionFix contributors**, whose work this modification builds on. [Original project](https://github.com/ThirteenAG/GTAIV.EFLC.FusionFix).
 
-Requirements, reproduction examples, and repeated gameplay testing: **Austin**. Implementation and release preparation were developed with **OpenAI Codex**. This is unofficial and is not endorsed by the FusionFix maintainers.
+By **OnyxOak**. I identified the problems, directed the changes, and tested them in game, with coding assistance from OpenAI Codex. This is unofficial and is not endorsed by the FusionFix maintainers.
 
 FusionFix's GPL-3.0 license and attribution are retained. The modifications are provided under those terms; third-party components retain their own included licenses. Follow those licenses when modifying or redistributing. This release does not claim ownership of upstream FusionFix or third-party code.
+
