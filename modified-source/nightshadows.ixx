@@ -10,6 +10,7 @@ module;
 #include "HeadlightCasterPolicy.hpp"
 #include "ShadowCasterCE.hpp"
 #include "ShadowGuardDiagnostics.hpp"
+#include "CloseHeadlightRelevance.hpp"
 #include <fstream>
 #include <atomic>
 #include <intrin.h>
@@ -22,6 +23,7 @@ import natives;
 import settings;
 
 bool bHighResolutionNightShadows = false;
+static bool bCloseHeadlightRelevance = false;
 
 namespace CShadows
 {
@@ -108,8 +110,12 @@ namespace CShadows
                 const auto direction = reinterpret_cast<const float*>(directionAddress);
                 forward = {direction[0], direction[1], direction[2]};
             }
-            const auto geometry = fusionfix::shadows::EvaluateGeometry(
+            auto geometry = fusionfix::shadows::EvaluateGeometry(
                 playerPosition, lightPosition, directionAddress ? &forward : nullptr);
+            if (bCloseHeadlightRelevance && !occupiedVehicle && directionAddress &&
+                fusionfix::shadows::CloseHeadlightTouchesBody(playerPosition, lightPosition,
+                    forward, 0.70710678f, 35.0f))
+                geometry.aimedAtPlayer = true;
             const auto identity = static_cast<uintptr_t>(static_cast<uint32_t>(stableKey));
             const bool playerHeadlight = fusionfix::shadows::ce::IsVehicleBeam(identity, occupiedVehicle);
             const bool accepted = selector.Consider({identity, geometry, playerHeadlight});
@@ -245,6 +251,7 @@ public:
             }
 
             CIniReader iniReader("");
+            bCloseHeadlightRelevance = iniReader.ReadInteger("SHADOWS", "ExperimentalCloseHeadlightRelevance", 0) != 0;
 
             // Validate BEFORE allocator and caster installation alter guarded bytes.
             const auto image = reinterpret_cast<const uint8_t*>(GetModuleHandleW(nullptr));
@@ -259,7 +266,7 @@ public:
             // Publication happens after all hooks are installed below.
             ShadowDiagnostics::guardPassed = casterGuard;
             ShadowDiagnostics::casterMode = casterMode;
-            ShadowDiagnostics::path = iniReader.GetIniPath().parent_path() / "GTAIV-shadow-candidate18.log";
+            ShadowDiagnostics::path = iniReader.GetIniPath().parent_path() / "GTAIV-shadow-candidate19.log";
 
             // [NIGHTSHADOWS]
             bHighResolutionNightShadows = iniReader.ReadInteger("SHADOWS", "HighResolutionNightShadows", 0) != 0;

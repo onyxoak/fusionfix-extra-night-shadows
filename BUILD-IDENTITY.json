@@ -1,13 +1,8 @@
 {
+  "sourceSha256": "9F4A21ABF0C75B712A996F166288DF1010D5D67FAF31C62F4AD7A128C37A35A9",
+  "asiSha256": "EA2C24731233182F551DC7E54C674C061AA45870C0CFD8438516DBF5A24413B8",
+  "testStatus": "135 geometry checks passed; user reports near-headlight fix in one setup",
+  "installerIncluded": false,
   "name": "FusionFix Extra Night Shadows Fix",
-  "status": "Unofficial experimental build 18",
-  "baselineCommit": "619f52d87681ae7dd6f35795208c3b3759f9632c",
-  "asiSha256": "571A6F69501BEED5D14BA5C971B65FB9E476806B67818EFDC811DABA12D5E925",
-  "targetGameVersion": "GTA IV CE 1.2.0.59",
-  "targetExeSha256": "08759A5516F9837920EA504436236BBAB89D0826A8E4D04FF106345177B5345D",
-  "sourceFilesVerified": 5139,
-  "stagedSourceFilesMatched": 13,
-  "userGameplayReport": "User reported driving flicker appeared fixed; not exhaustive testing.",
-  "runtimeVerified": false,
-  "exhaustiveVisualValidation": false
+  "build": 19
 }

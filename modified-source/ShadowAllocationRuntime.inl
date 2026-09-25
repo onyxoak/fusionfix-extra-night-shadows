@@ -81,6 +81,13 @@ namespace PlayerShadowAllocation
 
     static bool InfluencesPlayer(const rage::CLightSource& light) noexcept
     {
+        if (bCloseHeadlightRelevance && !state.occupiedCar && light.mType == 2 &&
+            (light.mFlags & 0x100u) &&
+            fusionfix::shadows::CloseHeadlightTouchesBody(state.player,
+                {light.mPosition.x, light.mPosition.y, light.mPosition.z},
+                {light.mDirection.x, light.mDirection.y, light.mDirection.z},
+                light.mOuterConeAngle, light.mRadius))
+            return true;
         return fusionfix::shadows::LightVolumeContains(state.player,
             {light.mPosition.x, light.mPosition.y, light.mPosition.z},
             {light.mDirection.x, light.mDirection.y, light.mDirection.z},
