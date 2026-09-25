@@ -156,6 +156,14 @@ namespace fusionfix::shadows
                 const auto& candidate = candidates_[c];
                 if (!Eligible(candidate, next) || Contains(candidate.identity))
                     continue;
+                // Reserve room for an external beam while driving; never exceed two beams.
+                if (next.driving && candidate.playerHeadlight)
+                {
+                    bool haveOwn = false;
+                    for (const auto& slot : active_)
+                        haveOwn |= slot.candidate.identity && slot.candidate.playerHeadlight;
+                    if (haveOwn) continue;
+                }
                 std::size_t replace = SlotCount;
                 for (std::size_t i = 0; i < SlotCount; ++i)
                 {
@@ -223,18 +231,18 @@ namespace fusionfix::shadows
             bool observedEligible{};
         };
 
-        bool Eligible(const HeadlightCandidate& c, const FrameContext& frame) const noexcept
+        bool Eligible(const HeadlightCandidate& c, const FrameContext&) const noexcept
         {
             return c.identity && std::isfinite(c.geometry.distanceSquared) &&
-                c.geometry.distanceSquared >= 0.0f && c.geometry.distanceSquared <= policy_.maximumDistanceSquared &&
-                (!frame.driving || c.playerHeadlight);
+                c.geometry.distanceSquared >= 0.0f && c.geometry.distanceSquared <= policy_.maximumDistanceSquared;
         }
 
         static unsigned Priority(const HeadlightCandidate& c, const FrameContext& frame) noexcept
         {
-            if (frame.driving || (c.geometry.directionKnown && c.geometry.aimedAtPlayer))
-                return 0;
-            return c.geometry.directionKnown ? 2 : 1;
+            if (frame.driving && c.playerHeadlight) return 0;
+            const unsigned offset = frame.driving ? 1 : 0;
+            if (c.geometry.directionKnown && c.geometry.aimedAtPlayer) return offset;
+            return offset + (c.geometry.directionKnown ? 2 : 1);
         }
 
         static bool Better(const HeadlightCandidate& a, const HeadlightCandidate& b, const FrameContext& frame) noexcept

@@ -1,9 +1,11 @@
-# FusionFix Extra Night Shadows 1.1 — Traffic Shadows and Distance Controls
+# FusionFix Extra Night Shadows 1.2  -  Occupied Vehicle Headlight Shadows
 
 By OnyxOak. An unofficial modification of FusionFix for GTA IV Complete Edition 1.2.0.59, based on FusionFix 5.0.1.
 
 ## What I changed
 
+- Fixed NPC headlight shadow selection being disabled when entering a vehicle. Your occupied car can now cast a shadow under a selected NPC headlight. One player beam and one external beam share the existing two-beam budget while driving.
+- Kept source vehicles excluded from their own immediate headlight passes while driving as well as on foot.
 - Extended self-shadow filtering to selected approaching traffic while on foot. A vehicle is excluded only from its own immediate headlight shadow pass; nearby pedestrians and other vehicles remain eligible casters.
 - Added separate Headlight shadow reach and Lamppost shadow reach sliders under Settings > Game, below Extra Night Shadows. Both start at 50 feet, adjust in five-foot steps up to 75 feet, and have an Original position.
 - Retained the earlier vehicle-under-lamppost and close-range player-shadow changes.
@@ -32,9 +34,9 @@ No installer, scripts, standalone EXEs or nested archives are included in the ru
 
 ## Test status
 
-Release/Win32 compilation passed. New reach tests passed 62 checks, the existing seven-slot budget suite passed 754,197 checks, and selector tests passed 3,421,980 checks. The earlier traffic candidate passed 141 new caster checks and the existing caster/guard suite. These are offline correctness checks, not proof of gameplay stability.
+Release/Win32 compilation and automated selector, shadow-budget, caster, allocation-pass and hook-order checks passed. These include driving transitions, external beams, damaged-headlight identity changes and shuffled traffic selection.
 
-I reproduced flicker on the published build with a Rancher and Crown Vic-style police car and taxi in the minimal setup. I subsequently reported no longer seeing that issue while testing the newer build. Coverage is limited; this is not proof that every affected vehicle or situation is fixed. The slider settings were saved and the test game launched successfully; the amount of visible pop-in reduction and performance cost have not been measured. The combined headlight beam and deferred-caster limitations remain.
+I tested the new build in my game and confirmed the reported occupied-vehicle shadow fix works. Coverage is limited; this is not a claim that every vehicle or mod combination is verified. The existing shadow budget still limits which nearby lights cast detailed shadows. Combined headlight beams and deferred-caster limitations remain. No performance gain is claimed.
 
 ## Rollback
 
@@ -42,6 +44,6 @@ Close the game and restore all six backed-up files (ASI, INI, CFG, and three men
 
 ## Source and credits
 
-Full matching source and offline tests: https://github.com/onyxoak/fusionfix-extra-night-shadows/releases/tag/v1.1
+Full matching source and offline tests: https://github.com/onyxoak/fusionfix-extra-night-shadows/releases/tag/v1.2
 
 FusionFix is by ThirteenAG and its contributors. I identified the problems, directed changes and playtested them, with coding assistance from OpenAI Codex. GPL-3.0 and dependency notices are retained. This is not an official FusionFix release.

@@ -177,12 +177,11 @@ namespace fusionfix::shadows::budget
             // Two local lamps protect the occupied car's exterior-light shadow.
             Pick(2, [](const Candidate& c) { return c.kind == Kind::Lamp && c.influencesPlayer; });
             const auto beforePlayerBeams = selectedCount_;
-            Pick(2, [this](const Candidate& c) {
+            Pick(frame_.driving ? 1 : 2, [this](const Candidate& c) {
                 return c.kind == Kind::PlayerBeam && (frame_.driving || c.influencesPlayer);
             });
             const auto playerBeams = selectedCount_ - beforePlayerBeams;
-            if (!frame_.driving)
-                Pick(2 - playerBeams, [](const Candidate& c) {
+            Pick(2 - playerBeams, [](const Candidate& c) {
                     return c.kind == Kind::OtherBeam && c.influencesPlayer;
                 });
             Pick(SlotCount, [](const Candidate& c) { return c.kind == Kind::Lamp; });

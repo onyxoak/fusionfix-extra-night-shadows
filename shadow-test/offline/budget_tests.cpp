@@ -81,7 +81,7 @@ static void PrioritiesAndTransitions()
     CHECK(selected.safeToApply);
     auto keys = Keys(selected);
     CHECK(keys.count(1) && keys.count(2) && keys.count(3));
-    CHECK(!keys.count(4) && !keys.count(5));
+    CHECK(keys.count(4) && !keys.count(5));
     selected = Run(budget, At(1, false), lights);
     keys = Keys(selected);
     CHECK(keys.count(1) && keys.count(2) && keys.count(4) && keys.count(5));
@@ -244,7 +244,7 @@ static void ShuffledCurrentListStress()
             CHECK(a.safeToApply && b.safeToApply);
             for (std::size_t i = 0; i < 7; ++i)
                 CHECK(a.slots[i].key == b.slots[i].key && a.slots[i].index == b.slots[i].index);
-            if (driving) for (const auto& slot : b.slots) CHECK(!slot.key || slot.kind != Kind::OtherBeam);
+            // External beams remain eligible while driving; CheckCurrent enforces the budget.
         }
     }
 }

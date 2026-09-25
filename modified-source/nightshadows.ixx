@@ -128,7 +128,7 @@ namespace CShadows
                 geometry.aimedAtPlayer = true;
             const auto identity = static_cast<uintptr_t>(static_cast<uint32_t>(stableKey));
             // Reach changes selection relevance, never the light cone or atlas size.
-            if (!occupiedVehicle && fusionfix::shadows::WithinShadowReach(geometry.distanceSquared,
+            if (fusionfix::shadows::WithinShadowReach(geometry.distanceSquared,
                     FusionFixSettings.Get("PREF_HEADLIGHT_REACH")))
             {
                 geometry.directionKnown = true;

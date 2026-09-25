@@ -34,10 +34,10 @@ namespace OwnHeadlightCaster
         const auto kind = *reinterpret_cast<const uint32_t*>(base + guard::SlotKindRva + offset);
         const bool active = *reinterpret_cast<const uint8_t*>(base + guard::SlotActiveRva + offset) == 1;
         const auto car = CPlayer::findPlayerCar();
-        // On foot, exclude only the source vehicle from its own immediate
+        // Exclude only the source vehicle from its own immediate
         // headlight pass. Confirm the opaque key was selected by our submission
         // adapter; do not infer an owner pointer or dereference that key.
-        if (bTrafficSelfShadowFix && !car && kind == 4 && active &&
+        if (bTrafficSelfShadowFix && kind == 4 && active &&
             CShadows::gStableHeadlightShadow.IsSelectedBeam(key))
             result.trafficBeamKey = key;
         if (!policy::OwnBeam(slot, kind, active, key, car)) return result;

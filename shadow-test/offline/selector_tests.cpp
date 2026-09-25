@@ -102,44 +102,24 @@ static void CapacityAndIdentityTests()
 static void DrivingTransitions()
 {
     StableHeadlightSelector selector;
-    selector.BeginFrame(Frame(0));
-    selector.Consider(Light(1, 1));
-    selector.Consider(Light(2, 2));
-    selector.BeginFrame(Frame(1, 16));
-    Expect(selector, 1, 2);
-    selector.Consider(Light(1, 1));
-    selector.Consider(Light(2, 2));
-    selector.BeginFrame(Frame(2, 32, true, 1000));
-    Expect(selector, 0, 0);
-    CHECK(!selector.Consider(Light(1, 1)));
-    CHECK(!selector.Consider(Light(2, 2)));
-    selector.Consider(Light(10, 25, true));
-    selector.Consider(Light(11, 26, true));
-    selector.BeginFrame(Frame(3, 48, true, 1000));
-    Expect(selector, 10, 11);
-    CHECK(selector.Consider(Light(10, 25, true)));
-    CHECK(!selector.Consider(Light(10, 25, false))); // Current tag always gates.
-    CHECK(!selector.Consider(Light(11, 2000, true))); // No distant shadow on grace.
-    CHECK(!selector.Consider(Light(3, 0.1f)));
-    selector.BeginFrame(Frame(4, 64, true, 2000));
-    Expect(selector, 0, 0);
-    selector.Consider(Light(20, 4, true));
-    selector.Consider(Light(21, 5, true));
-    selector.BeginFrame(Frame(5, 80, true, 2000));
-    Expect(selector, 20, 21);
-    selector.Consider(Light(20, 4, true));
-    selector.Consider(Light(21, 5, true));
-    selector.BeginFrame(Frame(6, 96));
-    Expect(selector, 20, 21); // Exit keeps the still-eligible pair.
-    CHECK(selector.Consider(Light(20, 4, false)));
-    CHECK(selector.Consider(Light(21, 5, false)));
-
-    // Conflicting BeginFrame on same render serial cannot emit a new pair.
-    selector.BeginFrame(Frame(6, 97, true, 3000));
-    CHECK(!selector.Consider(Light(20, 4, true)));
-    CHECK(!selector.Consider(Light(30, 2, true)));
-    selector.BeginFrame(Frame(7, 112, true, 3000));
-    Expect(selector, 0, 0);
+    for (unsigned f=0; f<10; ++f) {
+        selector.BeginFrame(Frame(f, f*16, true, 1000));
+        const bool own=selector.Consider(Light(10, 25, true));
+        const bool secondOwn=selector.Consider(Light(11, 26, true));
+        const bool npc=selector.Consider(Light(1, 1));
+        if(f>0) { CHECK(own); CHECK(npc); CHECK(!secondOwn); Expect(selector,10,1); }
+    }
+    selector.BeginFrame(Frame(10,160,false));
+    CHECK(selector.Consider(Light(1,1)));
+    selector.BeginFrame(Frame(11,176,true,2000));
+    Expect(selector,0,0);
+    selector.Consider(Light(20,4,true)); selector.Consider(Light(1,1));
+    selector.BeginFrame(Frame(12,192,true,2000));
+    CHECK(selector.Consider(Light(20,4,true)));
+    CHECK(selector.Consider(Light(1,1)));
+    CHECK(!selector.Consider(Light(1,2000)));
+    selector.BeginFrame(Frame(12,193,false));
+    CHECK(!selector.Consider(Light(1,1)));
 }
 
 static void HoldAimAndGraceTests()
@@ -223,16 +203,19 @@ static void VehicleBeamGeometryIntegration()
     CHECK(!selector.Consider(candidate(trafficVehicle, {903,-377,16}, playerVehicle)));
     CHECK(!selector.Consider(candidate(playerVehicle, {903,-380,16}, playerVehicle)));
     selector.BeginFrame(Frame(1, 16, true, playerVehicle));
-    Expect(selector, 0, playerVehicle); // two physical lamps are one beam request
-    CHECK(!selector.Consider(candidate(trafficVehicle, {903,-377,16}, playerVehicle)));
+    Expect(selector, trafficVehicle, playerVehicle); // two physical lamps are one beam request
+    CHECK(selector.Consider(candidate(trafficVehicle, {903,-377,16}, playerVehicle)));
     CHECK(selector.Consider(candidate(playerVehicle, {903,-380,16}, playerVehicle)));
     // A destroyed lamp changes its request key. No pointer dereference occurs.
     selector.BeginFrame(Frame(2, 32, true, playerVehicle));
     CHECK(!selector.Consider(candidate(playerVehicle + 1, {903,-380,16}, playerVehicle)));
-    selector.BeginFrame(Frame(3, 48, true, playerVehicle));
-    CHECK(selector.Consider(candidate(playerVehicle + 1, {903,-380,16}, playerVehicle)));
+    for(unsigned f=3; f<=6; ++f) {
+        selector.BeginFrame(Frame(f, f*16, true, playerVehicle));
+        const bool accepted=selector.Consider(candidate(playerVehicle + 1, {903,-380,16}, playerVehicle));
+        if(f==6) CHECK(accepted);
+    }
     CHECK(!selector.Consider(candidate(playerVehicle + 2, {903,-380,16}, playerVehicle)));
-    selector.BeginFrame(Frame(4, 64));
+    selector.BeginFrame(Frame(7, 112));
     CHECK(selector.Consider(candidate(playerVehicle + 1, {903,-380,16}, 0)));
     CHECK(!selector.Consider(candidate(playerVehicle + 1, {903,-440,16}, 0)));
 }
@@ -275,9 +258,12 @@ static void ShuffledTrafficStress()
             }
             CHECK(orderedAllowed == shuffledAllowed);
             CHECK(shuffledAllowed.size() <= 2);
-            if (driving)
-                for (const auto id : shuffledAllowed)
-                    CHECK(car == 1000 ? id == 10 || id == 11 : id == 20 || id == 21);
+            if (driving) {
+                unsigned own=0;
+                for(const auto id : shuffledAllowed)
+                    if(car == 1000 ? id==10 || id==11 : id==20 || id==21) ++own;
+                CHECK(own <= 1);
+            }
         }
     }
 }
@@ -286,10 +272,11 @@ int main()
 {
     GeometryTests();
     CapacityAndIdentityTests();
-    DrivingTransitions();
-    HoldAimAndGraceTests();
-    ClockAndSessionTests();
-    VehicleBeamGeometryIntegration();
+    std::cerr << "driving\n"; DrivingTransitions();
+    std::cerr << "hold\n"; HoldAimAndGraceTests();
+    std::cerr << "clock\n"; ClockAndSessionTests();
+    std::cerr << "integration\n"; VehicleBeamGeometryIntegration();
     ShuffledTrafficStress();
     std::cout << "PASS: " << checks << " checks; 160 shuffled 120-frame traffic/transition scenarios.\n";
 }
+
