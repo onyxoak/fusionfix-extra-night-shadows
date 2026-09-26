@@ -13,6 +13,8 @@ namespace PlayerShadowAllocation
     static std::atomic<bool> ready{false}, unsupportedThread{false};
     static std::atomic<DWORD> ownerThread{0};
     static uintptr_t gameBase = 0;
+    static bool cameraPriority = false;
+    static std::atomic<uint32_t> cameraPasses{0}, cameraFallbacks{0};
     static bool publicationEnabled = false; // Immutable after ready is published.
     static std::string installStatus = "not_requested"; // Init-only; diagnostics reads after ready publication.
     // Diagnostics are counters only: no per-frame logging/allocations or I/O.
@@ -22,6 +24,7 @@ namespace PlayerShadowAllocation
     {
         budget::ShadowAllocationPass pass;
         Vec3 player{};
+        fusionfix::shadows::ShadowView view{};
         uintptr_t ped = 0, occupiedCar = 0, lastCar = 0;
         uint32_t frame = 0;
         uintptr_t stackAnchor = 0;
@@ -73,6 +76,22 @@ namespace PlayerShadowAllocation
         if (state.occupiedCar) state.lastCar = state.occupiedCar;
         state.frame = *CShadows::pFrameCounter;
         state.stackAnchor = 0;
+        state.view = {};
+        if (cameraPriority && rage::pCurrentViewport) {
+            const auto* viewport = rage::GetCurrentViewport();
+            if (viewport && viewport->mIsPerspective && viewport->mWidth > 0 && viewport->mHeight > 0) {
+                std::memcpy(state.view.view, viewport->mViewMatrix, sizeof(state.view.view));
+                std::memcpy(state.view.projection, viewport->mProjectionMatrix, sizeof(state.view.projection));
+                state.view.valid = true;
+                for (const auto& row : state.view.view) for (float f : row)
+                    if (!std::isfinite(f)) state.view.valid = false;
+                for (const auto& row : state.view.projection) for (float f : row)
+                    if (!std::isfinite(f)) state.view.valid = false;
+                if (std::abs(state.view.projection[0][0]) < 0.001f ||
+                    std::abs(state.view.projection[1][1]) < 0.001f) state.view.valid = false;
+            }
+            if (state.view.valid) ++cameraPasses; else ++cameraFallbacks;
+        }
         if (reinterpret_cast<uintptr_t>(CurrentLights()) < 0x10000) return false;
         state.pass.Begin({state.frame, static_cast<uint32_t>(*CTimer::m_snTimeInMilliseconds),
                           ped, state.occupiedCar != 0}, CurrentLights(), CurrentCount());
@@ -154,7 +173,11 @@ namespace PlayerShadowAllocation
                 ? budget::Kind::PlayerBeam : budget::Kind::OtherBeam;
         state.pass.Observe({key, index, kind, geometry.distanceSquared,
                            InfluencesPlayer(light), true,
-                           kind == budget::Kind::Lamp ? LampGeometry(light) : 0}, &light);
+                           kind == budget::Kind::Lamp ? LampGeometry(light) : 0,
+                           fusionfix::shadows::ShadowViewWeight(state.view,
+                               {light.mPosition.x, light.mPosition.y, light.mPosition.z},
+                               {light.mDirection.x, light.mDirection.y, light.mDirection.z},
+                               light.mRadius, (flags & 0x100u) != 0)}, &light);
         if (!state.pass.Active()) ++fallbackPasses;
     }
 

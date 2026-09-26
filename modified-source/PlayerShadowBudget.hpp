@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <algorithm>
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
@@ -23,6 +24,7 @@ namespace fusionfix::shadows::budget
         // Optional engine generation or stable geometry signature detects reuse
         // of a pointer/key. A changing list index is NOT a generation.
         std::uint64_t generation{};
+        float viewWeight = 1.0f; // Neutral preserves the release policy.
     };
 
     struct Frame
@@ -112,7 +114,8 @@ namespace fusionfix::shadows::budget
                 return false;
             }
             if (candidate.index == InvalidIndex || !std::isfinite(candidate.distanceSquared) ||
-                candidate.distanceSquared < 0.0f ||
+                candidate.distanceSquared < 0.0f || !std::isfinite(candidate.viewWeight) ||
+                candidate.viewWeight < 1.0f || candidate.viewWeight > 3.0f ||
                 (candidate.kind != Kind::Lamp && candidate.kind != Kind::PlayerBeam && candidate.kind != Kind::OtherBeam))
             {
                 selection_.invalidInput = true;
@@ -144,6 +147,7 @@ namespace fusionfix::shadows::budget
                 if (candidate.distanceSquared < record.candidate.distanceSquared)
                     record.candidate.distanceSquared = candidate.distanceSquared;
                 record.candidate.influencesPlayer |= candidate.influencesPlayer;
+                record.candidate.viewWeight = (std::max)(record.candidate.viewWeight, candidate.viewWeight);
                 return !record.ambiguous;
             }
             if (count_ == InputCapacity)
@@ -254,10 +258,12 @@ namespace fusionfix::shadows::budget
             if (heldA != heldB) return heldA;
             // Comparing adjusted distance gives a total order, avoiding
             // non-transitive pairwise hysteresis under shuffled submission.
-            const double distanceA = oldA ? a.distanceSquared :
-                (static_cast<double>(a.distanceSquared) + policy_.replacementMarginSquared) / policy_.replacementRatio;
-            const double distanceB = oldB ? b.distanceSquared :
-                (static_cast<double>(b.distanceSquared) + policy_.replacementMarginSquared) / policy_.replacementRatio;
+            const double scoreA = a.distanceSquared / a.viewWeight;
+            const double scoreB = b.distanceSquared / b.viewWeight;
+            const double distanceA = oldA ? scoreA :
+                (scoreA + policy_.replacementMarginSquared) / policy_.replacementRatio;
+            const double distanceB = oldB ? scoreB :
+                (scoreB + policy_.replacementMarginSquared) / policy_.replacementRatio;
             if (distanceA != distanceB) return distanceA < distanceB;
             if (a.key != b.key) return a.key < b.key;
             if (a.generation != b.generation) return a.generation < b.generation;

@@ -97,6 +97,9 @@ namespace ShadowDiagnostics
                 << " caster_requested=" << casterMode << " caster_enabled=" << OwnHeadlightCaster::enabled.load()
                 << " allocation_mode=" << allocationMode << " allocation_ready=" << PlayerShadowAllocation::ready.load()
                 << " allocation_thread_block=" << PlayerShadowAllocation::unsupportedThread.load()
+                << " camera_priority=" << PlayerShadowAllocation::cameraPriority
+                << " camera_passes=" << PlayerShadowAllocation::cameraPasses.load()
+                << " camera_fallbacks=" << PlayerShadowAllocation::cameraFallbacks.load()
                 << " applied=" << PlayerShadowAllocation::appliedPasses.load()
                 << " observed=" << PlayerShadowAllocation::observedPasses.load()
                 << " fallback=" << PlayerShadowAllocation::fallbackPasses.load()

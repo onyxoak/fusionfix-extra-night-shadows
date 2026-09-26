@@ -12,6 +12,7 @@ module;
 #include "ShadowGuardDiagnostics.hpp"
 #include "CloseHeadlightRelevance.hpp"
 #include "ShadowReach.hpp"
+#include "ShadowViewPriority.hpp"
 #include <fstream>
 #include <atomic>
 #include <intrin.h>
@@ -300,6 +301,7 @@ public:
 
             // Offline-reviewed prototype; never turn this on silently for an
             // existing installation. A later controlled launch must opt in.
+            PlayerShadowAllocation::cameraPriority = iniReader.ReadInteger("SHADOWS", "CameraAwareShadowPriority", 0) != 0;
             const int allocationMode = iniReader.ReadInteger("SHADOWS", "ExperimentalPlayerShadowAllocation", 0);
             ShadowDiagnostics::allocationMode = allocationMode;
             // 0=off, 1=observe private output only, 2=experimental publication.

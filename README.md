@@ -1,8 +1,10 @@
-# FusionFix Extra Night Shadows 1.3  -  Better Headlights and Extended Shadow Reach
+# FusionFix Extra Night Shadows 1.4  -  Camera-Aware Shadow Priority
 
 By OnyxOak. An unofficial modification of FusionFix for GTA IV Complete Edition 1.2.0.59, based on FusionFix 5.0.1.
 
 ## What I changed
+
+- Added camera-aware priority to the existing shadow allocation. Lights whose sampled influence reaches the camera view receive a bounded preference, while the existing player-focused reservation groups and selection hold time remain. Off-screen light sources can still contribute. This is a screen-relevance estimate, not occlusion detection or extra shadow capacity. Invalid camera data falls back to the previous ranking.
 
 - Headlights on the car I just exited retain the normal player intensity and range boost while its lights remain on. Normal occupied-car and NPC brightness is unchanged. The game still controls damage, high/low beams and light on/off state.
 
@@ -23,6 +25,7 @@ The sliders extend how nearby lights are prioritized for detailed shadows. They 
 
 ```ini
 ExperimentalPlayerShadowAllocation = 2
+CameraAwareShadowPriority = 1
 ExperimentalOwnHeadlightCasterFix = 1
 ExperimentalShadowDiagnostics = 1
 ExperimentalCloseHeadlightRelevance = 1
@@ -39,7 +42,7 @@ No installer, scripts, standalone EXEs or nested archives are included in the ru
 
 Release/Win32 compilation and automated selector, shadow-budget, caster, allocation-pass and hook-order checks passed. These include driving transitions, external beams, damaged-headlight identity changes and shuffled traffic selection.
 
-I tested brightness retention and camera movement in my game. A small visible brightness change on exit can remain. Earlier occupied-vehicle shadow fixes remain included. Coverage is limited; this is not a claim that every vehicle or mod combination is verified. The existing shadow budget still limits which nearby lights cast detailed shadows. Combined headlight beams and deferred-caster limitations remain. No performance gain is claimed.
+I playtested the camera-priority update and accepted its appearance. Runtime diagnostics confirmed camera-weighted passes and fallback to the original ranking when camera data was unsuitable. Automated validation passed 728,997 budget checks, 4,960 allocation transaction checks, and targeted camera-relevance, off-screen-beam, player-protection and selection-hold checks. Earlier brightness retention was also playtested. A small visible brightness change on exit can remain. Earlier occupied-vehicle shadow fixes remain included. Coverage is limited; this is not a claim that every vehicle or mod combination is verified. The existing shadow budget still limits which nearby lights cast detailed shadows. Combined headlight beams and deferred-caster limitations remain. No performance gain is claimed.
 
 ## Rollback
 
@@ -47,6 +50,6 @@ Close the game and restore all six backed-up files (ASI, INI, CFG, and three men
 
 ## Source and credits
 
-Full matching source and offline tests: https://github.com/onyxoak/fusionfix-extra-night-shadows/releases/tag/v1.3
+Full matching source and offline tests: https://github.com/onyxoak/fusionfix-extra-night-shadows/releases/tag/v1.4
 
 FusionFix is by ThirteenAG and its contributors. I identified the problems, directed changes and playtested them, with coding assistance from OpenAI Codex. GPL-3.0 and dependency notices are retained. This is not an official FusionFix release.

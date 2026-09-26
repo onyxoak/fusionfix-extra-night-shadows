@@ -1,6 +1,6 @@
 {
-  "version": "1.3",
-  "build": 24,
-  "asi_sha256": "ee144af87062550dc0204f49b50ceee8a4e41812a2de465e73dfb57c7a36cd59",
+  "version": "1.4",
+  "build": 25,
+  "asi_sha256": "a6a225908cec795adeb085e20696ef52a84bb4bbe7a2a7959db2d8de398d7abe",
   "installer": false
 }
