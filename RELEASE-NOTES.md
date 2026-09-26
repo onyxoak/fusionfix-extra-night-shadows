@@ -1,9 +1,17 @@
-# 1.2 — Occupied Vehicle Headlight Shadows
+# 1.3 — Better Headlights and Extended Shadow Reach
 
-I fixed NPC headlight shadows disappearing when entering a vehicle. The selection now allows a nearby NPC beam while driving, so the occupied car can cast a shadow under it. Cars remain excluded from their own immediate headlight shadow pass.
+Headlights now retain the normal player intensity and range boost after I exit
+my car with its lights left on. Driven cars and NPC traffic keep their original
+brightness. Headlight and lamppost shadow reach now adjust up to 200 feet;
+the default remains 50 feet and the engine's shadow budget is unchanged.
 
-The existing two-headlight and seven-light shadow budgets are unchanged. Distance controls and the earlier fixes remain included. I confirmed the reported behavior works in my playtest; wider vehicle and mod compatibility still needs feedback.
+All existing night-shadow improvements are retained. I playtested brightness
+retention and camera movement. A small visible brightness difference can remain
+on exit; this is not a promise of pixel-identical output or universal compatibility.
 
-Manual installation: replace the ASI and three menu XML files from the install folder, and retain the five INI settings described in the README. No installer is included. If upgrading from 1.1, your settings can stay as they are.
+Install the ASI and three menu files, then set ConsistentBrightness = 1 in the
+[HEADLIGHTS] section of the existing FusionFix INI. Keep the shadow settings in
+the README. No installer or replacement personal settings file is included.
 
-Release/Win32 compilation and offline selector, budget, caster, allocation-pass and hook-order checks passed. Internal build: 22. Full matching source is attached. By OnyxOak, based on FusionFix by ThirteenAG and contributors, with coding assistance from OpenAI Codex.
+Release/Win32 build and slider boundary checks passed. Internal build: 24.
+By OnyxOak. Based on FusionFix by ThirteenAG and contributors.

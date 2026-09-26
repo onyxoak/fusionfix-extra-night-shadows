@@ -345,8 +345,8 @@ public:
             { 0, "PREF_NOWARDROBEFADING",       "MISC",       "DisableWardrobeTransition",          "",                           0, nullptr, 0, 1 },
             { 0, "PREF_STOPTAXI",               "MISC",       "InstantStopTaxi",                    "",                           0, nullptr, 0, 1 },
             { 0, "PREF_SAO",                    "MISC",       "AmbientOcclusion",                   "",                           0, nullptr, 0, 1 },
-            { 0, "PREF_HEADLIGHT_REACH", "SHADOWS", "HeadlightShadowReach", "", 10, nullptr, 0, 15 },
-            { 0, "PREF_LAMP_REACH", "SHADOWS", "LamppostShadowReach", "", 10, nullptr, 0, 15 },
+            { 0, "PREF_HEADLIGHT_REACH", "SHADOWS", "HeadlightShadowReach", "", 10, nullptr, 0, 40 },
+            { 0, "PREF_LAMP_REACH", "SHADOWS", "LamppostShadowReach", "", 10, nullptr, 0, 40 },
             // Enums are at capacity, to use more enums, replace multiplayer ones. On/Off toggles should still be possible to add.
         };
 
@@ -638,7 +638,7 @@ const wchar_t* CText::ShadowReachLabel(uint32_t hash)
     static const auto lampHash = GetHash("FF_LREACH");
     if (hash != headlightHash && hash != lampHash) return nullptr;
     const bool headlight = hash == headlightHash;
-    const auto step = std::clamp(FusionFixSettings.Get(headlight ? "PREF_HEADLIGHT_REACH" : "PREF_LAMP_REACH"), 0, 15);
+    const auto step = std::clamp(FusionFixSettings.Get(headlight ? "PREF_HEADLIGHT_REACH" : "PREF_LAMP_REACH"), 0, 40);
     static thread_local std::wstring labels[2];
     auto& label = labels[headlight ? 0 : 1];
     label = headlight ? L"Headlight shadow reach: " : L"Lamppost shadow reach: ";

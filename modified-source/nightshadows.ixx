@@ -26,6 +26,7 @@ import settings;
 bool bHighResolutionNightShadows = false;
 static bool bCloseHeadlightRelevance = false;
 static bool bTrafficSelfShadowFix = false;
+#include "HeadlightEnhancementRuntime.inl"
 
 namespace CShadows
 {
@@ -150,6 +151,7 @@ namespace CShadows
         int direction, int tangent, int position, int a7, int a8, int a9, int a10,
         int a11, int a12, int a13, int a14, int a15, int stableKey)
     {
+        a9 = HeadlightEnhancement::SelectMask(a9, stableKey);
         if (!gStableHeadlightShadow.ShouldCast(direction, position, stableKey))
             flags &= ~4u;
         hbStoreStaticShadow.fun(a1, a2, flags, direction, tangent, position,
@@ -160,6 +162,7 @@ namespace CShadows
         int direction, int tangent, int position, int a7, int a8, int a9, int a10,
         int a11, int a12, int a13, int a14, int a15, int stableKey)
     {
+        a9 = HeadlightEnhancement::SelectMask(a9, stableKey);
         if (!gStableHeadlightShadow.ShouldCast(direction, position, stableKey))
             flags &= ~4u;
         hbStoreStaticShadow.fun(a1, a2, flags, direction, tangent, position,
@@ -253,7 +256,7 @@ public:
     NightShadows()
     {
         // Registered before game callbacks start, independent of async init.
-        FusionFix::onGameProcessEvent() += []() { ShadowDiagnostics::Write(); };
+        FusionFix::onGameProcessEvent() += []() { ShadowDiagnostics::Write(); HeadlightEnhancement::WriteDiagnostics(); };
         FusionFix::onInitEventAsync() += []()
         {
             // This experimental adapter has only been audited for CE 1.2.0.59.
@@ -268,6 +271,12 @@ public:
             }
 
             CIniReader iniReader("");
+            HeadlightEnhancement::logPath = iniReader.GetIniPath().parent_path() / "GTAIV-headlights-candidate24.log";
+            HeadlightEnhancement::brightnessInstalled = HeadlightEnhancement::InstallBrightness(
+                iniReader.ReadInteger("HEADLIGHTS", "ConsistentBrightness", 0) != 0);
+            HeadlightEnhancement::cutoffInstalled = HeadlightEnhancement::InstallCutoff(
+                iniReader.ReadInteger("HEADLIGHTS", "LowBeamCutoff", 0) != 0);
+            HeadlightEnhancement::diagnosticsReady.store(true, std::memory_order_release);
             bCloseHeadlightRelevance = iniReader.ReadInteger("SHADOWS", "ExperimentalCloseHeadlightRelevance", 0) != 0;
             bTrafficSelfShadowFix = iniReader.ReadInteger("SHADOWS", "ExperimentalTrafficSelfShadowFix", 0) != 0;
 
