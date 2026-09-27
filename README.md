@@ -1,55 +1,37 @@
-# FusionFix Extra Night Shadows 1.4  -  Camera-Aware Shadow Priority
+# Extra Night Shadows Fix and Better Headlights
 
-By OnyxOak. An unofficial modification of FusionFix for GTA IV Complete Edition 1.2.0.59, based on FusionFix 5.0.1.
+## Created and maintained by OnyxOak
 
-## What I changed
+An unofficial GTA IV lighting and shadow modification of **FusionFix by ThirteenAG and its contributors**. OnyxOak leads the project's design, integration, visual testing, refinement and releases, with OpenAI Codex coding assistance. This modification is not an official FusionFix release.
 
-- Added camera-aware priority to the existing shadow allocation. Lights whose sampled influence reaches the camera view receive a bounded preference, while the existing player-focused reservation groups and selection hold time remain. Off-screen light sources can still contribute. This is a screen-relevance estimate, not occlusion detection or extra shadow capacity. Invalid camera data falls back to the previous ranking.
+**[Official downloads, installation instructions and support on Nexus Mods](https://www.nexusmods.com/gta4/mods/1459)**
 
-- Headlights on the car I just exited retain the normal player intensity and range boost while its lights remain on. Normal occupied-car and NPC brightness is unchanged. The game still controls damage, high/low beams and light on/off state.
+**[Authorship, upstream credits and information for articles/mirrors](ATTRIBUTION.md)**
 
-- Fixed NPC headlight shadow selection being disabled when entering a vehicle. Your occupied car can now cast a shadow under a selected NPC headlight. One player beam and one external beam share the existing two-beam budget while driving.
-- Kept source vehicles excluded from their own immediate headlight passes while driving as well as on foot.
-- Extended self-shadow filtering to selected approaching traffic while on foot. A vehicle is excluded only from its own immediate headlight shadow pass; nearby pedestrians and other vehicles remain eligible casters.
-- Added separate Headlight shadow reach and Lamppost shadow reach sliders under Settings > Game, below Extra Night Shadows. Both start at 50 feet, adjust in five-foot steps up to 200 feet, and have an Original position.
-- Retained the earlier vehicle-under-lamppost and close-range player-shadow changes.
+### Choose your edition
 
-The sliders extend how nearby lights are prioritized for detailed shadows. They do not extend physical headlight beams, add shadow slots, render every vehicle, or guarantee shadow detail out to the selected distance. Visibility, engine light eligibility and the existing shadow budget still apply. Original restores the prior relevance policy, not official FusionFix.
+| Download | Game | Prerequisites |
+|---|---|---|
+| CE 1.5 | Complete Edition 1.2.0.59 | FusionFix 5.0.1 and its ASI loader |
+| Legacy 1.1 | GTA IV 1.0.8.0 | FusionFix 5.0.1, ASI loader and Legacy Addon |
 
-## Manual installation
+Use only the package matching your executable. The two ASIs are not interchangeable. Follow the README included in your chosen download; installation requires both the ASI/menu files and the documented configuration changes. The current public downloads are manual packages.
 
-1. Close GTA IV. Use Complete Edition 1.2.0.59 with official FusionFix 5.0.1 and its ASI loader installed. Other executables are unsupported. Expected GTAIV.exe SHA-256: `08759A5516F9837920EA504436236BBAB89D0826A8E4D04FF106345177B5345D`.
-2. Back up your existing FusionFix ASI, INI and CFG, plus these three menu files, outside the game folder: `update/common/data/frontend_menus.xml`, `update/TLAD/common/data/frontend_menus.xml`, `update/TBoGT/common/data/frontend_menus.xml`.
-3. Copy the CONTENTS of this package's `install` folder into your GTAIV game folder, merging folders and replacing the existing ASI and three menu XML files. The menu files are required for the sliders. Do not keep a second renamed FusionFix ASI in any game folder. Mods editing these same menus require a manual merge.
-4. In the existing `[SHADOWS]` section of `plugins/GTAIV.EFLC.FusionFix.ini`, add or update:
+### What this modification adds
 
-```ini
-ExperimentalPlayerShadowAllocation = 2
-CameraAwareShadowPriority = 1
-ExperimentalOwnHeadlightCasterFix = 1
-ExperimentalShadowDiagnostics = 1
-ExperimentalCloseHeadlightRelevance = 1
-ExperimentalTrafficSelfShadowFix = 1
-```
+- More complete interactions between vehicle, pedestrian, streetlamp and headlight shadows within the engine's existing shadow budget.
+- Protected native lamp choices and cache relationships, replacing the earlier approach that displaced lamp selections.
+- Nearby visible vehicles can qualify for headlight shadows while Niko is on foot, without requiring him to stand directly in the beam.
+- Player-car relevance and headlight identity/cache safeguards.
+- Headlight brightness retention after leaving your car; normal NPC headlight brightness is unchanged.
+- Separate headlight and lamppost reach controls, up to 200 feet plus Original. These influence selection, not physical beam length or guaranteed shadow distance.
 
-5. In the existing `[SHADOWS]` section of `plugins/GTAIV.EFLC.FusionFix.cfg`, set `ExtraNightShadows = 3`. The new sliders default to `HeadlightShadowReach = 10` and `LamppostShadowReach = 10` (five feet per step). Zero selects Original; 40 means 200 feet. Change these in the game menu. In `[UPDATE]`, set `CheckForUpdates = 0` to prevent official updates replacing the custom ASI. Preserve unrelated settings and avoid duplicate sections.
-6. In plugins/GTAIV.EFLC.FusionFix.ini, add a [HEADLIGHTS] section with ConsistentBrightness = 1. Set it to 0 to disable brightness retention. Do not duplicate an existing section.
-7. Launch normally. Use lampposts and headlights plus vehicle night shadows. Diagnostics are written to `plugins/GTAIV-shadow-candidate21.log` when enabled.
+CE enables an additional bounded camera-based lamp preference before native cache decisions. The recommended legacy configuration leaves that preference off, preserving native lamp selection. Some pop-in and scene-dependent switching can remain; this does not add shadow slots, ray tracing or a true per-shadow fade.
 
-No installer, scripts, standalone EXEs or nested archives are included in the runtime download. The ASI is executable mod code and hosting scans remain controlled by the host.
+### Credits and source
 
-## Test status
+**Mod project: OnyxOak. Upstream FusionFix: ThirteenAG and contributors.** Existing upstream copyright and dependency notices remain applicable. GPL-3.0 licensing is retained; see [ATTRIBUTION.md](ATTRIBUTION.md).
 
-Release/Win32 compilation and automated selector, shadow-budget, caster, allocation-pass and hook-order checks passed. These include driving transitions, external beams, damaged-headlight identity changes and shuffled traffic selection.
+Matching source is provided with the project's [source releases](https://github.com/onyxoak/fusionfix-extra-night-shadows/releases). In particular, [CE 1.5 source](https://github.com/onyxoak/fusionfix-extra-night-shadows/releases/tag/v1.5) corresponds to that gameplay release. Do not assume the default branch's historical code is identical to every edition or downloadable build; use the matching release source and build identity.
 
-I playtested the camera-priority update and accepted its appearance. Runtime diagnostics confirmed camera-weighted passes and fallback to the original ranking when camera data was unsuitable. Automated validation passed 728,997 budget checks, 4,960 allocation transaction checks, and targeted camera-relevance, off-screen-beam, player-protection and selection-hold checks. Earlier brightness retention was also playtested. A small visible brightness change on exit can remain. Earlier occupied-vehicle shadow fixes remain included. Coverage is limited; this is not a claim that every vehicle or mod combination is verified. The existing shadow budget still limits which nearby lights cast detailed shadows. Combined headlight beams and deferred-caster limitations remain. No performance gain is claimed.
-
-## Rollback
-
-Close the game and restore all six backed-up files (ASI, INI, CFG, and three menu XMLs). Restore your earlier update-check setting if returning to official FusionFix. This package does not include save files.
-
-## Source and credits
-
-Full matching source and offline tests: https://github.com/onyxoak/fusionfix-extra-night-shadows/releases/tag/v1.4
-
-FusionFix is by ThirteenAG and its contributors. I identified the problems, directed changes and playtested them, with coding assistance from OpenAI Codex. GPL-3.0 and dependency notices are retained. This is not an official FusionFix release.
+For coverage, please credit **“Extra Night Shadows Fix and Better Headlights by OnyxOak, an unofficial modification of FusionFix by ThirteenAG and contributors.”** Linking readers to the official Nexus page helps avoid stale third-party downloads. This is a request, not an additional restriction on GPL-compliant redistribution.
