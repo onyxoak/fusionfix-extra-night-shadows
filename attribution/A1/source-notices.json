@@ -1,0 +1,384 @@
+{
+  "CE": [
+    {
+      "path": "source/CloseHeadlightRelevance.hpp",
+      "beforeSHA256": "3de240396db34df046a314005ef04a2a8c354e720f9f3bfe8d87913e8fd22908",
+      "afterSHA256": "d98a5798b3a298d3d3392f9144726cfcc4c521757a85461a841a77eeeb48c724",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/HeadlightCasterPolicy.hpp",
+      "beforeSHA256": "f0c3097b7bbd1478e7a49deb8719fc14b73b2d0f47f630a59c7675f615c0b5ba",
+      "afterSHA256": "bc4eb236bfe18ca8472d089327c25db433468f26f2ae8e8bab86dac695226a5c",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/HeadlightEnhancementRuntime.inl",
+      "beforeSHA256": "aa60bfb40d9561b468ff6d94ea50945d5bdcad3a37f0fe84ffccdd03c47916ef",
+      "afterSHA256": "d5bc012f73d499f64c16e4a412209e4a0d84e308d9eb7051ba634304a17e2634",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/NightShadowAdmissionRuntime.inl",
+      "beforeSHA256": "7ca9093a912ec4602eb6dd89eb2b2c60eff03242c8afcc09e6d0b812b309d556",
+      "afterSHA256": "db855377acf3a00ed61937d33f8989f5fd52d8e710d06dacfcb12a90b70a6231",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/PlayerShadowBudget.hpp",
+      "beforeSHA256": "4dc0a69782aac82b7e5a84370e4486debfff819f3cf783df77313ec153c89a6f",
+      "afterSHA256": "d8ecf574fb06dc1ff7469bd6d2aefe3d6b9a7567b48ab6a9b9f5ef002009e049",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/resources/Versioninfo.rc",
+      "beforeSHA256": "9f20ae9a4b4c368203fcf366356ae5af3f5806c6797f2dac7a9471aba0167bf5",
+      "afterSHA256": "3ccadc7708afefd56e3bd11c5663023badebd86a9f2d71dcb79bc4fd713e97b5",
+      "encoding": "utf-16",
+      "replacement": "#include \"VersionInfo.h\"\r\r\n\r\r\n#define APSTUDIO_READONLY_SYMBOLS\r\r\n#include <winresrc.h>\r\r\n#undef APSTUDIO_READONLY_SYMBOLS\r\r\n#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEUD)\r\r\nLANGUAGE LANG_NEUTRAL, SUBLANG_DEFAULT\r\r\n\r\r\n#ifdef APSTUDIO_INVOKED\r\r\n\r\r\n1 TEXTINCLUDE \r\r\nBEGIN\r\r\n    \"VersionInfo.h\\0\"\r\r\nEND\r\r\n\r\r\n2 TEXTINCLUDE \r\r\nBEGIN\r\r\n    \"#include <winresrc.h>\\r\\n\"\r\r\n    \"\\0\"\r\r\nEND\r\r\n\r\r\n3 TEXTINCLUDE \r\r\nBEGIN\r\r\n    \"\\r\\n\"\r\r\n    \"\\0\"\r\r\nEND\r\r\n\r\r\n#endif    // APSTUDIO_INVOKED\r\r\n\r\r\n//\r\r\n// Version\r\r\n//\r\r\n\r\r\nVS_VERSION_INFO VERSIONINFO\r\r\n FILEVERSION rsc_FileVersion_MAJOR, rsc_FileVersion_MINOR, rsc_FileVersion_BUILD, rsc_FileVersion_REVISION\r\r\n PRODUCTVERSION rsc_FileVersion_MAJOR, rsc_FileVersion_MINOR, rsc_FileVersion_BUILD, rsc_FileVersion_REVISION\r\r\n FILEFLAGSMASK 0x3fL\r\r\n#ifdef _DEBUG\r\r\n FILEFLAGS 0x1L\r\r\n#else\r\r\n FILEFLAGS 0x0L\r\r\n#endif\r\r\n FILEOS 0x40004L\r\r\n FILETYPE 0x2L\r\r\n FILESUBTYPE 0x0L\r\r\nBEGIN\r\r\n    BLOCK \"StringFileInfo\"\r\r\n    BEGIN\r\r\n        BLOCK \"040004b0\"\r\r\n        BEGIN\r\r\n            VALUE \"CompanyName\", \"OnyxOak (unofficial FusionFix modification)\"\r\r\n            VALUE \"FileDescription\", \"Extra Night Shadows Fix and Better Headlights by OnyxOak - CE 1.5\"\r\r\n            VALUE \"FileVersion\", rsc_FileVersion\r\r\n            VALUE \"InternalName\", rsc_InternalName\r\r\n            VALUE \"LegalCopyright\", rsc_LegalCopyright\r\r\n            VALUE \"OriginalFilename\", rsc_OriginalFilename\r\r\n            VALUE \"ProductName\", \"Extra Night Shadows Fix and Better Headlights by OnyxOak\"\r\r\n            VALUE \"ProductVersion\", rsc_ProductVersion\r\r\n            VALUE \"UpdateUrl\", rsc_UpdateUrl\r\r\n            VALUE \"GitHash\", rsc_GitSHA1\r\n            VALUE \"ModAuthor\", \"OnyxOak\"\r\n            VALUE \"ModVersion\", \"CE 1.5 / attribution A1\"\r\n            VALUE \"OfficialDownloadURL\", \"https://www.nexusmods.com/gta4/mods/1459\"\r\n            VALUE \"SourceURL\", \"https://github.com/onyxoak/fusionfix-extra-night-shadows\"\r\n            VALUE \"UpstreamCredits\", \"FusionFix by ThirteenAG and contributors; GPL-3.0\"\r\n            VALUE \"DevelopmentCredits\", \"Project direction and testing: OnyxOak; coding assistance: OpenAI Codex\"\r\r\n        END\r\r\n    END\r\r\n    BLOCK \"VarFileInfo\"\r\r\n    BEGIN\r\r\n        VALUE \"Translation\", 0x400, 1200\r\r\n    END\r\r\nEND\r\r\n\r\r\n#endif    // Neutral (Default) resources\r\r\n\r\r\n#ifndef APSTUDIO_INVOKED\r\r\n#endif    // not APSTUDIO_INVOKED\r\r\n\r\r\n"
+    },
+    {
+      "path": "source/ShadowAdapterCE.hpp",
+      "beforeSHA256": "80cfbaea9ef74b3efefa35a86fd0fc44baecf81ffd44732845887cc53dc2571c",
+      "afterSHA256": "f4ab1ec59ca4714ed0c7530dfcd003b3c63445694a11d7d04f74d0373058ec37",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowAllocationCE.hpp",
+      "beforeSHA256": "6324d04b671d3928d7859efcde237a5486cce778d8a5bbcd1b41c1bf3022e53c",
+      "afterSHA256": "d1b2fd17c209c448a478f07986610dcabb991b5c7702ba16fe16e7361a59e15d",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowAllocationPass.hpp",
+      "beforeSHA256": "7dc33c3547e3371db65c94d1842f1fcf46a40ebd26fc89a3d58e61b325be8ac6",
+      "afterSHA256": "148512119655e3cded6fb9ebb4299feece09819ea65bc4b25e3aa17361256f38",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowAllocationRuntime.inl",
+      "beforeSHA256": "b34bed87493569720d701780393290d0a724b50406ed3de7c308fd6e4e8fb0ad",
+      "afterSHA256": "c4664c9f999b313da7460bf7f7c7f7b90c83cab733243ca814b76e89c513d0ba",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowCasterCE.hpp",
+      "beforeSHA256": "fd80dbccefb0b5a3893d86daea850630c47d00658f34d01aa91debbe61b54893",
+      "afterSHA256": "b29fdc33788e13676430aeaabef15ab4c50d658d138f296765f91340e569587b",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowCasterRuntime.inl",
+      "beforeSHA256": "8143c51c9a89308c2bc5dcb02dd00d82688311c2143a1ec6161ac4d638b79266",
+      "afterSHA256": "dd355d03092cef428b4b7d18ee52414f3235caeac367ebe1863b4206db66b15d",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowCrashTrace30.hpp",
+      "beforeSHA256": "13d87251743ab05396ac65647673d1b891a45e9f9ba67d2d605955436ed72831",
+      "afterSHA256": "01fe0ccf545bd7f1277b11bb1ad3e08044747ef185a7132f665cfd17afae4bd5",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowDrivingFocus.hpp",
+      "beforeSHA256": "d8fe3b257407ea372437c13002b5d2fed1f9fbc0eec7978d8bd9de56efe78bba",
+      "afterSHA256": "1cd33f51e333c050b3d8939d68368b5b4a3a78bba6e598317f9aa69e9ac27313",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowFloatingPointState.hpp",
+      "beforeSHA256": "20e05b454d3b1dad7acc9ddcd6af30dd82e9c86a383753124e871e024a22fe78",
+      "afterSHA256": "567dbab59d71b750e8f4e387fd929e4e3fefff8c45ebbbc7cc2d0ae00096b3f9",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowGuardDiagnostics.hpp",
+      "beforeSHA256": "a7bd61057b31e29821274ce8b12fb0f946d5c64861967ca73fc938954bbd2c54",
+      "afterSHA256": "d3e9b16ed85af05f8b1b3c6b6e05c28f77ffd8a8813111e47a1be7b73037d3b5",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowInactiveSlots.hpp",
+      "beforeSHA256": "7d564be797f861f426bd56a3c5ea4988755f6d23fdd3d81af0edab64f7e264c1",
+      "afterSHA256": "9e16e7b7cea611ad75684c534546b978ad4a9dc8b5f5137735c2c6d28075abac",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowLightGeometry.hpp",
+      "beforeSHA256": "5187d61d6bf7bf40260939341164212e7584f9e67924bb5b44d15cda94d83c94",
+      "afterSHA256": "9ea31ed25be5cd2ef5a300e989944de96f8a0f0d728e899deb7d81d126c57e4d",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowLookupLayout.hpp",
+      "beforeSHA256": "34f1e0544b16d60fbc65e3f65eb1031c299e27eb5b5ffa30ad2ff63fecbd3b51",
+      "afterSHA256": "51bebb319f9763ecebae12dc4f9bce116078fe92abc872596352ed28309a38df",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowLookupRuntime.inl",
+      "beforeSHA256": "fc9e743d05586463b448dfc05373579d8cb05639963a8162105c2d428492cfb9",
+      "afterSHA256": "4814bf8869aaba3b611f54b1170a887bd034f8aa43bb2bb090c3d0ede5fbfd72",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowLookupValidation.hpp",
+      "beforeSHA256": "6f9a27ca0317fab21e7abcd58f0db69d8a8610a6eed29530ed494110f0cb9a37",
+      "afterSHA256": "92ceac6f28bc95c27eb6dd33fd64b8ed9a4946d3863d8a7f70ab8026c5b62d6d",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowReach.hpp",
+      "beforeSHA256": "265b89104a2d813fe25b81f61c6f3ad9b3a14a190803799a399dad31ce046cd2",
+      "afterSHA256": "63b0abb017bc5d2f5b724906af701cea8a8588fa4d62eed8a7f176d92358a470",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowReceiver.hpp",
+      "beforeSHA256": "90f247056588d7645087fe323c585122320758d81d87b22d36bb076dafaa266b",
+      "afterSHA256": "8d98643af7ec9658295cf60fbbf675ebe93df9482817c401ff41b202b49c841e",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowTrace34.hpp",
+      "beforeSHA256": "b8aca0199637bdeffea1ad3363c586bd2f9c2b1be8fae26fdd88cbeddd7b07f9",
+      "afterSHA256": "f5d7e3306f7b5e54b468a036e81930b755392da9abe6554baa1e5b3e0d8282ce",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowViewPriority.hpp",
+      "beforeSHA256": "ae5d28a1d78f1e897b716ba81d5883b14c0c42bcede36619190162c662747c67",
+      "afterSHA256": "3a333abd6bf433c3706608cc9ee05caaff02387021148e18a0cc5fd95c55e0be",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/StableHeadlightSelector.hpp",
+      "beforeSHA256": "d02b4d528617e580d20a3b2a181f6de6788afc504f19273dc259002dacbc49d0",
+      "afterSHA256": "e3fb602e7954de0460b6d991ec2ff0bd4e8c6d8f8d6d78e6fea9a37d28985c56",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/SubmittedHeadlightHistory.hpp",
+      "beforeSHA256": "0bb87e629725ba181a93e96399ea17519cd06a2f1eb0a3eacd14be6787cd66c5",
+      "afterSHA256": "ad1f7e28be26a3820ac02ef2c07d62f68217e638ed71918412d32a5d06e965b8",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    }
+  ],
+  "1080": [
+    {
+      "path": "source/CloseHeadlightRelevance.hpp",
+      "beforeSHA256": "3de240396db34df046a314005ef04a2a8c354e720f9f3bfe8d87913e8fd22908",
+      "afterSHA256": "d98a5798b3a298d3d3392f9144726cfcc4c521757a85461a841a77eeeb48c724",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/HeadlightCasterPolicy.hpp",
+      "beforeSHA256": "f0c3097b7bbd1478e7a49deb8719fc14b73b2d0f47f630a59c7675f615c0b5ba",
+      "afterSHA256": "bc4eb236bfe18ca8472d089327c25db433468f26f2ae8e8bab86dac695226a5c",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/HeadlightEnhancementRuntime.inl",
+      "beforeSHA256": "569d98d31d18c868853ed722f33715ac272c519772ca725e864c738e6ffb24cb",
+      "afterSHA256": "539c1a5317799b95079156440a6eb308bd05c732fb632d4e9a82fc021f3def12",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/NightShadowAdmissionRuntime.inl",
+      "beforeSHA256": "7ca9093a912ec4602eb6dd89eb2b2c60eff03242c8afcc09e6d0b812b309d556",
+      "afterSHA256": "db855377acf3a00ed61937d33f8989f5fd52d8e710d06dacfcb12a90b70a6231",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/PlayerShadowBudget.hpp",
+      "beforeSHA256": "4dc0a69782aac82b7e5a84370e4486debfff819f3cf783df77313ec153c89a6f",
+      "afterSHA256": "d8ecf574fb06dc1ff7469bd6d2aefe3d6b9a7567b48ab6a9b9f5ef002009e049",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/resources/Versioninfo.rc",
+      "beforeSHA256": "9f20ae9a4b4c368203fcf366356ae5af3f5806c6797f2dac7a9471aba0167bf5",
+      "afterSHA256": "9a30bfea942903558aa583432613de761bfd9c14bc88d64a4f92e22f1472f1c8",
+      "encoding": "utf-16",
+      "replacement": "#include \"VersionInfo.h\"\r\r\n\r\r\n#define APSTUDIO_READONLY_SYMBOLS\r\r\n#include <winresrc.h>\r\r\n#undef APSTUDIO_READONLY_SYMBOLS\r\r\n#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEUD)\r\r\nLANGUAGE LANG_NEUTRAL, SUBLANG_DEFAULT\r\r\n\r\r\n#ifdef APSTUDIO_INVOKED\r\r\n\r\r\n1 TEXTINCLUDE \r\r\nBEGIN\r\r\n    \"VersionInfo.h\\0\"\r\r\nEND\r\r\n\r\r\n2 TEXTINCLUDE \r\r\nBEGIN\r\r\n    \"#include <winresrc.h>\\r\\n\"\r\r\n    \"\\0\"\r\r\nEND\r\r\n\r\r\n3 TEXTINCLUDE \r\r\nBEGIN\r\r\n    \"\\r\\n\"\r\r\n    \"\\0\"\r\r\nEND\r\r\n\r\r\n#endif    // APSTUDIO_INVOKED\r\r\n\r\r\n//\r\r\n// Version\r\r\n//\r\r\n\r\r\nVS_VERSION_INFO VERSIONINFO\r\r\n FILEVERSION rsc_FileVersion_MAJOR, rsc_FileVersion_MINOR, rsc_FileVersion_BUILD, rsc_FileVersion_REVISION\r\r\n PRODUCTVERSION rsc_FileVersion_MAJOR, rsc_FileVersion_MINOR, rsc_FileVersion_BUILD, rsc_FileVersion_REVISION\r\r\n FILEFLAGSMASK 0x3fL\r\r\n#ifdef _DEBUG\r\r\n FILEFLAGS 0x1L\r\r\n#else\r\r\n FILEFLAGS 0x0L\r\r\n#endif\r\r\n FILEOS 0x40004L\r\r\n FILETYPE 0x2L\r\r\n FILESUBTYPE 0x0L\r\r\nBEGIN\r\r\n    BLOCK \"StringFileInfo\"\r\r\n    BEGIN\r\r\n        BLOCK \"040004b0\"\r\r\n        BEGIN\r\r\n            VALUE \"CompanyName\", \"OnyxOak (unofficial FusionFix modification)\"\r\r\n            VALUE \"FileDescription\", \"Extra Night Shadows Fix and Better Headlights by OnyxOak - 1080 1.1\"\r\r\n            VALUE \"FileVersion\", rsc_FileVersion\r\r\n            VALUE \"InternalName\", rsc_InternalName\r\r\n            VALUE \"LegalCopyright\", rsc_LegalCopyright\r\r\n            VALUE \"OriginalFilename\", rsc_OriginalFilename\r\r\n            VALUE \"ProductName\", \"Extra Night Shadows Fix and Better Headlights by OnyxOak\"\r\r\n            VALUE \"ProductVersion\", rsc_ProductVersion\r\r\n            VALUE \"UpdateUrl\", rsc_UpdateUrl\r\r\n            VALUE \"GitHash\", rsc_GitSHA1\r\n            VALUE \"ModAuthor\", \"OnyxOak\"\r\n            VALUE \"ModVersion\", \"1080 1.1 / attribution A1\"\r\n            VALUE \"OfficialDownloadURL\", \"https://www.nexusmods.com/gta4/mods/1459\"\r\n            VALUE \"SourceURL\", \"https://github.com/onyxoak/fusionfix-extra-night-shadows\"\r\n            VALUE \"UpstreamCredits\", \"FusionFix by ThirteenAG and contributors; GPL-3.0\"\r\n            VALUE \"DevelopmentCredits\", \"Project direction and testing: OnyxOak; coding assistance: OpenAI Codex\"\r\r\n        END\r\r\n    END\r\r\n    BLOCK \"VarFileInfo\"\r\r\n    BEGIN\r\r\n        VALUE \"Translation\", 0x400, 1200\r\r\n    END\r\r\nEND\r\r\n\r\r\n#endif    // Neutral (Default) resources\r\r\n\r\r\n#ifndef APSTUDIO_INVOKED\r\r\n#endif    // not APSTUDIO_INVOKED\r\r\n\r\r\n"
+    },
+    {
+      "path": "source/ShadowAdapter1080Audit.hpp",
+      "beforeSHA256": "80d40728b9818f477977f9d0f0cb72df28bb4cd25dd21007f9ab60fe74911279",
+      "afterSHA256": "61232946be8496bca3f9311c80fa71f43a07967975c8f22f7f641d08b731d97d",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowAdapterCE.hpp",
+      "beforeSHA256": "4c3cd165bd49b90ef8c00f6342989bbc980ec7dac989ac2a18aebb0c022ccf65",
+      "afterSHA256": "88fe7636ca54a63a261a77c89b4de2b690ae17b4337686c4b568c534f9be4c41",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowAllocationCE.hpp",
+      "beforeSHA256": "25a9b67f6dd31d1421c9b0708f8b1c5d346fad398305676e59361f88e3d33909",
+      "afterSHA256": "fb552338e3a2da5c8ba17522b5bf78a0d911c9daee58804cc941f0daa155ce5d",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowAllocationPass.hpp",
+      "beforeSHA256": "7dc33c3547e3371db65c94d1842f1fcf46a40ebd26fc89a3d58e61b325be8ac6",
+      "afterSHA256": "148512119655e3cded6fb9ebb4299feece09819ea65bc4b25e3aa17361256f38",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowAllocationRuntime.inl",
+      "beforeSHA256": "dddcbc5823a506becb02baee335c73d7f9316b9c644f5a01274a793a29c55def",
+      "afterSHA256": "7c8372d30e83034ba47ed0668ae10494e59b5f9daf8b25cb56023da6007c9848",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowCasterCE.hpp",
+      "beforeSHA256": "f7771240a65a422f4b9266e51ae8068b5e6f010ac9cc7a634b548e2e5a21ad40",
+      "afterSHA256": "f0c71d8ff2f2d1dd73ea06f2c91d107dd84f475ebc5799930001429a5ed7aab3",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowCasterRuntime.inl",
+      "beforeSHA256": "73ce8ecfe9c51209c19bdab414ce561ee23c3c858ed0a088ef95d8b43f7129c2",
+      "afterSHA256": "934020188803f048b22e4fa792d5c2264d0bfd1e04afe98ab8d37444a7dc0fc6",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowDrivingFocus.hpp",
+      "beforeSHA256": "d8fe3b257407ea372437c13002b5d2fed1f9fbc0eec7978d8bd9de56efe78bba",
+      "afterSHA256": "1cd33f51e333c050b3d8939d68368b5b4a3a78bba6e598317f9aa69e9ac27313",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowFloatingPointState.hpp",
+      "beforeSHA256": "20e05b454d3b1dad7acc9ddcd6af30dd82e9c86a383753124e871e024a22fe78",
+      "afterSHA256": "567dbab59d71b750e8f4e387fd929e4e3fefff8c45ebbbc7cc2d0ae00096b3f9",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowGuardDiagnostics.hpp",
+      "beforeSHA256": "3405a27b7a1861cac238133fbd4af9f5f3b1af488693df404cf8e1580ccfe2f9",
+      "afterSHA256": "96bb76ae7f1046de8d7096463572d13388a528e94680d6dc9b64307bee5e128e",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowInactiveSlots.hpp",
+      "beforeSHA256": "7d564be797f861f426bd56a3c5ea4988755f6d23fdd3d81af0edab64f7e264c1",
+      "afterSHA256": "9e16e7b7cea611ad75684c534546b978ad4a9dc8b5f5137735c2c6d28075abac",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowLightGeometry.hpp",
+      "beforeSHA256": "5187d61d6bf7bf40260939341164212e7584f9e67924bb5b44d15cda94d83c94",
+      "afterSHA256": "9ea31ed25be5cd2ef5a300e989944de96f8a0f0d728e899deb7d81d126c57e4d",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowLookupLayout.hpp",
+      "beforeSHA256": "c1a29488a1f326ab4d1af638d96e1294daf62b6deec04ba638fefdab63b7bee2",
+      "afterSHA256": "1eaa213955f0f84eee9bb980d60c8726fba3ee30e63b7914326a9bab7ef7e3a4",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowLookupRuntime.inl",
+      "beforeSHA256": "fc9e743d05586463b448dfc05373579d8cb05639963a8162105c2d428492cfb9",
+      "afterSHA256": "4814bf8869aaba3b611f54b1170a887bd034f8aa43bb2bb090c3d0ede5fbfd72",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowLookupValidation.hpp",
+      "beforeSHA256": "6f9a27ca0317fab21e7abcd58f0db69d8a8610a6eed29530ed494110f0cb9a37",
+      "afterSHA256": "92ceac6f28bc95c27eb6dd33fd64b8ed9a4946d3863d8a7f70ab8026c5b62d6d",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowReach.hpp",
+      "beforeSHA256": "265b89104a2d813fe25b81f61c6f3ad9b3a14a190803799a399dad31ce046cd2",
+      "afterSHA256": "63b0abb017bc5d2f5b724906af701cea8a8588fa4d62eed8a7f176d92358a470",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowReceiver.hpp",
+      "beforeSHA256": "90f247056588d7645087fe323c585122320758d81d87b22d36bb076dafaa266b",
+      "afterSHA256": "8d98643af7ec9658295cf60fbbf675ebe93df9482817c401ff41b202b49c841e",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowTrace34.hpp",
+      "beforeSHA256": "b8aca0199637bdeffea1ad3363c586bd2f9c2b1be8fae26fdd88cbeddd7b07f9",
+      "afterSHA256": "f5d7e3306f7b5e54b468a036e81930b755392da9abe6554baa1e5b3e0d8282ce",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/ShadowViewPriority.hpp",
+      "beforeSHA256": "ae5d28a1d78f1e897b716ba81d5883b14c0c42bcede36619190162c662747c67",
+      "afterSHA256": "3a333abd6bf433c3706608cc9ee05caaff02387021148e18a0cc5fd95c55e0be",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/StableHeadlightSelector.hpp",
+      "beforeSHA256": "d02b4d528617e580d20a3b2a181f6de6788afc504f19273dc259002dacbc49d0",
+      "afterSHA256": "e3fb602e7954de0460b6d991ec2ff0bd4e8c6d8f8d6d78e6fea9a37d28985c56",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    },
+    {
+      "path": "source/SubmittedHeadlightHistory.hpp",
+      "beforeSHA256": "0bb87e629725ba181a93e96399ea17519cd06a2f1eb0a3eacd14be6787cd66c5",
+      "afterSHA256": "ad1f7e28be26a3820ac02ef2c07d62f68217e638ed71918412d32a5d06e965b8",
+      "encoding": "utf-8",
+      "prefix": "// OnyxOak modification project: Extra Night Shadows Fix and Better Headlights.\n// Project direction, integration and visual testing by OnyxOak; Codex-assisted development.\n// Modification notice: 2026-09-27. See ATTRIBUTION.md for upstream credits and GPL-3.0.\n// Official release: https://www.nexusmods.com/gta4/mods/1459\n\n"
+    }
+  ]
+}
