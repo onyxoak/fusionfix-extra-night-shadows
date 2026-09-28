@@ -38,10 +38,10 @@ inline float ViewSample(const ShadowView& c, Vec3 p) noexcept {
     const float edge=(std::max)(std::abs(x),std::abs(y));
     // Give the whole visible area useful priority. The broad shoulder admits
     // lights just before they enter view; smooth falloff avoids a screen-edge
-    // discontinuity. A small center bonus remains instead of a steep spotlight.
-    const float coverage = 1.0f-SmoothUnit((edge-0.95f)/0.4f);
-    const float center = 1.0f-SmoothUnit(edge/0.95f);
-    return 0.85f*coverage+0.15f*center;
+    // discontinuity without favoring the screen center.
+    // Equal relevance throughout the frame. Keep a continuous shoulder outside
+    // it so a small camera movement does not immediately invalidate a receiver.
+    return 1.0f-SmoothUnit((edge-1.0f)/0.35f);
 }
 inline float ShadowViewWeight(const ShadowView& c, Vec3 position, Vec3 direction,
                               float radius, bool beam) noexcept {
@@ -62,3 +62,4 @@ inline float ShadowViewWeight(const ShadowView& c, Vec3 position, Vec3 direction
     return 1.0f+2.0f*score; // Bounded preference: distance still matters.
 }
 }
+

@@ -14,7 +14,7 @@ https://www.nexusmods.com/gta4/mods/1459
 Project history and source releases:
 https://github.com/onyxoak/fusionfix-extra-night-shadows
 
-Modification notices added 2026-09-27. Attribution packaging revision A1 retains the CE 1.5 / legacy 1.1 lighting behavior. Mod versions are separate from the upstream FusionFix version.
+CE 1.6 includes the shadow stability changes documented in RELEASE-NOTES.md. Mod versions are separate from the upstream FusionFix version.
 
 ## For articles and download mirrors
 

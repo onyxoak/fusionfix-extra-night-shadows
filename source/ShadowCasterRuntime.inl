@@ -94,16 +94,16 @@ namespace ShadowDiagnostics
             std::ofstream log(path, std::ios::app);
             if (!startupWritten)
             {
-                log << "candidate=38 startup_guard " << startupGuardDetails << '\n';
-                log << "candidate=38 allocator_startup " << PlayerShadowAllocation::installStatus << '\n';
+                log << "candidate=44 startup_guard " << startupGuardDetails << '\n';
+                log << "candidate=44 allocator_startup " << PlayerShadowAllocation::installStatus << '\n';
                 if (log.good()) startupWritten = true;
             }
-            log << "candidate=38 tick=" << now << " admission_installed=" << admissionInstalled
+            log << "candidate=44 tick=" << now << " admission_installed=" << admissionInstalled
                 << " traffic_self_shadow_fix=" << bTrafficSelfShadowFix
                 << " traffic_car_excluded=" << OwnHeadlightCaster::trafficCarExcluded.load()
                 << " close_headlight_relevance=" << bCloseHeadlightRelevance << " caster_guard=" << guardPassed
                 << " caster_requested=" << casterMode << " caster_enabled=" << OwnHeadlightCaster::enabled.load()
-                << " lamp_policy=native_slots allocation_mode=" << allocationMode << " allocation_ready=" << PlayerShadowAllocation::ready.load()
+                << " lamp_policy=scene_camera_cache_continuity allocation_mode=" << allocationMode << " allocation_ready=" << PlayerShadowAllocation::ready.load()
                 << " allocation_thread_block=" << PlayerShadowAllocation::unsupportedThread.load()
 
                 << " capture_calls=" << PlayerShadowAllocation::captureCalls.load()
@@ -113,11 +113,20 @@ namespace ShadowDiagnostics
                 << " device_w=" << PlayerShadowAllocation::activeWidth.load()
                 << " device_h=" << PlayerShadowAllocation::activeHeight.load()
                 << " crash_trace=" << (shadow_crash_trace::handler != nullptr)                << " camera_priority=" << PlayerShadowAllocation::cameraPriority
+                << " scene_camera_reads=" << PlayerShadowAllocation::sceneCameraReads.load()
+                << " auxiliary_views_rejected=" << PlayerShadowAllocation::auxiliaryViewsRejected.load()
                 << " camera_passes=" << PlayerShadowAllocation::cameraPasses.load()
                 << " camera_fallbacks=" << PlayerShadowAllocation::cameraFallbacks.load()
                 << " trace_enabled=" << ShadowTrace34::enabled.load()
                 << " trace_dropped=" << ShadowTrace34::recorder.dropped.load()
                 << " native_lamp_priority=" << PlayerShadowAllocation::nativeLampPriority
+                << " cache_dependency_checks=" << PlayerShadowAllocation::cacheDependencyChecks.load()
+                << " cache_dependency_redirected=" << PlayerShadowAllocation::cacheDependencyRedirected.load()
+                << " cache_dependency_deferred=" << PlayerShadowAllocation::cacheDependencyDeferred.load()
+                << " cache_dependency_rejected=" << PlayerShadowAllocation::cacheDependencyRejected.load()
+                << " continuity_compares=" << PlayerShadowAllocation::continuityComparisons.load()
+                << " continuity_overrides=" << PlayerShadowAllocation::continuityOverrides.load()
+                << " continuity_rejected=" << PlayerShadowAllocation::continuityRejected.load()
                 << " lamp_distance_adjusted=" << PlayerShadowAllocation::lampDistanceAdjusted.load()
                 << " nearby_receivers=" << NearbyVehicleLighting36::enabled.load()
                 << " receiver_captures=" << NearbyVehicleLighting36::captures.load()
@@ -152,3 +161,7 @@ namespace ShadowDiagnostics
         catch (...) {}
     }
 }
+
+
+
+

@@ -15,6 +15,10 @@ module;
 #include "ShadowReceiver.hpp"
 #include "NearbyVehicleReceivers36.hpp"
 #include "NativeLampDistance38.hpp"
+#include "NativeLampContinuity41.hpp"
+#include "NativeShadowContinuity42.hpp"
+#include "ShadowVolumeVisibility43.hpp"
+#include "NativeCacheDependencies44.hpp"
 #include "ShadowInactiveSlots.hpp"
 #include "ShadowViewPriority.hpp"
 #include "ShadowDrivingFocus.hpp"
@@ -370,7 +374,7 @@ public:
             ShadowDiagnostics::allocationMode = allocationMode;
             if (iniReader.ReadInteger("SHADOWS", "ExperimentalShadowDiagnostics", 0))
                 ShadowTrace34::Start(iniReader.GetIniPath().parent_path() /
-                    ("GTAIV-light-trace38-CE-mode"+std::to_string(allocationMode)+"-"+std::to_string(GetCurrentProcessId())+".bin"),
+                    ("GTAIV-light-trace44-CE-mode"+std::to_string(allocationMode)+"-"+std::to_string(GetCurrentProcessId())+".bin"),
                     allocationMode, GetCurrentProcessId());
             // 0=off, 1=observe private output only, 2=experimental publication.
             if (allocationMode == 1 || allocationMode == 2)
@@ -579,3 +583,7 @@ public:
         };
     }
 } NightShadows;
+
+
+
+

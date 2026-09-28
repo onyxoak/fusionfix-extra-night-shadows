@@ -17,7 +17,8 @@ namespace NearbyVehicleLighting36 {
             const auto matrix=*reinterpret_cast<const float* const*>(next.session+0x20);
             if(matrix) {
                 next.origin={matrix[12],matrix[13],matrix[14]};
-                if(!PlayerShadowAllocation::gameplayViewLock.test_and_set(std::memory_order_acquire)) {
+                next.view=PlayerShadowAllocation::ReadGameplayView();
+                if(!next.view.valid && !PlayerShadowAllocation::gameplayViewLock.test_and_set(std::memory_order_acquire)) {
                     if(next.frame-PlayerShadowAllocation::gameplayViewFrame<=2)
                         next.view=PlayerShadowAllocation::gameplayView;
                     PlayerShadowAllocation::gameplayViewLock.clear(std::memory_order_release);

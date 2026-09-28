@@ -79,7 +79,8 @@ namespace fusionfix::shadows::budget
 
         // This is the sole engine write: exactly seven int32 indices, after all
         // input records and the native output layout have passed validation.
-        bool Commit(const void* list, std::uint32_t count, std::int32_t* sevenIndices, bool preserveNativeLamps = false) noexcept
+        bool Commit(const void* list, std::uint32_t count, std::int32_t* sevenIndices, bool preserveNativeLamps = false,
+                    bool preserveNativeSelection = false) noexcept
         {
             if (!active_ || failed_ || !sevenIndices || list != list_ || count != listCount_)
                 return Abort();
@@ -105,7 +106,9 @@ namespace fusionfix::shadows::budget
                     native.slots[i]={c.key,c.generation,c.index,c.kind};
                     native.validMask|=static_cast<std::uint8_t>(1u<<i); ++native.count;
                 }
-                selected=PreserveNativeLampSlots(native,selected);
+                // When continuity was applied inside native sorting, a second
+                // headlight rerank here would undo that same frame's decision.
+                selected=preserveNativeSelection ? native : PreserveNativeLampSlots(native,selected);
             }
             if (!selected.safeToApply || selected.inputOverflow || selected.ambiguousRecords || (selected.validMask & 0x80))
                 return Abort();

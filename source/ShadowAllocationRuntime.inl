@@ -14,14 +14,17 @@ namespace PlayerShadowAllocation
     using fusionfix::shadows::FloatingPointState;
 
     static SafetyHookInline selectionHook;
-    static SafetyHookMid collectHook, finalizeHook, lampDistanceHook;
+    static SafetyHookMid collectHook, finalizeHook, lampDistanceHook, compareResultHook, cacheResultHook;
     static bool nativeLampPriority=false;
     static std::atomic<uint32_t> lampDistanceAdjusted{0};
+    static std::atomic<uint32_t> cacheDependencyChecks{0}, cacheDependencyRedirected{0}, cacheDependencyDeferred{0}, cacheDependencyRejected{0};
+    static std::atomic<uint32_t> continuityComparisons{0}, continuityOverrides{0}, continuityRejected{0};
     static std::atomic<bool> ready{false}, unsupportedThread{false};
     static std::atomic<DWORD> ownerThread{0};
     static uintptr_t gameBase = 0;
     static bool cameraPriority = false;
     static std::atomic<uint32_t> cameraPasses{0}, cameraFallbacks{0};
+    static std::atomic<uint32_t> auxiliaryViewsRejected{0}, sceneCameraReads{0};
     static bool publicationEnabled = false; // Immutable after ready is published.
     static std::string installStatus = "not_requested"; // Init-only; diagnostics reads after ready publication.
     // Diagnostics are counters only: no per-frame logging/allocations or I/O.
@@ -33,6 +36,12 @@ namespace PlayerShadowAllocation
         Vec3 player{}, drivingFocus{};
         fusionfix::shadows::ShadowDrivingFocus motionFocus;
         std::array<budget::PlayerShadowBudget::Slot,7> previousSelection{};
+        uint32_t previousSelectionFrame=0;
+        fusionfix::shadows::NativeLampContinuity41 lampContinuity;
+        fusionfix::shadows::NativeShadowContinuity42 continuity;
+        std::array<fusionfix::shadows::NativeShadowContinuity42::Candidate,4096> nativeCandidates{};
+        bool continuityActive=false;
+        bool tracedComparison=false;
         fusionfix::shadows::ShadowView view{};
         uintptr_t ped = 0, occupiedCar = 0, lastCar = 0;
         uint32_t frame = 0, viewFrame = 0;
@@ -77,6 +86,22 @@ namespace PlayerShadowAllocation
     static std::atomic_flag gameplayViewLock = ATOMIC_FLAG_INIT;
     static fusionfix::shadows::ShadowView gameplayView{};
     static uint32_t gameplayViewFrame = 0;
+    static const rage::grcViewport* SceneViewport() noexcept
+    {
+        // The guarded native selection reads this exact table before touching
+        // the same scene object. Never dereference a light/reflection viewport
+        // simply because its resolution happens to match the back buffer.
+        if(!ready.load(std::memory_order_acquire) || !gameBase) return nullptr;
+        const auto* table=reinterpret_cast<const uint32_t*>(gameBase+allocation::SceneCameraTableRva);
+        const auto index=table[0];
+        if(index<1 || index>3) return nullptr;
+        const auto camera=static_cast<uintptr_t>(table[index]);
+        if(camera<0x10000 || camera>UINTPTR_MAX-allocation::SceneViewportOffset-sizeof(rage::grcViewport)) return nullptr;
+        return reinterpret_cast<const rage::grcViewport*>(camera+allocation::SceneViewportOffset);
+    }
+    static_assert(offsetof(rage::grcViewport,mViewMatrix)==0x180);
+    static_assert(offsetof(rage::grcViewport,mProjectionMatrix)==0x1C0);
+    static_assert(offsetof(rage::grcViewport,mWidth)==0x2B0);
     static fusionfix::shadows::ShadowView ReadView(const rage::grcViewport* viewport) noexcept
     {
         fusionfix::shadows::ShadowView view{};
@@ -91,6 +116,12 @@ namespace PlayerShadowAllocation
         for (const auto& row : view.projection) for (float f : row) if (!std::isfinite(f)) view.valid = false;
         if (std::abs(view.projection[0][0]) < 0.001f || std::abs(view.projection[1][1]) < 0.001f)
             view.valid = false;
+        return view;
+    }
+    static fusionfix::shadows::ShadowView ReadGameplayView() noexcept
+    {
+        auto view=ReadView(SceneViewport());
+        if(view.valid)++sceneCameraReads;
         return view;
     }
     static bool InstallCameraCapture() noexcept
@@ -108,6 +139,7 @@ namespace PlayerShadowAllocation
             if (!CShadows::pFrameCounter) return;
             ++captureCalls;
             const auto* viewport = reinterpret_cast<const rage::grcViewport*>(regs.ecx);
+            if(viewport!=SceneViewport()) {++auxiliaryViewsRejected;return;}
             if (viewport && viewport->mIsPerspective) {
                 ++perspectiveCalls; captureWidth = viewport->mWidth; captureHeight = viewport->mHeight;
                 activeWidth = rage::grcDevice::ms_nActiveWidth ? *rage::grcDevice::ms_nActiveWidth : 0; activeHeight = rage::grcDevice::ms_nActiveHeight ? *rage::grcDevice::ms_nActiveHeight : 0;
@@ -132,7 +164,10 @@ namespace PlayerShadowAllocation
         if (!matrix) return false;
         const Vec3 position{matrix[12], matrix[13], matrix[14]};
         if (!std::isfinite(position.x) || !std::isfinite(position.y) || !std::isfinite(position.z)) return false;
-        if (ped != state.ped) { state.lastCar = 0; state.view = {}; }
+        if (ped != state.ped) {
+            state.lastCar = 0; state.view = {};
+            state.previousSelection = {}; state.previousSelectionFrame = 0;
+        }
         state.ped = ped;
         state.player = position;
         state.occupiedCar = CPlayer::findPlayerCar();
@@ -144,10 +179,15 @@ namespace PlayerShadowAllocation
         }
         state.drivingFocus=state.motionFocus.Update(state.player,state.occupiedCar,static_cast<uint32_t>(*CTimer::m_snTimeInMilliseconds));
         state.frame = *CShadows::pFrameCounter;
+        state.lampContinuity.Begin(ped,state.frame,static_cast<uint32_t>(*CTimer::m_snTimeInMilliseconds));
+        state.continuity.Begin(ped,state.frame,static_cast<uint32_t>(*CTimer::m_snTimeInMilliseconds));
+        state.nativeCandidates.fill({});
+        state.continuityActive=false;
+        state.tracedComparison=false;
         state.stackAnchor = 0;
         state.view = {};
         if (cameraPriority && rage::pCurrentViewport) {
-            state.view = ReadView(rage::GetCurrentViewport());
+            state.view = ReadGameplayView();
             // Shadow passes replace the current viewport. Keep only a recent,
             // full-resolution perspective view. Selection can consume a view on a different
             // thread; publish a consistent snapshot without waiting in either hook.
@@ -160,6 +200,17 @@ namespace PlayerShadowAllocation
         if (reinterpret_cast<uintptr_t>(CurrentLights()) < 0x10000) return false;
         state.pass.Begin({state.frame, static_cast<uint32_t>(*CTimer::m_snTimeInMilliseconds),
                           ped, state.occupiedCar != 0}, CurrentLights(), CurrentCount());
+        state.continuityActive=publicationEnabled && nativeLampPriority && state.pass.Active();
+        if(state.continuityActive && ShadowTrace34::enabled.load(std::memory_order_relaxed)) {
+            const auto tick=GetTickCount();
+            for(int row=0;row<4;++row) {
+                const auto* v=state.view.view[row];const auto* p=state.view.projection[row];
+                ShadowTrace34::Emit({8,state.frame,tick,static_cast<uint32_t>(row+1),row,0,0,0,v[0],v[1],v[2],v[3]});
+                ShadowTrace34::Emit({9,state.frame,tick,static_cast<uint32_t>(row+1),row,0,0,0,p[0],p[1],p[2],p[3]});
+            }
+            ShadowTrace34::Emit({10,state.frame,tick,static_cast<uint32_t>(state.ped),state.occupiedCar?1:0,0,0,0,
+                state.player.x,state.player.y,state.player.z,0});
+        }
         return state.pass.Active();
     }
 
@@ -216,8 +267,14 @@ namespace PlayerShadowAllocation
         const int feet=fusionfix::shadows::ShadowReachFeet(FusionFixSettings.Get("PREF_LAMP_REACH"));
         const float reach=feet>0?feet*0.3048f:60.0f;
         const float original=regs.xmm0.f32[0];
+        const float distanceSquared=fusionfix::shadows::EvaluateGeometry(state.player,position).distanceSquared;
+        const bool retained=state.lampContinuity.Retained(static_cast<uint32_t>(light.mCastShadows),
+            LampGeometry(light),visibleWeight>1.1f && std::isfinite(distanceSquared) && distanceSquared<reach*reach);
+        // Keep the softer on-foot acquisition preference, but do not halve an
+        // incumbent's visibility merely because the player is walking.
+        const float effectiveWeight=retained ? visibleWeight : viewWeight;
         const float adjusted=fusionfix::shadows::NativeLampPriorityDistance(original,
-            fusionfix::shadows::EvaluateGeometry(state.player,position).distanceSquared,viewWeight,reach);
+            distanceSquared,effectiveWeight,reach,retained);
         if(adjusted!=original && std::isfinite(adjusted) && adjusted>=0) {
             regs.xmm0.f32[0]=adjusted; ++lampDistanceAdjusted;
         }
@@ -276,8 +333,63 @@ namespace PlayerShadowAllocation
                            InfluencesPlayer(light), true,
                            kind == budget::Kind::Lamp ? LampGeometry(light) : 0,
                            viewWeight, reach * reach, priorityDistance}, &light);
+        if(state.continuityActive && state.pass.Active()) {
+            // Eligibility/cache checks above are native and current-frame.
+            // Protect the whole visible influence volume, not screen center.
+            const bool volumeVisible=fusionfix::shadows::ShadowVolumeMayReachView(state.view,
+                {light.mPosition.x,light.mPosition.y,light.mPosition.z},light.mRadius);
+            const bool relevant=std::isfinite(geometry.distanceSquared) && geometry.distanceSquared<=reach*reach &&
+                (volumeVisible || kind==budget::Kind::PlayerBeam);
+            state.nativeCandidates[index]=state.continuity.Observe(
+                {key,kind==budget::Kind::Lamp?LampGeometry(light):0},flags,relevant,kind==budget::Kind::PlayerBeam);
+            // Record why a prior choice loses its claim, independently of
+            // whether native sorting eventually drops it. Bounded to 7/pass.
+            for(const auto& old:state.previousSelection) if(old.key==key) {
+                const bool sameGeneration=old.generation==(kind==budget::Kind::Lamp?LampGeometry(light):0);
+                ShadowTrace34::Emit({7,state.frame,GetTickCount(),key,relevant?1:0,sameGeneration?1:0,
+                    static_cast<int>(flags | (volumeVisible?0x10000u:0)),static_cast<int>(state.nativeCandidates[index].claim),
+                    viewWeight,geometry.distanceSquared,reach,light.mRadius});
+                break;
+            }
+        }
         if (!state.pass.Active()) { ++fallbackPasses; ++rejectedPassReasons[state.pass.FailureCode() & 7]; }
     }
+
+    static void CompareNativeCandidates(SafetyHookContext& regs) noexcept
+    {
+        const FloatingPointState fp;
+        if(!Enabled() || state.depth!=1 || !state.pass.Active() || !state.continuityActive) return;
+        // The eighth insertion cell is native scratch; only the first seven
+        // feed the dynamic pass. Do not read its uninitialized flags/index.
+        if(regs.esi>=7*4 || (regs.esi&3u)) return;
+        if(!state.stackAnchor || regs.esp!=state.stackAnchor) {++continuityRejected;return;}
+        const auto challenger=*reinterpret_cast<const int32_t*>(regs.esp+0x24);
+        const auto incumbent=*reinterpret_cast<const int32_t*>(regs.esp+0x7C+regs.esi);
+        const auto count=CurrentCount();
+        if(challenger<0 || incumbent<0) return; // Native inserts into empty cells.
+        if(count>state.nativeCandidates.size() || static_cast<uint32_t>(challenger)>=count ||
+           static_cast<uint32_t>(incumbent)>=count) {++continuityRejected;return;}
+        const auto& a=state.nativeCandidates[challenger];
+        const auto& b=state.nativeCandidates[incumbent];
+        if(!a.observed || !b.observed || a.flags!=regs.edi ||
+           b.flags!=*reinterpret_cast<const uint32_t*>(regs.esp+0x9C+regs.esi)) {++continuityRejected;return;}
+        ++continuityComparisons;
+        const int original=static_cast<int>(regs.eax);
+        const int result=fusionfix::shadows::NativeShadowContinuity42::Compare(original,a,b);
+        if(result!=original) {
+            regs.eax=static_cast<uint32_t>(result); ++continuityOverrides;
+            // Decisions only, not render completion. No allocations/file I/O.
+            if(!state.tracedComparison) {
+                const auto* lights=CurrentLights();
+                ShadowTrace34::Emit({6,state.frame,GetTickCount(),static_cast<uint32_t>(lights[challenger].mCastShadows),
+                    original,result,static_cast<int>(lights[incumbent].mCastShadows),static_cast<int>(regs.esi/4),
+                    static_cast<float>(a.claim),static_cast<float>(b.claim),a.ownBeam?1.0f:0.0f,b.ownBeam?1.0f:0.0f});
+                state.tracedComparison=true;
+            }
+        }
+    }
+
+#include "ShadowCacheDependenciesRuntime44.inl"
 
     static void Finalize(SafetyHookContext& regs) noexcept
     {
@@ -307,7 +419,8 @@ namespace PlayerShadowAllocation
         // Switching to publication requires a new explicitly selected launch.
         std::array<int32_t, 7> observation{};
         if (!publicationEnabled) std::memcpy(observation.data(), indices, sizeof(observation));
-        if (state.pass.Commit(CurrentLights(), CurrentCount(), publicationEnabled ? indices : observation.data(), true))
+        if (state.pass.Commit(CurrentLights(), CurrentCount(), publicationEnabled ? indices : observation.data(), true,
+                              state.continuityActive))
         {
             const auto& traced=state.pass.LastSelection();
             for(unsigned slot=0;slot<7;++slot)
@@ -329,6 +442,13 @@ namespace PlayerShadowAllocation
                     }
                 }
                 state.previousSelection=selection.slots;
+                state.previousSelectionFrame=state.frame;
+                std::array<fusionfix::shadows::NativeShadowContinuity42::Identity,7> identities{};
+                for(unsigned i=0;i<7;++i) if(selection.validMask&(1u<<i))
+                    identities[i]={static_cast<uint32_t>(selection.slots[i].key),selection.slots[i].generation};
+                state.continuity.Commit(identities);
+                for(const auto& slot:selection.slots) if(slot.key && slot.kind==budget::Kind::Lamp)
+                    state.lampContinuity.Selected(slot.key,slot.generation);
             }
             else ++observedPasses;
         }
@@ -380,17 +500,23 @@ namespace PlayerShadowAllocation
             Finalize, safetyhook::MidHook::StartDisabled);
         auto lampDistance = safetyhook::MidHook::create(gameBase + allocation::LampDistanceRva,
             AdjustLampDistance, safetyhook::MidHook::StartDisabled);
-        if (!begin || !collect || !finish || !lampDistance)
+        auto compare = safetyhook::MidHook::create(gameBase + allocation::CompareResultRva,
+            CompareNativeCandidates, safetyhook::MidHook::StartDisabled);
+        auto cacheResult = safetyhook::MidHook::create(gameBase + allocation::CacheResultRva,
+            ProtectCacheDependencies, safetyhook::MidHook::StartDisabled);
+        if (!begin || !collect || !finish || !lampDistance || !compare || !cacheResult)
         {
             installStatus = std::string("hook_creation_failed begin=") + (begin ? "1" : "0") +
-                " collect=" + (collect ? "1" : "0") + " finish=" + (finish ? "1" : "0");
+                " collect=" + (collect ? "1" : "0") + " finish=" + (finish ? "1" : "0") + " compare=" + (compare ? "1" : "0") + " cache=" + (cacheResult ? "1" : "0");
             return false;
         }
         selectionHook = std::move(*begin);
         collectHook = std::move(*collect);
         finalizeHook = std::move(*finish);
         lampDistanceHook = std::move(*lampDistance);
-        if (!lampDistanceHook.enable() || !collectHook.enable() || !finalizeHook.enable() || !selectionHook.enable())
+        compareResultHook = std::move(*compare);
+        cacheResultHook = std::move(*cacheResult);
+        if (!cacheResultHook.enable() || !compareResultHook.enable() || !lampDistanceHook.enable() || !collectHook.enable() || !finalizeHook.enable() || !selectionHook.enable())
         {
             installStatus = "hook_enable_failed";
             // Leave any enabled trampolines owned and inert; freeing them while

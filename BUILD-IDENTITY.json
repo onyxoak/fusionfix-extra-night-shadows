@@ -1,9 +1,13 @@
 {
-  "version": "1.5",
+  "version": "1.6",
   "edition": "CE",
-  "candidate": 38,
-  "sourceArchive": "OnyxOak-Night-Shadows-CE-1.5-A1-source.zip",
-  "sourceArchiveSHA256": "6cf112fbb9ac99c2ce01524c324f144ef52844a2823b9d97d59197286886edd9",
-  "runtimeASI_SHA256": "46D58DDEBDC742FBF3BEBFB49EACDA8C12FD7E2C72F8B613C10D5D1F6012DB4E",
-  "attributionRevision": "A1"
+  "candidate": 44,
+  "asiSHA256": "979E26B12448582390E9EC69244A408A09C28C2D9A3BB06612B5CFECD8C66757",
+  "modAuthor": "OnyxOak",
+  "officialDownload": "https://www.nexusmods.com/gta4/mods/1459",
+  "upstream": "FusionFix 5.0.1 by ThirteenAG and contributors",
+  "legacyUpdated": false,
+  "visualValidation": "User approved after reporting major stability improvement and no further dropouts in current test",
+  "remaining": "Late shadow appearance and finite shadow budget; further refinement planned",
+  "binary": "Exact tested CE44 binary, unmodified"
 }

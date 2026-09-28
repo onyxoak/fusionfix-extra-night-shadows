@@ -6,7 +6,7 @@ Created and maintained by **OnyxOak**, with Codex-assisted development. An unoff
 
 ## Browse the actual source
 
-This branch contains the **released CE 1.5 source snapshot**, imported from its published matching-source ZIP. Start in **[source/](source)**; you do not need to download a ZIP to read the implementation.
+This branch contains the **released CE 1.6 source snapshot**, imported from its published matching-source ZIP. Start in **[source/](source)**; you do not need to download a ZIP to read the implementation.
 
 - [CE 1.5 source snapshot](https://github.com/onyxoak/fusionfix-extra-night-shadows/tree/source-ce-1.5/source)
 - [CE 1.6 source snapshot](https://github.com/onyxoak/fusionfix-extra-night-shadows/tree/source-ce-1.6/source)
