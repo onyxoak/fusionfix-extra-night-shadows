@@ -1,0 +1,1 @@
+Test sources retain local include paths from the development workspace. Adapt those paths to the included fusionfix-source directory when reproducing checks. Build production source with its included premake configuration.

@@ -1,6 +1,9 @@
 {
-  "version": "1.4",
-  "build": 25,
-  "asi_sha256": "a6a225908cec795adeb085e20696ef52a84bb4bbe7a2a7959db2d8de398d7abe",
-  "installer": false
+  "version": "1.5",
+  "edition": "CE",
+  "candidate": 38,
+  "sourceArchive": "OnyxOak-Night-Shadows-CE-1.5-A1-source.zip",
+  "sourceArchiveSHA256": "6cf112fbb9ac99c2ce01524c324f144ef52844a2823b9d97d59197286886edd9",
+  "runtimeASI_SHA256": "46D58DDEBDC742FBF3BEBFB49EACDA8C12FD7E2C72F8B613C10D5D1F6012DB4E",
+  "attributionRevision": "A1"
 }

@@ -1,37 +1,43 @@
 # Extra Night Shadows Fix and Better Headlights
 
-## Created and maintained by OnyxOak
+Created and maintained by **OnyxOak**, with Codex-assisted development. An unofficial modification of **FusionFix by ThirteenAG and contributors**. Upstream copyright, GPL-3.0 and dependency notices remain applicable.
 
-An unofficial GTA IV lighting and shadow modification of **FusionFix by ThirteenAG and its contributors**. OnyxOak leads the project's design, integration, visual testing, refinement and releases, with OpenAI Codex coding assistance. This modification is not an official FusionFix release.
+**[Downloads and support on Nexus](https://www.nexusmods.com/gta4/mods/1459)** ∑ **[GitHub releases](https://github.com/onyxoak/fusionfix-extra-night-shadows/releases)**
 
-**[Official downloads, installation instructions and support on Nexus Mods](https://www.nexusmods.com/gta4/mods/1459)**
+## Browse the actual source
 
-**[Authorship, upstream credits and information for articles/mirrors](ATTRIBUTION.md)**
+This branch contains the **released CE 1.5 source snapshot**, imported from its published matching-source ZIP. Start in **[source/](source)**; you do not need to download a ZIP to read the implementation.
 
-### Choose your edition
+- [CE 1.5 source snapshot](https://github.com/onyxoak/fusionfix-extra-night-shadows/tree/source-ce-1.5/source)
+- [CE 1.6 source snapshot](https://github.com/onyxoak/fusionfix-extra-night-shadows/tree/source-ce-1.6/source)
+- [Changes from 1.5 to 1.6](https://github.com/onyxoak/fusionfix-extra-night-shadows/compare/source-ce-1.5...source-ce-1.6)
+- [Source provenance and file hashes](SOURCE-MANIFEST.json) ∑ [Build guidance](BUILD.md) ∑ [Release notes](RELEASE-NOTES.md)
 
-| Download | Game | Prerequisites |
-|---|---|---|
-| CE 1.5 | Complete Edition 1.2.0.59 | FusionFix 5.0.1 and its ASI loader |
-| Legacy 1.1 | GTA IV 1.0.8.0 | FusionFix 5.0.1, ASI loader and Legacy Addon |
+| Area | Start here |
+|---|---|
+| Headlight submission and integration | [nightshadows.ixx](source/nightshadows.ixx) |
+| Selection and native integration | [ShadowAllocationRuntime.inl](source/ShadowAllocationRuntime.inl) |
+| Nearby vehicle receivers on foot | [NearbyVehicleReceivers36.hpp](source/NearbyVehicleReceivers36.hpp) |
+| Headlight brightness after exit | [HeadlightEnhancementRuntime.inl](source/HeadlightEnhancementRuntime.inl) |
+| Shadow map ownership validation | [ShadowLookupValidation.hpp](source/ShadowLookupValidation.hpp) |
+| Reach settings | [ShadowReach.hpp](source/ShadowReach.hpp) |
 
-Use only the package matching your executable. The two ASIs are not interchangeable. Follow the README included in your chosen download; installation requires both the ASI/menu files and the documented configuration changes. The current public downloads are manual packages.
+## What it adds
 
-### What this modification adds
+Expanded headlight-shadow interactions for Niko and nearby vehicles, recently driven vehicle relevance, retained headlight brightness after exiting, separate reach controls, and safeguards for shadow selection and cache ownership. CE 1.6 adds the latest gameplay-camera, light-volume retention, native continuity and cache-dependency protections. See the version-specific source and release notes; not every function or experimental path is active in every configuration.
 
-- More complete interactions between vehicle, pedestrian, streetlamp and headlight shadows within the engine's existing shadow budget.
-- Protected native lamp choices and cache relationships, replacing the earlier approach that displaced lamp selections.
-- Nearby visible vehicles can qualify for headlight shadows while Niko is on foot, without requiring him to stand directly in the beam.
-- Player-car relevance and headlight identity/cache safeguards.
-- Headlight brightness retention after leaving your car; normal NPC headlight brightness is unchanged.
-- Separate headlight and lamppost reach controls, up to 200 feet plus Original. These influence selection, not physical beam length or guaranteed shadow distance.
+The fixed shadow budget remains. Some shadows can appear late or be unavailable in crowded scenes. This is not ray tracing, extra shadow slots, or a guarantee of a shadow under every vehicle. Performance varies; no matched performance benchmark is claimed.
 
-CE enables an additional bounded camera-based lamp preference before native cache decisions. The recommended legacy configuration leaves that preference off, preserving native lamp selection. Some pop-in and scene-dependent switching can remain; this does not add shadow slots, ray tracing or a true per-shadow fade.
+## Choose your edition
 
-### Credits and source
+CE 1.6 targets Complete Edition 1.2.0.59 with FusionFix 5.0.1, its ASI loader and DXVK/Vulkan. Native DirectX is not a supported configuration for this release. Legacy 1.1 targets GTA IV 1.0.8.0 and also needs the Legacy Addon; its separate runtime and source remain in the release downloads. This default source tree is CE, not the legacy adapter.
 
-**Mod project: OnyxOak. Upstream FusionFix: ThirteenAG and contributors.** Existing upstream copyright and dependency notices remain applicable. GPL-3.0 licensing is retained; see [ATTRIBUTION.md](ATTRIBUTION.md).
+Follow your package README for ASI/menu installation and required INI/CFG entries. Keep backups. The two editions' ASIs are not interchangeable.
 
-Matching source is provided with the project's [source releases](https://github.com/onyxoak/fusionfix-extra-night-shadows/releases). In particular, [CE 1.5 source](https://github.com/onyxoak/fusionfix-extra-night-shadows/releases/tag/v1.5) corresponds to that gameplay release. Do not assume the default branch's historical code is identical to every edition or downloadable build; use the matching release source and build identity.
+## Credits and screenshots
 
-For coverage, please credit **‚ÄúExtra Night Shadows Fix and Better Headlights by OnyxOak, an unofficial modification of FusionFix by ThirteenAG and contributors.‚Äù** Linking readers to the official Nexus page helps avoid stale third-party downloads. This is a request, not an additional restriction on GPL-compliant redistribution.
+[OnyxOak attribution and upstream credits](ATTRIBUTION.md) ∑ [GPL-3.0](LICENSE-FusionFix.txt)
+
+Showcase captures may include additional vehicle, reflection and graphics mods that are not included. This mod changes nighttime shadows and headlight behavior. Showcase scenes are not automatically matched before-and-after comparisons.
+
+Please credit ìExtra Night Shadows Fix and Better Headlights by OnyxOak, an unofficial modification of FusionFix by ThirteenAG and contributors.î This request adds no restriction to GPL-compliant reuse.
