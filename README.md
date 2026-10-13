@@ -1,3 +1,15 @@
+# Liberty's Shadows — current release 2.0
+
+**Playable mod and installation:** [Nexus Mods](https://www.nexusmods.com/gta4/mods/1459). The 2.0 package is for the stated Windows/Complete Edition/FusionFix setup; the separate GTA IV 1.0.8.0 Legacy download remains separate.
+
+**Free matching 2.0 source:** [GitHub source release](https://github.com/onyxoak/fusionfix-extra-night-shadows/releases/tag/v2.0) — download the attached `Libertys-Shadows-2.0-source.zip`, including the ASI and shader source/build recipes. No charge, no developer launcher required. This GitHub release contains source only; players should use the Nexus runtime download.
+
+**Older Complete Edition versions:** [release archive](https://github.com/onyxoak/fusionfix-extra-night-shadows/releases). Versions 1.6–1.9 retain their original runtime/source archives and notices.
+
+The source tree and documents below preserve earlier release history. They are not the current 2.0 installation instructions. GitHub's automatic source snapshots are not a substitute for the matching source ZIP linked above.
+
+---
+
 # Extra Night Shadows Fix and Better Headlights
 
 Created and maintained by **OnyxOak**, with Codex-assisted development. An unofficial modification of **FusionFix by ThirteenAG and contributors**. Upstream copyright, GPL-3.0 and dependency notices remain applicable.
