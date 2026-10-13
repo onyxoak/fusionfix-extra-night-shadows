@@ -1,10 +1,10 @@
-# Liberty's Shadows — current release 2.0
+# Liberty's Shadows ” current release 2.0
 
 **Playable mod and installation:** [Nexus Mods](https://www.nexusmods.com/gta4/mods/1459). The 2.0 package is for the stated Windows/Complete Edition/FusionFix setup; the separate GTA IV 1.0.8.0 Legacy download remains separate.
 
-**Free matching 2.0 source:** [GitHub source release](https://github.com/onyxoak/fusionfix-extra-night-shadows/releases/tag/v2.0) — download the attached `Libertys-Shadows-2.0-source.zip`, including the ASI and shader source/build recipes. No charge, no developer launcher required. This GitHub release contains source only; players should use the Nexus runtime download.
+**Free matching 2.0 source:** [GitHub source release](https://github.com/onyxoak/fusionfix-extra-night-shadows/releases/tag/v2.0) â€” download the attached `Libertys-Shadows-2.0-source.zip`, including the ASI and shader source/build recipes. No charge, no developer launcher required. This GitHub release contains source only; players should use the Nexus runtime download.
 
-**Older Complete Edition versions:** [release archive](https://github.com/onyxoak/fusionfix-extra-night-shadows/releases). Versions 1.6–1.9 retain their original runtime/source archives and notices.
+**Older Complete Edition versions:** [release archive](https://github.com/onyxoak/fusionfix-extra-night-shadows/releases). Versions 1.6â€“1.9 retain their original runtime/source archives and notices.
 
 The source tree and documents below preserve earlier release history. They are not the current 2.0 installation instructions. GitHub's automatic source snapshots are not a substitute for the matching source ZIP linked above.
 
@@ -14,7 +14,7 @@ The source tree and documents below preserve earlier release history. They are n
 
 Created and maintained by **OnyxOak**, with Codex-assisted development. An unofficial modification of **FusionFix by ThirteenAG and contributors**. Upstream copyright, GPL-3.0 and dependency notices remain applicable.
 
-**[Downloads and support on Nexus](https://www.nexusmods.com/gta4/mods/1459)** � **[GitHub releases](https://github.com/onyxoak/fusionfix-extra-night-shadows/releases)**
+**[Downloads and support on Nexus](https://www.nexusmods.com/gta4/mods/1459)** · **[GitHub releases](https://github.com/onyxoak/fusionfix-extra-night-shadows/releases)**
 
 ## Browse the actual source
 
@@ -23,7 +23,7 @@ This branch contains the **released CE 1.6 source snapshot**, imported from its 
 - [CE 1.5 source snapshot](https://github.com/onyxoak/fusionfix-extra-night-shadows/tree/source-ce-1.5/source)
 - [CE 1.6 source snapshot](https://github.com/onyxoak/fusionfix-extra-night-shadows/tree/source-ce-1.6/source)
 - [Changes from 1.5 to 1.6](https://github.com/onyxoak/fusionfix-extra-night-shadows/compare/source-ce-1.5...source-ce-1.6)
-- [Source provenance and file hashes](SOURCE-MANIFEST.json) � [Build guidance](BUILD.md) � [Release notes](RELEASE-NOTES.md)
+- [Source provenance and file hashes](SOURCE-MANIFEST.json) · [Build guidance](BUILD.md) · [Release notes](RELEASE-NOTES.md)
 
 | Area | Start here |
 |---|---|
@@ -48,8 +48,8 @@ Follow your package README for ASI/menu installation and required INI/CFG entrie
 
 ## Credits and screenshots
 
-[OnyxOak attribution and upstream credits](ATTRIBUTION.md) � [GPL-3.0](LICENSE-FusionFix.txt)
+[OnyxOak attribution and upstream credits](ATTRIBUTION.md) · [GPL-3.0](LICENSE-FusionFix.txt)
 
 Showcase captures may include additional vehicle, reflection and graphics mods that are not included. This mod changes nighttime shadows and headlight behavior. Showcase scenes are not automatically matched before-and-after comparisons.
 
-Please credit �Extra Night Shadows Fix and Better Headlights by OnyxOak, an unofficial modification of FusionFix by ThirteenAG and contributors.� This request adds no restriction to GPL-compliant reuse.
+Please credit “Extra Night Shadows Fix and Better Headlights by OnyxOak, an unofficial modification of FusionFix by ThirteenAG and contributors.” This request adds no restriction to GPL-compliant reuse.
