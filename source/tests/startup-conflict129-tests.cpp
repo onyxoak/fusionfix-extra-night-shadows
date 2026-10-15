@@ -55,7 +55,7 @@ alignas(64) uint8_t keyStorage[64]{};
 struct Registry {bool Configure(uint32_t){return true;}} lampRegistry;
 #include "startup129-prepare.inc"
 std::string Read(const std::filesystem::path& path){std::ifstream f(path);return {std::istreambuf_iterator<char>(f),{}};}
-void Reset(){startupMismatch129={};startupAdviceEvidence210={};startupFailureAttempt129.clear();freeObserver={};dualPre={};dualPost={};singlePre={};}
+void Reset(){startupDetails213.clear();startupMismatch129={};startupAdviceEvidence210={};startupFailureAttempt129.clear();freeObserver={};dualPre={};dualPost={};singlePre={};}
 int Run(){
  const auto folder=std::filesystem::current_path()/"startup129-output";
  assert(!std::filesystem::exists(folder));std::filesystem::create_directory(folder);
@@ -144,6 +144,11 @@ int Run(){
  RecordVolumetric210(startup_guidance210::Volume::Accepted,volumeHash210);
  RequireNativeRange129(normalized,0x63f5e0,8,"dual_native_producer_modified");
  assert(!std::filesystem::exists(quietPath210));
+ Reset();const auto details213=folder/"details213.log";log=std::make_unique<SupportLog>(details213,0);
+ RecordStartupExtra213("fusionfix_version=5.1.0 callback_module=OtherLighting.asi");
+ startupMismatch129={true,0x6bcc50,1,{0xff},{0xe9}};StartupFailure129("headlight_guard_failed");
+ const auto detailText213=Read(details213);assert(detailText213.find("fusionfix_version=5.1.0")!=std::string::npos&&detailText213.find("normalized_game_rva=006BCC50")!=std::string::npos&&detailText213.find("OtherLighting.asi")!=std::string::npos);
+ StartupFailure129("headlight_guard_failed");assert(Read(details213)==detailText213);
  std::cout<<"PASS210 exact VL error codes; fatal help with Logging0; disable-ASI-and-INI instructions; accepted and unknown-owner separation; fixed-format hash only; quiet success and one fatal report\n";
  std::cout<<"PASS actual GuardedImage511 normalization and full producer/free guards; first/last-byte mismatch before throw; quiet success no IO; one bounded fatal report; unsafe fields omitted; failure IO contained; FP and LastError preserved\n";
  return 0;

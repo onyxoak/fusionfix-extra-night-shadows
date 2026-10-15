@@ -119,18 +119,23 @@ void PrepareHooks() {
   Require(!memcmp(bytes.data(),original->bytes.data()+rva,size),"projection66_native_body_guard_failed");
  }
  std::vector<uint8_t> callback;
- const bool known511=!nativeBackend&&layout==&Layout511&&shortlist_helper48::runtime::binding.exact511Authenticated;
- if(known511){
+ const auto* copyProfile213=(!nativeBackend&&layout)?copy_versions213::Find(layout->version):nullptr;
+ const bool knownVersion213=copyProfile213&&fusionModule213Authenticated;
+ if(knownVersion213){
   const auto raw=pe::Read(pe::ModulePath(reinterpret_cast<HMODULE>(ff)));
-  Require(pe::Hash(raw)==Layout511.hash,"copy70_FusionFix_identity_changed");
+  Require(pe::Hash(raw)==layout->hash,"copy70_FusionFix_identity_changed");
   const pe::Image expected(raw,ff);
-  callback.assign(expected.bytes.begin()+native_copy70::CallbackRva,
-   expected.bytes.begin()+native_copy70::CallbackRva+native_copy70::CallbackSize);
+  callback.assign(expected.bytes.begin()+copyProfile213->callback,
+   expected.bytes.begin()+copyProfile213->callback+copyProfile213->size);
  }
- const auto copyEvidence=VolumetricCompat199::authenticated?native_copy70::Evidence{VolumetricCompat199::copyChain.fusionFix,0,0}:native_copy70::Verify(uint32_t(game),uint32_t(ff),known511,
+ const auto copyEvidence=VolumetricCompat199::authenticated?native_copy70::Evidence{VolumetricCompat199::copyChain.fusionFix,0,0}:native_copy70::Verify(uint32_t(game),uint32_t(ff),knownVersion213,
   std::span<const uint8_t>(original->bytes.data()+native_copy70::CopyRva,native_copy70::CopySize),callback,
-  [](uint32_t address,size_t size){return ReadMemory(address,size);});
- registry.snowMetadata70=known511&&copyEvidence.fusionFixOverlay;
+  [](uint32_t address,size_t size){return ReadMemory(address,size);},
+  copyProfile213?copyProfile213->callback:native_copy70::CallbackRva,
+  copyProfile213?copyProfile213->allocation:native_copy70::AllocationRva,
+  copyProfile213?copyProfile213->size:native_copy70::CallbackSize,
+  copyProfile213?copyProfile213->slot:0x57,copyProfile213?copyProfile213->invoke:0x70);
+ registry.snowMetadata70=knownVersion213&&copyEvidence.fusionFixOverlay;
  registry.volumetricMetadata199=VolumetricCompat199::authenticated;
  Event(1,"PROJECTION_COPY70_AUTHENTICATED","fusionfix_overlay="+std::to_string(copyEvidence.fusionFixOverlay)+
   " scratch_copy_bytes=120 native_bank_callback_preserved=1 duplicate_callback=0");

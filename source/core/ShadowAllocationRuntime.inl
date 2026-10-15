@@ -13,6 +13,8 @@
 #include "SceneShadowPriority21.hpp"
 #include "SceneScoreContinuity96.hpp"
 #include "VisibleReceiverRanking133.hpp"
+#include "InteriorScenePriority211.hpp"
+#include "IndoorBubble212.hpp"
 #include "ShadowKeyMultiplicity27.hpp"
 #include "ShadowSelectionLoss38.hpp"
 #include "DeferredModelShortlist48.hpp"
@@ -75,6 +77,8 @@ namespace PlayerShadowAllocation
     static bool additionalFeatures = false;
     static float signalShadowPriority = 1.5f;
     static float scenePriorityStrength = 1.5f,scenePriorityReleaseMs = 450.f;
+    static bool indoorBubble212=false;
+    static bool interiorPriority211=false; // Startup-only, default OFF.
     static bool visibleReceiverExperiment133=false; // Startup-only default-OFF.
     static bool (*visibleReceiverSource133)(const rage::CLightSource&,unsigned,rage::CLightSource*,uint32_t,uint32_t) noexcept=nullptr;
     static std::string installStatus = "not_requested"; // Init-only; diagnostics reads after ready publication.
@@ -677,6 +681,17 @@ namespace PlayerShadowAllocation
                     subjectDistance,light.mRadius,light.mIntensity,{light.mColor.x,light.mColor.y,light.mColor.z},viewWeight,volumeVisible,
                     fusionfix::shadows::SceneryReceiverFactor163(state.view,source,direction,light.mRadius,uint32_t(light.mType)));
                 }
+                // Apply after serial/worker math alike. Only a current fully
+                // authenticated non-vehicle interior source can gain rank.
+                if(fusionfix::shadows::InteriorQualified211(indoorBubble212,state.occupiedCar!=0,
+                   sourceSupported133,light.mInteriorIndex,light.mRoomIndex,light.mFlags))
+                    consequence=indoor212::Rank(consequence,state.view,state.player,source,direction,
+                        light.mRadius,light.mIntensity,{light.mColor.x,light.mColor.y,light.mColor.z},uint32_t(light.mType));
+                else if(fusionfix::shadows::InteriorQualified211(interiorPriority211,state.occupiedCar!=0,
+                   sourceSupported133,light.mInteriorIndex,light.mRoomIndex,light.mFlags))
+                    consequence=fusionfix::shadows::InteriorScenePriority211(consequence,state.view,
+                        source,light.mRadius,light.mIntensity,
+                        {light.mColor.x,light.mColor.y,light.mColor.z},scenePriorityStrength);
                 if(consequence.valid){
                     const float importance=1.f+std::min(4.f,consequence.consequence);
                     // Retention remains one scalar per candidate. No historical

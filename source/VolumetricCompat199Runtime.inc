@@ -21,15 +21,16 @@ void AuthenticateAndNormalize(std::vector<uint8_t>& image){
  volumetric199::Node volume{base+volumetric199::Callback,base+volumetric199::Allocation,{callback,volumetric199::CallbackSize}};
  std::vector<uint8_t> fusionBytes;volumetric199::Node fusion;
  if(!nativeBackend){
-  Require(layout==&Layout511&&shortlist_helper48::runtime::binding.exact511Authenticated,"volumetric199_unsupported_fusionfix");
+  const auto* profile=layout?copy_versions213::Find(layout->version):nullptr;
+  Require(profile&&fusionModule213Authenticated,"volumetric199_unsupported_fusionfix");
   const auto ffRaw=pe::Read(pe::ModulePath(reinterpret_cast<HMODULE>(ff)));
-  Require(pe::Hash(ffRaw)==Layout511.hash,"volumetric199_fusionfix_identity_changed");
+  Require(pe::Hash(ffRaw)==layout->hash,"volumetric199_fusionfix_identity_changed");
   const pe::Image ffExpected(ffRaw,ff);
-  fusionBytes.assign(ffExpected.bytes.begin()+native_copy70::CallbackRva,ffExpected.bytes.begin()+native_copy70::CallbackRva+native_copy70::CallbackSize);
-  Require(fusionBytes[0x57]==0xa1&&U32(fusionBytes.data()+0x58)==ff+native_copy70::AllocationRva,"volumetric199_fusionfix_copy_slot");
+  fusionBytes.assign(ffExpected.bytes.begin()+profile->callback,ffExpected.bytes.begin()+profile->callback+profile->size);
+  Require(fusionBytes[profile->slot]==0xa1&&U32(fusionBytes.data()+profile->slot+1)==ff+profile->allocation,"volumetric199_fusionfix_copy_slot");
   constexpr uint8_t ffInvoke[]{0xff,0x75,0x08,0x8b,0xd6,0x8b,0xcf,0xff,0xd0,0x8b,0xf8};
-  Require(!memcmp(fusionBytes.data()+0x70,ffInvoke,sizeof(ffInvoke)),"volumetric199_fusionfix_copy_abi");
-  fusion={uint32_t(ff)+native_copy70::CallbackRva,uint32_t(ff)+native_copy70::AllocationRva,fusionBytes};
+  Require(!memcmp(fusionBytes.data()+profile->invoke,ffInvoke,sizeof(ffInvoke)),"volumetric199_fusionfix_copy_abi");
+  fusion={uint32_t(ff)+profile->callback,uint32_t(ff)+profile->allocation,fusionBytes};
  }
  copyChain=volumetric199::VerifyChain(uint32_t(game),
   {original->bytes.data()+native_copy70::CopyRva,native_copy70::CopySize},volume,nativeBackend?nullptr:&fusion,

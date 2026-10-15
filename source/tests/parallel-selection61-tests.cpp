@@ -27,8 +27,12 @@ HANDLE CreateWorker61(LPTHREAD_START_ROUTINE function,void*context){++createCall
 #define CE_PARALLEL_WORKER_AFTER61 AfterWorker61
 #define CE_PARALLEL_CREATE_THREAD61(function,context) CreateWorker61(function,context)
 #include "core/ParallelSelectionMath61.hpp"
+#include "core/InteriorScenePriority211.hpp"
+#include "core/IndoorBubble212.hpp"
+bool indoorBubble212=false;
+bool interiorPriority211=false;
 namespace m=fusionfix::shadows::parallel61;using fusionfix::shadows::Vec3;
-struct Light61 {Vec3 mPosition{},mDirection{},mColor{};float mRadius{},mIntensity{},mOuterConeAngle{};int mType{};};
+struct Light61 {Vec3 mPosition{},mDirection{},mColor{};float mRadius{},mIntensity{},mOuterConeAngle{};int mType{},mInteriorIndex{},mRoomIndex{};uint32_t mFlags{};};
 struct State61 {fusionfix::shadows::ShadowView view{};Vec3 player{},drivingFocus{};uintptr_t occupiedCar{};unsigned parallelPhases61=3;} state;
 bool parallelRequested61=false; std::atomic<m::Service*> parallelService61{nullptr};std::atomic<bool>unsupportedThread{false};float scenePriorityStrength=1.5f;
 bool(*labPointSource)(const Light61&)=nullptr;
@@ -61,9 +65,9 @@ float ViewCall61(const Light61&light,unsigned index,uint32_t key,uint32_t flags)
 #include "view-callsite61.inc"
  return viewWeight;
 }
-fusionfix::shadows::SceneReceiverConsequence44 SceneCall61(const Light61&light,unsigned index,uint32_t key,uint64_t generation,float viewWeight,bool volumeVisible){
+fusionfix::shadows::SceneReceiverConsequence44 SceneCall61(const Light61&light,unsigned index,uint32_t key,uint64_t generation,float viewWeight,bool volumeVisible,bool indoorSource211=false){
  const fusionfix::shadows::FloatingPointState preserve;const Vec3 source=light.mPosition,direction=light.mDirection;
- const bool visibleReceiverExperiment133=false,sourceSupported133=false;const float receiverBenefit133=0.f;
+ const bool visibleReceiverExperiment133=false,sourceSupported133=indoorSource211;const float receiverBenefit133=0.f;
 #include "scene-callsite61.inc"
  return consequence;
 }
@@ -180,8 +184,25 @@ int main(){
  auto failed=std::make_unique<m::Service>();createCalls61=0;failCreate61=2;assert(!failed->Start(2)&&failed->Workers()==0);failCreate61=0;assert(failed->Start(1)&&failed->Workers()==1);failed->Stop();
  auto transferred=std::make_unique<m::Service>();HANDLE startup=CreateThread(nullptr,0,Startup61,transferred.get(),0,nullptr);assert(startup);assert(WaitForSingleObject(startup,5000)==WAIT_OBJECT_0);CloseHandle(startup);
  {const fusionfix::shadows::FloatingPointState fp;const auto c=ParallelContext61();assert(transferred->Begin(c));assert(transferred->Record(c,ViewInput61(lights[0],0,2000,0)));assert(transferred->Dispatch());WaitReady61(*transferred,c,ViewInput61(lights[0],0,2000,0));}transferred->Stop();
- auto stable=std::make_unique<m::Service>();assert(stable->Start(1));{const fusionfix::shadows::FloatingPointState fp;auto c=ParallelContext61();assert(stable->BeginStable(c)==0);assert(stable->BeginStable(c)==0);assert(stable->BeginStable(c)==3);c.player.x+=1;assert(stable->BeginStable(c)==1);assert(stable->BeginStable(c)==1);assert(stable->BeginStable(c)==3);c.view.view[0][0]+=1;assert(stable->BeginStable(c)==2);assert(stable->BeginStable(c)==2);assert(stable->BeginStable(c)==3);}stable->Stop();CloseHandle(gate61);
- std::printf("PASS actual Collect callsites OFF/ON/ready/changed input,256 bit-exact outputs, two real workers, busy/overflow/nonowner/start failure and FP/LastError isolation; Service bytes=%zu. No timing/FPS or live integration claimed.\n",sizeof(m::Service));
+ auto stable=std::make_unique<m::Service>();assert(stable->Start(1));{const fusionfix::shadows::FloatingPointState fp;auto c=ParallelContext61();assert(stable->BeginStable(c)==0);assert(stable->BeginStable(c)==0);assert(stable->BeginStable(c)==3);c.player.x+=1;assert(stable->BeginStable(c)==1);assert(stable->BeginStable(c)==1);assert(stable->BeginStable(c)==3);c.view.view[0][0]+=1;assert(stable->BeginStable(c)==2);assert(stable->BeginStable(c)==2);assert(stable->BeginStable(c)==3);}stable->Stop();
+ // New indoor preference is applied once AFTER either real worker output or
+ // serial fallback; driving and unqualified inputs preserve inherited math.
+ state.occupiedCar=0;state.view={};state.view.valid=true;
+ for(unsigned i=0;i<4;++i)state.view.view[i][i]=1;
+ state.view.projection[0][0]=state.view.projection[1][1]=state.view.projection[2][2]=state.view.projection[2][3]=1;
+ Light61 room211{};room211.mPosition={0,0,4};room211.mColor={1,.2f,0};room211.mRadius=3;room211.mIntensity=20;room211.mInteriorIndex=19719;room211.mRoomIndex=1;room211.mFlags=0x6f;
+ parallelRequested61=false;interiorPriority211=false;
+ auto baseline211=SceneCall61(room211,2,711,9,3,true,true);
+ interiorPriority211=true;auto indoor211=SceneCall61(room211,2,711,9,3,true,true);assert(indoor211.score<baseline211.score);
+ EqualConsequence(baseline211,SceneCall61(room211,2,711,9,3,true,false));
+ room211.mInteriorIndex=0;EqualConsequence(baseline211,SceneCall61(room211,2,711,9,3,true,true));room211.mInteriorIndex=19719;
+ auto roomWorker211=std::make_unique<m::Service>();assert(roomWorker211->Start(1));parallelService61=roomWorker211.get();parallelRequested61=true;
+ {const fusionfix::shadows::FloatingPointState fp;auto c=ParallelContext61();assert(roomWorker211->Begin(c));
+  (void)ViewCall61(room211,2,711,room211.mFlags);EqualConsequence(indoor211,SceneCall61(room211,2,711,9,3,true,true));
+  assert(roomWorker211->Dispatch());WaitReady61(*roomWorker211,c,ViewInput61(room211,2,711,room211.mFlags));assert(roomWorker211->Begin(c));
+  const auto hits=roomWorker211->completedHits.load();EqualConsequence(indoor211,SceneCall61(room211,2,711,9,3,true,true));assert(roomWorker211->completedHits==hits+1);
+ }roomWorker211->Stop();parallelService61=nullptr;CloseHandle(gate61);
+ std::printf("PASS actual Collect callsites, original worker invariants and indoor qualification/serial/ready-worker parity. No timing/FPS or live integration claimed.\n");
  return 0;
 }
 

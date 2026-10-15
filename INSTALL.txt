@@ -1,87 +1,51 @@
-Liberty's Shadows 2.0.3
-By OnyxOak
+LIBERTY'S SHADOWS 2.0.4
 
-Dynamic shadows from headlights, taillights, traffic and emergency lights,
-storefronts and supported city fixtures. High is the full lighting experience.
+More of Liberty City's existing lights cast moving shadows across people,
+vehicles and the environment. High is the default. Low and Medium offer
+lighter lighting presets; Custom lets you tune individual features.
 
-INSTALL / UPDATE
-1. Close GTA IV. Back up the files you replace outside the game folder.
-2. Install the complete official FusionFix package for Complete Edition.
-3. Copy BOTH plugins and update from this ZIP beside the GTAIV.exe you launch.
-   Replace previous Liberty's Shadows files. Remove duplicate older copies of
-   OnyxOak.ExtraNightShadows.asi from other loader folders.
-4. Keep Shadow Quality and Night Shadows above Off in the Graphics menu.
-   Apply and confirm the game's Keep Settings prompt. Launch normally.
-5. Reapply this package after a later FusionFix install replaces its shaders.
+INSTALL OR UPDATE
+1. Close GTA IV. Back up your existing Liberty ASI and INI first.
+2. Extract this ZIP beside GTAIV.exe, merging plugins and update.
+3. Keep exactly one OnyxOak.ExtraNightShadows.asi. Remove any duplicate copy
+   from the game root if the new one is in plugins.
+4. Start the game. Keep stock Shadow Quality and Night Shadows enabled.
+   Preset/feature changes marked for restart need a full game restart.
 
-Tested: Complete Edition1.2.0.59, official FusionFix5.1.1, Vulkan/DXVK.
-Requires FusionFix and its ordinary ASI loader. SISCO, DLSS-IV, a trainer,
-ScriptHook, recording software and custom launchers are not required.
-No source files, PDBs or local test helpers are needed by players.
+The included INI starts on High. Replacing it resets existing custom tuning;
+copy your chosen values into the new documented INI if needed. See the included
+TUNING-GUIDE for Custom setup, ranges, defaults and individual feature switches.
+Choose Low or Medium before entering the world if performance is a concern.
 
-QUALITY / CUSTOM SETTINGS
-High is the default. For more performance, select Low or Medium in Graphics
-before loading into the world. Restart after quality or On/Off changes.
-Low: corrected headlights and streetlamp shadows.
-Medium: Low plus supported traffic-signal and emergency-light shadows.
-High: Medium plus dual headlights, taillights and expanded world lighting.
-High reach defaults: street250ft, headlights50ft; brightness remains unchanged.
-For individual options, set Preset=Custom in the INI and use the documented
-controls beneath it. Back up your customized INI before future updates.
-
-WHAT CHANGED
-- Reduced repeated shadow processing and validation work; retained the native
-  model-reference overflow protection from2.0.2.
-- Added compatibility with official VolumetricLights v2.00 while preserving
-  both mods' headlight/light-copy callbacks.
-- Added scenery-shadow transitions near the existing application distance
-  and brief retention for available static shadow maps.
-- Updated physical lamp-pole shadow handling using existing selected maps.
-- Corrected two identified low arcade light-source placements.
-- Clear startup troubleshooting now keeps the actual compatibility error and
-  explains safe disabling when an unsupported VolumetricLights setup is found.
-High remains default. Normal logging, recording and profiling are OFF.
-This is the exact candidate210 binary tested by OnyxOak, without a rebuild.
-
-OPTIONAL VOLUMETRICLIGHTS
-Official VolumetricLights v2.00 was tested running together with this build
-and official FusionFix5.1.1. It is optional and NOT included in this ZIP.
-https://github.com/RecklessGlue540/VolumetricLights/releases/tag/v2.00
-Install its complete official package if wanted, with backups. This supports
-that exact binary; unknown modified copies and other renderer hooks can still
-conflict. A Project Lights bundle may contain a different version: check it.
+COMPATIBILITY
+Uses the existing supported GTA IV Complete Edition and ASI-loader setup.
+Official FusionFix 5.1.1 is the established local test setup. This update also
+corrects version-specific adapters for official 5.0.1 and 5.1.0; actual modpack
+acceptance needs testing. Optional official VolumetricLights 2.00 is supported
+through an authenticated adapter. Unknown modified builds may be refused safely.
+FusionFix, VolumetricLights, DLSS and SISCO are not included in this archive.
 
 HAVING ISSUES?
-First check the launched folder and install BOTH package folders together.
-Read plugins/OnyxOak.ExtraNightShadows.log for a startup failure; it records
-fatal compatibility failures even when normal Logging=0.
-If the log rejects VolumetricLights, close GTA IV and move VolumetricLights.asi
-AND VolumetricLights.ini outside the entire GTA IV game folder, then restart.
-Moving the ASI from plugins to the game root does not disable it. If the log
-says VolumetricLights was accepted, a later check failed for another reason.
-Do not bypass protections. Send the full log, exact FusionFix/VolumetricLights
-versions and ASI lists from both the game root and plugins folders.
+Send the full fresh plugins/OnyxOak.ExtraNightShadows.log, the exact FusionFix
+version, and ASI filenames from both root and plugins. Startup failures write
+useful details even with routine Logging=0. If asked for a normal session log,
+set SUPPORT Logging=1, restart, reproduce, send the log, then return it to 0.
+The new log can identify an unknown headlight conflict; it does not automatically
+make every conflicting mod compatible. Back up files before changing your setup.
 
-NOTES
-Dense nighttime scenes remain demanding, especially on High. Optimization
-continues. Some pole models, abrupt map replacements/pop-in, light cutouts
-and other shadow artifacts can still need refinement. Fire-shadow coverage
-is unfinished. This update does not promise every compatibility or crash fix.
+If RESC10/out-of-video-memory occurs, include renderer (DX9 or Vulkan/DXVK),
+resolution, companion-mod versions, and whether the same spot fails after a
+fresh launch with Liberty's Shadows disabled. Mod Medium does not reduce the
+game's stock shadow resolution. A separate test one step lower in stock Shadow
+Quality/Night Shadows can help identify resource pressure. No memory-limit
+increase is required by this update, and this error is not claimed resolved.
 
-REPORT / ROLLBACK
-Use Nexus Bugs with one issue per ticket: versions, preset, other lighting
-mods, location/time/weather, exact steps and a screenshot or short clip.
-For performance reports include hardware, resolution and renderer.
-https://www.nexusmods.com/gta4/mods/1459?tab=bugs
-For detailed support only, set SUPPORT Logging=2 and restart, reproduce
-briefly, then restore Logging=0. Diagnostic runs do not represent clean FPS.
-To undo an update restore your backed-up ASI, INI and shaders together.
-Off in the menu alone does not restore stock FusionFix comparison shaders.
+KNOWN LIMITS
+Busy nighttime scenes remain demanding. Shadow maps are limited, so some
+transitions/pop-in remain. Individual lamp-pole shadows and fire shadows remain
+unfinished. This build passed 141 offline checks; those are not a guarantee for
+every modpack or long session. See CHANGELOG-2.0.4.txt.
 
-CREDITS
-OnyxOak: concept, direction, integration, visual testing and releases.
-Development assistance: OpenAI Codex. FusionFix: ThirteenAG and contributors.
-GPL and dependency licenses/notices are preserved in the license folder.
-Project: https://github.com/onyxoak/fusionfix-extra-night-shadows
-Unofficial mod, without official FusionFix endorsement. Photos may include
-separate vehicle or graphics mods not included here.
+ROLL BACK
+With GTA IV closed, restore your saved previous ASI and INI. Shader payloads
+are unchanged from 2.0.3. Attribution and license texts are included separately.

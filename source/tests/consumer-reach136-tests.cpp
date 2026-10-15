@@ -3,6 +3,7 @@
 #include <limits>
 #include <bit>
 #include "core/ConsumerReach136.hpp"
+#include "core/IndoorBubble212.hpp"
 using namespace consumer_shadow75;
 int main(){
  Sample s{};s.available=1;s.sizeGate=0;s.finite=true;s.reproduced=true;s.flags=69;s.type=0;
@@ -59,6 +60,23 @@ int main(){
  initialize();r.esp+=4;assert(!consumer_reach136::Gate(true,c,r,10,1,reinterpret_cast<uintptr_t>(&global),realRead,authorize,realWrite));assert(writes==0&&authorizes==0);
  initialize();nativeStack[0xe]=1;assert(!consumer_reach136::Gate(true,c,r,10,1,reinterpret_cast<uintptr_t>(&global),realRead,authorize,realWrite));assert(writes==0&&authorizes==0);
  initialize();assert(!consumer_reach136::Gate(false,c,r,10,1,reinterpret_cast<uintptr_t>(&global),realRead,authorize,realWrite));assert(reads==0&&writes==0&&authorizes==0);
+ // Actual gate decoder: a selected tiny indoor light at20ft can pass even
+ // when the ordinary1.30 shoulder rejects. No missing-map/owner bypass.
+ nativePacket.words[26]=19719;nativePacket.words[27]=1;
+ auto initialize212=[&]{initialize();float distance=6.096f,radius=.1f;
+  std::memcpy(nativeCamera.data()+0x70,&distance,4);std::memcpy(nativeStack.data()+0x14,&radius,4);
+  r.ratio=radius/distance;};
+ auto inside212=[](const Packet&,uint32_t)noexcept{return 1.f;};
+ initialize212();assert(!consumer_reach136::Gate(true,c,r,10,1,reinterpret_cast<uintptr_t>(&global),realRead,authorize,realWrite));assert(writes==0);
+ initialize212();assert(indoor212::Gate(c,r,10,1,reinterpret_cast<uintptr_t>(&global),realRead,authorize,inside212,realWrite)&&writes==1);
+ initialize212();nativeStack[0xd]=0;assert(!indoor212::Gate(c,r,10,1,reinterpret_cast<uintptr_t>(&global),realRead,authorize,inside212,realWrite)&&writes==0);
+ initialize212();assert(!indoor212::Gate(c,r,10,1,reinterpret_cast<uintptr_t>(&global),realRead,denied,inside212,realWrite)&&writes==0);
+ initialize212();assert(!indoor212::Gate(c,r,10,1,reinterpret_cast<uintptr_t>(&global),realRead,mutate,inside212,realWrite)&&writes==0);nativePacket.words[18]=69;
+ initialize212();int insideCalls212=0;auto exit212=[&](const Packet&,uint32_t)noexcept{return ++insideCalls212==1?1.f:-1.f;};
+ assert(!indoor212::Gate(c,r,10,1,reinterpret_cast<uintptr_t>(&global),realRead,authorize,exit212,realWrite)&&writes==0);
+ initialize212();auto nan212=[](const Packet&,uint32_t)noexcept{return std::numeric_limits<float>::quiet_NaN();};
+ assert(!indoor212::Gate(c,r,10,1,reinterpret_cast<uintptr_t>(&global),realRead,authorize,nan212,realWrite)&&writes==0);
+
 }
 
 

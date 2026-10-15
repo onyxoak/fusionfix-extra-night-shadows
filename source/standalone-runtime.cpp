@@ -1,3 +1,6 @@
+#include "FusionHooks213.hpp"
+#include "CopyVersions213.hpp"
+#include "HeadlightFailure213.hpp"
 // OnyxOak Extra Night Shadows Fix standalone CE adapter. GPL-3.0.
 // Private candidate: guarded native backend or exact-hash official FusionFix adapters.
 // Live compatibility and visual coverage require separate runtime validation.
@@ -37,7 +40,7 @@ namespace preset117 { ReadResult startup;State applied;bool backendLimited{},veh
 namespace standalone {
 using namespace onyxoak;
 using pe::U32;
-constexpr char CandidateBuild32[]="candidate210";
+constexpr char CandidateBuild32[]="candidate213";
 HMODULE self{};
 uintptr_t game{},ff{},loop{};
 uint8_t *pauseUser{},*pauseScript{};
@@ -85,6 +88,9 @@ constexpr FFLayout Layout51{"5.1.0",FFHash,0x18af0,0xa7b70,0xa7b60,0x74820,0xa7d
 constexpr FFLayout Layout50{"5.0.1","6c5ac36c9c6ca4aadb9be2fe4efc4ad8a51ca112673150491294cc9eeb18d7c2",0x18c70,0xa1720,0xa1710,0x6fda0,0xa18e0,0xa19b0,0xa0400,0xa04c0,0,0,0x33ab4c,0x33ab50,0x33ab99,0x33ab9a,0x2dfa39,0x6e843,0x265b2c,0xcdae0};
 constexpr FFLayout Layout511{"5.1.1","9f8a42d996e239c23c24432af4b95c568bfd1c501644a13bb7e9a4f51ed7be60",0x18b00,0xa7c40,0xa7c30,0x748c0,0xa7e70,0xa7f40,0xa6a20,0xa6bc0,0x83320,0x332000,0x332108,0x33210c,0x332045,0x332046,0x2d6be1,0x73263,0x25eb94,0xdace0};
 const FFLayout* layout=&Layout51;
+const fusion_hooks213::Layout* fusionHooks213=nullptr;
+bool fusionCallbacks213Authenticated=false;
+bool fusionModule213Authenticated=false;
 const FFLayout* SelectLayout(const std::string& hash){for(const auto* item:{&Layout50,&Layout51,&Layout511})if(hash==item->hash)return item;return nullptr;}
 #ifdef STANDALONE_OFFLINE
 struct RecordedRegion { uintptr_t address;std::vector<uint8_t> bytes; };
@@ -306,6 +312,13 @@ uintptr_t Branch(uintptr_t site,uint8_t opcode=0xe9) {
  const auto b=ReadMemory(site,5);if(b[0]!=opcode)throw std::runtime_error("unexpected_branch_opcode");return static_cast<uint32_t>(site+5+U32(b.data()+1));
 }
 void Require(bool success,const char* why){if(!success)throw std::runtime_error(why);}
+
+std::string CallbackOwner213(uint32_t address) noexcept {
+ try {HMODULE module{};if(!GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS|GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,reinterpret_cast<LPCWSTR>(uintptr_t(address)),&module))return "callback_module=unknown";
+  const auto name=startup_conflict129::Token(pe::ModulePath(module).filename().string(),"unnamed_module");char offset[32]{};sprintf_s(offset," callback_module_rva=%08X",uint32_t(address-reinterpret_cast<uintptr_t>(module)));return "callback_module="+name+offset;
+ }catch(...){return "callback_module=unavailable";}
+}
+
 // Establish each exact known overlay, including heap relay ownership. An E9
 // alone never licenses replacing an unknown mod's branch.
 void VerifyBranch(uint32_t rva,uint32_t callbackRva,bool mid,size_t overwrite,uint8_t opcode=0xe9) {
@@ -321,6 +334,7 @@ void VerifyBranch(uint32_t rva,uint32_t callbackRva,bool mid,size_t overwrite,ui
  const auto stub=ReadMemory(at,171);
  for(size_t i=0;i<171;++i){if((i>=2&&i<6)||(i>=89&&i<93)||i>=163)continue;Require(stub[i]==MidStubTemplate[i],"foreign_mid_stub");}
  Require(U32(stub.data()+2)==at+167&&U32(stub.data()+89)==at+163,"foreign_mid_pointer_slots");
+ if(U32(stub.data()+163)!=ff+callbackRva)RecordStartupExtra213(CallbackOwner213(U32(stub.data()+163)));
  Require(U32(stub.data()+163)==ff+callbackRva,"foreign_mid_callback");
  const auto trampoline=U32(stub.data()+167);
  const auto native=ReadMemory(trampoline,16);
@@ -362,6 +376,12 @@ void VerifyOfficial() {
  pe::Image expected(raw,ff);
  for(const auto& sec:expected.sections)if(sec.Characteristics&IMAGE_SCN_MEM_EXECUTE){const auto actual=ReadMemory(ff+sec.VirtualAddress,sec.Misc.VirtualSize);Require(!memcmp(actual.data(),expected.bytes.data()+sec.VirtualAddress,actual.size()),"FusionFix_code_modified");}
  Require(Branch(loop,0xe8)==ff+layout->process,"foreign_game_process_hook");
+ fusionModule213Authenticated=pe::Hash(raw)==layout->hash;
+ fusionHooks213=fusion_hooks213::Find(layout->version);
+ fusionCallbacks213Authenticated=fusionHooks213&&fusion_hooks213::Validate(*fusionHooks213,uint32_t(ff),[](uint32_t address,size_t size){return ReadMemory(address,size);});
+ RecordStartupExtra213(std::string("fusionfix_version=")+layout->version+" fusionfix_sha256="+pe::Hash(raw));
+ Require(fusionCallbacks213Authenticated,"FusionFix_callback_code_changed");
+
  shortlist_helper48::runtime::binding={game,ff,original->bytes.size(),expected.bytes.size(),
   layout==&Layout511&&pe::Hash(raw)==Layout511.hash};
 }
@@ -470,6 +490,7 @@ template<class Hook,class Function> void Prepare(Hook& hook,uintptr_t target,Fun
 #include "EffectAttribution199CRuntime.inc"
 #include "ModelReferenceQueue189Runtime.inc"
 #include "ModelProjectionBridge69.inc"
+#include "IndoorBubble212Runtime.inc"
 #include "ConsumerReachRuntime136.inc"
 #include "SceneryFade198BRuntime.inc"
 #include "ConsumerShadow75Runtime.inc"
@@ -684,6 +705,16 @@ void Install() {
   Event(2,"HEADLIGHT_HEADER","size="+std::to_string(image.size())+" timestamp="+std::to_string(U32(image.data()+nt+8))+" imageSize="+std::to_string(U32(image.data()+nt+24+56)));
   const std::pair<uint32_t,size_t> ranges[]={{0x6bcc50,24},{0x63dfe1,17},{0x63e1c1,17},{0x63dff6,17},{0x63e1d6,17},{0x769f26,6},{0x4d0f82,6}};
   for(const auto& [rva,size]:ranges){std::string mismatch="rva="+std::to_string(rva);for(size_t n=0;n<size;++n)if(image[rva+n]!=original->bytes[rva+n])mismatch+=" offset="+std::to_string(n)+" expected="+std::to_string(original->bytes[rva+n])+" actual="+std::to_string(image[rva+n]);Event(2,"HEADLIGHT_COMPARE",mismatch);}
+ }
+
+ if(!fusionfix::shadows::ce::ValidateMappedImage(image.data(),image.size(),game)){
+  const auto mismatch=headlight_failure213::Inspect(image,uint32_t(game));
+  if(mismatch.valid){std::lock_guard lock(startupMismatchMutex129);if(!startupMismatch129.valid)startupMismatch129=mismatch;}
+  RecordStartupExtra213("headlight_validation_failed=1 core_hooks_not_installed=1");
+  if(mismatch.valid)for(const auto site:{fusionfix::shadows::ce::SubmitRva,0x63dfeau,0x63e1cau,0x63dfffu,0x63e1dfu}){
+   if(mismatch.rva>=site&&mismatch.rva<site+5&&uint64_t(site)+5<=image.size()&&(image[site]==0xe9||image[site]==0xe8))RecordStartupExtra213(CallbackOwner213(uint32_t(game+site+5+U32(image.data()+site+1))));
+  }
+
  }
  Require(fusionfix::shadows::ce::ValidateMappedImage(image.data(),image.size(),game),"headlight_guard_failed");
  Require(fusionfix::shadows::ce::allocation::ValidateMappedImage(image.data(),image.size(),game),"allocator_guard_failed");
@@ -993,6 +1024,9 @@ DWORD StartShadow117(const std::filesystem::path& ini) {
   PlayerShadowAllocation::scenePriorityStrength=configuredFloat(L"ScenePriorityStrength",1.5f,0.f,4.f);
   PlayerShadowAllocation::scenePriorityReleaseMs=configuredFloat(L"ScenePriorityReleaseMs",450.f,50.f,1500.f);
   PlayerShadowAllocation::visibleReceiverExperiment133=GetPrivateProfileIntW(L"LAB",L"VisibleReceiverRanking133",0,ini.c_str())==1;
+  PlayerShadowAllocation::interiorPriority211=GetPrivateProfileIntW(L"LAB",L"InteriorVisiblePriority211",0,ini.c_str())==1;
+  IndoorBubble212::requested=PlayerShadowAllocation::indoorBubble212=GetPrivateProfileIntW(L"LAB",L"IndoorShadowBubble212",0,ini.c_str())==1;
+  scenery_fade198::indoorStrength212=indoor212::strengthProvider=IndoorBubble212::requested?IndoorBubble212::Strength:nullptr;
   PlayerShadowAllocation::visibleReceiverSource133=VisibleReceiverSource133;
   glow.allowApproximation=GetPrivateProfileIntW(L"LIGHTING20",L"CoronaApproximation",1,ini.c_str())==1;
   glow.radiusPerAuthoredSize=configuredFloat(L"CoronaRadiusPerAuthoredSize",12.f,.001f,1024.f);

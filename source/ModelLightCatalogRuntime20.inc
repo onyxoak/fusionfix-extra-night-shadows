@@ -293,9 +293,10 @@ void PrepareHooks() noexcept {
   Require(original!=nullptr,"model_observer_missing_image");
   bool officialFlags=false;
   if(!nativeBackend){
-   // Exact 5.1.1 FlagsHook: callback, generated stub, six displaced bytes,
+   // Version-specific official FlagsHook: callback, generated stub, six displaced bytes,
    // and continuation are authenticated. All other producer bytes stay exact.
-   VerifyBranch(0x81e615,0xa6b50,true,6);officialFlags=true;
+   Require(fusionCallbacks213Authenticated&&fusionHooks213,"FusionFix_callback_code_changed");
+   VerifyBranch(0x81e615,fusionHooks213->flagsCallback,true,6);officialFlags=true;
   }
   for(const auto& range:{std::pair<uint32_t,size_t>{0x81db60,0x81e1f1-0x81db60},
                          {0x81e200,0x81ede5-0x81e200}}){

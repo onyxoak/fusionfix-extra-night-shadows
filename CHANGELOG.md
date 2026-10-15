@@ -1,5 +1,9 @@
 # Release history
 
+## 2.0.4
+
+Corrected official FusionFix 5.0.1/5.1.0 adapters that previously used 5.1.1-specific pool/model/backend/copy addresses, including matching VolumetricLights paths. Added canonical headlight-failure evidence and callback-owner details where available. Includes the camera-weighted indoor 35 ft priority bubble and documented configurableINI/tuning guide. High remains the default; routine diagnostics are off.141 offline checks passed; older modpack compatibility and indoor improvements need broader runtime testing. No new FPS gain, universal conflict fix, physical pole/fire fix or RESC 10 fix is claimed.
+
 ## 2.0.3
 
 Added compatibility with official VolumetricLights 2.00. Reduced repeated CPU work in shadow processing and validation. Added scenery-shadow distance transitions and brief retention of available static maps. Updated pole handling using existing maps and corrected two low arcade-light placements. Improved startup-conflict guidance. Heavy nighttime scenes and missing model-specific pole shadows remained open.

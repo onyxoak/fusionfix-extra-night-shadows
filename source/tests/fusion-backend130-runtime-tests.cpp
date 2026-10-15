@@ -17,9 +17,10 @@ uintptr_t ff{};
 uintptr_t game{};
 using namespace onyxoak;
 bool nativeBackend=false;
-struct Layout130{};Layout130 Layout511;Layout130* layout=&Layout511;
+struct Layout130{const char* version="5.1.1";};Layout130 Layout511;Layout130* layout=&Layout511;
 namespace preset117 {struct Startup130{bool ownBackend=true;struct State130{bool enabled=true;}state;}startup;}
 namespace shortlist_helper48::runtime {struct Binding130{bool exact511Authenticated=true;}binding;}
+bool& fusionModule213Authenticated=shortlist_helper48::runtime::binding.exact511Authenticated;
 struct Original130{std::vector<uint8_t> bytes;};Original130 original130;Original130* original=&original130;
 std::atomic<bool> addonActive{false},failed{false};
 using Pure130=void(__fastcall*)(void*,void*,const int32_t*);
@@ -51,6 +52,8 @@ bool Copy(uintptr_t at,void* out,size_t n)noexcept {
 }
 std::vector<uint8_t> ReadMemory(uintptr_t at,size_t n){std::vector<uint8_t> out(n);Require(Liberty20::Copy(at,out.data(),n),"fixture_unreadable");return out;}
 uintptr_t Branch(uintptr_t at,uint8_t opcode=0xe9){const auto b=ReadMemory(at,5);Require(b[0]==opcode,"fixture_opcode");return uint32_t(at+5+U32(b.data()+1));}
+std::string CallbackOwner213(uint32_t){return "callback_module=fixture";}
+void RecordStartupExtra213(const std::string&){}
 #include "fusion-backend130-verify.inc"
 BOOL WINAPI Pin130(DWORD,LPCWSTR,HMODULE* out){if(!pinGood130)return FALSE;*out=reinterpret_cast<HMODULE>(ff);return TRUE;}
 SIZE_T WINAPI Query130(LPCVOID at,PMEMORY_BASIC_INFORMATION out,SIZE_T n){

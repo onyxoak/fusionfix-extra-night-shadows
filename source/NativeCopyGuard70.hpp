@@ -10,19 +10,21 @@ inline constexpr size_t CopySize=0xdc,CallbackSize=0x113;
 struct Evidence {bool fusionFixOverlay{};uint32_t relay{},trampoline{};};
 inline uint32_t Word(const uint8_t* p){uint32_t n;std::memcpy(&n,p,4);return n;}
 inline void Need(bool value,const char* reason){if(!value)throw std::runtime_error(reason);}
-// The exact511CodeVerified premise means the module hash AND every relocated
+// The knownModuleCodeVerified premise means the module hash AND every relocated
 // executable section were authenticated by VerifyOfficial. CallbackSize spans
 // the normal function body through RET4; lazy-init/exception callees outside it
-// remain covered by that full-module premise. No other overlay is authorized.
+// remain covered by that full-module premise. Only a separately authenticated known-version profile may select other offsets.
 template<class Reader>
-Evidence Verify(uint32_t game,uint32_t ff,bool exact511CodeVerified,
- std::span<const uint8_t> original,std::span<const uint8_t> expectedCallback,Reader read){
+Evidence Verify(uint32_t game,uint32_t ff,bool knownModuleCodeVerified,
+ std::span<const uint8_t> original,std::span<const uint8_t> expectedCallback,Reader read,
+ uint32_t callbackRva=CallbackRva,uint32_t allocationRva=AllocationRva,
+ size_t callbackSize=CallbackSize,size_t slotOffset=0x57,size_t invokeOffset=0x70){
  Need(original.size()==CopySize,"copy70_original_size");
  const auto live=read(game+CopyRva,CopySize);
  Need(live.size()==CopySize,"copy70_native_unreadable");
  if(!std::memcmp(live.data(),original.data(),CopySize))return {};
- Need(exact511CodeVerified&&ff,"copy70_unverified_overlay");
- Need(expectedCallback.size()==CallbackSize,"copy70_callback_size");
+ Need(knownModuleCodeVerified&&ff,"copy70_unverified_overlay");
+ Need(expectedCallback.size()==callbackSize,"copy70_callback_size");
  constexpr uint8_t displaced[]{0x8b,0x54,0x24,0x04,0xf3,0x0f,0x10,0x42,0x04};
  Need(!std::memcmp(original.data(),displaced,9),"copy70_displaced_instructions");
  Need(live[0]==0xe9,"copy70_native_branch");
@@ -31,15 +33,17 @@ Evidence Verify(uint32_t game,uint32_t ff,bool exact511CodeVerified,
  const auto relay=uint32_t(game+CopyRva+5+Word(live.data()+1));
  const auto relayBytes=read(relay,5);
  Need(relayBytes.size()==5&&relayBytes[0]==0xe9,"copy70_relay_branch");
- Need(uint32_t(relay+5+Word(relayBytes.data()+1))==uint32_t(ff+CallbackRva),"copy70_callback_owner");
- const auto callback=read(ff+CallbackRva,CallbackSize);
- Need(callback.size()==CallbackSize&&!std::memcmp(callback.data(),expectedCallback.data(),CallbackSize),"copy70_callback_changed");
+ Need(uint32_t(relay+5+Word(relayBytes.data()+1))==uint32_t(ff+callbackRva),"copy70_callback_owner");
+ const auto callback=read(ff+callbackRva,callbackSize);
+ Need(callback.size()==callbackSize&&!std::memcmp(callback.data(),expectedCallback.data(),callbackSize),"copy70_callback_changed");
  // Authentic compiled CopyLight loads this Allocation before forwarding the
 // original ECX, EDX, stack argument, then runs the official after-copy event.
- Need(callback[0x57]==0xa1&&Word(callback.data()+0x58)==uint32_t(ff+AllocationRva),"copy70_original_slot");
+ Need(slotOffset<=callback.size()&&callback.size()-slotOffset>=5,"copy70_slot_bounds");
+ Need(callback[slotOffset]==0xa1&&Word(callback.data()+slotOffset+1)==uint32_t(ff+allocationRva),"copy70_original_slot");
  constexpr uint8_t invoke[]{0xff,0x75,0x08,0x8b,0xd6,0x8b,0xcf,0xff,0xd0,0x8b,0xf8};
- Need(!std::memcmp(callback.data()+0x70,invoke,sizeof(invoke)),"copy70_original_call_contract");
- const auto allocation=read(ff+AllocationRva,8);
+ Need(invokeOffset<=callback.size()&&callback.size()-invokeOffset>=sizeof(invoke),"copy70_invoke_bounds");
+ Need(!std::memcmp(callback.data()+invokeOffset,invoke,sizeof(invoke)),"copy70_original_call_contract");
+ const auto allocation=read(ff+allocationRva,8);
  Need(allocation.size()==8,"copy70_allocation_unreadable");
  const auto trampoline=Word(allocation.data());
  Need(trampoline>=0x10000&&Word(allocation.data()+4)==19&&relay==uint32_t(trampoline+14),"copy70_allocation_layout");

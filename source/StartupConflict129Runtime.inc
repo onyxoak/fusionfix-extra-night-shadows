@@ -2,6 +2,11 @@
 startup_conflict129::Mismatch startupMismatch129;
 std::mutex startupMismatchMutex129;
 startup_guidance210::Evidence startupAdviceEvidence210;
+std::string startupDetails213;
+void RecordStartupExtra213(std::string_view fields) noexcept {
+ try {std::lock_guard lock(startupMismatchMutex129);if(fields.size()<=512&&startupDetails213.size()+fields.size()<2048)startupDetails213+=" "+std::string(fields);}catch(...){}
+}
+
 // Only the initialization adapter records this. No light, native code, INI or
 // filesystem write is performed, and no state is polled from gameplay hooks.
 void RecordVolumetric210(startup_guidance210::Volume state,std::string_view hash={}) noexcept {
@@ -28,10 +33,11 @@ void StartupFailure129(const char* error) noexcept {
  struct RestoreError129 {DWORD value;~RestoreError129(){SetLastError(value);}} restoreError129{savedError129};
  const fusionfix::shadows::FloatingPointState fp;
  try {
-  startup_conflict129::Mismatch mismatch;startup_guidance210::Evidence advice;
-  {std::lock_guard lock(startupMismatchMutex129);mismatch=startupMismatch129;advice=startupAdviceEvidence210;}
+  startup_conflict129::Mismatch mismatch;startup_guidance210::Evidence advice;std::string extra;
+  {std::lock_guard lock(startupMismatchMutex129);mismatch=startupMismatch129;advice=startupAdviceEvidence210;extra=startupDetails213;}
   auto fields=startup_conflict129::Fields(CandidateBuild32,error?error:"startup_exception",mismatch);
   fields+=startup_guidance210::Help(error?error:"startup_exception",advice);
+  fields+=extra;
   if(log)log->StartupFailure(fields);
   else {
    // Earliest Start failures can precede normal log construction. This is

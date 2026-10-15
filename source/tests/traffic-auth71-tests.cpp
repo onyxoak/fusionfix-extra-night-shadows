@@ -1,5 +1,6 @@
 #include <windows.h>
 #include "TrafficPoolHookGuard.hpp"
+#include "FusionHooks213.hpp"
 #include "native-pool71.hpp"
 #include <cassert>
 #include <iostream>
@@ -33,6 +34,12 @@ std::string Hash(const std::vector<uint8_t>&){return "fixture-hash-not-runtime-i
 }
 uintptr_t game=fixture::game,ff=fixture::ff;
 bool nativeBackend=true;
+bool fusionCallbacks213Authenticated=true;
+const auto* fusionHooks213=fusion_hooks213::Find("5.1.1");
+struct Layout213 {const char* version="5.1.1";} layout213;
+const auto* layout=&layout213;
+std::string CallbackOwner213(uint32_t){return "callback_module=fixture";}
+void RecordStartupExtra213(std::string_view){}
 std::unique_ptr<pe::Image> original=std::make_unique<pe::Image>();
 namespace TrafficSignal {bool requested=true,authenticated=false;}
 namespace ModelLightShadow20 {bool requested=false;}

@@ -372,6 +372,7 @@ void PrivateResults() noexcept {if(policeTestEnabled)ObserveProofResult();Traffi
 void PrivateRender(uint32_t key,uint32_t slot,uint32_t kind,bool active) noexcept {if(policeTestEnabled)NineRender(key,slot,kind,active);TrafficSignal::Render(key,slot,kind,active);Liberty20::Render(key,slot,kind,active);}
 
 void TrafficAuthenticate(){
+ uint32_t observedCallback213=0;
  if(!TrafficSignal::requested&&!ModelLightShadow20::requested&&!CoronaLight20::requested)return;
  try {
   if(!nativeBackend){
@@ -411,14 +412,16 @@ void TrafficAuthenticate(){
    Event(1,"TRAFFIC_NATIVE_POOL_AUTHENTICATED",
     "backend=native ctor_rva=0x86c5f0 ctor_bytes=102 entire_function=exact lifecycle_guards=exact pool_layout=unchanged pool_capacity_unchanged=1 no_pool_hook=1");
   }else{
-  const auto evidence=traffic_signal::VerifyPoolHook(uint32_t(game),uint32_t(ff),true,
-   std::span<const uint8_t>(original->bytes.data()+traffic_signal::PoolCtorRva,0x66),readCode);
+  const auto evidence=traffic_signal::VerifyPoolHook(uint32_t(game),uint32_t(ff),fusionCallbacks213Authenticated,
+   std::span<const uint8_t>(original->bytes.data()+traffic_signal::PoolCtorRva,0x66),readCode,
+   fusionHooks213->poolCallback,fusionHooks213->poolBody,&observedCallback213);
   TrafficSignal::authenticated=true;
   Event(1,"TRAFFIC_POOL_HOOK_AUTHENTICATED","actual_code_capability=1 sha256="+pe::Hash(pe::Read(pe::ModulePath(reinterpret_cast<HMODULE>(ff))))+
-   " ctor_rva=0x86c5fa callback_rva=0x98570 body_rva=0x9cae0 return_rva=0x86c5ff safetyhook_stub=exact continuation=5_nops all_other_lifecycle_bytes=exact pool_layout=unchanged");
+   " ff_version="+std::string(layout->version)+" ctor_rva=0x86c5fa return_rva=0x86c5ff safetyhook_stub=exact continuation=5_nops all_other_lifecycle_bytes=exact pool_layout=unchanged");
   }
  }catch(const std::exception& e){
   TrafficSignal::authenticated=false;
+  if(observedCallback213)RecordStartupExtra213(CallbackOwner213(observedCallback213));
   Event(1,"TRAFFIC_OBSERVER_REFUSED",e.what());
  }
 }

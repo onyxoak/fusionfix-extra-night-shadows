@@ -2,8 +2,9 @@
 #include <array>
 #include <string_view>
 namespace startup_conflict129 {
-inline constexpr std::array<std::string_view,113> KnownStartupErrors129{{
+inline constexpr std::array<std::string_view,114> KnownStartupErrors129{{
  "FusionFix_code_modified",
+ "FusionFix_callback_code_changed",
  "activation_incomplete",
  "active_dimensions_invalid",
  "admission_continuation_changed",

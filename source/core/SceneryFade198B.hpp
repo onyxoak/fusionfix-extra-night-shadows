@@ -4,6 +4,7 @@
 #include <algorithm>
 
 namespace scenery_fade198 {
+inline float (*indoorStrength212)(const consumer_shadow75::Packet&,uint32_t) noexcept=nullptr;
 struct Registers {uintptr_t esp{},ebp{},esi{};};
 struct Plan {uintptr_t address{};consumer_shadow75::Packet packet{};std::array<float,4> parameters{};float marker{},strength{};};
 inline float Strength(float radius,float distance,float threshold) noexcept {
@@ -49,6 +50,8 @@ template<class Read> bool Decode(const consumer_shadow75::Context& c,Registers r
  const float dx=eye[0]-position[0],dy=eye[1]-position[1],dz=eye[2]-position[2];
  const float distance=std::sqrt((dy*dy+dx*dx)+dz*dz);
  p.strength=Strength(radius,distance,scale*global);
+ if(indoorStrength212){const float strength=indoorStrength212(p.packet,frame);
+  if(std::isfinite(strength)&&strength>=0&&strength<=1)p.strength=std::fmax(p.strength,strength);}
  if(p.strength<0)return false;
  p.marker=-198.f-p.strength;out=p;return true;
 }

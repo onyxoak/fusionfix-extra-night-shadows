@@ -72,5 +72,11 @@ int main(){
  for(float bad:{0.f,-1.f,INFINITY,NAN})assert(scenery_fade198::Strength(10,bad,1)<0);
  assert(scenery_fade198::Strength(10,11,1)>.999f);assert(scenery_fade198::Strength(10,13,1)<.001f);
  r=Reset198(13.5f);SceneryFade198B::Binder(r);Copy198(r.esp+0x28,&marker,4);assert(writes198==1&&marker==-198.f); //198A outer hold stays invisible
+
+ scenery_fade198::indoorStrength212=+[](const consumer_shadow75::Packet&,uint32_t)noexcept{return 1.f;};
+ r=Reset198(40.f);SceneryFade198B::Binder(r);Copy198(r.esp+0x28,&marker,4);assert(writes198==1&&marker==-199.f);
+ r=Reset198(40.f);permit198=false;SceneryFade198B::Binder(r);assert(writes198==0);
+ r=Reset198(40.f);mutate198=true;SceneryFade198B::Binder(r);assert(writes198==0);
+ scenery_fade198::indoorStrength212=nullptr;
  std::cout<<"ACTUAL Binder callback: four native map index paths; only current local scalar changed; shadow-only smoothstep;16 refusal cases and failed write; native light packet intact. Shader GPU/runtime pixels unverified.\n";
 }

@@ -3,6 +3,7 @@
 #include "FreshPageReadable.hpp"
 #include "ImmediateRegion33.hpp"
 #include <optional>
+#include "core/IndoorBubble212.hpp"
 namespace ConsumerReach136 {
 inline bool requested=false,retentionRequested198=false;
 inline thread_local consumer_shadow75::Context context;
@@ -27,7 +28,8 @@ void Observe(consumer_shadow75::Stage stage,SafetyHookContext& regs) noexcept {
  if(busy)return;
  busy=true;struct Leave {~Leave(){busy=false;}} leave;
  if(stage==consumer_shadow75::Stage::Gate&&(!context.pending||
-    (!consumer_reach136::NumericPotential142(regs.xmm0.f32[0],regs.xmm1.f32[0])&&
+    (!(indoor212::strengthProvider&&indoor212::Packet(context.packet))&&
+     !consumer_reach136::NumericPotential142(regs.xmm0.f32[0],regs.xmm1.f32[0])&&
      (!retentionRequested198||!consumer_reach136::NumericPotential142(regs.xmm0.f32[0],regs.xmm1.f32[0],consumer_reach136::ApplicationHistory198::ReleaseScale)||
       !applicationHistory198.Retained(context.packet,context.frame,GetTickCount()))))){context={};return;}
  // Fresh positive exact-page permission proof only within this callback.
@@ -48,7 +50,9 @@ void Observe(consumer_shadow75::Stage stage,SafetyHookContext& regs) noexcept {
    // Release borrowed approvals before the existing final stack decision write.
    regions157.reset();pages157.reset();return WriteByte(address,value);
   };
-  if(consumer_reach136::Gate(true,context,r,frame,GetTickCount(),game+0xc3efdc,read,Authorize,write157,retentionRequested198?&applicationHistory198:nullptr))
+  if((indoor212::strengthProvider&&indoor212::Packet(context.packet)&&
+      indoor212::Gate(context,r,frame,GetTickCount(),game+0xc3efdc,read,Authorize,indoor212::Current,write157))||
+      consumer_reach136::Gate(true,context,r,frame,GetTickCount(),game+0xc3efdc,read,Authorize,write157,retentionRequested198?&applicationHistory198:nullptr))
    ShadowTrace34::Emit({160,frame,GetTickCount(),context.packet.words[24],int(context.sample.type),int(context.sample.flags),1,0,r.ratio,r.threshold,r.threshold/consumer_reach136::StaticShoulder162,consumer_reach136::StaticShoulder162});
   context={};
  }else context={};
