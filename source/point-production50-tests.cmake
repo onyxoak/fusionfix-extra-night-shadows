@@ -1,0 +1,11 @@
+add_executable(point-production50-tests tests/point-production50-tests.cpp)
+target_include_directories(point-production50-tests PRIVATE . "${CMAKE_CURRENT_BINARY_DIR}")
+target_compile_options(point-production50-tests PRIVATE /UNDEBUG /W4 /WX)
+add_test(NAME point-production50 COMMAND point-production50-tests)
+
+file(READ "${CMAKE_CURRENT_SOURCE_DIR}/ModelLightShadowRuntime20.inc" POINT50_SHADOW)
+string(FIND "${POINT50_SHADOW}" "void LifecycleFault()" POINT50_FREE_BEGIN)
+string(FIND "${POINT50_SHADOW}" "#include \"ModelQueuedWindow49Runtime.inc\"" POINT50_FREE_END)
+math(EXPR POINT50_FREE_LENGTH "${POINT50_FREE_END}-${POINT50_FREE_BEGIN}")
+string(SUBSTRING "${POINT50_SHADOW}" ${POINT50_FREE_BEGIN} ${POINT50_FREE_LENGTH} POINT50_FREE_BODY)
+file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/point-onfree50-extracted.inc" "${POINT50_FREE_BODY}")

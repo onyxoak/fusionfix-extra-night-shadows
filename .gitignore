@@ -1,5 +1,5 @@
-*.zip
-*.asi
-*.exe
+build*/
 *.obj
-*.log
+*.pdb
+*.ilk
+__pycache__/

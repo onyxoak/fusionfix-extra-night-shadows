@@ -1,0 +1,68 @@
+Liberty's Shadows 2.0
+By OnyxOak. Unofficial; FusionFix remains a required companion.
+
+Tested setup: Windows, GTA IV Complete Edition 1.2.0.59,
+official FusionFix 5.1.1, Vulkan/DXVK. Other editions/builds are not
+verified for this package. No developer launcher, trainer, ScriptHook,
+PDB or recording software is needed.
+
+INSTALL / UPDATE
+1. Close GTA IV. Keep the complete official FusionFix installation.
+2. Back up the current Liberty's Shadows ASI/INI and the 27 shader files
+   replaced by this package OUTSIDE the game directory.
+3. Copy plugins and update from this archive into the GTAIV directory
+   containing GTAIV.exe, preserving their folder structure. Copy the
+   README and licenses too. Install the matching ASI, INI and shader
+   payload together. Do not leave another loadable copy of the mod.
+4. Launch normally through Steam/Rockstar or your usual game shortcut.
+5. Set both Shadow Quality and Night Shadows above Off in Graphics.
+   Enable FusionFix's Extra Night Shadows setting that includes Lampposts
+   and Headlights + Vehicle Night Shadows. The vehicle-depth option is
+   needed for full enhanced coverage.
+
+GRAPHICS SETTINGS
+Liberty's Shadows uses one quality row in Graphics: Off, Low, Medium or High.
+Off: disables this mod's shadow processing after restarting.
+Low: headlight/lamppost fixes, without expanded light families.
+Medium: Low plus supported traffic and emergency light shadows.
+High: all supported enhanced features; 200 ft street / 50 ft headlight reach.
+Custom: individual features/reach configured only in the commented INI.
+
+High is the included default. Start with Low or Medium on slower systems.
+Shadow resolution remains controlled by the game's Shadow Quality and
+Night Shadows settings; Liberty's Shadows presets do not change resolution.
+Reach controls consideration, not the physical beam radius or map capacity.
+Master/feature/preset-family changes are saved and require a game restart.
+Direct INI edits require a restart.
+Selecting Off leaves the game's and FusionFix's own settings separate.
+
+WORK IN PROGRESS / KNOWN ISSUES
+Expanded lighting has worked well in the author's testing. Refinement continues.
+- High remains demanding in dense nighttime scenes; substantial
+  FPS drops are possible. There is no fixed FPS guarantee.
+- Occasional shadow pop-in/flicker remains, especially NPC vehicles and busy
+  scenes. The native renderer still has seven active shadow maps.
+- Some building/helicopter spotlights can cut out with camera or movement.
+- Localized headlight seams, floor/bridge leaks and projection quirks remain.
+
+REPORT A BUG
+Use the Nexus Bugs tab, one issue per ticket. Search existing reports first.
+Include version/preset, game and FusionFix versions, renderer, hardware and
+resolution, location/time/weather and reproduction steps. State whether
+the lit patch disappears or only the shadow changes. A clip or screenshot
+is helpful; diagnostics and recording hotkeys are optional. Use Posts for
+discussion. https://www.nexusmods.com/gta4/mods/1459?tab=bugs
+
+ROLLBACK / UNINSTALL
+Close the game, remove this package's ASI/INI and restore your matching
+backed-up shader files. Keep official FusionFix. A menu Off comparison
+retains this shader payload; it is not a clean official FusionFix baseline.
+
+CREDITS / SOURCE
+OnyxOak: concept, direction, integration, visual testing and releases.
+Development assistance: OpenAI Codex. FusionFix: ThirteenAG and contributors.
+Original notices and applicable GPL/dependency licenses are retained.
+This is not an official FusionFix release or endorsement.
+Matching ASI and shader source/build recipes are supplied in the accompanying
+Libertys-Shadows-2.0-source.zip. Shader data is part of the install;
+screenshots may include separate vehicle/graphics mods not included here.

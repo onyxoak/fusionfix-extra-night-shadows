@@ -1,819 +1,1761 @@
 {
-  "version": "1.6",
-  "archive": "OnyxOak-Night-Shadows-CE-1.6-source.zip",
-  "archiveSHA256": "77363e00067ad6d0d4e305518f148846c093dc43fecde0f8477ee3a7df42189f",
-  "files": {
-    "data/update/common/data/frontend_menus.xml": {
-      "archivePath": "fusionfix-source/data/update/common/data/frontend_menus.xml",
-      "sha256": "65dfe8f518a16800647185f3f0ec6484efb11b79e8be9af99986394ddb39078d"
-    },
-    "data/update/TBoGT/common/data/frontend_menus.xml": {
-      "archivePath": "fusionfix-source/data/update/TBoGT/common/data/frontend_menus.xml",
-      "sha256": "b97362d4e3c5b02f7abae55b0ca5072997a3d2229b3efbd721f1c555722978d1"
-    },
-    "data/update/TLAD/common/data/frontend_menus.xml": {
-      "archivePath": "fusionfix-source/data/update/TLAD/common/data/frontend_menus.xml",
-      "sha256": "72754b66ad1c674add19439271129a51884efb8c296e41c9b32e8a47fdd6cfa7"
-    },
-    "tests/release-baseline/crash-trace-tests30.cpp": {
-      "archivePath": "offline-tests/crash-trace-tests30.cpp",
-      "sha256": "796d1b635d899b687a6511bd5b34e29081a5a7075cd04cb1ba2455bb93cb642f"
-    },
-    "tests/release-baseline/driving-tests32.cpp": {
-      "archivePath": "offline-tests/driving-tests32.cpp",
-      "sha256": "9e4f46b279f7b29cb900a1107f96366eec72d8e9bf665ff99851015e003c1bf0"
-    },
-    "tests/release-baseline/history-tests31.cpp": {
-      "archivePath": "offline-tests/history-tests31.cpp",
-      "sha256": "0f7229633d512a122066384d59381f2cece73d83d3bd4cc2c652f944481f4c8d"
-    },
-    "tests/release-baseline/lookup-tests31.cpp": {
-      "archivePath": "offline-tests/lookup-tests31.cpp",
-      "sha256": "08a0965cb36c0b5e84b35d2d0f9ab361c5abe98145179c26ca6897ccd38b1923"
-    },
-    "tests/release-baseline/native-lamps-tests35.cpp": {
-      "archivePath": "offline-tests/native-lamps-tests35.cpp",
-      "sha256": "dea460e91483b065e87a21592c26e9e3483b7a87867ecc2ed30aae58ec747d29"
-    },
-    "tests/release-baseline/path-context-tests31.cpp": {
-      "archivePath": "offline-tests/path-context-tests31.cpp",
-      "sha256": "1fdbd0a4636a09585451c4e0a18b7408422373fd178a9f3f253ffd9cf6bf16a3"
-    },
-    "tests/release-baseline/priority-tests26.cpp": {
-      "archivePath": "offline-tests/priority-tests26.cpp",
-      "sha256": "4e1661118feb55d3ce8461fd0c7e10a01086c2b67397d89566010e81f02de736"
-    },
-    "tests/release-baseline/priority-tests38.cpp": {
-      "archivePath": "offline-tests/priority-tests38.cpp",
-      "sha256": "978a63e9ac48a03fca95fa37073c6215239da6ca3f55d09ec4cc7b17a5901b3e"
-    },
-    "tests/release-baseline/receiver-tests27.cpp": {
-      "archivePath": "offline-tests/receiver-tests27.cpp",
-      "sha256": "0ceb4ebad9a4a1453bf1c735dc493e2a32d221a6567ae5554f4129a458679ce5"
-    },
-    "tests/release-baseline/receivers-tests36.cpp": {
-      "archivePath": "offline-tests/receivers-tests36.cpp",
-      "sha256": "22e1ac16484d63cfd7e1ef35177ae4bbe4e89accc8bdb4357e8e86cb1c63063c"
-    },
-    "tests/release-baseline/receivers-tests37.cpp": {
-      "archivePath": "offline-tests/receivers-tests37.cpp",
-      "sha256": "f03d1b3952cfef8693a4e3e3e4a2730b280557776d0169cfb85d0cc309dd3617"
-    },
-    "tests/release-baseline/receivers-tests38.cpp": {
-      "archivePath": "offline-tests/receivers-tests38.cpp",
-      "sha256": "8ca3c6d87540d5848db9878bb098ac935c7fbbce099a74322bb8c177290d2bbb"
-    },
-    "tests/release-baseline/stability-tests33.cpp": {
-      "archivePath": "offline-tests/stability-tests33.cpp",
-      "sha256": "104d5cd350a9e6e9a5edb035fa6586770a61772b0570625c0f1ffe6173664114"
-    },
-    "tests/release-baseline/stale-slot-tests28.cpp": {
-      "archivePath": "offline-tests/stale-slot-tests28.cpp",
-      "sha256": "7be008e1de1b6df096f4ee2ecfb080ec3009bd943423b95b847d0341cb7a05e3"
-    },
-    "tests/release-baseline/trace-tests34.cpp": {
-      "archivePath": "offline-tests/trace-tests34.cpp",
-      "sha256": "8d885e0cb4ff822a0f75565a15c9f43521295a40eede058efc1b454eac008b07"
-    },
-    "tests/release-baseline/view-tests29.cpp": {
-      "archivePath": "offline-tests/view-tests29.cpp",
-      "sha256": "8364471335f8ad6e1492f619ca0928e8b3c4dba9e7763e65b64342081c36c69d"
-    },
-    "tests/release-baseline/build-priority38.cmd": {
-      "archivePath": "offline-tests/build-priority38.cmd",
-      "sha256": "9ae570424a7a3ab35e6a246d4638376057da7fdaf4b222099885b4a2bab262ae"
-    },
-    "tests/release-baseline/README.txt": {
-      "archivePath": "offline-tests/README.txt",
-      "sha256": "d359b868f9ef8ed3931478a61b9e908fb888d2b3ddbbf644c3515920cb0dfbad"
-    },
-    "source/altdialogue.ixx": {
-      "archivePath": "fusionfix-source/source/altdialogue.ixx",
-      "sha256": "e18c736cedf46ad24f6f7dd52ff88e1d9bacfff79a7622d51f3a70558fe56eea"
-    },
-    "source/buttons.ixx": {
-      "archivePath": "fusionfix-source/source/buttons.ixx",
-      "sha256": "92dcbdc104a25ca3628e16c4df78ab30d9e9bb30689a63d927749317b69e9dcd"
-    },
-    "source/centeredcam.ixx": {
-      "archivePath": "fusionfix-source/source/centeredcam.ixx",
-      "sha256": "cf7e58edf161c401b58d410868f617ff0bf51ba253a95d0dfeabab0b8a616380"
-    },
-    "source/cheats.ixx": {
-      "archivePath": "fusionfix-source/source/cheats.ixx",
-      "sha256": "d7ebd43bc10eb93a4f543baf4d77be204e064cefc7a8f4f62179c59ea47febc9"
-    },
-    "source/classext.ixx": {
-      "archivePath": "fusionfix-source/source/classext.ixx",
-      "sha256": "4559c681ffb8bde95b6394ef41769c606820d44f3a711928e2dfaa48a53dadf5"
-    },
-    "source/CloseHeadlightRelevance.hpp": {
-      "archivePath": "fusionfix-source/source/CloseHeadlightRelevance.hpp",
-      "sha256": "d98a5798b3a298d3d3392f9144726cfcc4c521757a85461a841a77eeeb48c724"
-    },
-    "source/common.hxx": {
-      "archivePath": "fusionfix-source/source/common.hxx",
-      "sha256": "df40fde65bc3d556b36cdb04354c9f3a22ad71c03e2861a65f1d1fa413780684"
-    },
-    "source/common.ixx": {
-      "archivePath": "fusionfix-source/source/common.ixx",
-      "sha256": "915d84ddc9dab2a6b938aabbd90d510e653915c621dbbf440bfb7eb64a6ab5d1"
-    },
-    "source/compat.ixx": {
-      "archivePath": "fusionfix-source/source/compat.ixx",
-      "sha256": "a3e0a65ceb2797561f2450f492f5918de0bbd2fb0e0eb1dad44ce034f3784e0f"
-    },
-    "source/comvars.ixx": {
-      "archivePath": "fusionfix-source/source/comvars.ixx",
-      "sha256": "d572d2da09513813d374467e3872f129e70c218640084704f4781b611e92cf5e"
-    },
-    "source/consolegamma.ixx": {
-      "archivePath": "fusionfix-source/source/consolegamma.ixx",
-      "sha256": "66df32e9cc73cb5b380eebb98373576d7e80a4a898f229c0c9bc2c363629755e"
-    },
-    "source/contributing.ixx": {
-      "archivePath": "fusionfix-source/source/contributing.ixx",
-      "sha256": "4903649f4b31540ada7c6c04a9954a47111edd979a6eb9d241d0db5995259a66"
-    },
-    "source/coronas.ixx": {
-      "archivePath": "fusionfix-source/source/coronas.ixx",
-      "sha256": "22620ee2aead6d528f6e669e5cc8e8d8ca7e827d15995e03b4ad8ca4a3290786"
-    },
-    "source/CrashPathContext31.hpp": {
-      "archivePath": "fusionfix-source/source/CrashPathContext31.hpp",
-      "sha256": "04af42d6edefba8bc0a0ed0ba8331d20de63a8ad36de21f93b857bee8f2f3ae3"
-    },
-    "source/cutscenecam.ixx": {
-      "archivePath": "fusionfix-source/source/cutscenecam.ixx",
-      "sha256": "b03135c3bb6fc0b759a1e2f52aaee148c3660c036009e1e5eb7042dcc6f81e42"
-    },
-    "source/d3dx9_43.ixx": {
-      "archivePath": "fusionfix-source/source/d3dx9_43.ixx",
-      "sha256": "f945b841b9b7e611ce24da12b0f0504113b7b23bdb452145cb5f33b72a701ab8"
-    },
-    "source/deathmusic.ixx": {
-      "archivePath": "fusionfix-source/source/deathmusic.ixx",
-      "sha256": "eb00be2f1a3853e710e7c5055d667bec26b1d68d4a17743c60d38aecaa0329f0"
-    },
-    "source/dllmain.cpp": {
-      "archivePath": "fusionfix-source/source/dllmain.cpp",
-      "sha256": "18c45cfe768cfe39e4db7f3c125f6203d0fab3845d38367df179d6d2763c98c9"
-    },
-    "source/episodiccontent.ixx": {
-      "archivePath": "fusionfix-source/source/episodiccontent.ixx",
-      "sha256": "33768410b2cb61eea2c08a2c21a7cf7680f90159c397b16e684ede0f7c62e5a2"
-    },
-    "source/extrainfo.ixx": {
-      "archivePath": "fusionfix-source/source/extrainfo.ixx",
-      "sha256": "a607bb0e3a9733ba949558b07f6a67224852a6a27ed12e102bd523aaa1426a7a"
-    },
-    "source/fixes.ixx": {
-      "archivePath": "fusionfix-source/source/fixes.ixx",
-      "sha256": "8a8ffbb24224af2f05338cb6d458a4d8a805b5bfe02d34828c378c0d059adff7"
-    },
-    "source/framelimit.ixx": {
-      "archivePath": "fusionfix-source/source/framelimit.ixx",
-      "sha256": "81b3dbe4556b0658a3d6d6865c980b15ddb8c32b667a728669920fbf96e68aed"
-    },
-    "source/frameratevigilante.ixx": {
-      "archivePath": "fusionfix-source/source/frameratevigilante.ixx",
-      "sha256": "0a1a4085fe391b8cfe7fddc676ed053ba83280bf6bdb97056e6bf2d3fc9f7268"
-    },
-    "source/fusiondxhook.ixx": {
-      "archivePath": "fusionfix-source/source/fusiondxhook.ixx",
-      "sha256": "ca29f2355c2433adbe70be164be4a678b07f6b0a84e3df141536d1092c68f4a0"
-    },
-    "source/gxtloader.ixx": {
-      "archivePath": "fusionfix-source/source/gxtloader.ixx",
-      "sha256": "8803fe689aa9e71c6c2cc86bfff76c24ff09ea5663af2ca3537c50406e3834e0"
-    },
-    "source/HeadlightCasterPolicy.hpp": {
-      "archivePath": "fusionfix-source/source/HeadlightCasterPolicy.hpp",
-      "sha256": "bc4eb236bfe18ca8472d089327c25db433468f26f2ae8e8bab86dac695226a5c"
-    },
-    "source/HeadlightEnhancementRuntime.inl": {
-      "archivePath": "fusionfix-source/source/HeadlightEnhancementRuntime.inl",
-      "sha256": "d5bc012f73d499f64c16e4a412209e4a0d84e308d9eb7051ba634304a17e2634"
-    },
-    "source/ikeeponwalking.ixx": {
-      "archivePath": "fusionfix-source/source/ikeeponwalking.ixx",
-      "sha256": "2375068f7acc86e3c78961699c9bb074705b96d920c83c6a98c2abfa49467075"
-    },
-    "source/imgloader.ixx": {
-      "archivePath": "fusionfix-source/source/imgloader.ixx",
-      "sha256": "cdc055663d0d94b6807c7be109027df78946156b6a9e8c902eedcc9bd175d173"
-    },
-    "source/led.ixx": {
-      "archivePath": "fusionfix-source/source/led.ixx",
-      "sha256": "86b349721497043972d3eae2e1a6bb7a22af9d4e019a7a7928d2382fddb00858"
-    },
-    "source/limits.ixx": {
-      "archivePath": "fusionfix-source/source/limits.ixx",
-      "sha256": "083b1da70f15833ec634b53cb582d31a6cf2c1ccdb0ee423b4f2fad9313cc53e"
-    },
-    "source/loadingdelays.ixx": {
-      "archivePath": "fusionfix-source/source/loadingdelays.ixx",
-      "sha256": "39c8f9c72cbce98a75b138fc96dcb2c9ec63af7bcdc21055040567baacd68b9f"
-    },
-    "source/lodlights.ixx": {
-      "archivePath": "fusionfix-source/source/lodlights.ixx",
-      "sha256": "9017dd1250cda290e128f1232ad254fa3ebae1b5c2f97cced3eddd5416a16c7a"
-    },
-    "source/maths.hxx": {
-      "archivePath": "fusionfix-source/source/maths.hxx",
-      "sha256": "6352d095f56694a0633cec2d3f6b9c2cd816df9664ec28a1f3e7ec0cd9c9f289"
-    },
-    "source/modupdater.ixx": {
-      "archivePath": "fusionfix-source/source/modupdater.ixx",
-      "sha256": "719f0f85a13c3c2bcf417f87ac08518c067b23fd10410c6afebfea6ba1b16b71"
-    },
-    "source/NativeCacheDependencies44.hpp": {
-      "archivePath": "fusionfix-source/source/NativeCacheDependencies44.hpp",
-      "sha256": "f4efc005f79e651d4e5422e401026a60984cd6fad78ed181c980961b233dcbe8"
-    },
-    "source/NativeLampContinuity41.hpp": {
-      "archivePath": "fusionfix-source/source/NativeLampContinuity41.hpp",
-      "sha256": "b68036b320083eb8dfaa12efa2d15ace1e4e5abcdf8e513e95aca76bf7694db3"
-    },
-    "source/NativeLampDistance38.hpp": {
-      "archivePath": "fusionfix-source/source/NativeLampDistance38.hpp",
-      "sha256": "facfe33c6f5660606261cba4cae8ef918f5a4d78f66d743216807c4a06c15ca2"
-    },
-    "source/NativeLampSelection35.hpp": {
-      "archivePath": "fusionfix-source/source/NativeLampSelection35.hpp",
-      "sha256": "8deb0444d0e54abb0511c8c039a21872531272803df159a88f28ba044199e02e"
-    },
-    "source/natives.ixx": {
-      "archivePath": "fusionfix-source/source/natives.ixx",
-      "sha256": "4a7d388226c69138491b4d0c6997d5dad12ea858695b5d70455db19d57ec407b"
-    },
-    "source/NativeShadowContinuity42.hpp": {
-      "archivePath": "fusionfix-source/source/NativeShadowContinuity42.hpp",
-      "sha256": "3a3a318547b184e1991aa19344302d3d8181642f0626c0db53f7517d4c7e6b45"
-    },
-    "source/NearbyVehicleReceivers36.hpp": {
-      "archivePath": "fusionfix-source/source/NearbyVehicleReceivers36.hpp",
-      "sha256": "a93f3c17cec2eb675031b9b379239af942841aba3550680eba1ed49aa3f7c839"
-    },
-    "source/NearbyVehicleRuntime36.inl": {
-      "archivePath": "fusionfix-source/source/NearbyVehicleRuntime36.inl",
-      "sha256": "f20e13200b924a77ed799e59a34bdbbf9ad0c101fda2f003e1696f2c11e1aa3a"
-    },
-    "source/NightShadowAdmissionRuntime.inl": {
-      "archivePath": "fusionfix-source/source/NightShadowAdmissionRuntime.inl",
-      "sha256": "db855377acf3a00ed61937d33f8989f5fd52d8e710d06dacfcb12a90b70a6231"
-    },
-    "source/nightshadows.ixx": {
-      "archivePath": "fusionfix-source/source/nightshadows.ixx",
-      "sha256": "4b03735f0eeff481871cad07b6b35be73a79bf069400ba9ff811c915be1487c3"
-    },
-    "source/PlayerShadowBudget.hpp": {
-      "archivePath": "fusionfix-source/source/PlayerShadowBudget.hpp",
-      "sha256": "d8ecf574fb06dc1ff7469bd6d2aefe3d6b9a7567b48ab6a9b9f5ef002009e049"
-    },
-    "source/postfx.ixx": {
-      "archivePath": "fusionfix-source/source/postfx.ixx",
-      "sha256": "2fd8f2cec6af14d330d5a577312572ddb34d5f8cfcc9d31ec44979d51e1f9dc6"
-    },
-    "source/preloadlist.ixx": {
-      "archivePath": "fusionfix-source/source/preloadlist.ixx",
-      "sha256": "9ebaa482e23968d1d299cc956849b6efb394b60317762a205b42100471d3e942"
-    },
-    "source/rawinput.ixx": {
-      "archivePath": "fusionfix-source/source/rawinput.ixx",
-      "sha256": "491f2b6584c67dd690e7f3655824f6b57cb2265d8a860856ac52e4c04d9be2e4"
-    },
-    "source/reflectionmsaa.ixx": {
-      "archivePath": "fusionfix-source/source/reflectionmsaa.ixx",
-      "sha256": "a0db7a4628e07db59b95bc66c85da9e08ed2f7673fda69ff59533814da4a6856"
-    },
-    "source/rpfloader.ixx": {
-      "archivePath": "fusionfix-source/source/rpfloader.ixx",
-      "sha256": "1f07155291f110fb596e2bc29886ac33af4271a1f834755f7706d4f799920af0"
-    },
-    "source/settings.ixx": {
-      "archivePath": "fusionfix-source/source/settings.ixx",
-      "sha256": "7401f04f477eeefc7f134eaf8e7f625b1f7c66388fdaeebaa26a3476bfab5408"
-    },
-    "source/shaders.ixx": {
-      "archivePath": "fusionfix-source/source/shaders.ixx",
-      "sha256": "d4c12aa60537a218cb381c6c1f0bbca8e2374ccd77b18d0bb72142dac0f7ec15"
-    },
-    "source/ShadowAdapterCE.hpp": {
-      "archivePath": "fusionfix-source/source/ShadowAdapterCE.hpp",
-      "sha256": "f4ab1ec59ca4714ed0c7530dfcd003b3c63445694a11d7d04f74d0373058ec37"
-    },
-    "source/ShadowAllocationCE.hpp": {
-      "archivePath": "fusionfix-source/source/ShadowAllocationCE.hpp",
-      "sha256": "a150250b7897e8e18689c7d0d0ccc13fd699332467e12ebfce518c3add3aefac"
-    },
-    "source/ShadowAllocationPass.hpp": {
-      "archivePath": "fusionfix-source/source/ShadowAllocationPass.hpp",
-      "sha256": "932c373b554e097bc49ab7f4f390d48f07d763ae6acbca67759746f2284cb7b7"
-    },
-    "source/ShadowAllocationRuntime.inl": {
-      "archivePath": "fusionfix-source/source/ShadowAllocationRuntime.inl",
-      "sha256": "8df933318f014c18839f5e7e3464492ce7c397e7775608f739fa549b079f8a13"
-    },
-    "source/ShadowCacheDependenciesRuntime44.inl": {
-      "archivePath": "fusionfix-source/source/ShadowCacheDependenciesRuntime44.inl",
-      "sha256": "2b40356fe0b94a226aed2738c000800052cd7b5b2810a19667570a94d390e58a"
-    },
-    "source/ShadowCasterCE.hpp": {
-      "archivePath": "fusionfix-source/source/ShadowCasterCE.hpp",
-      "sha256": "b29fdc33788e13676430aeaabef15ab4c50d658d138f296765f91340e569587b"
-    },
-    "source/ShadowCasterRuntime.inl": {
-      "archivePath": "fusionfix-source/source/ShadowCasterRuntime.inl",
-      "sha256": "08e6a746fb81ded98a3989956d4e0bba51037c75c13f925b5280990e1fecabd6"
-    },
-    "source/ShadowCrashTrace30.hpp": {
-      "archivePath": "fusionfix-source/source/ShadowCrashTrace30.hpp",
-      "sha256": "01fe0ccf545bd7f1277b11bb1ad3e08044747ef185a7132f665cfd17afae4bd5"
-    },
-    "source/ShadowDrivingFocus.hpp": {
-      "archivePath": "fusionfix-source/source/ShadowDrivingFocus.hpp",
-      "sha256": "1cd33f51e333c050b3d8939d68368b5b4a3a78bba6e598317f9aa69e9ac27313"
-    },
-    "source/ShadowFloatingPointState.hpp": {
-      "archivePath": "fusionfix-source/source/ShadowFloatingPointState.hpp",
-      "sha256": "567dbab59d71b750e8f4e387fd929e4e3fefff8c45ebbbc7cc2d0ae00096b3f9"
-    },
-    "source/ShadowGuardDiagnostics.hpp": {
-      "archivePath": "fusionfix-source/source/ShadowGuardDiagnostics.hpp",
-      "sha256": "d3e9b16ed85af05f8b1b3c6b6e05c28f77ffd8a8813111e47a1be7b73037d3b5"
-    },
-    "source/ShadowInactiveSlots.hpp": {
-      "archivePath": "fusionfix-source/source/ShadowInactiveSlots.hpp",
-      "sha256": "9e16e7b7cea611ad75684c534546b978ad4a9dc8b5f5137735c2c6d28075abac"
-    },
-    "source/ShadowLightGeometry.hpp": {
-      "archivePath": "fusionfix-source/source/ShadowLightGeometry.hpp",
-      "sha256": "9ea31ed25be5cd2ef5a300e989944de96f8a0f0d728e899deb7d81d126c57e4d"
-    },
-    "source/ShadowLookupLayout.hpp": {
-      "archivePath": "fusionfix-source/source/ShadowLookupLayout.hpp",
-      "sha256": "51bebb319f9763ecebae12dc4f9bce116078fe92abc872596352ed28309a38df"
-    },
-    "source/ShadowLookupRuntime.inl": {
-      "archivePath": "fusionfix-source/source/ShadowLookupRuntime.inl",
-      "sha256": "4814bf8869aaba3b611f54b1170a887bd034f8aa43bb2bb090c3d0ede5fbfd72"
-    },
-    "source/ShadowLookupValidation.hpp": {
-      "archivePath": "fusionfix-source/source/ShadowLookupValidation.hpp",
-      "sha256": "92ceac6f28bc95c27eb6dd33fd64b8ed9a4946d3863d8a7f70ab8026c5b62d6d"
-    },
-    "source/ShadowReach.hpp": {
-      "archivePath": "fusionfix-source/source/ShadowReach.hpp",
-      "sha256": "63b0abb017bc5d2f5b724906af701cea8a8588fa4d62eed8a7f176d92358a470"
-    },
-    "source/ShadowReceiver.hpp": {
-      "archivePath": "fusionfix-source/source/ShadowReceiver.hpp",
-      "sha256": "8d98643af7ec9658295cf60fbbf675ebe93df9482817c401ff41b202b49c841e"
-    },
-    "source/shadows.ixx": {
-      "archivePath": "fusionfix-source/source/shadows.ixx",
-      "sha256": "4d4a258d25bfccee909cd2a743539f486e1f524a4855147844d2569056b669a7"
-    },
-    "source/ShadowTrace34.hpp": {
-      "archivePath": "fusionfix-source/source/ShadowTrace34.hpp",
-      "sha256": "f5d7e3306f7b5e54b468a036e81930b755392da9abe6554baa1e5b3e0d8282ce"
-    },
-    "source/ShadowViewPriority.hpp": {
-      "archivePath": "fusionfix-source/source/ShadowViewPriority.hpp",
-      "sha256": "293113263167d395c975f988262452ddfc2082e5e6b993a771f5b04b201ef7a7"
-    },
-    "source/ShadowVolumeVisibility43.hpp": {
-      "archivePath": "fusionfix-source/source/ShadowVolumeVisibility43.hpp",
-      "sha256": "a91df037236c6259fa7bb4bf1b93afa89e34995fb8b1a520302070458d269db2"
-    },
-    "source/skipintro.ixx": {
-      "archivePath": "fusionfix-source/source/skipintro.ixx",
-      "sha256": "2ab9d3ba7aefbc54056d7861b476778dafa42c3f206522397ac50b1703e0ce8c"
-    },
-    "source/sniper.ixx": {
-      "archivePath": "fusionfix-source/source/sniper.ixx",
-      "sha256": "a89baaa6225f1f8f27f2840a5c47edfb84f453fd6edb168dec775e89f55a5d7c"
-    },
-    "source/StableHeadlightSelector.hpp": {
-      "archivePath": "fusionfix-source/source/StableHeadlightSelector.hpp",
-      "sha256": "e3fb602e7954de0460b6d991ec2ff0bd4e8c6d8f8d6d78e6fea9a37d28985c56"
-    },
-    "source/SubmittedHeadlightHistory.hpp": {
-      "archivePath": "fusionfix-source/source/SubmittedHeadlightHistory.hpp",
-      "sha256": "ad1f7e28be26a3820ac02ef2c07d62f68217e638ed71918412d32a5d06e965b8"
-    },
-    "source/timecyc.ixx": {
-      "archivePath": "fusionfix-source/source/timecyc.ixx",
-      "sha256": "044bfb26186e6fd3f68fc5df8730ed235b0312cf68d9b50cde62af9bf8c52cdf"
-    },
-    "source/timecycext.ixx": {
-      "archivePath": "fusionfix-source/source/timecycext.ixx",
-      "sha256": "f08d50eef3534b30e0ec28f14048ad729bab303c9c4efae05db320381bff8e9f"
-    },
-    "source/turnindicators.ixx": {
-      "archivePath": "fusionfix-source/source/turnindicators.ixx",
-      "sha256": "e80f3de5f786d2222aefc290ac27e0e03815ad8613761cb4de34d3429fb26b22"
-    },
-    "source/userdata.ixx": {
-      "archivePath": "fusionfix-source/source/userdata.ixx",
-      "sha256": "20ac64bdfb00eddd0f40a5cd1e6217e9346aa68b05b81f67716ca370abc0b244"
-    },
-    "source/vlikestuntcam.ixx": {
-      "archivePath": "fusionfix-source/source/vlikestuntcam.ixx",
-      "sha256": "c30415f2656ba6c47480e66031e7b43db67680fb87f76d9af06e3ccb7877f761"
-    },
-    "source/vram.ixx": {
-      "archivePath": "fusionfix-source/source/vram.ixx",
-      "sha256": "25aa2d804540177c5410b6cccf0fca5f96088a53f1728f84427e1fe52ed64110"
-    },
-    "source/widescreenfix.ixx": {
-      "archivePath": "fusionfix-source/source/widescreenfix.ixx",
-      "sha256": "648de9f9dafb7674e94104249711576d04c7d8d567362651d49afce7c9b41b52"
-    },
-    "source/windowed.ixx": {
-      "archivePath": "fusionfix-source/source/windowed.ixx",
-      "sha256": "c5a25fc38fe8966e5cbc7018ff7cde81218a8663628f212181662d3898772640"
-    },
-    "source/d3d9/d3d9.cpp": {
-      "archivePath": "fusionfix-source/source/d3d9/d3d9.cpp",
-      "sha256": "4a0f3b7032c1bb6c60d748d546ff44a052e8de5e8eb4def1e64b9d78d60055df"
-    },
-    "source/dxsdk/d3dx9.h": {
-      "archivePath": "fusionfix-source/source/dxsdk/d3dx9.h",
-      "sha256": "7b20fea554f2aaef744d17e31ddf303b7c6b4bd4c8d279bad8cb2998781cab79"
-    },
-    "source/dxsdk/d3dx9anim.h": {
-      "archivePath": "fusionfix-source/source/dxsdk/d3dx9anim.h",
-      "sha256": "13e3d815d23e6daddde706dafef769bb40416e5c6c5ba817296377595a9716b2"
-    },
-    "source/dxsdk/d3dx9core.h": {
-      "archivePath": "fusionfix-source/source/dxsdk/d3dx9core.h",
-      "sha256": "7e360611940e9520c9dd983dbe9e48a78df8b723d95de1a57a63580de52a0207"
-    },
-    "source/dxsdk/d3dx9effect.h": {
-      "archivePath": "fusionfix-source/source/dxsdk/d3dx9effect.h",
-      "sha256": "72d6665d54c425b8a99fe0716518b2711f7cece6a3b2f8e7c6fc307e0a3fae26"
-    },
-    "source/dxsdk/d3dx9math.h": {
-      "archivePath": "fusionfix-source/source/dxsdk/d3dx9math.h",
-      "sha256": "27ac937a3eb64f9ed917a4265ac4e1f6817a94bd15ca7a5cc1eb63c2cb9ea1d9"
-    },
-    "source/dxsdk/d3dx9math.inl": {
-      "archivePath": "fusionfix-source/source/dxsdk/d3dx9math.inl",
-      "sha256": "51ae36e6cbec27c7ecd8be77b9587ca6e32e541228e8580a20bad08c5289abf6"
-    },
-    "source/dxsdk/d3dx9mesh.h": {
-      "archivePath": "fusionfix-source/source/dxsdk/d3dx9mesh.h",
-      "sha256": "9430487b9a0f6cbbb6839e27811bb70bbcd2d958666fc75c8da9d20ccc60bc41"
-    },
-    "source/dxsdk/d3dx9shader.h": {
-      "archivePath": "fusionfix-source/source/dxsdk/d3dx9shader.h",
-      "sha256": "235bf935a1381c68d0847cfb8d5422f33cdd92d33acee5a59befeef6afad78d4"
-    },
-    "source/dxsdk/d3dx9shape.h": {
-      "archivePath": "fusionfix-source/source/dxsdk/d3dx9shape.h",
-      "sha256": "481ce5fc79bba00750dce857e6d0507cb0b7b82013bcea1728b1abfdc5fe9a7b"
-    },
-    "source/dxsdk/d3dx9tex.h": {
-      "archivePath": "fusionfix-source/source/dxsdk/d3dx9tex.h",
-      "sha256": "64dfa1f26d6df792f6cf261c79f737e6e5c7670787ba6abfe0f76aba348e9422"
-    },
-    "source/dxsdk/d3dx9xof.h": {
-      "archivePath": "fusionfix-source/source/dxsdk/d3dx9xof.h",
-      "sha256": "145c211ccbcd880f411195e66881a9172df52ac495f309dc7c97875ba73d3c55"
-    },
-    "source/gxt/license.txt": {
-      "archivePath": "fusionfix-source/source/gxt/license.txt",
-      "sha256": "4c569e3dc2ddfcf4cbbf40ab3b7f5179dab392725fa0651e592c9e845c37ee31"
-    },
-    "source/gxt/premake-vs2017.cmd": {
-      "archivePath": "fusionfix-source/source/gxt/premake-vs2017.cmd",
-      "sha256": "a2d491d2afb897b453d63a1cbab7c02a9ce7ac41d5a9f46e19e8e83db5c78bb0"
-    },
-    "source/gxt/premake-vs2019.cmd": {
-      "archivePath": "fusionfix-source/source/gxt/premake-vs2019.cmd",
-      "sha256": "fa21ca87cc2a5b6ebabb1929edb0479bda3dc49e4491ee4377fe59b5bcd05db9"
-    },
-    "source/gxt/premake-vs2022.cmd": {
-      "archivePath": "fusionfix-source/source/gxt/premake-vs2022.cmd",
-      "sha256": "77b5f18bc36a87824cbee1e9d6887dce62d7a7a38f3c4fd2933ed7ed672ec5ce"
-    },
-    "source/gxt/premake5.lua": {
-      "archivePath": "fusionfix-source/source/gxt/premake5.lua",
-      "sha256": "80df1a53e1b09c35f6286a1cc4975beb8e8fb48f222b32b56e3047dc2647949f"
-    },
-    "source/gxt/README.MD": {
-      "archivePath": "fusionfix-source/source/gxt/README.MD",
-      "sha256": "2c17293b95f0ba11af48720371bba2f03fe5555f9136e3571a4878680c0591cf"
-    },
-    "source/includes/ModuleList.hpp": {
-      "archivePath": "fusionfix-source/source/includes/ModuleList.hpp",
-      "sha256": "2526c45b3b795ec2dd2803c115e640c1b2ef1e64ab4bd79b0f5884414bdb0f17"
-    },
-    "source/ledsdk/LogitechLEDLib.h": {
-      "archivePath": "fusionfix-source/source/ledsdk/LogitechLEDLib.h",
-      "sha256": "2cf68aa8ebee4ccea8da5dbca05fdc87c67559d66281fdf33a9d801b65edb44e"
-    },
-    "source/resources/FXAA3_11.h": {
-      "archivePath": "fusionfix-source/source/resources/FXAA3_11.h",
-      "sha256": "e7ec0e22b8e3db86ff6b2b77b99ae9251e0c687a88cf5d900be954a293794fb5"
-    },
-    "source/resources/LODLights.rc": {
-      "archivePath": "fusionfix-source/source/resources/LODLights.rc",
-      "sha256": "eabb64275eb1a5ab46571d5adb3814f6cdca3c337ff354f411ae84452aabf45d"
-    },
-    "source/resources/Shaders.rc": {
-      "archivePath": "fusionfix-source/source/resources/Shaders.rc",
-      "sha256": "cd2af33fcc65a9295186084232af6051f67972839999f0ed84d5cb653e79596a"
-    },
-    "source/resources/VersionInfo.h": {
-      "archivePath": "fusionfix-source/source/resources/VersionInfo.h",
-      "sha256": "0c3bcc1bc03c49ee0e59101c60094f7989d29219577d8b875b35a747277d5dee"
-    },
-    "source/resources/Versioninfo.rc": {
-      "archivePath": "fusionfix-source/source/resources/Versioninfo.rc",
-      "sha256": "3ccadc7708afefd56e3bd11c5663023badebd86a9f2d71dcb79bc4fd713e97b5"
-    },
-    "source/seasonal/halloween.ixx": {
-      "archivePath": "fusionfix-source/source/seasonal/halloween.ixx",
-      "sha256": "3f39e444188af44e50355a2a25a3029da8baf2ff4919928b6e4a9e40a55807e9"
-    },
-    "source/seasonal/seasonal.ixx": {
-      "archivePath": "fusionfix-source/source/seasonal/seasonal.ixx",
-      "sha256": "46478eed58959f9a9ee4aec7a2f48426949bdf96ab3714234b39a1b065aa6053"
-    },
-    "source/seasonal/snow.ixx": {
-      "archivePath": "fusionfix-source/source/seasonal/snow.ixx",
-      "sha256": "2094c3ccde2539e9abd9b01b23511a486d20ba974e6fdbb7839b0324deeaf30f"
-    },
-    "source/gxt/src/common.h": {
-      "archivePath": "fusionfix-source/source/gxt/src/common.h",
-      "sha256": "975a06bdf92350c271f336b8c6f02b8c1af9ccce59379a3ba6d90325c464b08a"
-    },
-    "source/gxt/src/ContainerBase.h": {
-      "archivePath": "fusionfix-source/source/gxt/src/ContainerBase.h",
-      "sha256": "506046a011507b0a057cdd0a023abe4779eb853ef2fa3182daaa9a5b3a43f86d"
-    },
-    "source/gxt/src/ConversionTable.cpp": {
-      "archivePath": "fusionfix-source/source/gxt/src/ConversionTable.cpp",
-      "sha256": "c90efad765d25581e152db3c275a101123a790ca2a8439034a7829e8456d4c43"
-    },
-    "source/gxt/src/ConversionTable.h": {
-      "archivePath": "fusionfix-source/source/gxt/src/ConversionTable.h",
-      "sha256": "42c7630d0ff9b64ceb14aad3a9ad710b3665eff84ea4eea31b6e8a9c19bd7e3f"
-    },
-    "source/gxt/src/crc32_dictionary.txt": {
-      "archivePath": "fusionfix-source/source/gxt/src/crc32_dictionary.txt",
-      "sha256": "2232ffab82ac03c48c61aad317c9abdf2f2e5b1b6bd887f9e541452d163d71b5"
-    },
-    "source/gxt/src/DataContainer.h": {
-      "archivePath": "fusionfix-source/source/gxt/src/DataContainer.h",
-      "sha256": "b5c5bf2d318ec913e97f262cd170b889be8a214b3428284608bb137a7a350798"
-    },
-    "source/gxt/src/Hash.cpp": {
-      "archivePath": "fusionfix-source/source/gxt/src/Hash.cpp",
-      "sha256": "27a41f8c49cc61cd41a5ab7405221505c9c43b12305ddb732478ebb943c0682b"
-    },
-    "source/gxt/src/Hash.h": {
-      "archivePath": "fusionfix-source/source/gxt/src/Hash.h",
-      "sha256": "f5e200683903c4b0f02745548bfcf606f0e81a03743db3b679b160add53c716f"
-    },
-    "source/gxt/src/Hash_CRC32.cpp": {
-      "archivePath": "fusionfix-source/source/gxt/src/Hash_CRC32.cpp",
-      "sha256": "dbc789e681a1ba44215f0608f213f71b58ae67219a88234a19ad6c4c95721c8c"
-    },
-    "source/gxt/src/Hash_CRC32.h": {
-      "archivePath": "fusionfix-source/source/gxt/src/Hash_CRC32.h",
-      "sha256": "cc83e06ff85f54dc607abae1dbd675eda890e95690a4e26cdc3462a4b08ebd0d"
-    },
-    "source/gxt/src/Hash_Jenkins.cpp": {
-      "archivePath": "fusionfix-source/source/gxt/src/Hash_Jenkins.cpp",
-      "sha256": "f296005b4e8ef11c812dbbc4bb61e99a4c683af214604251b0407fc26b765546"
-    },
-    "source/gxt/src/Hash_Jenkins.h": {
-      "archivePath": "fusionfix-source/source/gxt/src/Hash_Jenkins.h",
-      "sha256": "ba3f51e15bbca345402a092c80cdd46483fc43f2223d237d208131eb437d7d62"
-    },
-    "source/gxt/src/Jenkins_dictionary.txt": {
-      "archivePath": "fusionfix-source/source/gxt/src/Jenkins_dictionary.txt",
-      "sha256": "72a031851fc165496340f285fc8d6356795c7328568cbf7d384291017d117afe"
-    },
-    "source/gxt/src/KeyChar.h": {
-      "archivePath": "fusionfix-source/source/gxt/src/KeyChar.h",
-      "sha256": "852e59131e890a50393dfbfa38bc382839399f756ddf66c67bc9bd7ad54f74f4"
-    },
-    "source/gxt/src/KeyContainer.h": {
-      "archivePath": "fusionfix-source/source/gxt/src/KeyContainer.h",
-      "sha256": "6a142073301bd616ccd23a3e3ee982a85d5b3ce2678014ea1bae1abe87a39a06"
-    },
-    "source/gxt/src/StringContainer.cpp": {
-      "archivePath": "fusionfix-source/source/gxt/src/StringContainer.cpp",
-      "sha256": "c07e64e5ab54317d3bf87674b20bfab2c438bbc64ecffda5d8cf463ab9fa6933"
-    },
-    "source/gxt/src/StringContainer.h": {
-      "archivePath": "fusionfix-source/source/gxt/src/StringContainer.h",
-      "sha256": "5a100a3e80729eb1425c755f801644b7cc4f95223bb160e627daf601922d181c"
-    },
-    "source/gxt/src/TableData.h": {
-      "archivePath": "fusionfix-source/source/gxt/src/TableData.h",
-      "sha256": "7dfbb0a6abb4d14ba163713b38c6cd031de00a0158d3aadc9dcca785b79ad65f"
-    },
-    "source/gxt/src/umap.h": {
-      "archivePath": "fusionfix-source/source/gxt/src/umap.h",
-      "sha256": "685843451006e462f618ed76ebdbcd6bab4265bee1aa0e9a0e3526e0556e4220"
-    },
-    "source/gxt/src/utils.h": {
-      "archivePath": "fusionfix-source/source/gxt/src/utils.h",
-      "sha256": "95a4e094f542c2ec031230d064c2731a15dd75b814a17388f5802861828a9267"
-    },
-    "source/gxt/src/utils_win32.cpp": {
-      "archivePath": "fusionfix-source/source/gxt/src/utils_win32.cpp",
-      "sha256": "3f3868afd489f83f8184c0ac9cbf9262245654fd7025761f0cdcef62dddc0077"
-    },
-    "source/gxt/tables/iii_table.txt": {
-      "archivePath": "fusionfix-source/source/gxt/tables/iii_table.txt",
-      "sha256": "776726781bcb47f013d0d77b41ea569f800fae933240e95b4863a2cde9cf04be"
-    },
-    "source/gxt/tables/iii_table_mob_jpn.txt": {
-      "archivePath": "fusionfix-source/source/gxt/tables/iii_table_mob_jpn.txt",
-      "sha256": "476f4bdbefff31c8d2af313dea6635d554ece9786c786a68e3ce5171a2701884"
-    },
-    "source/gxt/tables/iii_table_mob_kor.txt": {
-      "archivePath": "fusionfix-source/source/gxt/tables/iii_table_mob_kor.txt",
-      "sha256": "1b7f145386dd0fd02326967bbbbe9b2e35adcf168ad0f1ed9552e59decd67d91"
-    },
-    "source/gxt/tables/iii_table_pl.txt": {
-      "archivePath": "fusionfix-source/source/gxt/tables/iii_table_pl.txt",
-      "sha256": "abd4b7019ee22d5240b75ac564390baae16d50650a3d177fab0ca4ec76201459"
-    },
-    "source/gxt/tables/iii_table_rus.txt": {
-      "archivePath": "fusionfix-source/source/gxt/tables/iii_table_rus.txt",
-      "sha256": "50fb4b4f55cb496349b092ea1e2d8220fef394ee343917036e286c7f4519cfc3"
-    },
-    "source/gxt/tables/iv_table.txt": {
-      "archivePath": "fusionfix-source/source/gxt/tables/iv_table.txt",
-      "sha256": "e700f94d3d41aea0f9d6be4f95949a3b80f9b5a2d90f92241e3ae6ae083130e4"
-    },
-    "source/gxt/tables/iv_table_jpn_pc.txt": {
-      "archivePath": "fusionfix-source/source/gxt/tables/iv_table_jpn_pc.txt",
-      "sha256": "430747004508f886622f411550f4bb522ccc898b0e5ce88642b07d5b24315ede"
-    },
-    "source/gxt/tables/iv_table_rus_pc.txt": {
-      "archivePath": "fusionfix-source/source/gxt/tables/iv_table_rus_pc.txt",
-      "sha256": "ab5b6a1d95c8c4c8e9ad50b6b214e2b50cfb54ae813a885edcbc0d81a3ef9c7b"
-    },
-    "source/gxt/tables/lcs_table.txt": {
-      "archivePath": "fusionfix-source/source/gxt/tables/lcs_table.txt",
-      "sha256": "b2a8198be06a2a34d840b120fa4ec8efc2e99eef5234dad4dac6d1020337e288"
-    },
-    "source/gxt/tables/lcs_table_jpn.txt": {
-      "archivePath": "fusionfix-source/source/gxt/tables/lcs_table_jpn.txt",
-      "sha256": "76018c69cabf5f4329656492f06b2d2f61d12e7fbf2b04904393bf0c331c89b1"
-    },
-    "source/gxt/tables/lcs_table_mob_jpn.txt": {
-      "archivePath": "fusionfix-source/source/gxt/tables/lcs_table_mob_jpn.txt",
-      "sha256": "a46cf68608a0b2e787e2796090f1dc50ce4d6924bc7e589887b2de01d7def12d"
-    },
-    "source/gxt/tables/lcs_table_mob_rus.txt": {
-      "archivePath": "fusionfix-source/source/gxt/tables/lcs_table_mob_rus.txt",
-      "sha256": "a53b7c9ce10626025393409038b063512454ffe42c489401331b5331b65d637a"
-    },
-    "source/gxt/tables/mh1_table.txt": {
-      "archivePath": "fusionfix-source/source/gxt/tables/mh1_table.txt",
-      "sha256": "d492cd31ca1d39738cdad2c9549064dcc414b0671d1e23b8f5cbea5d98d966bf"
-    },
-    "source/gxt/tables/mh2_table.txt": {
-      "archivePath": "fusionfix-source/source/gxt/tables/mh2_table.txt",
-      "sha256": "2debfb5b4bd76c1e7f550906cbcc5be113a1dae2b580b7b3484e4f5253e6ff94"
-    },
-    "source/gxt/tables/sa_table_ps2_jpn_capcom.txt": {
-      "archivePath": "fusionfix-source/source/gxt/tables/sa_table_ps2_jpn_capcom.txt",
-      "sha256": "8f876854fbf912b4dd5a21986d86aa9c82f17059970bbe8720a7c0cf9e696001"
-    },
-    "source/gxt/tables/sa_table_ps2_jpn_rockstar_classics.txt": {
-      "archivePath": "fusionfix-source/source/gxt/tables/sa_table_ps2_jpn_rockstar_classics.txt",
-      "sha256": "3503267d40508589250d53f0ea941e93106717af4187bba3f34d07b50b307c59"
-    },
-    "source/gxt/tables/vcs_table_jpn.txt": {
-      "archivePath": "fusionfix-source/source/gxt/tables/vcs_table_jpn.txt",
-      "sha256": "d0138a1ad34079bdc4985ebb9f4d4ede8a09da1983ebb67c31f2fa548ca77101"
-    },
-    "source/gxt/tables/vc_sa_table.txt": {
-      "archivePath": "fusionfix-source/source/gxt/tables/vc_sa_table.txt",
-      "sha256": "d7b8cca9ee4e3f7b7c2cf8cddf71dee127ddb2a598080541599d703a1f71ce25"
-    },
-    "source/gxt/tables/vc_sa_table_mob.txt": {
-      "archivePath": "fusionfix-source/source/gxt/tables/vc_sa_table_mob.txt",
-      "sha256": "bd9cc587b94f38aedf70f7da0bd5f09bad8276cefa33c20332141248418c0697"
-    },
-    "source/gxt/tables/vc_table_mob_jpn.txt": {
-      "archivePath": "fusionfix-source/source/gxt/tables/vc_table_mob_jpn.txt",
-      "sha256": "cd33582eb8a614c63a20cad9167a1b7b369b278759ab3813d35a8c602d43c799"
-    },
-    "source/gxt/tables/vc_table_mob_kor.txt": {
-      "archivePath": "fusionfix-source/source/gxt/tables/vc_table_mob_kor.txt",
-      "sha256": "ab896451dc8d1c70c632a1bc24780d3e01a9103f68fd968e5b9eb3ecad3015c0"
-    },
-    "source/gxt/tables/vc_table_mob_rus.txt": {
-      "archivePath": "fusionfix-source/source/gxt/tables/vc_table_mob_rus.txt",
-      "sha256": "ee79b43507854f8cb913faa2170eb853a89ad2d4cf15bf5042b2ba7aa22c88cb"
-    },
-    "source/resources/snow/snow.rc": {
-      "archivePath": "fusionfix-source/source/resources/snow/snow.rc",
-      "sha256": "460983c7d1ca7497088721f1da8a75284bebc820a8ad712498df21686f76c3af"
-    },
-    "tests/stability40/build.cmd": {
-      "archivePath": "CE-1.6/tests/stability40/build.cmd",
-      "sha256": "7e07c415e558db6ad56d9e083284d1c5d7bc2dee7c96aca5ab24d66c6b27d0fa"
-    },
-    "tests/stability40/stability_tests.cpp": {
-      "archivePath": "CE-1.6/tests/stability40/stability_tests.cpp",
-      "sha256": "d0fc92c554ccbbf3a79d816c03daa3883ac1b162db98851a9d51a73af8eca251"
-    },
-    "tests/stability40/test.cmd": {
-      "archivePath": "CE-1.6/tests/stability40/test.cmd",
-      "sha256": "27c42fab206d9c4f963b61e454084363c4f24b7108dac6291d0149dc625f8a02"
-    },
-    "tests/stability40/view-tests.cpp": {
-      "archivePath": "CE-1.6/tests/stability40/view-tests.cpp",
-      "sha256": "f58cd4f2f7c30105cd8a187ed9ec82cbac4afbdcde8da8726bdb56b7839172fb"
-    },
-    "tests/stability41/build.cmd": {
-      "archivePath": "CE-1.6/tests/stability41/build.cmd",
-      "sha256": "110389947c6256444d10d7044847d2b6f33ac4996b078b5191272ccfbd0fe83f"
-    },
-    "tests/stability41/continuity_tests.cpp": {
-      "archivePath": "CE-1.6/tests/stability41/continuity_tests.cpp",
-      "sha256": "34a97d6c80d3c9545e9bb34a5a8095279a2a36a41b70c07f2217820cccbe0bb5"
-    },
-    "tests/stability42/build.cmd": {
-      "archivePath": "CE-1.6/tests/stability42/build.cmd",
-      "sha256": "473b0bbc265e3ded00a5d4adb6701d1152783965a9c2ad667cfce906f511351f"
-    },
-    "tests/stability42/continuity_tests.cpp": {
-      "archivePath": "CE-1.6/tests/stability42/continuity_tests.cpp",
-      "sha256": "935f8daf3b0d3b0bc11476ba9746d6f0395f67bca02bd8e3a6613e6283760a52"
-    },
-    "tests/stability42/guard_tests.cpp": {
-      "archivePath": "CE-1.6/tests/stability42/guard_tests.cpp",
-      "sha256": "60645286570e9bc5babd6346f174e324ead40edb2bce1e25424f5832f9281dac"
-    },
-    "tests/stability42/test.cmd": {
-      "archivePath": "CE-1.6/tests/stability42/test.cmd",
-      "sha256": "4b806301fbfb27157b81ceb83714135f9a0e641f0a403b381af880d1e9f5bad3"
-    },
-    "tests/stability43/build.cmd": {
-      "archivePath": "CE-1.6/tests/stability43/build.cmd",
-      "sha256": "4ab86e51a4ca438166a06690efb779d3b7e9d9e3e9041cca66eff2d3e1d6bd79"
-    },
-    "tests/stability43/guard_tests.cpp": {
-      "archivePath": "CE-1.6/tests/stability43/guard_tests.cpp",
-      "sha256": "60645286570e9bc5babd6346f174e324ead40edb2bce1e25424f5832f9281dac"
-    },
-    "tests/stability43/test.cmd": {
-      "archivePath": "CE-1.6/tests/stability43/test.cmd",
-      "sha256": "5686533ae5af06fa618734768c77fbb4ba66fee7c9efc17afa0040a460f0461b"
-    },
-    "tests/stability43/VALIDATION.md": {
-      "archivePath": "CE-1.6/tests/stability43/VALIDATION.md",
-      "sha256": "f9fbfcf5724c56c71668a905af0c2d9670ee6461737cd136a8c3b95702accc42"
-    },
-    "tests/stability43/visibility_tests.cpp": {
-      "archivePath": "CE-1.6/tests/stability43/visibility_tests.cpp",
-      "sha256": "acc3c763e4ece5a324f7a0c68f6bb43c864e0acb1b5437f1a3a92ace423d7356"
-    },
-    "tests/stability44/build.cmd": {
-      "archivePath": "CE-1.6/tests/stability44/build.cmd",
-      "sha256": "817f8a750a3e936a635c75da1c2a4d0c30c2c28a4ff679ce8cd04a73c8d7b66e"
-    },
-    "tests/stability44/cache_tests.cpp": {
-      "archivePath": "CE-1.6/tests/stability44/cache_tests.cpp",
-      "sha256": "3f2f49f2b087efe2b9af4dc98178d0fd96549b15879273e0db040eec71849ea5"
-    },
-    "tests/stability44/CHANGELOG.md": {
-      "archivePath": "CE-1.6/tests/stability44/CHANGELOG.md",
-      "sha256": "bed11a2d6bf81b06a8f270a0bb3c8d1d274c10b7e48dc647961369ddceedd939"
-    },
-    "tests/stability44/guard_tests.cpp": {
-      "archivePath": "CE-1.6/tests/stability44/guard_tests.cpp",
-      "sha256": "ed5e4edb3c983123f7af2b2cd9b3a026d1044e9ca1a8127ad8ce8fa859d4f9dd"
-    },
-    "tests/stability44/native-test.cmd": {
-      "archivePath": "CE-1.6/tests/stability44/native-test.cmd",
-      "sha256": "38f8056de80af256088995d62f0a4c02164a7957c943f52e501cc93334677cdb"
-    },
-    "tests/stability44/native_cache_tests.cpp": {
-      "archivePath": "CE-1.6/tests/stability44/native_cache_tests.cpp",
-      "sha256": "01f2f68ad62fc7635c87707c45224ee4f0685fbcd6e18560c3ff260835382520"
-    },
-    "tests/stability44/test.cmd": {
-      "archivePath": "CE-1.6/tests/stability44/test.cmd",
-      "sha256": "d088d655d64fe4b7132cb00eae426abda30ebdddfbdaddd372174ccd7a74652d"
-    },
-    "tests/stability44/VALIDATION.md": {
-      "archivePath": "CE-1.6/tests/stability44/VALIDATION.md",
-      "sha256": "b7e7c7e2437a0fcaacd472fb9f171b41670730a5a8b60471d66af73654374cf3"
+  "source": "D:\\Codex-Work\\Libertys-Shadows-2.0\\refinement125-release\\source",
+  "files": [
+    {
+      "path": "44tests.cmake",
+      "size": 308,
+      "sha256": "17EC1DECC210536C567628F7DEA1EEEF17E2CC4BE95084F1AA9F745287BC2D66"
+    },
+    {
+      "path": "ATTRIBUTION.md",
+      "size": 2488,
+      "sha256": "0B9767F81AE943AEBE4727925B7517C4BF2922C500E0502B5B80FBC1925E8516"
+    },
+    {
+      "path": "BUILD-IDENTITY.json",
+      "size": 957,
+      "sha256": "2FCF1214368774DA62020B01DD91FFFA44ADAC8441B6826E8FAF66F44BDD4FD1"
+    },
+    {
+      "path": "BUILD-IDENTITY101.json",
+      "size": 854,
+      "sha256": "81A685C6E53A1B67BFAC6DB1948CC5F45F5DA7AAE935EC68CE982CD34005E893"
+    },
+    {
+      "path": "BUILD-IDENTITY74.json",
+      "size": 433,
+      "sha256": "E66492F95C808D0D7630A76AEA4511BCB7AAB507CE5B10E4BAC4F3188AE261D6"
+    },
+    {
+      "path": "BUILD-IDENTITY78.json",
+      "size": 747,
+      "sha256": "B3E38C224DE45D6E26FEC77763435F00B218BFBEDDDD8FFE0CEF0252C556BD6B"
+    },
+    {
+      "path": "BUILD.md",
+      "size": 7424,
+      "sha256": "98CB460ED5EDF8CC56A1D1B6BB021CF9C8166629CACBBD078A674FD552FA41BE"
+    },
+    {
+      "path": "Capture44tests.cmake",
+      "size": 707,
+      "sha256": "978F79038C0FDE659C95BC4E1E15E40FD3E2C32BF3BEDE4B657C13AE4F283EFF"
+    },
+    {
+      "path": "CaptureDiagnostic44.hpp",
+      "size": 2617,
+      "sha256": "CBA037F6831D65637CD382BF199BB98AC61692B41B1B44AE247917D0183A5CF8"
+    },
+    {
+      "path": "CaptureFramePrelude46.hpp",
+      "size": 584,
+      "sha256": "206D303CD3A670BC224D413A37F9DB9268271EE10A8E51368513D00301905648"
+    },
+    {
+      "path": "CaptureLease44.hpp",
+      "size": 313,
+      "sha256": "7A4B32DBA36450F6AE33BF4F1D169C21229A42EAD01F7961ED5FA403E21D3185"
+    },
+    {
+      "path": "CaptureLifecycle46tests.cmake",
+      "size": 208,
+      "sha256": "1C194FDD3E284827A2F7BA39AD573770008113E40CD21C82C83C8BF7509DA40E"
+    },
+    {
+      "path": "CHANGELOG.txt",
+      "size": 1742,
+      "sha256": "A08330FBC41BC506933E851EABD3DFD9DC51E785ED555F72EA1F790D837DB453"
+    },
+    {
+      "path": "CMakeLists.txt",
+      "size": 24382,
+      "sha256": "CCF725A2888E3B0D1D44CACCBF544AF846ADAE0431D5A8A7914584861648CE22"
+    },
+    {
+      "path": "CONFIGURATION-2.0.md",
+      "size": 6901,
+      "sha256": "C38178AC82D104050883B9596575AD7B3038FD104AE2A8666C3A0B0983949BE6"
+    },
+    {
+      "path": "ConsumerShadow75Runtime.inc",
+      "size": 6259,
+      "sha256": "079B9B2812431E0574DB4E9BFED19BDD045C9CAF7436B922E24ED1CACEA68A81"
+    },
+    {
+      "path": "core/CloseHeadlightRelevance.hpp",
+      "size": 1981,
+      "sha256": "D98A5798B3A298D3D3392F9144726CFCC4C521757A85461A841A77EEEB48C724"
+    },
+    {
+      "path": "core/ConsumerGuard80.hpp",
+      "size": 989,
+      "sha256": "8333E6A25ECAF9246BE3ABAA9CDDCC2D4AF8BF0DA160499484392383F20D07D9"
+    },
+    {
+      "path": "core/ConsumerShadow75.hpp",
+      "size": 4841,
+      "sha256": "E0C413E5D20321407F6AF41CA8AB851C2DCAFF836F5508D2D8C08D0B31190995"
+    },
+    {
+      "path": "core/CrashPathContext31.hpp",
+      "size": 2893,
+      "sha256": "04AF42D6EDEFBA8BC0A0ED0BA8331D20DE63A8AD36DE21F93B857BEE8F2F3AE3"
+    },
+    {
+      "path": "core/DeferredModelShortlist48.hpp",
+      "size": 4087,
+      "sha256": "C7C14825E9506E906E37976D6B1E78E3FEFEEB3B50B406DB6D94561D64264AB0"
+    },
+    {
+      "path": "core/HeadlightCasterPolicy.hpp",
+      "size": 2327,
+      "sha256": "8F7CA3727A67A1877CA1B84EA58249A4CB97636F0F996CFC02D4A11B9D513D11"
+    },
+    {
+      "path": "core/HeadlightEnhancementRuntime.inl",
+      "size": 4870,
+      "sha256": "D5BC012F73D499F64C16E4A412209E4A0D84E308D9EB7051BA634304A17E2634"
+    },
+    {
+      "path": "core/LabPoliceClaim.hpp",
+      "size": 1622,
+      "sha256": "670BD07C334D0648F7B70DC6BF2EB8DE1EE32A9147544FEBFB84108EB6409908"
+    },
+    {
+      "path": "core/LabSirenBlinkGrace.hpp",
+      "size": 1558,
+      "sha256": "2317946BE4E2318FC1204016D35753BFCC7E1575ADE9A7BD1CBB253F11D903C6"
+    },
+    {
+      "path": "core/LabSirenLifetime.hpp",
+      "size": 961,
+      "sha256": "8F900A381A7561F4EFDE92E93126149AA40A9632149CEB81634F166218B4AA78"
+    },
+    {
+      "path": "core/LabSirenVacancy.hpp",
+      "size": 1495,
+      "sha256": "D5E12162C4F54C47541971A0EEC10A61217DC86E0028934B774D3E7DDEFDAA93"
+    },
+    {
+      "path": "core/NativeCacheDependencies44.hpp",
+      "size": 1381,
+      "sha256": "F4EFC005F79E651D4E5422E401026A60984CD6FAD78ED181C980961B233DCBE8"
+    },
+    {
+      "path": "core/NativeLampContinuity41.hpp",
+      "size": 1644,
+      "sha256": "B68036B320083EB8DFAA12EFA2D15ACE1E4E5ABCDF8E513E95ACA76BF7694DB3"
+    },
+    {
+      "path": "core/NativeLampDistance38.hpp",
+      "size": 1499,
+      "sha256": "FACFE33C6F5660606261CBA4CAE8EF918F5A4D78F66D743216807C4A06C15CA2"
+    },
+    {
+      "path": "core/NativeLampSelection35.hpp",
+      "size": 3351,
+      "sha256": "8DEB0444D0E54ABB0511C8C039A21872531272803DF159A88F28BA044199E02E"
+    },
+    {
+      "path": "core/NativeProducerGate116.hpp",
+      "size": 3268,
+      "sha256": "E42DDE197BD548C36E56B5FAA51D045ABDEC44B53A7416F43A0379C8ED6061E0"
+    },
+    {
+      "path": "core/NativeShadowContinuity42.hpp",
+      "size": 6417,
+      "sha256": "D763C6BCF27C718F29FA63EA3DE3E5611D367C45514FF9B748FBBE09F39F88CC"
+    },
+    {
+      "path": "core/NearbyPoliceGuard.hpp",
+      "size": 842,
+      "sha256": "C665802BBBC38DCF5E381032C4D8FCDA4FC0A88B62F967E9491E7E674DDE4911"
+    },
+    {
+      "path": "core/NearbyPoliceShadows.hpp",
+      "size": 5578,
+      "sha256": "4962940C33FC524C29091FF0945CBABEF22048D43E9CE4D3BA64F584743A6BB1"
+    },
+    {
+      "path": "core/NearbyVehicleReceivers36.hpp",
+      "size": 3275,
+      "sha256": "A93F3C17CEC2EB675031B9B379239AF942841ABA3550680EBA1ED49AA3F7C839"
+    },
+    {
+      "path": "core/NearbyVehicleRuntime36.inl",
+      "size": 3899,
+      "sha256": "F20E13200B924A77ED799E59A34BDBBF9AD0C101FDA2F003E1696F2C11E1AA3A"
+    },
+    {
+      "path": "core/ParallelSelectionMath61.hpp",
+      "size": 9716,
+      "sha256": "87B6E02284D18B7025DD331D0873757962B63AE6F019E2B526246DCC46975968"
+    },
+    {
+      "path": "core/PlayerShadowBudget.hpp",
+      "size": 16540,
+      "sha256": "F99E1EF62F1F1D6D9FA418EA51ABFD4320EB8ECA2C5DAFF1381584EEA7B54E19"
+    },
+    {
+      "path": "core/ReachSettings122.hpp",
+      "size": 989,
+      "sha256": "16D69B0068E54D0A96F940508FD4794632F410EE96ABBD52A9660A3A0AEECFC4"
+    },
+    {
+      "path": "core/SceneScoreContinuity96.hpp",
+      "size": 1905,
+      "sha256": "707C7DA55225B3B1BA93A24948E9F7B6BD5392A0FB25E37E9292FD645FA5A867"
+    },
+    {
+      "path": "core/SceneShadowPriority21.hpp",
+      "size": 7598,
+      "sha256": "AC7C09005051A09A4C8EEC08170D0A47D6019AEAB7BB29A528C210D1A229FB7A"
+    },
+    {
+      "path": "core/ShadowAdapterCE.hpp",
+      "size": 5901,
+      "sha256": "BA0EA2B994FD11313E81912FF44C77079A60E74699A16C5DE07AAA27B9788997"
+    },
+    {
+      "path": "core/ShadowAllocationCE.hpp",
+      "size": 29918,
+      "sha256": "167EFA57392DC914D3F6F59765141B4418A9009AA19FDE5FC1A111779C01659C"
+    },
+    {
+      "path": "core/ShadowAllocationPass.hpp",
+      "size": 10670,
+      "sha256": "C10886ABC371CFCBAC4F12EDF4F9031A497B2F4B00E88E5CD3603001467479E1"
+    },
+    {
+      "path": "core/ShadowAllocationRuntime.inl",
+      "size": 73048,
+      "sha256": "19A1922522CFCB230272D02D21834D90CE3BD464A5554B3DCE1EE6E3AA091682"
+    },
+    {
+      "path": "core/ShadowCacheDependenciesRuntime44.inl",
+      "size": 3533,
+      "sha256": "2B40356FE0B94A226AED2738C000800052CD7B5B2810A19667570A94D390E58A"
+    },
+    {
+      "path": "core/ShadowCasterCE.hpp",
+      "size": 4024,
+      "sha256": "B29FDC33788E13676430AEAABEF15AB4C50D658D138F296765F91340E569587B"
+    },
+    {
+      "path": "core/ShadowCasterRuntime.inl",
+      "size": 11797,
+      "sha256": "759D8DAF0C8C42FB8897EF76F94643F73E76BF6F120849EACEE35DE9C0338E51"
+    },
+    {
+      "path": "core/ShadowCpuProfile29.hpp",
+      "size": 2662,
+      "sha256": "980F346674D032070C3DAD3FDCFD25C6DBAE5DE89A30236CC05535EA2C7DE202"
+    },
+    {
+      "path": "core/ShadowCrashTrace30.hpp",
+      "size": 4139,
+      "sha256": "01FE0CCF545BD7F1277B11BB1AD3E08044747EF185A7132F665CFD17AFAE4BD5"
+    },
+    {
+      "path": "core/ShadowDrivingFocus.hpp",
+      "size": 2750,
+      "sha256": "1CD33F51E333C050B3D8939D68368B5B4A3A78BBA6E598317F9AA69E9AC27313"
+    },
+    {
+      "path": "core/ShadowFloatingPointState.hpp",
+      "size": 1123,
+      "sha256": "567DBAB59D71B750E8F4E387FD929E4E3FEFFF8C45EBBBC7CC2D0AE00096B3F9"
+    },
+    {
+      "path": "core/ShadowGuardDiagnostics.hpp",
+      "size": 3064,
+      "sha256": "D3E9B16ED85AF05F8B1B3C6B6E05C28F77FFD8A8813111E47A1BE7B73037D3B5"
+    },
+    {
+      "path": "core/ShadowInactiveSlots.hpp",
+      "size": 1074,
+      "sha256": "9E16E7B7CEA611AD75684C534546B978AD4A9DC8B5F5137735C2C6D28075ABAC"
+    },
+    {
+      "path": "core/ShadowKeyMultiplicity27.hpp",
+      "size": 1072,
+      "sha256": "49AC2E95E61BB40F39BD08061BD4EEC57891D32F285A761920247FE6B31EBBCB"
+    },
+    {
+      "path": "core/ShadowLightGeometry.hpp",
+      "size": 1678,
+      "sha256": "9EA31ED25BE5CD2EF5A300E989944DE96F8A0F0D728E899DEB7D81D126C57E4D"
+    },
+    {
+      "path": "core/ShadowLookupLayout.hpp",
+      "size": 1969,
+      "sha256": "51BEBB319F9763ECEBAE12DC4F9BCE116078FE92ABC872596352ED28309A38DF"
+    },
+    {
+      "path": "core/ShadowLookupRuntime.inl",
+      "size": 2989,
+      "sha256": "4814BF8869AABA3B611F54B1170A887BD034F8AA43BB2BB090C3D0EDE5FBFD72"
+    },
+    {
+      "path": "core/ShadowLookupValidation.hpp",
+      "size": 1669,
+      "sha256": "92CEAC6F28BC95C27EB6DD33FD64B8ED9A4946D3863D8A7F70AB8026C5B62D6D"
+    },
+    {
+      "path": "core/ShadowMapOrdinals20.hpp",
+      "size": 1865,
+      "sha256": "092885F701B295C607BD4FC157CAFBCC29494AF4D8C4F0148BF36CDD093E8099"
+    },
+    {
+      "path": "core/ShadowPrioritySmoothing20.hpp",
+      "size": 1198,
+      "sha256": "487D833A507995231F6CE3DF1C529163EF59EC4171F7D3B8E6B3FEC7BC82F67B"
+    },
+    {
+      "path": "core/ShadowReach.hpp",
+      "size": 744,
+      "sha256": "03E9FA31CDF54684ABFFA1D0419A23460A01DF986F2A345A7E4796CF82566223"
+    },
+    {
+      "path": "core/ShadowReceiver.hpp",
+      "size": 1859,
+      "sha256": "8D98643AF7EC9658295CF60FBBF675EBE93DF9482817C401FF41B202B49C841E"
+    },
+    {
+      "path": "core/ShadowSelectionLoss38.hpp",
+      "size": 2512,
+      "sha256": "01F3384B29841E3AC79EE0BE380E3339BCF59E7494B73BF178F8427BF0BA42DC"
+    },
+    {
+      "path": "core/ShadowTrace34.hpp",
+      "size": 6817,
+      "sha256": "7F6E321FA082A813BCD1FE1A95195E098872CBDA2375097AF1FDE3880C119FE7"
+    },
+    {
+      "path": "core/ShadowTransitionDetector69.hpp",
+      "size": 3049,
+      "sha256": "DB3D55837081487F80CEF86890A04A1B9B738F3D1324A12DDC0291505240B554"
+    },
+    {
+      "path": "core/ShadowViewPriority.hpp",
+      "size": 3307,
+      "sha256": "293113263167D395C975F988262452DDFC2082E5E6B993A771F5B04B201EF7A7"
+    },
+    {
+      "path": "core/ShadowVolumeVisibility43.hpp",
+      "size": 2593,
+      "sha256": "9D20CBB698B451E006BA13F3BC0820946E0EF47038B3227E57CDE54480940449"
+    },
+    {
+      "path": "core/SignalShadowPriority20.hpp",
+      "size": 1145,
+      "sha256": "96640EB3D9E3A29F95450F7E8D81D259714CA50579F8BC212959C0C4AEC6F41A"
+    },
+    {
+      "path": "core/StableHeadlightSelector.hpp",
+      "size": 14878,
+      "sha256": "E34919721623ED3F5593AF8E29FE410389CE92045AC56A726543967968B1AE72"
+    },
+    {
+      "path": "core/standalone-game-abi.hpp",
+      "size": 2507,
+      "sha256": "7FE38D505D78EF4D18F4F390F247C33A41A3EA3DF075A2099758FBDD40FC7E0E"
+    },
+    {
+      "path": "core/standalone-shadow-core.cpp",
+      "size": 12691,
+      "sha256": "D7C955BE3A3103B935025B6C11D049C49C844CBD03353B3B39D17170719B596C"
+    },
+    {
+      "path": "core/SubmittedHeadlightHistory.hpp",
+      "size": 1453,
+      "sha256": "AD1F7E28BE26A3820AC02EF2C07D62F68217E638ED71918412D32A5D06E965B8"
+    },
+    {
+      "path": "CoronaLightPolicy20.hpp",
+      "size": 3460,
+      "sha256": "CD281E57D6F9910AE8057E691CC3DC075305025161759C59FEA4767DB4B5909D"
+    },
+    {
+      "path": "CoronaLightRuntime20.inc",
+      "size": 8685,
+      "sha256": "697F18AAFAF31E02CB18E92BF7356545AB5A0946EE438E0B45EBE8EBD094FE79"
+    },
+    {
+      "path": "EmissiveSurfacePolicy20.hpp",
+      "size": 6995,
+      "sha256": "01FDCE17F350B6F6EF82195867B42F897A6B3232E7D8F6BD9D450E96570EC41A"
+    },
+    {
+      "path": "EmissiveSurfaceRegistry20.hpp",
+      "size": 2696,
+      "sha256": "E3C1F7850FD69A6453E7341DC47990D3A3C4A11D9EEF4E167D92F76DB11D872A"
+    },
+    {
+      "path": "EngineMetadata117.hpp",
+      "size": 3005,
+      "sha256": "44BDB8CDB11B9A63A5670BAC94FC2124F1C7D3A52F7BC93712EB8C26A26E16BB"
+    },
+    {
+      "path": "EnginePlatform117.hpp",
+      "size": 1263,
+      "sha256": "CC8D02916E1701DBCBCD5C0B1A4AD4247CE8CB9E675FA5DF68732F99437726EC"
+    },
+    {
+      "path": "ExperimentRuntimeOptions.hpp",
+      "size": 1320,
+      "sha256": "34BF63A4EF002149F9478B2BED3D7DBEA7890EF1C62D2A4AB1BBD9CC908B1DFB"
+    },
+    {
+      "path": "external/safetyhook/include/safetyhook/allocator.hpp",
+      "size": 4640,
+      "sha256": "563DDB64A958DBC898CE12660ADC7D90B7400F576E88B3D042B8EDB92824CECD"
+    },
+    {
+      "path": "external/safetyhook/include/safetyhook/common.hpp",
+      "size": 2750,
+      "sha256": "B9BF871DEFEB0F4491BFFE842A14DDB1DE77536BDC2D3368A5849E9FC7458879"
+    },
+    {
+      "path": "external/safetyhook/include/safetyhook/context.hpp",
+      "size": 2309,
+      "sha256": "300EA765ECD271907FB59B77E01D87FBAE7167C9680923EC75470229B868D7D3"
+    },
+    {
+      "path": "external/safetyhook/include/safetyhook/easy.hpp",
+      "size": 2706,
+      "sha256": "27F960DB482371EA995ABF21A0D4CECE97B0E87BA4F51C3CFFBCB600D972438B"
+    },
+    {
+      "path": "external/safetyhook/include/safetyhook/inline_hook.hpp",
+      "size": 17078,
+      "sha256": "E750D0483643D8CBA9B57E4730C1CEE4ABD54D3692AC298553B0ABB7FF3F35AD"
+    },
+    {
+      "path": "external/safetyhook/include/safetyhook/mid_hook.hpp",
+      "size": 6650,
+      "sha256": "20297449884FC81AD91C7DA2FCBF02DA5A18878C1F232C15AD87EF32190F7F13"
+    },
+    {
+      "path": "external/safetyhook/include/safetyhook/os.hpp",
+      "size": 2477,
+      "sha256": "B897F8A02160ADEDAF322F5159225798E0580C44B19F2396097093DB5AB02E5F"
+    },
+    {
+      "path": "external/safetyhook/include/safetyhook/utility.hpp",
+      "size": 2098,
+      "sha256": "F27E4CAEDD8BB0A0646CF7FFC4D956DE7E99854CD5D1DFD389C5FE1DF1E46B90"
+    },
+    {
+      "path": "external/safetyhook/include/safetyhook/vmt_hook.hpp",
+      "size": 6811,
+      "sha256": "B1B7FDE5622A085C1D302BD196D0FF6E24CE9D971A2C06BF7CBBD2CE4C5A384E"
+    },
+    {
+      "path": "external/safetyhook/include/safetyhook.hpp",
+      "size": 606,
+      "sha256": "83889827C669F0FEB3A832EF5BE1B435D9416CDE468289CA14CB3B91BDE9D86A"
+    },
+    {
+      "path": "external/safetyhook/LICENSE",
+      "size": 1359,
+      "sha256": "36266A8FD073568394CB81CDB2B124F7FDAE2C64C1A7ED09DB34B4D22EFA2951"
+    },
+    {
+      "path": "external/safetyhook/src/allocator.cpp",
+      "size": 8702,
+      "sha256": "5DC79A2AD34EA4BB82E6182BA2F13D63927E1D58AEBD2D68D311A35FA0006965"
+    },
+    {
+      "path": "external/safetyhook/src/easy.cpp",
+      "size": 711,
+      "sha256": "83CE9EDA38AE739757BC510F49D2B2E8E98EADCAF88C1D742F40666D70021782"
+    },
+    {
+      "path": "external/safetyhook/src/inline_hook.cpp",
+      "size": 14804,
+      "sha256": "4ACDB913FF4CCEF59306085600E0C4DCFDFC7BEAEEEAFD8F28C61FAAEA15A65E"
+    },
+    {
+      "path": "external/safetyhook/src/mid_hook.cpp",
+      "size": 9649,
+      "sha256": "725700A84FD682206047284BE6BCF3BB40A532DE88B9634A20943D7C7B39305D"
+    },
+    {
+      "path": "external/safetyhook/src/mid_hook.x86_32.asm",
+      "size": 927,
+      "sha256": "97C84F0CBD2D860DFAE73EEFBE2D5E240E8E113F66DA54EAAC46D84C3D652E54"
+    },
+    {
+      "path": "external/safetyhook/src/mid_hook.x86_64-linux.asm",
+      "size": 1611,
+      "sha256": "2BEE5FF249CCA12EDD93654ABB1D386ABC3618957E9071C6E9E0FB50F7B574CF"
+    },
+    {
+      "path": "external/safetyhook/src/mid_hook.x86_64-windows.asm",
+      "size": 1611,
+      "sha256": "B88D258C13E6538B5EE1D25CB778B3E083A98391345397C4AB9644FA4C6A16CF"
+    },
+    {
+      "path": "external/safetyhook/src/os.linux.cpp",
+      "size": 5592,
+      "sha256": "3AD06CB1FE435FA083557DB7044335E3472428CC0DA37165FACDA36DBCB45C4D"
+    },
+    {
+      "path": "external/safetyhook/src/os.windows.cpp",
+      "size": 10710,
+      "sha256": "B2F337E5317C5C1BBE662894F49A5FAF2D8D54A4D7335B57BC01972C12A80F05"
+    },
+    {
+      "path": "external/safetyhook/src/utility.cpp",
+      "size": 1158,
+      "sha256": "8E9B46591A6AFF998DD2219A7AE7B7B3BF16667F65848CD1F03F1B99606EC39D"
+    },
+    {
+      "path": "external/safetyhook/src/vmt_hook.cpp",
+      "size": 3839,
+      "sha256": "50EDC03B9E07937347089A574B785942F9960B8D4F02286D441B6A25A666400A"
+    },
+    {
+      "path": "external/zydis/LICENSE",
+      "size": 1145,
+      "sha256": "77F4584207ED4F10CA1455DFDD25264687321221692F37761E3C7D62100E3D9E"
+    },
+    {
+      "path": "external/zydis/Zydis.c",
+      "size": 11817009,
+      "sha256": "6346126CF55D5BD5BE8C687220A1C10C6ECF1DF861E18C3F6BA293293D7B4FE5"
+    },
+    {
+      "path": "external/zydis/Zydis.h",
+      "size": 412859,
+      "sha256": "3BDB00D1A3A5A21B2084CD0508C992D83C9D5A374A4A984782D266E77D64A8C7"
+    },
+    {
+      "path": "fresh-window49-tests.cmake",
+      "size": 286,
+      "sha256": "963531DC4F8700655630D362163A94A048480B0627AA42BE9EE310DC2EF4A3C4"
+    },
+    {
+      "path": "FreshPageReadable.hpp",
+      "size": 4276,
+      "sha256": "AFB73A6B919CC043C01DCC2925295BF38A8675789BD010E2957234235AB046D5"
+    },
+    {
+      "path": "FreshReadBatch30.hpp",
+      "size": 3872,
+      "sha256": "3B9DD7035D3E311077958B57070F0B90D9B73F706641764E2CEEF6F24C101626"
+    },
+    {
+      "path": "FreshReadCertificate54.hpp",
+      "size": 5292,
+      "sha256": "4F21507EAB7062C0D461362B13D40174A88F473C811015DE6A9D091F21C894E5"
+    },
+    {
+      "path": "FreshReadCertificate59.hpp",
+      "size": 5280,
+      "sha256": "9FDDB7011F0F3331957DB245C6DC33E0E585E57E0E015E6479FB0BDE7CC01E41"
+    },
+    {
+      "path": "FreshReadGroup50.hpp",
+      "size": 3805,
+      "sha256": "A3C85DF6235B37A659B237C76A548A51F3FCC96ED2CB22FCD0753796E868DF2E"
+    },
+    {
+      "path": "FreshReadNativeCertificate115.hpp",
+      "size": 7006,
+      "sha256": "B937B0A9E64424DBEC091434D0B71D12CFA31FE9AC87799479358DEE206165ED"
+    },
+    {
+      "path": "FreshReadNativeWindow115.hpp",
+      "size": 4015,
+      "sha256": "59E4829306E03FBB91368E445AD2C503689F66C5EFD45B4D8C946AA0F292DC83"
+    },
+    {
+      "path": "FreshReadWindow49.hpp",
+      "size": 4020,
+      "sha256": "CD65A300306C732BFB076455D356D87DE4CBE61A20A17C4A0722261797EF9529"
+    },
+    {
+      "path": "FreshReadWindow59.hpp",
+      "size": 3999,
+      "sha256": "DB42C2382509A3A061156BB252122DF740815C71BF330E07BEACA2F81898648A"
+    },
+    {
+      "path": "GpuProfiling39.hpp",
+      "size": 1695,
+      "sha256": "32E00D556CEC6A619B87DA28B941EE785386647F450671CF88E256C221D60A1A"
+    },
+    {
+      "path": "GpuProfilingRuntime39.inc",
+      "size": 17346,
+      "sha256": "86527BCB2EE67E3CD33D05D30844A12A1EF4CA240881C3626951165D81DF5969"
+    },
+    {
+      "path": "GpuQueryRing39.hpp",
+      "size": 3413,
+      "sha256": "A811ED0372779C9B8F4B167DD89D4547CAD428FB40C76EFF610C1FA12196B560"
+    },
+    {
+      "path": "GpuResetGate39.hpp",
+      "size": 345,
+      "sha256": "F35E1795F36A470B7BBDCD8F881A3D5BAB1F4042E6C034F4EFF4A1266D0B7819"
+    },
+    {
+      "path": "GpuResetGuard39.hpp",
+      "size": 1320,
+      "sha256": "4BF08530BC652160176A66B0CA267CA6CE4854686569CDA82A7E1777EF713FEE"
+    },
+    {
+      "path": "GpuStageSchedule48.hpp",
+      "size": 1188,
+      "sha256": "E72600ECBF27A019D99D495B6D471785B8C0B51360CE2F4780F87210489DDD7C"
+    },
+    {
+      "path": "grace-prefix108-tests.cmake",
+      "size": 2518,
+      "sha256": "72630A556774E8034D05F8A9CB7278DC918F1887EC2146117C6B0C924065DDEF"
+    },
+    {
+      "path": "ImmediateRegion33.hpp",
+      "size": 1848,
+      "sha256": "62E8546EE760309395BBA40E1CC2BC211948552E723AF10CB1B88A2E5D38D84B"
+    },
+    {
+      "path": "LibertyLighting20Runtime.inc",
+      "size": 21479,
+      "sha256": "D3EC2BCADDA301EBF89265AA507AEEF58383210F71204375CF1246AAB9842D81"
+    },
+    {
+      "path": "Libertys-Shadows117.example.ini",
+      "size": 1486,
+      "sha256": "448FB2817FAE28D047A20C5D88902E10D1D415C7979B568FC7C92699A46118D1"
+    },
+    {
+      "path": "LICENSE",
+      "size": 35823,
+      "sha256": "230184F60BAE2FEAF244F10A8BAC053C8FF33A183BCC365B4D8B876D2B7F4809"
+    },
+    {
+      "path": "light-audit-instrument.inc",
+      "size": 2419,
+      "sha256": "313F5185BD73AB024436DECD8B36299C78D7899AD250E1722A416B25A51985C2"
+    },
+    {
+      "path": "light-owner-audit.inc",
+      "size": 2856,
+      "sha256": "9FF1900EE2AA48F2049C596A9B5DCDA37F47A5131A9C8EF924E50F8B9EDF93CC"
+    },
+    {
+      "path": "light-proof.inc",
+      "size": 3674,
+      "sha256": "3179B92576B06CE6017D307CAA518BF1D380F38F01D779F08FE2302F0C98FC14"
+    },
+    {
+      "path": "LightingCapabilities16.inc",
+      "size": 1870,
+      "sha256": "CEDD68B8054FFBA4183664833A1548ACBADBD366F2E5A9A94559D2A036C5E242"
+    },
+    {
+      "path": "live-reach122-tests.cmake",
+      "size": 719,
+      "sha256": "456B8EE972D4CE884FD5F6B521A0DBD847D7BA18FF7681FAFE703636FC25BD5A"
+    },
+    {
+      "path": "LiveReach122.hpp",
+      "size": 2950,
+      "sha256": "157EDC73BDD8C97D90DD11C295290CC74E539DFA4175595E5AD62620F7F983E2"
+    },
+    {
+      "path": "MemoryReadProfile46.hpp",
+      "size": 1341,
+      "sha256": "0C4E1F9D4D0E89F6846CB8A188D5DCD9B0E47AAB3A2B96611D28845FAA6387A8"
+    },
+    {
+      "path": "MenuChainGuard117.hpp",
+      "size": 2286,
+      "sha256": "70876E9B080EA1E2939E342AD34486F76A86DCAC06976ED84A5DA380AD8B13E5"
+    },
+    {
+      "path": "MenuSnapshot117.hpp",
+      "size": 1268,
+      "sha256": "74528B805C466C3C9C6521710414FAEE11EF01C86203F51602320BF0C6FF6CE4"
+    },
+    {
+      "path": "ModelEffectGetterDiagnostic62.hpp",
+      "size": 3704,
+      "sha256": "3FAA4C2FEA2EB8D695C11F40E3455AECB6E31974714E4D7B24B6CB7B332CC407"
+    },
+    {
+      "path": "ModelEffectObserverRuntime.inc",
+      "size": 15159,
+      "sha256": "3EECE0214DE61BE678D51DEDA69023D0CFD11C2D12034BF79735973309132FB3"
+    },
+    {
+      "path": "ModelEffectObserverState.hpp",
+      "size": 5482,
+      "sha256": "36C1270C5BA7F13F04C7E9456281DA2057D26581DDF1D09ACA5DAE2A97BF15FD"
+    },
+    {
+      "path": "ModelLightCatalogRuntime20.inc",
+      "size": 27166,
+      "sha256": "BE51AAFC2DBF644EEF96B0D59478311CC242C6C09FE47F8AC1A82F250DAD53B2"
+    },
+    {
+      "path": "ModelLightRegistry20.hpp",
+      "size": 4590,
+      "sha256": "DADCBBC4C8263A319D42F655C9A1DC8B7329D648626EDC4A2828C50707D06FD6"
+    },
+    {
+      "path": "ModelLightShadowRuntime20.inc",
+      "size": 8051,
+      "sha256": "D351CE0DA2308911C6FE119E458028E4DC47789183BE36D5567D5AB1DD24BE50"
+    },
+    {
+      "path": "ModelLightSubmission20.hpp",
+      "size": 1419,
+      "sha256": "76A5D86B37DA60349395AA0B23A442271CE18176320F1CE8D2BA76719C6E51EE"
+    },
+    {
+      "path": "ModelNativeAssociation77.hpp",
+      "size": 869,
+      "sha256": "17E06522480B4A54FED205440519EDBF17AF7E7A95920D4DD7431FE4F0FC5926"
+    },
+    {
+      "path": "ModelOwnerScratch59Runtime.inc",
+      "size": 8433,
+      "sha256": "4B17F396460FA0918C5761B144FD844E53B9826EE15D44C8956ABC36704FA537"
+    },
+    {
+      "path": "ModelOwnerTransformDiagnostic46.hpp",
+      "size": 1521,
+      "sha256": "66FCE22E3D4CF103DBC3BE482FB2A109E4CBB7D2E9B10B66BB24644B78BE76DB"
+    },
+    {
+      "path": "ModelOwnerWindow49Runtime.inc",
+      "size": 8994,
+      "sha256": "9A6842BF4FDF7178EEE3753DB87A25D431622EEFFFA9AA5D309551DADCD01347"
+    },
+    {
+      "path": "ModelPointCommit50Runtime.inc",
+      "size": 6097,
+      "sha256": "4AA89FE40FE98490D2A2C5E2348EE4C100E84AAC2244C684DB1B57403470E30C"
+    },
+    {
+      "path": "ModelPointFusion50Runtime.inc",
+      "size": 6083,
+      "sha256": "3D8B43A4472F9D38A480A52F5AA5B1A0F7BA6C1255FD638E0EE693D263FE13A4"
+    },
+    {
+      "path": "ModelPointValue68Runtime.inc",
+      "size": 4660,
+      "sha256": "E3A416BBC81251EC80557B5EBD68DC40C258D10AA3E11B13D88D413358EB4406"
+    },
+    {
+      "path": "ModelPrevalidation40.hpp",
+      "size": 505,
+      "sha256": "CBCD497E6F2A8787E85E603EE9F4BF2CEC82491BE087B91593AACA0B113E886C"
+    },
+    {
+      "path": "ModelProjectionBridge69.inc",
+      "size": 1350,
+      "sha256": "41ED72A316168B9BECBFAB32780EE4DFFDB41880A8567A9AEFC2E1562BA61C14"
+    },
+    {
+      "path": "ModelQueuedScratch59Runtime.inc",
+      "size": 8063,
+      "sha256": "E352617B5DBF1635548C275CEEBA694382EBF74B5D68444B5382AE3288E530E7"
+    },
+    {
+      "path": "ModelQueuedWindow49Runtime.inc",
+      "size": 5119,
+      "sha256": "81DDAC266D707B441D5397B28D1C227AF9245648A1A64A05188C232271E76266"
+    },
+    {
+      "path": "native-copy70-tests.cmake",
+      "size": 286,
+      "sha256": "C9B440BBAF5B3F94D83F1F5C89C61D458125A9B5D0D10D9D4E5E3159357A4BAC"
+    },
+    {
+      "path": "native-owner-batch115-tests.cmake",
+      "size": 4580,
+      "sha256": "06EFBF6468FA0FBCE37DB7C94CE53BAEDC30E5C4C4911045418511972EA8535B"
+    },
+    {
+      "path": "NativeClassDomains105.hpp",
+      "size": 3644,
+      "sha256": "3EE13FFC70268E398CDB9CA80DE5189B29195304F15659E77259C94AECD1BF41"
+    },
+    {
+      "path": "NativeCopyGuard70.hpp",
+      "size": 3269,
+      "sha256": "6BF976CC5812AA4D3621ADF56823A91B4DFADCD21032E3A97BC9303E149B11AC"
+    },
+    {
+      "path": "NativeGraphicsMenu117.hpp",
+      "size": 22847,
+      "sha256": "CA9C418AB4A23FC07C2C1368C0818E874AE5385BBD90338C2ECFCDFE3C3642DD"
+    },
+    {
+      "path": "NativeGraphicsRuntime117.cpp",
+      "size": 18089,
+      "sha256": "0728013F43BD90EADE66CCBAA2153874D4602C134DA2DC6E467AB5BE2869B5BC"
+    },
+    {
+      "path": "NativeOwnerBatch115Runtime.inc",
+      "size": 16939,
+      "sha256": "3658C516A261A7C5D635853E383C94C9CE815F2CBE9713DA219F0F4DF3AB4B54"
+    },
+    {
+      "path": "NativeOwnerClass109.hpp",
+      "size": 1609,
+      "sha256": "044FA0CDBDAA237A3A2D232906A9ECB7107C84248F9BFE9492E540DB208BDC26"
+    },
+    {
+      "path": "NativeOwnerClass109Runtime.inc",
+      "size": 5090,
+      "sha256": "D6D6B672D380ED43C315CE67C635F7C8280F5BEC21EEAD5D8853C3DFE2357E8C"
+    },
+    {
+      "path": "NativeOwnerClass114.hpp",
+      "size": 1003,
+      "sha256": "A7B60D0894CDB4CEF403FBB25023DE281A7724CE11F31A3499FB8F1C3290492B"
+    },
+    {
+      "path": "NativeOwnerClass114Runtime.inc",
+      "size": 5333,
+      "sha256": "49219924D259C85FD4883EF1D863661735077A9C254348336ECC16468BA4739C"
+    },
+    {
+      "path": "NativeProducerGate116Runtime.inc",
+      "size": 4415,
+      "sha256": "F84BFAE2ACC600F3F252DC456D7877796F20003083E432907A1F2B695B8B8E84"
+    },
+    {
+      "path": "NativeProjectionRead66.hpp",
+      "size": 1690,
+      "sha256": "1ABBFA2F9CF9193C2579CC44207B6CD9842AF85C3E43BB1AE4D35CBFE713D16E"
+    },
+    {
+      "path": "NativeProjectionRegistry66.hpp",
+      "size": 11092,
+      "sha256": "07512A12AD1FC047DCB9D3173543F1A0D77FB97143A6D0DD2ADA903700E4EDCA"
+    },
+    {
+      "path": "NativeProjectionRuntime101.inc",
+      "size": 14267,
+      "sha256": "BDB68F14264240AFE175035D9C29AF854418A69433DC398C16B51D36F2F226B5"
+    },
+    {
+      "path": "NativeProjectionRuntime105.inc",
+      "size": 14683,
+      "sha256": "C41947500CFE6C2B8335A07B989E61D7E3F3D070682B50BCC19EF47C80443871"
+    },
+    {
+      "path": "NativeProjectionRuntime66.inc",
+      "size": 13812,
+      "sha256": "58260734157DD60123F4EE024F52A1737490A6BD584F630320E062795D4FE9E5"
+    },
+    {
+      "path": "owner-transform46-tests.cmake",
+      "size": 540,
+      "sha256": "BCC14570850082186F61EA334C196566278562E095D6C8E32960A64D57B21F77"
+    },
+    {
+      "path": "parallel61-tests.cmake",
+      "size": 1805,
+      "sha256": "0B0760859DF68F17A4F648D2708E1E8A897A449444F98F0BEE676496FE69A991"
+    },
+    {
+      "path": "PARENT-RECEIPT117.json",
+      "size": 235,
+      "sha256": "26B21B07B089285154F660B83C96351BCC397CE281B31D7F9BC13A8B058ECABB"
+    },
+    {
+      "path": "point-permissions47-tests.cmake",
+      "size": 4084,
+      "sha256": "E825284E3073D1C6CD39A03122DAD960DE9644C7BA8D42308EF0A7C121D3F212"
+    },
+    {
+      "path": "point-production50-tests.cmake",
+      "size": 850,
+      "sha256": "141B667A10DE91355F5D7AC215B1FFF9BA6FBE66482D66DE03ACF30202CF0FAD"
+    },
+    {
+      "path": "police-nearby.inc",
+      "size": 12041,
+      "sha256": "C1A7993022C63707505D9144F700C34591E1394AC74F29972BE019D2445AA75F"
+    },
+    {
+      "path": "PoolDescriptorSnapshots.hpp",
+      "size": 3361,
+      "sha256": "14EF308CB6BAD4B81FF24D905CCDDFB157154385142ABD4C17202CE3A70C57FB"
+    },
+    {
+      "path": "PresetGeneration117.hpp",
+      "size": 3864,
+      "sha256": "ACD5A25405FD0B2CC2B3B1B7177517F8ACD6E2EA10077FD4A431ECF16DFF7BED"
+    },
+    {
+      "path": "PresetIni117.hpp",
+      "size": 5061,
+      "sha256": "D7A8FA46F1998400EE4274044687C4DB75C3FD091FFEB6CA0A345CFC0FF6551C"
+    },
+    {
+      "path": "projection66-tests.cmake",
+      "size": 2564,
+      "sha256": "B121E05D143D0401452BACA73D85E59C1CD0547438EEF3F1A198ECA40FA964B4"
+    },
+    {
+      "path": "ProjectionDomains101.hpp",
+      "size": 3666,
+      "sha256": "3B3C01CD6F39769AC5D7D31009AAF3A5A639438CB67C0B8A0D8126FC1D4845BD"
+    },
+    {
+      "path": "promote-batch49-tests.cmake",
+      "size": 1548,
+      "sha256": "61917C0DDD72212951EF2353C4137C8F4C496915AF059FC247AACD87BB4CB619"
+    },
+    {
+      "path": "proof6-transition.inc",
+      "size": 4331,
+      "sha256": "2075B79DB9BC0D13FA6D969C09B698200450FA1AE41017C5E8B0CD95E6E7F1EC"
+    },
+    {
+      "path": "proof7-grace.inc",
+      "size": 2646,
+      "sha256": "E02B35413E524607270468D4C28B41A3C33AC4F7D91A2AFBAE71B94FBA7F0627"
+    },
+    {
+      "path": "proof8-churn.inc",
+      "size": 2657,
+      "sha256": "B1A01D5046D72B9FBED3CC51F3FEFE97FC37BAF339FEC484144367FCEBD544C9"
+    },
+    {
+      "path": "proof8-policy.inc",
+      "size": 5497,
+      "sha256": "90A94B07312537B953165CBBC984DFE52164EB96561440FAFC34D13348C978B9"
+    },
+    {
+      "path": "proof9-trace.inc",
+      "size": 4560,
+      "sha256": "0F9522010171CCE82B1B45113562E6B63C44677E8AA92E535C17CFBA522AF670"
+    },
+    {
+      "path": "proof9-vacancy.inc",
+      "size": 2064,
+      "sha256": "733595620A820D89CEF04172B1980EB9865BE6BB152091593C2F02BDC831D0F0"
+    },
+    {
+      "path": "public-runtime125-tests.cmake",
+      "size": 954,
+      "sha256": "7661196F729F2850F5CDEE6A03DFD30F97407BD38D593251A7FA4B531B87D827"
+    },
+    {
+      "path": "PublicLightingIni93.hpp",
+      "size": 4545,
+      "sha256": "3F5502AC7B8E5CE618031F2D273E0E632B869D5CFC2640AFC6F78553E24A9F78"
+    },
+    {
+      "path": "PublicLightingSettings93.hpp",
+      "size": 4582,
+      "sha256": "5C4958853A999B9A321D3F88A0704A943EE51E94E5DE0A34B1C0CE8191972DA3"
+    },
+    {
+      "path": "PublicStartupDefaults124.hpp",
+      "size": 1837,
+      "sha256": "60D01D5D1786667FDCB56935E442B6F42941E8196DAD7F803AE59AE709FED504"
+    },
+    {
+      "path": "queued-permission54-tests.cmake",
+      "size": 858,
+      "sha256": "DDF43F22618D755F89E135778F53B39CE7033676920B6016F429B56B2C433FF9"
+    },
+    {
+      "path": "queued-window49-tests.cmake",
+      "size": 767,
+      "sha256": "6A96DE7450F8C58A376ABE15BA8F10717261F0141EBA28E7AB75692506A3AA00"
+    },
+    {
+      "path": "README.md",
+      "size": 2469,
+      "sha256": "AD6DFC23574F20AC9B86D51AFE6792D6504219BA28B2E69C868AB70B1ACA1A1B"
+    },
+    {
+      "path": "RuntimeFeaturePolicy125.hpp",
+      "size": 1116,
+      "sha256": "24DE8A894402B05A57DF6109EECAF03C55D66EF09A553EA078C54AAB264CBEBF"
+    },
+    {
+      "path": "scratch59-tests.cmake",
+      "size": 302,
+      "sha256": "F86F2FD80F5EAAAA257693F216D53A529873FAD679D169E1E5919738443C6F11"
+    },
+    {
+      "path": "ScratchCounterPayload59.hpp",
+      "size": 392,
+      "sha256": "FE3E17251B3DED12B42BB6FE0CC94AF23E476DD99350FCC6C185343BDD56487D"
+    },
+    {
+      "path": "settings117-tests.cmake",
+      "size": 2172,
+      "sha256": "5BC221D5DB5607AD3812AF1552313C4FCE1EB3C7E7CB8855FC1C3132B8C808EB"
+    },
+    {
+      "path": "SettingsRuntime117.hpp",
+      "size": 796,
+      "sha256": "A4E7CDC3601F4C31CDCA9745E7FE723D56E6C7A0E65EFE3E69CE9FDF80D97F57"
+    },
+    {
+      "path": "shortlist48-tests.cmake",
+      "size": 2482,
+      "sha256": "82C2805891837E9ECDDD8C45E91462CFD57AC7FB14B6B71AF60AEAFAF346F117"
+    },
+    {
+      "path": "ShortlistHelper48tests.cmake",
+      "size": 280,
+      "sha256": "0F9DE4063687ED37E0568349F84DC1DF763770E1A642B7731F8D29AAF061D9EB"
+    },
+    {
+      "path": "ShortlistHelperGuard48.hpp",
+      "size": 3817,
+      "sha256": "1D1026EDB48EB32ECBB451B8CCC2DC335D56A6FCAFD7B66FE24EC7EAC444A5A3"
+    },
+    {
+      "path": "ShortlistHelperPatterns48.hpp",
+      "size": 3525,
+      "sha256": "CB9D7AB6A534F11FB3748B8CEE351391D93690AF25895C14E5711FF1DD87FB11"
+    },
+    {
+      "path": "ShortlistHelperRuntime48.hpp",
+      "size": 1043,
+      "sha256": "90F18AAE978B8F2E7590973F2CBFCACFAB7684208AC22D0935C591D5857A1485"
+    },
+    {
+      "path": "SOURCE-MANIFEST.json",
+      "size": 32052,
+      "sha256": "FEAEA7A7584AC4988EBCB7472ED9D7495421B14FB3B48DD2E30AA3BE19D1B94E"
+    },
+    {
+      "path": "STANDALONE-ATTRIBUTION71.md",
+      "size": 1232,
+      "sha256": "D8D07AE3732A0AF9659669BED9A6633FF5C88ECFA27D637A9417035C2E8C2E3D"
+    },
+    {
+      "path": "standalone-midstub.hpp",
+      "size": 1213,
+      "sha256": "599EFACD3FEAD35421680868CB60E47FF7F2F649BCDCD2265F03D428BFD92C69"
+    },
+    {
+      "path": "standalone-ownership.hpp",
+      "size": 3265,
+      "sha256": "980E3D8197336AAC119452616BC71B22E8D9901EFB4A4128865244FDBEB7DE69"
+    },
+    {
+      "path": "standalone-pe.hpp",
+      "size": 5505,
+      "sha256": "9A25F1FE541B3BE06B1A4FE34337BCFC52561D39BB9C1128F90F5055F05F2544"
+    },
+    {
+      "path": "standalone-runtime.cpp",
+      "size": 79022,
+      "sha256": "88385C3CDC0D79543784CAF506824A0EA6848D8D76300411EA85D5743103769C"
+    },
+    {
+      "path": "standalone-support-log.hpp",
+      "size": 2261,
+      "sha256": "82266D4D7CAB61566F06F70BABE22C6D06AE3951ED6E436481A40D34F0B4EEC9"
+    },
+    {
+      "path": "standalone-warning-policy.hpp",
+      "size": 491,
+      "sha256": "EB73237977831CFD09656DFA05A121B751D51C29314D01974CFFCF6E530FF88F"
+    },
+    {
+      "path": "TailLightPolicy20.hpp",
+      "size": 1540,
+      "sha256": "A4D0A4A57234FE5BC9979C724FF486A9885F74CEBC49A2B849FFFADECA5566A4"
+    },
+    {
+      "path": "TailLightRuntime20.inc",
+      "size": 6084,
+      "sha256": "A46F4FC989A83DF983492E94545D0BC8B31BCD9DF1B3E5A4C6A61FA28B66E9D1"
+    },
+    {
+      "path": "test-baseline-v9/TrafficSignalIdentity.hpp",
+      "size": 1585,
+      "sha256": "AB9A930F636F972FD9FF44D6984AB7D4D39BD9AFF8A0E7117536B00F3E9FF371"
+    },
+    {
+      "path": "test-baseline-v9/TrafficSignalRegistry.hpp",
+      "size": 6193,
+      "sha256": "3B8F387D6E35E7A2B65FD390685BCAC3FA83EA5485C4696942C3A5434C0176E7"
+    },
+    {
+      "path": "tests/alias-index91-tests.cpp",
+      "size": 4279,
+      "sha256": "8FB864E1552C37FFFC84A0517BD9CE901C4A46F51185C7BBFBE40153CE9004B9"
+    },
+    {
+      "path": "tests/alias-queue91-benchmark.cpp",
+      "size": 5433,
+      "sha256": "CDDF5DD36C225394791013D20C4EC7412894A54EED9E791D8F06376C2E77C97F"
+    },
+    {
+      "path": "tests/alias81-reference.inc",
+      "size": 982,
+      "sha256": "A3146EDBF9A0CDAF77188491E89680FC319121F25338F173456CE7CFB6699993"
+    },
+    {
+      "path": "tests/beam-runtime32-tests.cpp",
+      "size": 4450,
+      "sha256": "B38E826ED2902795A7581F0D82717731621022303FD8441B7F0EE4AB465A62B3"
+    },
+    {
+      "path": "tests/beam-selection32-tests.cpp",
+      "size": 1853,
+      "sha256": "B2E8F8FE02369DB0D51BE7EE57F4B4ADCF6BCC080DD45168214873572E81869D"
+    },
+    {
+      "path": "tests/benchmark-parent54.inc",
+      "size": 4759,
+      "sha256": "01EA5FECCB779050C50EA460D1E207D67EBF08067DC07BEDF0C96552996E0A88"
+    },
+    {
+      "path": "tests/capture-lease44-tests.cpp",
+      "size": 479,
+      "sha256": "06D11E4568A73C44465AD4623ACD8E2FAEC2E617B4F9E0230CA9A9BB1131E209"
+    },
+    {
+      "path": "tests/capture-lifecycle46.cpp",
+      "size": 3125,
+      "sha256": "3834BE13759D9874895610F2B4E106DF994DA3DBB52E1BDA9617E07C5397BCA1"
+    },
+    {
+      "path": "tests/capture-trace44-tests.cpp",
+      "size": 991,
+      "sha256": "72C5EC741CDF1EBFA20268C0B1CFB945A8EC72C6047703A3339A520C68CFE28A"
+    },
+    {
+      "path": "tests/CapturedTargetPackets105.hpp",
+      "size": 4359,
+      "sha256": "D8A446419176AC7737E696E4ED92B627F53BBC0C59ACFE30FC7D34563BDE1BE6"
+    },
+    {
+      "path": "tests/CapturedWorldValues105.hpp",
+      "size": 954680,
+      "sha256": "C23F7D7DE7AF0EDEA60AE15D168F42C393DCD16CA21DAC6C9C05D4380420E8F1"
+    },
+    {
+      "path": "tests/combined-traffic-police-tests.cpp",
+      "size": 7000,
+      "sha256": "1A4196475B0847086EF0F37C322B8F8A66B391C1648BD41E8E74A67D3183782F"
+    },
+    {
+      "path": "tests/consumer-guard80-tests.cpp",
+      "size": 1126,
+      "sha256": "EBCCD8E07C45467A029B63D78325DF636F9787712AB903569A14548F2ACBD550"
+    },
+    {
+      "path": "tests/consumer-shadow75-tests.cpp",
+      "size": 7279,
+      "sha256": "2322FBF49D88DC5824B48B200C01915F371DD12023D848B208820B54F92DAD82"
+    },
+    {
+      "path": "tests/corona-light20-tests.cpp",
+      "size": 5049,
+      "sha256": "25BDA3CBB709139085AAA41CDB1D86B2C9C339DC361FDC763BA337B499A36B15"
+    },
+    {
+      "path": "tests/deferred-model-shortlist48-tests.cpp",
+      "size": 6441,
+      "sha256": "310EA1D8D3337AE27E0C44E4E874E6E4C52B462FBCB723D0A734EC319409860D"
+    },
+    {
+      "path": "tests/Extract-LiveReach122.py",
+      "size": 1702,
+      "sha256": "A84CEE142422BEF84A749D8197A9F68443A970D08A80FBC34921E69122F6DCE8"
+    },
+    {
+      "path": "tests/Extract-NativeGraphicsRuntime117.py",
+      "size": 1226,
+      "sha256": "FA6060EACC68B96301C4677E99FAF1A1ECF436355A3C623184D2C0322F316C9D"
+    },
+    {
+      "path": "tests/Extract-PublicRuntime125.py",
+      "size": 1374,
+      "sha256": "5F5AA04888F48399B5901EACD2B170A1F9390BFB4403FF8E1F55A4DF1985F1CB"
+    },
+    {
+      "path": "tests/Extract-SettingsRuntime117.py",
+      "size": 1005,
+      "sha256": "C0874AD25144A8588DF13258C3BA139D469E4F673AA524951E7DFCCD38600C09"
+    },
+    {
+      "path": "tests/fresh-read-batch30-tests.cpp",
+      "size": 4174,
+      "sha256": "73A60E970F025CA97D0367135FA62D87606B16EB6FB80F25EC438D969D8CA1F6"
+    },
+    {
+      "path": "tests/fresh-read-operation44-tests.cpp",
+      "size": 4468,
+      "sha256": "1EC20D2D91F15FAD7DBD2FD3D0F291774A2C5BAC0BE8275E85CED121746B38AD"
+    },
+    {
+      "path": "tests/fresh-read30-benchmark.cpp",
+      "size": 3626,
+      "sha256": "F3BA37B27468073C1B9D01850BF4BAB1DD3FA8B6F030DB8075F0A377A43FB3A3"
+    },
+    {
+      "path": "tests/fresh-read31-benchmark.cpp",
+      "size": 4138,
+      "sha256": "33425F4B341DB58FDBDA163A1EAA26C64397E5CD15A402602CE1DA935554D58F"
+    },
+    {
+      "path": "tests/fresh-region31-tests.cpp",
+      "size": 2511,
+      "sha256": "CF18436B55A99C51750CF8DB66E8105BA83D374131E7341DF249B13F7AE5DD66"
+    },
+    {
+      "path": "tests/fresh-window49-tests.cpp",
+      "size": 7242,
+      "sha256": "D4A0F409AC5C2A5DB56C1E14E14E92C3E08AB9B20488BBADB788EB6703C945E8"
+    },
+    {
+      "path": "tests/gpu-query39-tests.cpp",
+      "size": 6670,
+      "sha256": "D1BB013119614B829DA6E1867E32FC74B0181428348828900CC295853A027087"
+    },
+    {
+      "path": "tests/gpu-stage48-production-tests.cpp",
+      "size": 5486,
+      "sha256": "25CD1851C41109BC9D78A306B2549B98193E42D08BAD7CFF072B8CB905E655A2"
+    },
+    {
+      "path": "tests/gpu-stage48-tests.cpp",
+      "size": 1371,
+      "sha256": "384DB497B0D3C1F0F47343C50D68EDFB78B6889DDC12ED06EF1BDE426F2AED0F"
+    },
+    {
+      "path": "tests/grace-allocation105-reference.inl",
+      "size": 67339,
+      "sha256": "4D0593807D4AB4BCC7BD795E8FD250EB7E5A6028825A23916765DF669560595C"
+    },
+    {
+      "path": "tests/grace-nearby105-reference.inc",
+      "size": 11030,
+      "sha256": "967DAB9ABAD9284E8D6063AF62BB36C987AE4AB0FA2706F507C1613FFF428245"
+    },
+    {
+      "path": "tests/grace-prefix108-tests.cpp",
+      "size": 16326,
+      "sha256": "FB3B8C9585B95FE0C574A5C259F1EB7733BB80432A01C9D886EBB2C32398EB60"
+    },
+    {
+      "path": "tests/header-accepted-extracted.inc",
+      "size": 3643,
+      "sha256": "39B014CE0EDB4CD3C6B2181FF482E517F5B0BBD5BF8AEC822F436999C98F2D09"
+    },
+    {
+      "path": "tests/header-batch-tests.cpp",
+      "size": 15954,
+      "sha256": "D06576D2C2A04C2ABEEE602F6783DF15147D574F458D2E8CFE5B1E1E0ACB447B"
+    },
+    {
+      "path": "tests/header-candidate-extracted.inc",
+      "size": 6421,
+      "sha256": "E1C4499B87C1911379D9DFBBFE32B730811066C790CE5DD5F28F6DA782603D43"
+    },
+    {
+      "path": "tests/immediate-region33-tests.cpp",
+      "size": 1865,
+      "sha256": "7D02394EE28744CB3DB560D5E680E67AD01B7C9BF04B5AC1B44582524756DB1A"
+    },
+    {
+      "path": "tests/live-reach122-tests.cpp",
+      "size": 11875,
+      "sha256": "57ADFC320FBB698272E00761E9115C33461C8D2FAE3EB143C9FD23305F32F9E6"
+    },
+    {
+      "path": "tests/memory-read-profile46-tests.cpp",
+      "size": 2727,
+      "sha256": "637B2335F50392993ADD28068749E04BD4F951EDAE2A2DE16C25475DD13FC067"
+    },
+    {
+      "path": "tests/menu-chain117-tests.cpp",
+      "size": 2667,
+      "sha256": "5F06742ED3D2F64450A4F7A56ED496395009AEBFFFE0CE166FB4923D0784EDF2"
+    },
+    {
+      "path": "tests/model-deferred-validation46-tests.cpp",
+      "size": 9227,
+      "sha256": "4AB88C327B83DAAFD7A8A96ABC7B155ED4EE252F6CA7434208C0BD6F843FAC07"
+    },
+    {
+      "path": "tests/model-effect-getter62-log-tests.cpp",
+      "size": 2819,
+      "sha256": "CDD4BAA7CEE3612AAC528ED66A393A672838457D7D845F018F376E76B3A9E3AA"
+    },
+    {
+      "path": "tests/model-effect-getter62-tests.cpp",
+      "size": 4087,
+      "sha256": "757D92AB13CE40E0B9785611E98655DA64A11FAC55938854E93672B0FED7B1A5"
+    },
+    {
+      "path": "tests/model-effect-observer-tests.cpp",
+      "size": 7584,
+      "sha256": "C7FA7A87685CAADD371627B85787745C376F8F170CB767AE6D28ADB4035CBFCA"
+    },
+    {
+      "path": "tests/model-key-ownership108-tests.cpp",
+      "size": 1476,
+      "sha256": "86304F4AF58AFCED7F695730BD14CCF1AFD0421D35FC93DA13910EC2D63343CA"
+    },
+    {
+      "path": "tests/model-light-registry20-tests.cpp",
+      "size": 2817,
+      "sha256": "3FE3F3B9650A0FC539C562DF8D2D1F5DE0CCA6AC820588B7E364612950672D5E"
+    },
+    {
+      "path": "tests/model-light-submission20-tests.cpp",
+      "size": 3682,
+      "sha256": "45558CC60737ACE43467F544A026F2B0632BED0D3DF83D046F14E14082F4ADDA"
+    },
+    {
+      "path": "tests/model-native-association77-tests.cpp",
+      "size": 5119,
+      "sha256": "39CC377C6B548D98892B1D9B8A553E04481A7008CCFFD12D7FE9537B468545E6"
+    },
+    {
+      "path": "tests/model-native-inactive40-tests.cpp",
+      "size": 4336,
+      "sha256": "53D11B75831AA41E519B2B6753960AF5BA0EE60DCE2CF2E9E48F1F8F1E7A5BF9"
+    },
+    {
+      "path": "tests/model-owner-batch48-tests.cpp",
+      "size": 8892,
+      "sha256": "F14813A6AD33C0F57A2B7B17187BB54937325FF1F0C2C9739D93F9B479921209"
+    },
+    {
+      "path": "tests/model-owner-transform46-tests.cpp",
+      "size": 2644,
+      "sha256": "19243B15997CBC46956366DE08CD95A437965F1118113FB717725D8CF4006951"
+    },
+    {
+      "path": "tests/model-point-value68-tests.cpp",
+      "size": 34146,
+      "sha256": "2F8936C86104D28E30344EA2EE10374F018C37390C1AB806A8472532391A805F"
+    },
+    {
+      "path": "tests/native-batch115-cases.inc",
+      "size": 26718,
+      "sha256": "D80D3B5EBF2916C2A692270110D577B97A380F522ACD3E76CF60EBFFDDFE5801"
+    },
+    {
+      "path": "tests/native-class-domains105-tests.cpp",
+      "size": 7196,
+      "sha256": "66AFFBE57F5E793CC88FAF6C22DD4C22143CC2E6D7C6B0959BC4CC72369A1FF5"
+    },
+    {
+      "path": "tests/native-copy-guard70-tests.cpp",
+      "size": 3450,
+      "sha256": "C5F2117F6CAA7D63640C584BF83421D287A2113881028E7E014BDFBAE4C98130"
+    },
+    {
+      "path": "tests/native-graphics-menu117-tests.cpp",
+      "size": 18244,
+      "sha256": "4205A92F613ACB4B78C044E939E8D81EED9BC673FD10CEAED1F097756393AB6F"
+    },
+    {
+      "path": "tests/native-graphics-runtime117-tests.cpp",
+      "size": 14911,
+      "sha256": "A499709A269E19F497D163ECCD803365C1EB10B5C0B30FD7C3F64603F494FFCD"
+    },
+    {
+      "path": "tests/native-owner-baseline111/ModelQueuedScratch59Runtime.inc",
+      "size": 6270,
+      "sha256": "1E1984BE07A6B67D863A794A1CDB1ABDDCF44DF77B40E958F371865498DE28BB"
+    },
+    {
+      "path": "tests/native-owner-baseline111/ModelQueuedWindow49Runtime.inc",
+      "size": 5119,
+      "sha256": "81DDAC266D707B441D5397B28D1C227AF9245648A1A64A05188C232271E76266"
+    },
+    {
+      "path": "tests/native-owner-baseline111/validate.inc",
+      "size": 1325,
+      "sha256": "B16E13E940024731192F48A12114F00B54302314F16B39DA200510100E705DE0"
+    },
+    {
+      "path": "tests/native-pool71.hpp",
+      "size": 586,
+      "sha256": "703CA8A503CAC3DB18FB695E79A072BCAA8A9F7DFBC4124B6BB893BADAAFBFE1"
+    },
+    {
+      "path": "tests/native-producer-gate116-runtime-tests.cpp",
+      "size": 6396,
+      "sha256": "F5052AFD0748EBB4BD504687C277E3CF4A5F88D75333D2F52DD4C22C262F3B1E"
+    },
+    {
+      "path": "tests/native-producer-gate116-tests.cpp",
+      "size": 2793,
+      "sha256": "2D4315EE07DBF2DAC4E2BD3519CFEB09D4B83CD45C2F7F448C2B53ECC78B5E4A"
+    },
+    {
+      "path": "tests/native-projection-intern66-tests.cpp",
+      "size": 4536,
+      "sha256": "C3EC23BD2F049ECDE83601D9AC05FA2BAFA7D48159C3C4B5C06473D184FDCA6D"
+    },
+    {
+      "path": "tests/native-projection-sidecar66-tests.cpp",
+      "size": 7641,
+      "sha256": "DBDBDE5FD0DEDAB42E5B8C69D4EBA8E3989D4F3222334E53E0C5CA2B812A6C4E"
+    },
+    {
+      "path": "tests/native-projection66-tests.cpp",
+      "size": 5703,
+      "sha256": "329406451398C21946E8F9C0317059C7FDD8ED9430CFE3F2A1C481A30B3532D9"
+    },
+    {
+      "path": "tests/native-shortlist-collect48-tests.cpp",
+      "size": 4858,
+      "sha256": "E04DB740E67341997BCA32DA98F90CF92F07B1F09EDCB2060BF5ED138D77F30B"
+    },
+    {
+      "path": "tests/native-shortlist-preview48-tests.cpp",
+      "size": 4641,
+      "sha256": "4A12AFC6707363D8597C065D2B64529252C9428AF498AFDFC27BB141365A1D8B"
+    },
+    {
+      "path": "tests/NativeBytes77.hpp",
+      "size": 2362,
+      "sha256": "BE79574862040F906AE2B94F5FB56655E1DD0E953DCBA658E76199F455CD9837"
+    },
+    {
+      "path": "tests/owner-runtime32-tests.cpp",
+      "size": 14426,
+      "sha256": "6FF74728C20653F56CDF984DD901A81DAAC2A321A106BAD36C883B6208341592"
+    },
+    {
+      "path": "tests/parallel-selection61-tests.cpp",
+      "size": 17315,
+      "sha256": "AC42A679049B6389FAC5F7F2254B7194411F224924F55CC731C8E0F0C4FDD4F9"
+    },
+    {
+      "path": "tests/parent-owner53-reference.inc",
+      "size": 7919,
+      "sha256": "E843A55E7AF2C6DC0980A97A5DDCBE8F35695A4F8756D29CF5D723B5AD097003"
+    },
+    {
+      "path": "tests/parent-queued53-reference.inc",
+      "size": 2924,
+      "sha256": "F393FD78138FAE2CAA7225F8705F87A95040A0D94184A16E042126ACF4FF4210"
+    },
+    {
+      "path": "tests/performance-equivalence-tests.cpp",
+      "size": 3299,
+      "sha256": "986B2B3C014DE998E5911EEA3E28F7B7E49E41C2B862B28F5E5B4A47611DA221"
+    },
+    {
+      "path": "tests/physical-lamp-continuity-tests.cpp",
+      "size": 4548,
+      "sha256": "054BB09B8F24CC8E93C795CE25B8DF16B5869DA4434CDCBDD60EFDD66B07D50D"
+    },
+    {
+      "path": "tests/player-camera-allocation-tests.cpp",
+      "size": 4914,
+      "sha256": "943D16370342A1E9A7052D09851C869C6C3F44A63E7104AEB15681CE0683DB17"
+    },
+    {
+      "path": "tests/point-permissions47-tests.cpp",
+      "size": 12914,
+      "sha256": "F6DE02C1066B0B55BC38B577CEBFEF786ACD3E760C9E3E0492FDBDCAEDB0BC2A"
+    },
+    {
+      "path": "tests/point-production50-tests.cpp",
+      "size": 32521,
+      "sha256": "2FE4AA821F9D8862BB5192471B18CBE71D121CC53AD7E18F00BC83F22209F9EB"
+    },
+    {
+      "path": "tests/projection-domains101-tests.cpp",
+      "size": 6391,
+      "sha256": "F8DF833931CE18ACA91DED36637EF3C53C341D675F7D14600E8E1DB2FADC2ACD"
+    },
+    {
+      "path": "tests/projection-identity74-tests.cpp",
+      "size": 2782,
+      "sha256": "5FAD86730276074E06C659C89D39C2B014E11D0857E39CCC09E64807A2EE53D3"
+    },
+    {
+      "path": "tests/projection-snow70-tests.cpp",
+      "size": 1949,
+      "sha256": "9DBE42DE097E8070D85CCBF89B5F6829A1802C6D4BAFEE7CF91F2EFFC195A671"
+    },
+    {
+      "path": "tests/projection-volume78-tests.cpp",
+      "size": 3199,
+      "sha256": "C9B8219DBBCB3C7EA09A98E47F8035E42D3D179D7B331691E84D4ED25D31A674"
+    },
+    {
+      "path": "tests/promote-baseline49.inc",
+      "size": 2057,
+      "sha256": "673E6CBCCC7DC2B2985732D8C62911E6D349CA876BB7C977F84E6D90CB2747F4"
+    },
+    {
+      "path": "tests/promote-batch49-tests.cpp",
+      "size": 15449,
+      "sha256": "8791F31093D95255565B977696505C1603C61F0990857611355367D8F7041279"
+    },
+    {
+      "path": "tests/public-runtime125-tests.cpp",
+      "size": 7591,
+      "sha256": "1006C3E7CB29203A84ADFEB937D9AA2E0B9334E49D67DE50A08D3E70C9CC9017"
+    },
+    {
+      "path": "tests/public-settings93-tests.cpp",
+      "size": 3328,
+      "sha256": "206E036C096805879E1BDB9B59D5722313EB6DF33B173ED30EE836978AF38771"
+    },
+    {
+      "path": "tests/public-startup124-tests.cpp",
+      "size": 4341,
+      "sha256": "C7163078CF8D7626D198EDB2163CE59C21DA7A8A26C1819CFA40060ABE317DE2"
+    },
+    {
+      "path": "tests/queued-permission54-tests.cpp",
+      "size": 20442,
+      "sha256": "ADB4210D65DD6BFB3084E16175B06251D1304C777FDB737A6FC3A98B7D384917"
+    },
+    {
+      "path": "tests/queued-scratch59-benchmark.cpp",
+      "size": 27140,
+      "sha256": "DB0076065BA2A424AF2B50AFDD2DC495B83A0DA8A135AFD4792A7B94BF6643EE"
+    },
+    {
+      "path": "tests/queued-scratch59-tests.cpp",
+      "size": 36636,
+      "sha256": "760AB7F5E65E6B73E3DC9B1F56F7E33A7AF81EAE26C02E4C5EAC38A613693F90"
+    },
+    {
+      "path": "tests/queued-window49-tests.cpp",
+      "size": 13475,
+      "sha256": "8C15C888BCD52F2EA8027E844E0DA4CCD3C443FFBE3D970D94D29BD8147F8F7F"
+    },
+    {
+      "path": "tests/receiver-consequence44-tests.cpp",
+      "size": 3771,
+      "sha256": "11C434D47DA51CB8D33A07B2771D1025DA90ADE6501824AA44BE3DAA772665F6"
+    },
+    {
+      "path": "tests/recorded-spacer124-tests.cpp",
+      "size": 3470,
+      "sha256": "49C08EEEF98BBE8048A763A64A0E233960D18D5978C36005EAFBBF95032AF8FB"
+    },
+    {
+      "path": "tests/RecordedWorldPackets101.hpp",
+      "size": 2212,
+      "sha256": "31FFE2B9C04ACB29842BB918951BEAAB72F8E59DDF5B5D76696B85CFE67F5E5E"
+    },
+    {
+      "path": "tests/reference-certificate32.hpp",
+      "size": 5337,
+      "sha256": "AB74620B7F988C7380F7EA61611490B8CA0389561CA01A81EF28EBBBF805536A"
+    },
+    {
+      "path": "tests/reference-owner32.inc",
+      "size": 8876,
+      "sha256": "EF45DCDDCB368008DE5F7A299AA12DFB1F00E0B27E55BA301F42F1DA36EA17A8"
+    },
+    {
+      "path": "tests/reference-queued32.inc",
+      "size": 4813,
+      "sha256": "DEE2C7449CA23309643D5E37243232CB9D3D13B3EC6B1D6F1B59EDDBAAEE897F"
+    },
+    {
+      "path": "tests/reference-window32.hpp",
+      "size": 3953,
+      "sha256": "AF676DCB57FE4A918C1E65BBDE643710AF7ED2194B987F73B5F69C0A6987DAA7"
+    },
+    {
+      "path": "tests/scene-score96-tests.cpp",
+      "size": 2149,
+      "sha256": "8E906A0FB2D3AE11ED92F93CCB168FDCDF751742A71A6966EF0B5DFC0883C0FF"
+    },
+    {
+      "path": "tests/settings-runtime117-tests.cpp",
+      "size": 10763,
+      "sha256": "A2D5B45E9961A5C8115B8783B366038A797AA4CB3CEA79EEF6D0641DCD20E442"
+    },
+    {
+      "path": "tests/settings117-tests.cpp",
+      "size": 7092,
+      "sha256": "C0E3538C17826F3A81F90C5FFD038A8761A178B66B89DB584375EBD749EE2D3D"
+    },
+    {
+      "path": "tests/shadow-cpu-profile29-tests.cpp",
+      "size": 898,
+      "sha256": "990680E69FCD77D678B2DF5C24C13FE5808136153BA2F02E81E9687046495820"
+    },
+    {
+      "path": "tests/shadow-key-isolation27-tests.cpp",
+      "size": 2848,
+      "sha256": "3A9E95D7A7DB53C302E84CA4142C93403BD64E9169D59C1ACD5E85F289412D78"
+    },
+    {
+      "path": "tests/shadow-selection-loss38-tests.cpp",
+      "size": 4831,
+      "sha256": "EDDBBF3F56F721C80E9A2480D2A0D7BD5086F0280176729F74B1536C59CD3AB8"
+    },
+    {
+      "path": "tests/shadow-transition69-tests.cpp",
+      "size": 2181,
+      "sha256": "DC2BFBB84EB9DC10ACC9F323E44C2626830E534CA7C279B317923C870CD35994"
+    },
+    {
+      "path": "tests/shortlist-helper48-tests.cpp",
+      "size": 3996,
+      "sha256": "DBD412A08311AEE5A9A99FC4E0CDBD182D01349E983A1BB32FE1150B798A3967"
+    },
+    {
+      "path": "tests/standalone-lab-blink-tests.cpp",
+      "size": 3993,
+      "sha256": "544B336AFABCACAA942D0E90CB5BB73188FB98ED27B896B56B0F4C837300A1EE"
+    },
+    {
+      "path": "tests/standalone-lab-police-tests.cpp",
+      "size": 2625,
+      "sha256": "9E868E4715961487BF4FDDFA3331BD8E33AB664E0C55B4EB1375EF136BC0386E"
+    },
+    {
+      "path": "tests/standalone-lab-siren-tests.cpp",
+      "size": 1777,
+      "sha256": "780B7E09BEB85F8AA61BF7928D35D184DC2CB24FAA3CB2039A9FC01A2A6C7BCC"
+    },
+    {
+      "path": "tests/standalone-lab-vacancy-tests.cpp",
+      "size": 1773,
+      "sha256": "4CDB8DD6E20D2B5A90C0E08FEDFF47AE6EBA82B93E1BEF666F96EB9742F382CC"
+    },
+    {
+      "path": "tests/standalone-log-tests.cpp",
+      "size": 2005,
+      "sha256": "A9515F95535C040C62B91FD90C5D42746023983377F3604BA11F3B3EFC8FC7AC"
+    },
+    {
+      "path": "tests/standalone-nearby-police-tests.cpp",
+      "size": 7020,
+      "sha256": "E1740A850E7A061EDA922A04C8F8B3B7E287DB742E58AA13607D8CDE2F7E4815"
+    },
+    {
+      "path": "tests/standalone-ownership-tests.cpp",
+      "size": 2233,
+      "sha256": "DA2038066D0E456A18EAF447FA05A7139EF1CFBB1025988C9FD8FBD116214168"
+    },
+    {
+      "path": "tests/tail-light20-tests.cpp",
+      "size": 3347,
+      "sha256": "E31EBF469AE4D997EFC94A711C1775CBC6003FC60AD14D927A4F3E51400BEA28"
+    },
+    {
+      "path": "tests/traffic-auth71-tests.cpp",
+      "size": 6595,
+      "sha256": "83F9A18E67FC9CA9882BA27A761B751128EF03F1E2570648D6E031BD10E0FC53"
+    },
+    {
+      "path": "tests/traffic-distance-equivalence-tests.cpp",
+      "size": 11802,
+      "sha256": "62AD385274E5D0281A8E63BE8763DE6EA50200C75BEFC8EFEE93172AD603ADB5"
+    },
+    {
+      "path": "tests/traffic-pool-hook-guard-tests.cpp",
+      "size": 4078,
+      "sha256": "FE05AEE67B74EE57C0606B704ECCABE0BE56C59E8BDFC561755FD9F0CE7CC74F"
+    },
+    {
+      "path": "tests/traffic-signal-identity-tests.cpp",
+      "size": 2696,
+      "sha256": "CA9A2916D6C55CB6F15D7E121074012C1528D9023560067068637FC677FA68B5"
+    },
+    {
+      "path": "tests/traffic-signal-promotion-tests.cpp",
+      "size": 6482,
+      "sha256": "E62A3452BE36156EB7CB76454AB1F415F5DB8FD742C0A93F2B3CE29652038CF2"
+    },
+    {
+      "path": "tests/traffic-signal-registry-tests.cpp",
+      "size": 7451,
+      "sha256": "5FDB9CA0FDDBABDA9BADB89ED51B3685245CE74AD9CDD5E7545D81383835F026"
+    },
+    {
+      "path": "tests/vehicle-lamps20-tests.cpp",
+      "size": 1905,
+      "sha256": "56C69A56DE332E0F06A1E407672BE625B2CBAA2EB5BE6FAC3BBEC04B2D649125"
+    },
+    {
+      "path": "tests/world-caster-mask20-tests.cpp",
+      "size": 1138,
+      "sha256": "ED290CFD8017048EC13269076BBA2E16D02BDDE822AD583E5F3DE0497956943E"
+    },
+    {
+      "path": "traffic-native-auth71-tests.cmake",
+      "size": 1322,
+      "sha256": "2888A1005E35CE50E9E5321553E8611F17CFEF010CB47FC8FFE81F03FA17D43A"
+    },
+    {
+      "path": "traffic-signal-observer.inc",
+      "size": 33632,
+      "sha256": "A449D7F5E3236276637A7E8041FEAFC52A603806BF2FD682602F6ACA59260145"
+    },
+    {
+      "path": "TrafficPoolHookGuard.hpp",
+      "size": 3985,
+      "sha256": "48E23926723035564950EEC56104414B2C784148FB1E770410DD3B9BB33E26A7"
+    },
+    {
+      "path": "TrafficSignalDistanceGate.hpp",
+      "size": 999,
+      "sha256": "5D8C621B8FBE84513951D48F2C8663A505AF02D9E056420CE61C225D3C7B6755"
+    },
+    {
+      "path": "TrafficSignalIdentity.hpp",
+      "size": 1585,
+      "sha256": "AB9A930F636F972FD9FF44D6984AB7D4D39BD9AFF8A0E7117536B00F3E9FF371"
+    },
+    {
+      "path": "TrafficSignalNativeQueue.hpp",
+      "size": 1068,
+      "sha256": "959B94ED9C9C84D7AB41A9656DFA3CE3B62C79420FD86BA62F03F0545C20D886"
+    },
+    {
+      "path": "TrafficSignalPromotion.hpp",
+      "size": 2164,
+      "sha256": "43D628636721C42079AEA57DDEE3CA9F9D612E897AD249757D9E2AC76DA13C3C"
+    },
+    {
+      "path": "TrafficSignalRegistry.hpp",
+      "size": 6422,
+      "sha256": "F99E1A041BA372F08262F78A5C88D25E72A92A891655A4D7FD8B5C1348653EAC"
+    },
+    {
+      "path": "VehicleLampIdentity20.hpp",
+      "size": 3124,
+      "sha256": "DBEA891B2FFC8ECEF66DA7A75038607BDA81CCE8B22FACAEE8FCA885C4DEA8D7"
+    },
+    {
+      "path": "WorldCasterMask20.hpp",
+      "size": 1101,
+      "sha256": "ACA00AF60B5DE03EDA230354115AC0995732F7ECF230F7A307079D21A04F06EA"
+    },
+    {
+      "path": "WorldGeometry20Runtime.inc",
+      "size": 5865,
+      "sha256": "0C85B7D227D8F77E0166E29D6F7B49BB412A6BCE41143627D4D85B6E3821403F"
+    },
+    {
+      "path": "WorldGeometryCatalogRuntime20.inc",
+      "size": 8925,
+      "sha256": "A0706636707EA0C7C3F13A857835A317188B274667F25FFC3705040C17CD1C91"
     }
-  }
+  ],
+  "note": "Inherited identity files inside source are historical; this external manifest defines this seal."
 }

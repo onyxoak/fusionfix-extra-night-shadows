@@ -1,9 +1,12 @@
-# Building the matching release
+# Build the current ASI
 
-This repository exposes the released C/C++ source, menu XMLs and focused tests for review. It is not a standalone build checkout: bundled SDK binaries, resource images, generated build files and external dependencies remain in the matching full-source release ZIP.
+Use Windows with Visual Studio2022 C++ build tools, the Windows SDK, CMake3.24+ and Ninja. Select an **x86/Win32** developer environment. The exact released source, including SafetyHook/Zydis, is under source/.
 
-Download the explicitly named full source ZIP from the corresponding GitHub release. Open `fusionfix-source/build/GTAIV.EFLC.FusionFix.vcxproj` and build Release / Win32 with MSVC and the Windows SDK. Preserve the included dependency and license files. Some archived test scripts contain the original developer's absolute paths; adjust those to your checkout before running them. The tests are code checks, not a substitute for in-game validation.
+```text
+cmake -S source -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+cmake --build build --target OnyxOak.ExtraNightShadows --parallel 8
+```
 
-`SOURCE-MANIFEST.json` records the full archive SHA-256 and exact archive path/hash for each imported source/test/menu file. Source files are copied byte-for-byte, including original line endings. This does not claim a fresh reproducible binary build was performed during the source import.
+The ASI is build/OnyxOak.ExtraNightShadows.asi. Compilation alone does not validate a live game installation. Test executables additionally need the official CE/FusionFix/VolumetricLights fixtures referenced by CMake. Supply the COMPAT199_GAME, COMPAT199_FUSION and COMPAT199_VOLUME cache variables for your own legitimate files. Some historical test commands retain original D-drive paths, including older FusionFix fixtures; adapt those fixture paths to your environment before running the full suite. No copyrighted game executable or companion binary is distributed in this repository.
 
-Use `source-ce-1.5` or `source-ce-1.6` to inspect the corresponding imported snapshot. The older `v1.5` and `v1.6` release tags remain untouched; their attached full-source ZIPs are the packaging authority. No diagnostic-only hang45 changes are included.
+Shader builds are separate. Use the matching full-source release ZIP for the complete shader source and original recipes. The current paired scenery-fade assembly/recipe is also readable under shaders/. All original compiler commands, source manifests and validation receipts are retained in the full-source attachment. This source import does not claim a new reproducible runtime build or new gameplay validation.

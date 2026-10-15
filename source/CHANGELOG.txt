@@ -1,0 +1,23 @@
+CE 1.9 - Enhanced Shadows performance update
+
+- Improves CPU-side traffic-light owner validation with fresh page metadata and conservative fallback; no stale readability cache.
+- Retains native timer restoration for temporarily unleased entries and existing retirement/identity checks.
+- Preserves CE 1.8 lighting, seven active slots, eight cache entries and existing reach settings.
+- Ships the clean tested-behavior counterpart, without cost profiler, capture markers or profiling configuration.
+- No new menu or additional lighting features. CE 1.7 fix-only and legacy packages remain unchanged.
+
+Local testing observed reduced owner-validation CPU overhead. No whole-game FPS improvement is guaranteed. Dense-traffic renderer/deferred costs remain unresolved.
+
+Private31: fresh scalar committed-region queries; previous working-set strategy
+remains startup-selectable. No owner cache or lighting-quality changes. Matching
+optimized Release PDBs included. Crash/floodlight cause remains unresolved.
+
+Private32 (October10): operation-local modelInfo evidence removes two redundant
+reads at each model Resolve/Promote/ValidateQueued and corona Submit; fresh owner
+checks remain at every boundary. Owner raw reads contained for AV/in-page/guard
+races; faults reported. Model diagnostic publisher uses atomic identity count,
+never ownership lock. Combined headlamp selection evidence authenticates once;
+actual own-beam fixture guarded reads18->9, traffic unchanged. Runtime START and
+ACTIVE use one identity. No selection weight, quality, geometry, shader, native
+source pose/color/range or capacity changes. Thirty engineering checks; live
+performance/visuals/crash resolution remain unverified. Not a public release.

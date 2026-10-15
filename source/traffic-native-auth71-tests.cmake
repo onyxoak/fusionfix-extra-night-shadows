@@ -1,0 +1,17 @@
+# Extract the production authentication implementation; tests cannot silently
+# replace its backend/category/lifecycle gates with an equivalent wrapper.
+file(READ "${CMAKE_CURRENT_SOURCE_DIR}/traffic-signal-observer.inc" TRAFFIC71_RUNTIME)
+string(FIND "${TRAFFIC71_RUNTIME}" "void TrafficAuthenticate(){" TRAFFIC71_BEGIN)
+string(FIND "${TRAFFIC71_RUNTIME}" "\nvoid TrafficInstall(){" TRAFFIC71_END)
+if(TRAFFIC71_BEGIN LESS 0 OR TRAFFIC71_END LESS_EQUAL TRAFFIC71_BEGIN)
+  message(FATAL_ERROR "Actual TrafficAuthenticate71 extraction markers changed")
+endif()
+math(EXPR TRAFFIC71_LENGTH "${TRAFFIC71_END}-${TRAFFIC71_BEGIN}")
+string(SUBSTRING "${TRAFFIC71_RUNTIME}" ${TRAFFIC71_BEGIN} ${TRAFFIC71_LENGTH} TRAFFIC71_EXTRACTED)
+file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/generated")
+file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/generated/traffic-auth71-extracted.inc" "${TRAFFIC71_EXTRACTED}")
+add_executable(traffic-native-auth71-tests tests/traffic-auth71-tests.cpp)
+target_include_directories(traffic-native-auth71-tests PRIVATE . tests "${CMAKE_CURRENT_BINARY_DIR}/generated")
+target_compile_definitions(traffic-native-auth71-tests PRIVATE NOMINMAX WIN32_LEAN_AND_MEAN)
+target_compile_options(traffic-native-auth71-tests PRIVATE /UNDEBUG /W4 /WX)
+add_test(NAME traffic-native-auth71 COMMAND traffic-native-auth71-tests)

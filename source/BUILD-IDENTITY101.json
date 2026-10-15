@@ -1,0 +1,19 @@
+{
+  "Candidate": "2.0-private-build101",
+  "RuntimeLabel": "libertys-shadows-2.0-candidate101-projection-domains",
+  "Parent": "sealed private-build96",
+  "Source": "D:\\Codex-Work\\Libertys-Shadows-2.0\\refinement101-projection-domains\\source",
+  "Installed": false,
+  "PublicRelease": false,
+  "NativeShadowSlots": 7,
+  "ImmutableIdentityDomains": {
+    "native_flags_bit100_set": 4096,
+    "native_flags_bit100_clear": 4096
+  },
+  "ProjectionIdentityBytes": 76,
+  "CurrentPacketWitnessBytes": 112,
+  "OriginalNativePayloadBytes": 120,
+  "KeyReuse": false,
+  "Validation": "76/76 x86 Release:75inheritedregressions+newdomain101; oneBelowNormal job; independentreview/combinedreplay pending",
+  "Limits": "Bounded metadata admission isolation; not an FPS gain, infinite citywide lifetime or historical per-source constructor proof."
+}

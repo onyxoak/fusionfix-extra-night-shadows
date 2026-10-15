@@ -1,0 +1,8 @@
+{
+  "Candidate": "2.0-private-build74",
+  "SourceParent": "sealed standalone-traffic71",
+  "InstalledParent": "2.0-private-build70",
+  "NativeContractReviewSHA256": "1F45F49B34F52105AF15D2618CD7C28C83DBF4B01666F2BFB416DB1A887501B3",
+  "EngineeringChecks": "68/68",
+  "Scope": "Only four native W lanes omitted from map identity; original illumination/current112 witness/geometry unchanged; traffic standalone71 integrated"
+}

@@ -1,0 +1,10 @@
+[
+  {
+    "version": "2.0",
+    "candidate": 125,
+    "player_sha256": "800055e9bf4f62fc29660107a5f9a4461e0a67bfb21328001dc8e1ecd2329be3",
+    "source_sha256": "1e8f1f5a30d14fc36d8bd1b9d0cdd49c22fdcdb150723b160a14b9a0af02825e",
+    "asi_sha256": "903ce8c32126301ffe8e3cc04b2ac487a8725d93baf3cd34fc0113277316562d",
+    "source_files": 351
+  }
+]
