@@ -2,22 +2,44 @@
 
 ## 2.0.4
 
-Corrected official FusionFix 5.0.1/5.1.0 adapters that previously used 5.1.1-specific pool/model/backend/copy addresses, including matching VolumetricLights paths. Added canonical headlight-failure evidence and callback-owner details where available. Includes the camera-weighted indoor 35 ft priority bubble and documented configurableINI/tuning guide. High remains the default; routine diagnostics are off.141 offline checks passed; older modpack compatibility and indoor improvements need broader runtime testing. No new FPS gain, universal conflict fix, physical pole/fire fix or RESC 10 fix is claimed.
+- Corrected version-specific startup adapters for official FusionFix 5.0.1 and 5.1.0, including the matching VolumetricLights paths.
+- Added clearer headlight-conflict diagnostics: the first mismatched instruction and callback-owner details where available.
+- Added the camera-weighted indoor shadow-priority bubble, extending up to 35 feet around the player.
+- Includes the fully commented configuration INI and tuning guide. High remains the default; routine diagnostic tools are off.
+- Retains the performance and scenery-shadow improvements from 2.0.3. No additional measured FPS gain is claimed for 2.0.4.
+
 
 ## 2.0.3
 
-Added compatibility with official VolumetricLights 2.00. Reduced repeated CPU work in shadow processing and validation. Added scenery-shadow distance transitions and brief retention of available static maps. Updated pole handling using existing maps and corrected two low arcade-light placements. Improved startup-conflict guidance. Heavy nighttime scenes and missing model-specific pole shadows remained open.
+- Added compatibility with official VolumetricLights v2.00.
+- Reduced repeated CPU work in shadow processing and light validation.
+- Added scenery-shadow transitions near the distance limit and brief retention of available static maps.
+- Updated lamp-pole handling using existing shadow maps and corrected two low arcade-light placements.
+- Added clearer startup errors and compatibility troubleshooting. High remains the default; routine profiling and recording are off.
+
 
 ## 2.0.2
 
-Added protection against the native model-reference queue overflow investigated during nighttime crashes. Reduced redundant shadow-caster CPU work without changing lighting, range, brightness or geometry coverage. High remained the default, with routine diagnostics off. VolumetricLights was not compatible with this historical version.
+- Added protection against the native model-reference queue overflow investigated during nighttime crashes.
+- Reduced redundant shadow-caster CPU work while retaining the same lighting, range, brightness and geometry coverage.
+- Kept High as the default, with routine diagnostic tools off.
+- This historical version predates the VolumetricLights compatibility adapter; do not use that combination with 2.0.2.
+
 
 ## 2.0.1
 
-Improved scenery priority and reduced unnecessary background processing. High considers scenery shadows out to 250 ft; headlight/taillight reach remains unchanged. Headlights were reduced 15 percent and traffic-light spill raised 5 percent. Physical lamp-pole shadows and the brightness change when leaving a car remained unresolved.
+- Improved priority for visible scenery lights; High considers scenery shadows out to 250 feet.
+- Reduced unnecessary background processing and disabled routine diagnostics.
+- Reduced headlight brightness by 15 percent and raised traffic-light spill by 5 percent. Headlight and taillight reach remained unchanged.
+- Physical lamp-pole shadows and brightness changes when leaving a car remained known issues.
+
 
 ## 2.0
 
-Expanded supported city and vehicle lighting, including dual headlights and taillights on High and traffic/emergency-light shadows from Medium. Added Low/Medium/High choices and matching shaders. Further optimization and model-specific shadow refinements remained ongoing.
+- Expanded supported shadow interaction across city lights, people, vehicles and scenery.
+- Added dual-headlight and taillight enhancements on High, with traffic and emergency-light shadows from Medium.
+- Added Low, Medium and High presets and the matching shader package.
+- Expanded lighting coverage while keeping further optimization and visual refinement ongoing.
 
-Older release notes remain on their GitHub releases and in historical/ce-1.6/RELEASE-NOTES.md.
+
+Older versions: see their original GitHub release notes and historical/ce-1.6/.
