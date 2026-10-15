@@ -12,6 +12,7 @@
 #include "SignalShadowPriority20.hpp"
 #include "SceneShadowPriority21.hpp"
 #include "SceneScoreContinuity96.hpp"
+#include "VisibleReceiverRanking133.hpp"
 #include "ShadowKeyMultiplicity27.hpp"
 #include "ShadowSelectionLoss38.hpp"
 #include "DeferredModelShortlist48.hpp"
@@ -72,6 +73,8 @@ namespace PlayerShadowAllocation
     static bool additionalFeatures = false;
     static float signalShadowPriority = 1.5f;
     static float scenePriorityStrength = 1.5f,scenePriorityReleaseMs = 450.f;
+    static bool visibleReceiverExperiment133=false; // Startup-only default-OFF.
+    static bool (*visibleReceiverSource133)(const rage::CLightSource&,unsigned,rage::CLightSource*,uint32_t,uint32_t) noexcept=nullptr;
     static std::string installStatus = "not_requested"; // Init-only; diagnostics reads after ready publication.
     // Diagnostics are counters only: no per-frame logging/allocations or I/O.
     static std::atomic<uint32_t> appliedPasses{0}, observedPasses{0}, fallbackPasses{0}, staleKeysCleared{0};
@@ -124,7 +127,10 @@ namespace PlayerShadowAllocation
     static std::atomic<fusionfix::shadows::parallel61::Service*> parallelService61{nullptr};
     static fusionfix::shadows::parallel61::Context ParallelContext61() noexcept {
         fusionfix::shadows::parallel61::Context c{};c.view=state.view;c.player=state.player;c.focus=state.drivingFocus;
-        c.driving=state.occupiedCar!=0;c.strength=scenePriorityStrength;fusionfix::shadows::parallel61::CaptureControl(c);return c;
+        c.driving=state.occupiedCar!=0;c.strength=scenePriorityStrength;
+        c.visibleReceiver133=visibleReceiverExperiment133&&scenePriorityStrength>0;
+        if(c.visibleReceiver133){const int feet=fusionfix::shadows::ShadowReachFeet(FusionFixSettings.Get("PREF_LAMP_REACH"));c.lampReach133=feet>0?feet*.3048f:60.f;}
+        fusionfix::shadows::parallel61::CaptureControl(c);return c;
     }
     // Called once from standalone startup worker, never from a native hook.
     static void StartParallel61() noexcept {
@@ -486,21 +492,36 @@ namespace PlayerShadowAllocation
         if(!(light.mFlags&6u) || (light.mFlags&0x100u) ||
             *reinterpret_cast<const uint32_t*>(regs.esp+0x1C)!=light.mFlags) return;
         const Vec3 position{light.mPosition.x,light.mPosition.y,light.mPosition.z};
-        const float visibleWeight=fusionfix::shadows::ShadowViewWeight(state.view,position,
+        float visibleWeight=fusionfix::shadows::ShadowViewWeight(state.view,position,
             {light.mDirection.x,light.mDirection.y,light.mDirection.z},light.mRadius,false);
-        const float viewWeight=1.0f+(visibleWeight-1.0f)*(state.occupiedCar?1.0f:0.5f);
+        float viewWeight=1.0f+(visibleWeight-1.0f)*(state.occupiedCar?1.0f:0.5f);
         const int feet=fusionfix::shadows::ShadowReachFeet(FusionFixSettings.Get("PREF_LAMP_REACH"));
         const float reach=feet>0?feet*0.3048f:60.0f;
         const float original=regs.xmm0.f32[0];
         const float distanceSquared=fusionfix::shadows::EvaluateGeometry(state.player,position).distanceSquared;
+        float receiverBenefit133=0.f;
+        if(visibleReceiverExperiment133&&scenePriorityStrength>0&&
+            fusionfix::shadows::VisibleReceiverEmission133(light.mIntensity,{light.mColor.x,light.mColor.y,light.mColor.z}))
+            receiverBenefit133=fusionfix::shadows::VisibleReceiverBenefit133(true,true,state.view.valid,
+                fusionfix::shadows::ShadowVolumeMayReachView(state.volumeFrustum,position,light.mRadius),
+                distanceSquared,light.mRadius,reach,visibleWeight,uint32_t(light.mType),light.mOuterConeAngle);
+        if(receiverBenefit133>0&&(!visibleReceiverSource133||
+            !visibleReceiverSource133(light,index,const_cast<rage::CLightSource*>(lights),count,state.frame)))receiverBenefit133=0;
+        if(receiverBenefit133>0) {
+            const float forward163=fusionfix::shadows::SceneryReceiverFactor163(state.view,position,
+                {light.mDirection.x,light.mDirection.y,light.mDirection.z},light.mRadius,uint32_t(light.mType));
+            visibleWeight=1.f+(visibleWeight-1.f)*forward163;
+            viewWeight=1.f+(visibleWeight-1.f)*(state.occupiedCar?1.f:.5f);
+        }
         const bool retained=!state.keyMultiplicity.Ambiguous(index) && state.lampContinuity.Retained(static_cast<uint32_t>(light.mCastShadows),
             LampGeometry(light),fusionfix::shadows::ShadowVolumeMayReachView(state.volumeFrustum,position,light.mRadius) &&
-                std::isfinite(distanceSquared) && distanceSquared<reach*reach);
+                std::isfinite(distanceSquared) && fusionfix::shadows::VisibleReceiverRelevant133(distanceSquared<reach*reach,receiverBenefit133));
         // Keep the softer on-foot acquisition preference, but do not halve an
         // incumbent's visibility merely because the player is walking.
         const float effectiveWeight=retained ? visibleWeight : viewWeight;
-        const float adjusted=fusionfix::shadows::NativeLampPriorityDistance(original,
+        const float inherited=fusionfix::shadows::NativeLampPriorityDistance(original,
             distanceSquared,effectiveWeight,reach,retained);
+        const float adjusted=receiverBenefit133>0?fusionfix::shadows::VisibleReceiverNativeDistance133(inherited,receiverBenefit133):inherited;
         if(adjusted!=original && std::isfinite(adjusted) && adjusted>=0) {
             regs.xmm0.f32[0]=adjusted; ++lampDistanceAdjusted;
         }
@@ -597,8 +618,18 @@ namespace PlayerShadowAllocation
             // Protect the whole visible influence volume, not screen center.
             const bool volumeVisible=fusionfix::shadows::ShadowVolumeMayReachView(state.volumeFrustum,
                 {light.mPosition.x,light.mPosition.y,light.mPosition.z},light.mRadius);
-            const bool relevant=std::isfinite(geometry.distanceSquared) && geometry.distanceSquared<=reach*reach &&
+            // RECEIVER133_RELEVANCE_BEGIN
+            float receiverBenefit133=visibleReceiverExperiment133&&scenePriorityStrength>0&&kind==budget::Kind::Lamp&&
+                fusionfix::shadows::VisibleReceiverEmission133(light.mIntensity,{light.mColor.x,light.mColor.y,light.mColor.z})?
+                fusionfix::shadows::VisibleReceiverBenefit133(true,true,state.view.valid,volumeVisible,
+                    geometry.distanceSquared,light.mRadius,reach,viewWeight,uint32_t(light.mType),light.mOuterConeAngle):0.f;
+            const bool sourceSupported133=receiverBenefit133>0&&visibleReceiverSource133&&
+                visibleReceiverSource133(light,index,lights,count,state.frame);
+            if(!sourceSupported133)receiverBenefit133=0;
+            const bool relevant=std::isfinite(geometry.distanceSquared) &&
+                fusionfix::shadows::VisibleReceiverRelevant133(geometry.distanceSquared<=reach*reach,receiverBenefit133) &&
                 (volumeVisible || kind==budget::Kind::PlayerBeam);
+            // RECEIVER133_RELEVANCE_END
             labRelevant[index]=relevant?1:0; state.nativeCandidates[index]=state.continuity.Observe(
                 {key,generation},flags,relevant&&!state.keyMultiplicity.Ambiguous(index),kind==budget::Kind::PlayerBeam);
             // Driving focus is a physical-distance prediction, not a camera
@@ -627,6 +658,7 @@ namespace PlayerShadowAllocation
                     in.position={source.x,source.y,source.z};in.direction={direction.x,direction.y,direction.z};
                     in.radius=light.mRadius;in.intensity=light.mIntensity;in.type=uint32_t(light.mType);in.outerCone=light.mOuterConeAngle;
                     in.rgb={light.mColor.x,light.mColor.y,light.mColor.z};in.viewWeight=viewWeight;in.volumeVisible=volumeVisible;
+                    if(visibleReceiverExperiment133)in.beam=sourceSupported133?0u:1u; // Numeric exclusion, never a worker owner lookup.
                     const auto context=ParallelContext61();fusionfix::shadows::parallel61::Output result{};
                     if(!parallelService61.load(std::memory_order_acquire)->TryGet(context,in,result))result=fusionfix::shadows::parallel61::Compute(context,in);
                     consequence=result.consequence;(void)parallelService61.load(std::memory_order_acquire)->Record(context,in);
@@ -639,6 +671,9 @@ namespace PlayerShadowAllocation
                 consequence=fusionfix::shadows::SceneConsequence44(subjectDistance,roadDistance,
                     light.mRadius,light.mIntensity,{light.mColor.x,light.mColor.y,light.mColor.z},viewWeight,
                     volumeVisible,state.occupiedCar!=0,playerCoverage,roadCoverage,scenePriorityStrength);
+                if(sourceSupported133)consequence=fusionfix::shadows::VisibleReceiverScore133(consequence,receiverBenefit133,
+                    subjectDistance,light.mRadius,light.mIntensity,{light.mColor.x,light.mColor.y,light.mColor.z},viewWeight,volumeVisible,
+                    fusionfix::shadows::SceneryReceiverFactor163(state.view,source,direction,light.mRadius,uint32_t(light.mType)));
                 }
                 if(consequence.valid){
                     const float importance=1.f+std::min(4.f,consequence.consequence);

@@ -63,6 +63,7 @@ float ViewCall61(const Light61&light,unsigned index,uint32_t key,uint32_t flags)
 }
 fusionfix::shadows::SceneReceiverConsequence44 SceneCall61(const Light61&light,unsigned index,uint32_t key,uint64_t generation,float viewWeight,bool volumeVisible){
  const fusionfix::shadows::FloatingPointState preserve;const Vec3 source=light.mPosition,direction=light.mDirection;
+ const bool visibleReceiverExperiment133=false,sourceSupported133=false;const float receiverBenefit133=0.f;
 #include "scene-callsite61.inc"
  return consequence;
 }
@@ -99,6 +100,23 @@ void DependencyTests61(m::Service&service,const m::Context&c,const Light61&light
   }
  }
  auto changedContext=c;changedContext.focus.z+=1;assert(service.Begin(c));assert(!service.Record(changedContext,view));assert(!service.Dispatch());
+ // Actual worker result published for a static scenery input. A same-valid
+ // camera matrix change must refuse that result even with player/focus exact.
+ auto staticContext163=c;staticContext163.visibleReceiver133=1;staticContext163.lampReach133=76.2f;
+ auto staticInput163=scene;staticInput163.slot=3910;staticInput163.beam=0;staticInput163.type=0;
+ staticInput163.position={.5f,0,.3f};staticInput163.radius=.1f;staticInput163.viewWeight=3;
+ assert(service.Begin(staticContext163)&&service.Record(staticContext163,staticInput163)&&service.Dispatch());
+ WaitReady61(service,staticContext163,staticInput163);m::Output staticOutput163{};
+ assert(service.TryGet(staticContext163,staticInput163,staticOutput163));
+ for(unsigned matrix163=0;matrix163<2;++matrix163){
+  auto moved163=staticContext163;if(matrix163)moved163.view.projection[0][0]*=2;else moved163.view.view[3][0]+=.5f;
+  assert(moved163.view.valid==staticContext163.view.valid&&!std::memcmp(&moved163.player,&staticContext163.player,sizeof(moved163.player))&&!std::memcmp(&moved163.focus,&staticContext163.focus,sizeof(moved163.focus)));
+  m::Output sentinel163{};sentinel163.viewWeight=913;sentinel163.consequence.score=914;
+  assert(!service.TryGet(moved163,staticInput163,sentinel163)&&sentinel163.viewWeight==913&&sentinel163.consequence.score==914);
+  assert(m::Compute(moved163,staticInput163).consequence.score!=staticOutput163.consequence.score);
+ }
+ auto disabled163=staticContext163;disabled163.visibleReceiver133=0;auto movedOff163=disabled163;movedOff163.view.view[3][0]+=.5f;
+ assert(m::EqualPhase(disabled163,movedOff163,1)); // Inherited Off dependencies unchanged.
 }
 struct Other61 {m::Service*s;m::Context c;m::Input in;};
 DWORD WINAPI WrongOwner61(void*v){auto&t=*static_cast<Other61*>(v);m::Output out{};assert(!t.s->Begin(t.c));assert(!t.s->Record(t.c,t.in));assert(!t.s->TryGet(t.c,t.in,out));assert(!t.s->Dispatch());t.s->Stop();return 0;}

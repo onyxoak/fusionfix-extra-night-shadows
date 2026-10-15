@@ -1,0 +1,5 @@
+add_executable(pole-draw145-runtime-tests tests/pole-draw145-runtime-tests.cpp "${CMAKE_CURRENT_BINARY_DIR}/caster134-extracted.inc")
+target_include_directories(pole-draw145-runtime-tests BEFORE PRIVATE "${CMAKE_CURRENT_BINARY_DIR}" . core)
+target_compile_features(pole-draw145-runtime-tests PRIVATE cxx_std_20)
+target_compile_options(pole-draw145-runtime-tests PRIVATE /UNDEBUG /W4 /WX)
+add_test(NAME pole-draw145-runtime COMMAND pole-draw145-runtime-tests)

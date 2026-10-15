@@ -46,3 +46,16 @@ Original upstream authorship, copyright notices and license terms are preserved.
 Matching ASI and shader source/build recipes are provided separately in
 `Libertys-Shadows-2.0-source.zip`. This is an unofficial release by OnyxOak,
 not an official FusionFix release or endorsement.
+
+
+## Candidate2.0.1 build132 - October13,2026 (local playtest only)
+
+This candidate retains the original authorship and license notices. It adds
+a guarded official FusionFix5.1.1 shared-backend handoff for enabled owned
+presets while preserving the genuine saved preference and restoring it for
+Off/failure, successful-issued dual-key ownership, native Night Shadows
+prerequisite status and bounded startup-conflict reporting. The source and
+98-check receipt match build132. Actual rendered/author acceptance and public
+approval remain pending. Matching ASI and complete unchanged shader source
+are in Libertys-Shadows-2.0.1-test132-source.zip. No new dependency, geometry
+walker, native shadow-map capacity or universal FPS/lighting claim is added.

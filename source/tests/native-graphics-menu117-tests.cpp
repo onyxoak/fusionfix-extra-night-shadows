@@ -109,7 +109,7 @@ int main() {
  {auto memory=Setup();const auto result=Run(memory);auto screen=memory.Load<Screen32>(ScreenAddress);++screen.options.capacity;memory.Store(ScreenAddress,screen);assert(!result.receipt.Own(memory,ScreenAddress,1,result.receipt.first));}
  // Reserved names cannot select or silently run an unimplemented preset.
  const auto high=*preset117::Defaults(preset117::Preset::High);
- {Controller q(high);assert(q.QualityValue121()==L"High");
+ {Controller q(high);q.ObserveNight128(native_night128::State::Enabled);assert(q.QualityValue121()==L"High");
   assert(q.DispatchQuality121(Action::Next)==Change::Changed&&!q.Pending().enabled&&q.Applied()==high);
   assert(q.QualityValue121()==L"Off (restart required)");
   assert(q.Persist([](const preset117::State&s){return !s.enabled;}));
@@ -119,8 +119,8 @@ int main() {
   assert(q.DispatchQuality121(Action::Previous)==Change::Changed&&q.Pending()==*preset117::Defaults(preset117::Preset::Medium));
   assert(!q.Persist([](const preset117::State&){return false;}));assert(q.QualityValue121()==L"Medium (save failed)");
  }
- Controller controller(high);assert(controller.Saved()&&!controller.RestartRequired()&&controller.Value(Control::Status)==L"Applied");
- {Controller c(high);assert(c.Dispatch(Control::Enabled,Action::Activate)==Change::Changed&&!c.Pending().enabled&&c.Applied().enabled&&c.RestartRequired());
+ Controller controller(high);controller.ObserveNight128(native_night128::State::Enabled);assert(controller.Saved()&&!controller.RestartRequired()&&controller.Value(Control::Status)==L"Applied");
+ {Controller c(high);c.ObserveNight128(native_night128::State::Enabled);assert(c.Dispatch(Control::Enabled,Action::Activate)==Change::Changed&&!c.Pending().enabled&&c.Applied().enabled&&c.RestartRequired());
   const auto off=c.Pending();for(auto control:{Control::Preset,Control::DualHeadlights,Control::WorldLighting,Control::StreetReach,Control::Restore})assert(c.Dispatch(control,Action::Activate)==Change::None&&c.Pending()==off);
   assert(c.Value(Control::Enabled)==L"Off (restart required)"&&c.Value(Control::Preset)==L"Enable Liberty's Shadows");
   assert(c.Dispatch(Control::Save,Action::Activate)==Change::SaveRequested);
@@ -131,23 +131,23 @@ int main() {
  assert(controller.Dispatch(Control::Preset,Action::Next)==Change::Changed);assert(controller.Pending().preset==preset117::Preset::Medium);
  assert(controller.Dispatch(Control::Preset,Action::Next)==Change::Changed);assert(controller.Pending().preset==preset117::Preset::High);
  assert(controller.Dispatch(Control::Preset,Action::Previous)==Change::Changed);assert(controller.Pending().preset==preset117::Preset::Medium);
- for(unsigned i=0;i<5;++i){Controller c(high);const auto control=Control(unsigned(Control::DualHeadlights)+i);assert(c.Dispatch(control,Action::Activate)==Change::Changed);
+ for(unsigned i=0;i<5;++i){Controller c(high);c.ObserveNight128(native_night128::State::Enabled);const auto control=Control(unsigned(Control::DualHeadlights)+i);assert(c.Dispatch(control,Action::Activate)==Change::Changed);
   assert(c.Pending().preset==preset117::Preset::Custom&&!c.Pending().features[i]&&c.Applied()==high&&c.RestartRequired());
  }
- {Controller c(high);assert(c.Value(Control::StreetReach)==L"200 ft"&&c.Value(Control::HeadlightReach)==L"50 ft");
-  assert(c.Dispatch(Control::StreetReach,Action::Next)==Change::Changed);assert(c.Pending().lampReachSteps==41);assert(c.Dispatch(Control::StreetReach,Action::Previous)==Change::Changed);assert(c.Dispatch(Control::StreetReach,Action::Previous)==Change::Changed);assert(c.Pending().lampReachSteps==39&&c.Value(Control::StreetReach)==L"195 ft");
+ {Controller c(high);c.ObserveNight128(native_night128::State::Enabled);assert(c.Value(Control::StreetReach)==L"250 ft"&&c.Value(Control::HeadlightReach)==L"50 ft");
+  assert(c.Dispatch(Control::StreetReach,Action::Next)==Change::Changed);assert(c.Pending().lampReachSteps==51);assert(c.Dispatch(Control::StreetReach,Action::Previous)==Change::Changed);assert(c.Dispatch(Control::StreetReach,Action::Previous)==Change::Changed);assert(c.Pending().lampReachSteps==49&&c.Value(Control::StreetReach)==L"245 ft");
   assert(c.Dispatch(Control::HeadlightReach,Action::Next)==Change::Changed);assert(c.Pending().headlightReachSteps==11&&c.Value(Control::HeadlightReach)==L"55 ft");
   assert(c.Dispatch(Control::Restore,Action::Activate)==Change::Changed);assert(c.Pending()==high&&c.Applied()==high);
  }
- {auto zero=high;zero.lampReachSteps=zero.headlightReachSteps=0;Controller c(zero);assert(c.Value(Control::StreetReach)==L"Original"&&c.Value(Control::HeadlightReach)==L"Original");assert(c.Dispatch(Control::StreetReach,Action::Previous)==Change::None);}
- {Controller c(high);c.Dispatch(Control::WorldLighting,Action::Activate);assert(c.Dispatch(Control::Save,Action::Next)==Change::None);assert(c.Dispatch(Control::Save,Action::Activate)==Change::SaveRequested);
+ {auto zero=high;zero.lampReachSteps=zero.headlightReachSteps=0;Controller c(zero);c.ObserveNight128(native_night128::State::Enabled);assert(c.Value(Control::StreetReach)==L"Original"&&c.Value(Control::HeadlightReach)==L"Original");assert(c.Dispatch(Control::StreetReach,Action::Previous)==Change::None);}
+ {Controller c(high);c.ObserveNight128(native_night128::State::Enabled);c.Dispatch(Control::WorldLighting,Action::Activate);assert(c.Dispatch(Control::Save,Action::Next)==Change::None);assert(c.Dispatch(Control::Save,Action::Activate)==Change::SaveRequested);
   unsigned saves=0;assert(!c.Persist([&](const preset117::State& s){++saves;assert(s==c.Pending());return false;}));assert(saves==1&&c.SaveFailed()&&!c.Saved()&&c.Applied()==high);
   assert(c.Value(Control::Status)==L"Save failed; changes retained");assert(c.Persist([&](const preset117::State&){++saves;return true;}));assert(saves==2&&c.Saved()&&c.RestartRequired()&&c.Applied()==high);
   assert(c.Value(Control::Status)==L"Saved; restart required");
  }
- {auto invalid=high;invalid.preset=invalid.base=preset117::Preset(255);Controller c(invalid);assert(c.Dispatch(Control::Preset,Action::Activate)==Change::None);assert(c.Pending()==invalid);}
+ {auto invalid=high;invalid.preset=invalid.base=preset117::Preset(255);Controller c(invalid);c.ObserveNight128(native_night128::State::Enabled);assert(c.Dispatch(Control::Preset,Action::Activate)==Change::None);assert(c.Pending()==invalid);}
  assert(controller.Dispatch(Control::Status,Action::Activate)==Change::None);assert(controller.Dispatch(Control::Count,Action::Activate)==Change::None);
- {Controller c(high);assert(c.Dispatch(Control::WorldLighting,Action::Activate)==Change::Changed);const auto pending=c.Pending();auto actual=high;actual.features[0]=false;
+ {Controller c(high);c.ObserveNight128(native_night128::State::Enabled);assert(c.Dispatch(Control::WorldLighting,Action::Activate)==Change::Changed);const auto pending=c.Pending();auto actual=high;actual.features[0]=false;
   c.ObserveApplied119(actual,true,true,false);assert(c.Pending()==pending&&!c.Saved()&&c.Applied()==actual&&c.Value(Control::Status)==L"Enable FusionFix vehicle shadows");
   assert(c.Persist([](const preset117::State&){return true;}));c.ObserveApplied119(high,false,false,false);assert(c.Saved()&&c.Pending()==pending&&c.RestartRequired()&&c.Value(Control::Status)==L"Saved; restart required");
   c.ObserveApplied119(actual,true,false,true);assert(c.Value(Control::Status)==L"FusionFix shadow state unavailable"&&c.Pending()==pending&&c.Saved());
@@ -156,7 +156,7 @@ int main() {
  // Actual CE two-stage Process -> Scroll(return0) -> optional Select flow.
  // The supplied owned enum represents a fresh Receipt::Own result; production
  // wrappers still have to provide authenticated menu/current-screen context.
- {Controller c(high);InputRouter input;
+ {Controller c(high);c.ObserveNight128(native_night128::State::Enabled);InputRouter input;
   const auto outside=input.Scroll(c,Control::Preset,25,-92,1,ScreenAddress,1);assert(!outside.handled&&c.Pending()==high);
   InputRouter::Scope scope(input,0,ScreenAddress,1,true);
   const auto previous=input.Scroll(c,Control::Preset,25,-92,-1,ScreenAddress,1);assert(previous.handled&&previous.nativeReturn==0&&previous.change==Change::Changed);
@@ -167,7 +167,7 @@ int main() {
   assert(!preset117::Enabled(c.Pending(),preset117::Feature::WorldLighting)&&c.Applied()==high);
   assert(input.Select(c,Control::WorldLighting,0,30,0,ScreenAddress,1).change==Change::None); // consume once
  }
- {Controller c(high);InputRouter input;InputRouter::Scope scope(input,0,ScreenAddress,1,true);
+ {Controller c(high);c.ObserveNight128(native_night128::State::Enabled);InputRouter input;InputRouter::Scope scope(input,0,ScreenAddress,1,true);
   for(const auto accepted:{-91,-90,-1}){assert(input.Scroll(c,Control::Preset,25,accepted,1,ScreenAddress,1).handled);assert(input.Select(c,Control::Preset,0,25,0,ScreenAddress,1).change==Change::None);}
   assert(input.Scroll(c,Control::Preset,25,-92,0,ScreenAddress,1).change==Change::None);assert(c.Pending()==high);
   assert(!input.Scroll(c,{},2,-92,1,ScreenAddress,1).handled);assert(!input.Scroll(c,Control::Preset,25,-92,1,ScreenAddress,2).handled);
@@ -176,7 +176,7 @@ int main() {
   input.Scroll(c,Control::Preset,25,25,1,ScreenAddress,1);assert(!input.Select(c,Control::Preset,1,25,0,ScreenAddress,1).handled);
   input.Scroll(c,Control::Preset,25,25,1,ScreenAddress,1);assert(input.Select(c,Control::DualHeadlights,0,26,0,ScreenAddress,1).change==Change::None);assert(c.Pending()==high);
  }
- {Controller c(high);InputRouter input;InputRouter::Scope outer(input,0,ScreenAddress,1,true);
+ {Controller c(high);c.ObserveNight128(native_night128::State::Enabled);InputRouter input;InputRouter::Scope outer(input,0,ScreenAddress,1,true);
   input.Scroll(c,Control::WorldLighting,30,30,1,ScreenAddress,1);
   {InputRouter::Scope inner(input,1,ScreenAddress+24,2,true);
    assert(input.Select(c,Control::WorldLighting,1,30,0,ScreenAddress+24,2).change==Change::None);
@@ -185,10 +185,10 @@ int main() {
   assert(outer.NeedsRefresh());assert(input.Select(c,Control::WorldLighting,0,30,0,ScreenAddress,1).change==Change::Changed);
   assert(c.Pending().preset==preset117::Preset::Custom&&c.Applied()==high);
  }
- {Controller c(high);InputRouter input;InputRouter::Scope scope(input,0,ScreenAddress,1,false);
+ {Controller c(high);c.ObserveNight128(native_night128::State::Enabled);InputRouter input;InputRouter::Scope scope(input,0,ScreenAddress,1,false);
   assert(!input.Scroll(c,Control::Preset,25,-92,1,ScreenAddress,1).handled);assert(c.Pending()==high);
  }
- {Controller c(high);InputRouter input;
+ {Controller c(high);c.ObserveNight128(native_night128::State::Enabled);InputRouter input;
   {InputRouter::Scope scope(input,0,ScreenAddress,1,true);input.Scroll(c,Control::Save,34,34,1,ScreenAddress,1);assert(input.Select(c,Control::Save,0,34,0,ScreenAddress,1).change==Change::SaveRequested);}
   {InputRouter::Scope scope(input,0,ScreenAddress,1,true);assert(input.Select(c,Control::Save,0,34,0,ScreenAddress,1).change==Change::None);}
  }

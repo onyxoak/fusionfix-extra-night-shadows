@@ -368,6 +368,10 @@ include(native-owner-batch115-tests.cmake)
 target_sources(OnyxOak.ExtraNightShadows PRIVATE NativeGraphicsRuntime117.cpp)
 include(settings117-tests.cmake)
 include(public-runtime125-tests.cmake)
+include(dual-key-ownership127-tests.cmake)
+include(native-night128-tests.cmake)
+include(startup-conflict129-tests.cmake)
+include(fusion-backend130-tests.cmake)
 
 add_executable(public-startup124-tests tests/public-startup124-tests.cpp)
 target_include_directories(public-startup124-tests PRIVATE .)
@@ -389,3 +393,46 @@ add_executable(recorded-spacer124-tests tests/recorded-spacer124-tests.cpp)
 target_include_directories(recorded-spacer124-tests PRIVATE .)
 target_compile_options(recorded-spacer124-tests PRIVATE /UNDEBUG /W4 /WX)
 add_test(NAME recorded-spacer124 COMMAND recorded-spacer124-tests)
+
+include(visible-receiver133-tests.cmake)
+
+include(pole-callback134-tests.cmake)
+include(consumer-reach136-tests.cmake)
+
+include(consumer-prefilter142-tests.cmake)
+add_executable(pole-batch144-tests tests/pole-batch144-tests.cpp)
+target_include_directories(pole-batch144-tests PRIVATE . tests)
+target_compile_features(pole-batch144-tests PRIVATE cxx_std_20)
+target_compile_options(pole-batch144-tests PRIVATE /UNDEBUG /W4 /WX)
+add_test(NAME pole-batch144 COMMAND pole-batch144-tests)
+add_executable(readscope147-tests tests/readscope147-tests.cpp)
+target_include_directories(readscope147-tests PRIVATE .)
+target_compile_features(readscope147-tests PRIVATE cxx_std_20)
+target_compile_options(readscope147-tests PRIVATE /UNDEBUG /W4 /WX)
+add_test(NAME readscope147 COMMAND readscope147-tests)
+add_executable(pole-permission147b-tests tests/pole-permission147b-tests.cpp)
+target_include_directories(pole-permission147b-tests PRIVATE .)
+target_compile_features(pole-permission147b-tests PRIVATE cxx_std_20)
+target_compile_options(pole-permission147b-tests PRIVATE /UNDEBUG /W4 /WX)
+add_test(NAME pole-permission147b COMMAND pole-permission147b-tests)
+
+include(head-capture146-tests.cmake)
+
+include(pole-draw145-tests.cmake)
+
+add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/log-publish150-extracted.inc"
+ COMMAND "${POLE134_PYTHON}" "${CMAKE_CURRENT_SOURCE_DIR}/tests/Extract-LogPublish150.py" "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_BINARY_DIR}/log-publish150-extracted.inc" "${CMAKE_CURRENT_SOURCE_DIR}/tests/model-publish143-reference.inc"
+ DEPENDS ModelLightCatalogRuntime20.inc tests/Extract-LogPublish150.py tests/model-publish143-reference.inc VERBATIM)
+add_executable(log-publish150-tests tests/log-publish150-tests.cpp "${CMAKE_CURRENT_BINARY_DIR}/log-publish150-extracted.inc")
+target_include_directories(log-publish150-tests PRIVATE . "${CMAKE_CURRENT_BINARY_DIR}")
+target_compile_features(log-publish150-tests PRIVATE cxx_std_20)
+target_compile_options(log-publish150-tests PRIVATE /UNDEBUG /W4 /WX)
+add_test(NAME log-publish150 COMMAND log-publish150-tests)
+
+include(present-time151-tests.cmake)
+
+include(frame-boundary154-tests.cmake)
+include(consumer-scoped157-tests.cmake)
+include(pole-prefilter160-tests.cmake)
+include(performance162-tests.cmake)
+include(brightness164-tests.cmake)

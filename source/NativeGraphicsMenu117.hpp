@@ -1,6 +1,7 @@
 #pragma once
 #include "PresetGeneration117.hpp"
 #include "LiveReach122.hpp"
+#include "NativeNightPrerequisite128.hpp"
 #include <algorithm>
 #include <array>
 #include <cstddef>
@@ -187,6 +188,7 @@ enum class Change:uint8_t {None,Changed,SaveRequested};
 class Controller {
  preset117::State applied_{},pending_{};
  bool saved_=true,saveFailed_=false,backendLimited_=false,vehicleDepthUnavailable119_=false,backendReadFailed119_=false;
+ native_night128::State night128_=native_night128::State::Unknown;
  static std::optional<preset117::Feature> Feature(Control control) noexcept {
   if(control<Control::DualHeadlights||control>Control::WorldLighting)return {};
   return preset117::Feature(unsigned(control)-unsigned(Control::DualHeadlights));
@@ -198,6 +200,7 @@ public:
   applied_=applied;backendLimited_=limited;vehicleDepthUnavailable119_=vehicleUnavailable;backendReadFailed119_=unreadable;
   // External observations never overwrite pending edits or save state.
  }
+ void ObserveNight128(native_night128::State state) noexcept {night128_=state;}
  Change DispatchQuality121(Action action) noexcept {
   if(action>Action::Activate)return Change::None;
   const auto base=preset117::Implemented(pending_.preset)?pending_.preset:pending_.base;
@@ -214,6 +217,10 @@ public:
  std::wstring QualityValue121() const {
   std::wstring value=pending_.enabled?preset117::Name(pending_.preset):L"Off";
   if(saveFailed_)return value+L" (save failed)";
+  if(pending_.enabled&&applied_.enabled&&night128_!=native_night128::State::Enabled){
+   const auto reason=night128_==native_night128::State::Off?L"Night Shadows Off":L"Night state unknown";
+   return value+L" ("+reason+(RestartRequired()?L"; restart required)":L")");
+  }
   if(backendReadFailed119_)return value+L" (FusionFix state unavailable)";
   if(vehicleDepthUnavailable119_)return value+L" (enable FF vehicle shadows)";
   if(backendLimited_)return value+L" (backend limited)";
@@ -272,6 +279,8 @@ public:
   }
   if(control==Control::Restore||control==Control::Save)return L"Select";
   if(saveFailed_)return L"Save failed; changes retained";
+  if(pending_.enabled&&applied_.enabled&&night128_==native_night128::State::Off)return L"Enable GTA IV Night Shadows in Graphics";
+  if(pending_.enabled&&applied_.enabled&&night128_==native_night128::State::Unknown)return L"GTA IV Night Shadows state unavailable";
   if(backendReadFailed119_)return L"FusionFix shadow state unavailable";
   if(vehicleDepthUnavailable119_)return L"Enable FusionFix vehicle shadows";
   if(backendLimited_)return L"Backend limited; restart required";

@@ -11,6 +11,7 @@
 #include "TrafficSignalDistanceGate.hpp"
 #include "TrafficPoolHookGuard.hpp"
 #include "TrafficSignalNativeQueue.hpp"
+#include "TrafficSignalBrightness164.hpp"
 #include "NativeOwnerClass109.hpp"
 #include "NativeOwnerClass114.hpp"
 namespace TrafficSignal {
@@ -265,7 +266,7 @@ void Observe(SafetyHookContext& regs,uint32_t caller) noexcept {
  if(!entry.leased){snapshots[index].state=0;return;}
  if(entry.submitted&&entry.lastAdmission==frame)return;
  const auto collision=KeyCollision(entry.key);
- if(registry.Apply(index,value.identity,frame,caller,args[2],regs.edi,collision!=0,args[3],args[16])){
+ if(traffic_signal::ApplySignalSpill164(registry,index,value.identity,frame,caller,regs.edi,collision!=0,args,rgb)){
   snapshots[index].phase=regs.edi;snapshots[index].lastAdmission=frame;snapshots[index].state.store(1,std::memory_order_release);
   if(hotCountersEnabled&&admitted.fetch_add(1)==0)RecordEvent(11,index,frame);experiment_perf::Count(hotCountersEnabled,phaseAdmissions[regs.edi]);
  }else if(collision){experiment_perf::Count(hotCountersEnabled,collisions);collisionReason=collision;snapshots[index].state=2;RecordEvent(12,index,frame);

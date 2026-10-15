@@ -30,11 +30,11 @@ void IncludeStaticMask(SafetyHookContext& regs) noexcept {
  const fusionfix::shadows::FloatingPointState fp;
  if(!active.load(std::memory_order_acquire)||!addonActive.load(std::memory_order_acquire))return;
  uint8_t deferred{};
- if(!Liberty20::Copy(game+0x1193312,&deferred,1)||deferred){++deferredRefused;return;}
+ if(!Liberty20::Copy(game+0x1193312,&deferred,1)||deferred){if(hotCountersEnabled)++deferredRefused;return;}
  // At9784AE native EAX is the completed desired mask, before its exact
  // six-byte MOV to this view. Changing only EAX avoids unrelated views.
  if(!DynamicPass(regs.edi)||regs.eax!=world_caster_mask20::NativeDynamicMask)return;
- regs.eax=world_caster_mask20::IncludeStatic(regs.eax);++staticMasks;
+ regs.eax=world_caster_mask20::IncludeStatic(regs.eax);if(hotCountersEnabled)++staticMasks;
 }
 class Scope {
  bool previous;
@@ -43,7 +43,7 @@ public:
   dynamicScope=false;
   if(!active.load(std::memory_order_acquire)||!addonActive.load(std::memory_order_acquire))return;
   uint8_t deferred{};
-  if(!Liberty20::Copy(game+0x1193312,&deferred,1)||deferred){++deferredRefused;return;}
+  if(!Liberty20::Copy(game+0x1193312,&deferred,1)||deferred){if(hotCountersEnabled)++deferredRefused;return;}
   dynamicScope=DynamicPass(reinterpret_cast<uintptr_t>(object));
   if(dynamicScope&&hotCountersEnabled){uint32_t resolved{};if(Liberty20::Copy(reinterpret_cast<uintptr_t>(object)+0x8e8,&resolved,4)){
    if(resolved&0x80u)++resolvedStaticMasks;else ++resolvedMissingStaticMasks;
@@ -59,9 +59,9 @@ void Collect(SafetyHookContext& regs) noexcept {
  // Native 978338 just wrote 0x0100 for a kind-4 light. Include the native
  // static collection byte as kind-5 does, keeping the dynamic byte intact.
  uint16_t flags{};
- if(!DynamicPass(regs.esi)||!Liberty20::Copy(regs.esi+0x15,&flags,2)||flags!=0x100){++invalidRefused;return;}
+ if(!DynamicPass(regs.esi)||!Liberty20::Copy(regs.esi+0x15,&flags,2)||flags!=0x100){if(hotCountersEnabled)++invalidRefused;return;}
  *reinterpret_cast<uint16_t*>(regs.esi+0x15)=0x101;
- ++collections;
+ if(hotCountersEnabled)++collections;
 }
 void Draw(SafetyHookContext& regs) noexcept {
  const fusionfix::shadows::FloatingPointState fp;
@@ -70,9 +70,10 @@ void Draw(SafetyHookContext& regs) noexcept {
  // Enter the native class-7 static-geometry call already used by cached maps.
  // FF's separate vehicle technique hook at 6E4236 stays untouched.
  regs.eip=game+0x6e426a;
+ if(!hotCountersEnabled)return;
  const auto visit=draws.fetch_add(1,std::memory_order_relaxed);
- if(!hotCountersEnabled||visit%120u)return;
- if(regs.ebp>=32){++invalidRefused;return;}
+ if(visit%120u)return;
+ if(regs.ebp>=32){if(hotCountersEnabled)++invalidRefused;return;}
  const auto header=game+0x1214c90+regs.ebp*0x54;
  ++sampledLists;
  // The native scene has eight lists. Class 7 is a model-dependent special
@@ -133,7 +134,7 @@ void EnableHooks() noexcept {
  catch(...){Disable();Event(1,"WORLD_GEOMETRY_REFUSED","unknown_enable_failure");}
 }
 void Publish() {
- if(!requested)return;
+ if(!requested||!hotCountersEnabled)return;
  static uint32_t previous{};const auto now=GetTickCount();if(now-previous<5000)return;previous=now;
  Event(1,"WORLD_GEOMETRY_COUNTS","collections="+std::to_string(collections.load())+" draws="+std::to_string(draws.load())+" static_masks="+std::to_string(staticMasks.load())+
    " deferred_refused="+std::to_string(deferredRefused.load())+" invalid_refused="+std::to_string(invalidRefused.load())+

@@ -17,3 +17,11 @@ the native Graphics quality menu; the shader files do not implement that menu.
 Matching shader sources, assembly, inputs and build recipes are supplied in
 `Libertys-Shadows-2.0-source.zip`. Compatibility claims for this package are
 limited to the stated tested Windows/CE 1.2.0.59/FusionFix 5.1.1/Vulkan setup.
+
+
+## Candidate2.0.1 build132 shader notice
+
+All27 shader payloads and their complete corresponding-source component are
+byte-identical to the2.0 baseline. Original upstream notices/licenses remain
+unchanged. This local candidate is not publicly approved. The matching full
+source archive is Libertys-Shadows-2.0.1-test132-source.zip.

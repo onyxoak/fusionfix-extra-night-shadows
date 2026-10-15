@@ -153,7 +153,7 @@ void Resolve(SafetyHookContext& regs) noexcept {
  }
  // All following reads are SEH-contained; no native emission/callback runs
  // before this scope ends. Values and owner generation are still reread fresh.
- const traffic_signal::fresh_page::Operation44 readOperation;
+ const traffic_signal::fresh_page::Operation44 readOperation(32);
  ResolveEvidence evidence{};
  if(!InnerEvidence(regs,evidence)){local.state.Invalidate();++readRejected;return;}
  if(!local.state.Resolve(evidence)){
@@ -229,7 +229,7 @@ void Point(SafetyHookContext& regs,uint32_t site) noexcept {
  // positive page-permission observations across context, metadata and final
  // promotion reads; all bytes and owner generations are still reread fresh.
  // SEH-contained copies reject an access revoked after the initial query.
- const traffic_signal::fresh_page::Operation44 pointReadOperation47;
+ const traffic_signal::fresh_page::Operation44 pointReadOperation47(32);
  const auto abi=model_light_submission20::Layout(site);const auto words=abi.words;
  std::array<uint32_t,18> arguments{};uint32_t returnAndEffect[3]{};
  const traffic_signal::fresh_batch30::Span contextSpans[]{
@@ -337,6 +337,8 @@ float DescriptorFloat(const Sample& sample,size_t offset) noexcept {
 }
 void Publish() noexcept {
  if(!requested||!enabled.load(std::memory_order_acquire))return;
+ onyxoak::SupportLog::Batch150 batch150(log.get());
+ const auto Event=[&](unsigned level,const char* code,const std::string& fields) noexcept {batch150.Event(level,code,fields);};
  try {
   static uint32_t previous{};const auto now=GetTickCount();if(now-previous<1000)return;previous=now;
   std::array<Sample,16> copy{};size_t count{};
@@ -405,4 +407,5 @@ void Publish() noexcept {
  }catch(...){/* Optional diagnostic publication cannot escape into the game. */}
 }
 }
+
 

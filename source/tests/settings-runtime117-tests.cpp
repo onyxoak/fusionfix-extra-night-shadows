@@ -29,12 +29,16 @@ namespace Liberty20 {
 }
 namespace NativeProjection66 {bool requested{},replacementRequested{};std::atomic<bool> active{};void ValidateQueued(rage::CLightSource*,uint32_t){++projectionCalls;}}
 namespace WorldGeometry20 {bool requested{};}
+namespace ConsumerReach136 {bool requested{};}
 namespace ConsumerShadow75 {bool requested{};}
 namespace PlayerShadowAllocation {bool additionalFeatures{};}
 namespace pe {std::filesystem::path path;std::filesystem::path ModulePath(HMODULE){return path;}}
 HMODULE self{};unsigned shadowStarts{};std::atomic<bool> failed{};
 DWORD StartShadow117(const std::filesystem::path&){++shadowStarts;return 19;}
+void StartupFailure129(const char*) noexcept {}
 bool ownExtra{},ownHeadlight{},ownVehicle{},policeTestEnabled{},nearbyPoliceEnabled{},nativeBackend{},ownerProbe{};std::atomic<bool> addonActive{};
+namespace NativeNightPrerequisite128 {void Refresh() noexcept{}}
+namespace FusionBackend130 {bool limited=false;bool Limited() noexcept{return limited;}}
 struct Flag {const bool* value{};bool* configured{};explicit operator bool() const{return value&&*value&&(!configured||*configured);}};
 Flag bExtraNightShadows,bHeadlightShadows,bVehicleNightShadows;
 uintptr_t ff{};struct Layout {unsigned extra=0,headlight=1,vehicle=2;} layoutValue;Layout* layout=&layoutValue;
@@ -87,6 +91,7 @@ int main(){
  ownExtra=ownHeadlight=ownVehicle=true;nativeBackend=false;ff=reinterpret_cast<uintptr_t>(gate);observedModule119=reinterpret_cast<HMODULE>(ff);BindSettings117();
  const auto mxcsr119=_mm_getcsr();_mm_setcsr((mxcsr119&~0x6000u)|0x2000u);SetLastError(1191);
  gate[2]=1;RefreshApplied119State();assert(applied==startup.state&&!backendLimited&&!vehicleDepthUnavailable119&&!backendReadFailed119&&gate[2]==1&&GetLastError()==1191&&(_mm_getcsr()&0x6000u)==0x2000u);
+ FusionBackend130::limited=true;RefreshApplied119State();assert(backendLimited&&!vehicleDepthUnavailable119&&!backendReadFailed119);FusionBackend130::limited=false;
  gate[2]=0;RefreshApplied119State();assert(backendLimited&&vehicleDepthUnavailable119&&!backendReadFailed119&&!applied.features[0]&&!applied.features[1]&&gate[2]==0&&startup.state==*Defaults(Preset::High));
  gate[2]=2;RefreshApplied119State();assert(backendLimited&&backendReadFailed119&&!vehicleDepthUnavailable119&&gate[2]==2);
  DWORD protect119{};assert(VirtualProtect(gate,4096,PAGE_READWRITE|PAGE_GUARD,&protect119));RefreshApplied119State();assert(backendReadFailed119);MEMORY_BASIC_INFORMATION info119{};assert(VirtualQuery(gate,&info119,sizeof(info119))&&(info119.Protect&PAGE_GUARD));
@@ -97,3 +102,4 @@ int main(){
  assert(VirtualFree(gate,0,MEM_RELEASE));_mm_setcsr(mxcsr119);
  std::cout<<"PASS117 actual startup/dispatch/binding plus119actualFFsnapshot/guard/FP/Off/no writes\n";
 }
+

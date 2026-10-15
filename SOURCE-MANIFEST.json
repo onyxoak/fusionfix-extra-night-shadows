@@ -1,1761 +1,440 @@
 {
-  "source": "D:\\Codex-Work\\Libertys-Shadows-2.0\\refinement125-release\\source",
-  "files": [
-    {
-      "path": "44tests.cmake",
-      "size": 308,
-      "sha256": "17EC1DECC210536C567628F7DEA1EEEF17E2CC4BE95084F1AA9F745287BC2D66"
-    },
-    {
-      "path": "ATTRIBUTION.md",
-      "size": 2488,
-      "sha256": "0B9767F81AE943AEBE4727925B7517C4BF2922C500E0502B5B80FBC1925E8516"
-    },
-    {
-      "path": "BUILD-IDENTITY.json",
-      "size": 957,
-      "sha256": "2FCF1214368774DA62020B01DD91FFFA44ADAC8441B6826E8FAF66F44BDD4FD1"
-    },
-    {
-      "path": "BUILD-IDENTITY101.json",
-      "size": 854,
-      "sha256": "81A685C6E53A1B67BFAC6DB1948CC5F45F5DA7AAE935EC68CE982CD34005E893"
-    },
-    {
-      "path": "BUILD-IDENTITY74.json",
-      "size": 433,
-      "sha256": "E66492F95C808D0D7630A76AEA4511BCB7AAB507CE5B10E4BAC4F3188AE261D6"
-    },
-    {
-      "path": "BUILD-IDENTITY78.json",
-      "size": 747,
-      "sha256": "B3E38C224DE45D6E26FEC77763435F00B218BFBEDDDD8FFE0CEF0252C556BD6B"
-    },
-    {
-      "path": "BUILD.md",
-      "size": 7424,
-      "sha256": "98CB460ED5EDF8CC56A1D1B6BB021CF9C8166629CACBBD078A674FD552FA41BE"
-    },
-    {
-      "path": "Capture44tests.cmake",
-      "size": 707,
-      "sha256": "978F79038C0FDE659C95BC4E1E15E40FD3E2C32BF3BEDE4B657C13AE4F283EFF"
-    },
-    {
-      "path": "CaptureDiagnostic44.hpp",
-      "size": 2617,
-      "sha256": "CBA037F6831D65637CD382BF199BB98AC61692B41B1B44AE247917D0183A5CF8"
-    },
-    {
-      "path": "CaptureFramePrelude46.hpp",
-      "size": 584,
-      "sha256": "206D303CD3A670BC224D413A37F9DB9268271EE10A8E51368513D00301905648"
-    },
-    {
-      "path": "CaptureLease44.hpp",
-      "size": 313,
-      "sha256": "7A4B32DBA36450F6AE33BF4F1D169C21229A42EAD01F7961ED5FA403E21D3185"
-    },
-    {
-      "path": "CaptureLifecycle46tests.cmake",
-      "size": 208,
-      "sha256": "1C194FDD3E284827A2F7BA39AD573770008113E40CD21C82C83C8BF7509DA40E"
-    },
-    {
-      "path": "CHANGELOG.txt",
-      "size": 1742,
-      "sha256": "A08330FBC41BC506933E851EABD3DFD9DC51E785ED555F72EA1F790D837DB453"
-    },
-    {
-      "path": "CMakeLists.txt",
-      "size": 24382,
-      "sha256": "CCF725A2888E3B0D1D44CACCBF544AF846ADAE0431D5A8A7914584861648CE22"
-    },
-    {
-      "path": "CONFIGURATION-2.0.md",
-      "size": 6901,
-      "sha256": "C38178AC82D104050883B9596575AD7B3038FD104AE2A8666C3A0B0983949BE6"
-    },
-    {
-      "path": "ConsumerShadow75Runtime.inc",
-      "size": 6259,
-      "sha256": "079B9B2812431E0574DB4E9BFED19BDD045C9CAF7436B922E24ED1CACEA68A81"
-    },
-    {
-      "path": "core/CloseHeadlightRelevance.hpp",
-      "size": 1981,
-      "sha256": "D98A5798B3A298D3D3392F9144726CFCC4C521757A85461A841A77EEEB48C724"
-    },
-    {
-      "path": "core/ConsumerGuard80.hpp",
-      "size": 989,
-      "sha256": "8333E6A25ECAF9246BE3ABAA9CDDCC2D4AF8BF0DA160499484392383F20D07D9"
-    },
-    {
-      "path": "core/ConsumerShadow75.hpp",
-      "size": 4841,
-      "sha256": "E0C413E5D20321407F6AF41CA8AB851C2DCAFF836F5508D2D8C08D0B31190995"
-    },
-    {
-      "path": "core/CrashPathContext31.hpp",
-      "size": 2893,
-      "sha256": "04AF42D6EDEFBA8BC0A0ED0BA8331D20DE63A8AD36DE21F93B857BEE8F2F3AE3"
-    },
-    {
-      "path": "core/DeferredModelShortlist48.hpp",
-      "size": 4087,
-      "sha256": "C7C14825E9506E906E37976D6B1E78E3FEFEEB3B50B406DB6D94561D64264AB0"
-    },
-    {
-      "path": "core/HeadlightCasterPolicy.hpp",
-      "size": 2327,
-      "sha256": "8F7CA3727A67A1877CA1B84EA58249A4CB97636F0F996CFC02D4A11B9D513D11"
-    },
-    {
-      "path": "core/HeadlightEnhancementRuntime.inl",
-      "size": 4870,
-      "sha256": "D5BC012F73D499F64C16E4A412209E4A0D84E308D9EB7051BA634304A17E2634"
-    },
-    {
-      "path": "core/LabPoliceClaim.hpp",
-      "size": 1622,
-      "sha256": "670BD07C334D0648F7B70DC6BF2EB8DE1EE32A9147544FEBFB84108EB6409908"
-    },
-    {
-      "path": "core/LabSirenBlinkGrace.hpp",
-      "size": 1558,
-      "sha256": "2317946BE4E2318FC1204016D35753BFCC7E1575ADE9A7BD1CBB253F11D903C6"
-    },
-    {
-      "path": "core/LabSirenLifetime.hpp",
-      "size": 961,
-      "sha256": "8F900A381A7561F4EFDE92E93126149AA40A9632149CEB81634F166218B4AA78"
-    },
-    {
-      "path": "core/LabSirenVacancy.hpp",
-      "size": 1495,
-      "sha256": "D5E12162C4F54C47541971A0EEC10A61217DC86E0028934B774D3E7DDEFDAA93"
-    },
-    {
-      "path": "core/NativeCacheDependencies44.hpp",
-      "size": 1381,
-      "sha256": "F4EFC005F79E651D4E5422E401026A60984CD6FAD78ED181C980961B233DCBE8"
-    },
-    {
-      "path": "core/NativeLampContinuity41.hpp",
-      "size": 1644,
-      "sha256": "B68036B320083EB8DFAA12EFA2D15ACE1E4E5ABCDF8E513E95ACA76BF7694DB3"
-    },
-    {
-      "path": "core/NativeLampDistance38.hpp",
-      "size": 1499,
-      "sha256": "FACFE33C6F5660606261CBA4CAE8EF918F5A4D78F66D743216807C4A06C15CA2"
-    },
-    {
-      "path": "core/NativeLampSelection35.hpp",
-      "size": 3351,
-      "sha256": "8DEB0444D0E54ABB0511C8C039A21872531272803DF159A88F28BA044199E02E"
-    },
-    {
-      "path": "core/NativeProducerGate116.hpp",
-      "size": 3268,
-      "sha256": "E42DDE197BD548C36E56B5FAA51D045ABDEC44B53A7416F43A0379C8ED6061E0"
-    },
-    {
-      "path": "core/NativeShadowContinuity42.hpp",
-      "size": 6417,
-      "sha256": "D763C6BCF27C718F29FA63EA3DE3E5611D367C45514FF9B748FBBE09F39F88CC"
-    },
-    {
-      "path": "core/NearbyPoliceGuard.hpp",
-      "size": 842,
-      "sha256": "C665802BBBC38DCF5E381032C4D8FCDA4FC0A88B62F967E9491E7E674DDE4911"
-    },
-    {
-      "path": "core/NearbyPoliceShadows.hpp",
-      "size": 5578,
-      "sha256": "4962940C33FC524C29091FF0945CBABEF22048D43E9CE4D3BA64F584743A6BB1"
-    },
-    {
-      "path": "core/NearbyVehicleReceivers36.hpp",
-      "size": 3275,
-      "sha256": "A93F3C17CEC2EB675031B9B379239AF942841ABA3550680EBA1ED49AA3F7C839"
-    },
-    {
-      "path": "core/NearbyVehicleRuntime36.inl",
-      "size": 3899,
-      "sha256": "F20E13200B924A77ED799E59A34BDBBF9AD0C101FDA2F003E1696F2C11E1AA3A"
-    },
-    {
-      "path": "core/ParallelSelectionMath61.hpp",
-      "size": 9716,
-      "sha256": "87B6E02284D18B7025DD331D0873757962B63AE6F019E2B526246DCC46975968"
-    },
-    {
-      "path": "core/PlayerShadowBudget.hpp",
-      "size": 16540,
-      "sha256": "F99E1EF62F1F1D6D9FA418EA51ABFD4320EB8ECA2C5DAFF1381584EEA7B54E19"
-    },
-    {
-      "path": "core/ReachSettings122.hpp",
-      "size": 989,
-      "sha256": "16D69B0068E54D0A96F940508FD4794632F410EE96ABBD52A9660A3A0AEECFC4"
-    },
-    {
-      "path": "core/SceneScoreContinuity96.hpp",
-      "size": 1905,
-      "sha256": "707C7DA55225B3B1BA93A24948E9F7B6BD5392A0FB25E37E9292FD645FA5A867"
-    },
-    {
-      "path": "core/SceneShadowPriority21.hpp",
-      "size": 7598,
-      "sha256": "AC7C09005051A09A4C8EEC08170D0A47D6019AEAB7BB29A528C210D1A229FB7A"
-    },
-    {
-      "path": "core/ShadowAdapterCE.hpp",
-      "size": 5901,
-      "sha256": "BA0EA2B994FD11313E81912FF44C77079A60E74699A16C5DE07AAA27B9788997"
-    },
-    {
-      "path": "core/ShadowAllocationCE.hpp",
-      "size": 29918,
-      "sha256": "167EFA57392DC914D3F6F59765141B4418A9009AA19FDE5FC1A111779C01659C"
-    },
-    {
-      "path": "core/ShadowAllocationPass.hpp",
-      "size": 10670,
-      "sha256": "C10886ABC371CFCBAC4F12EDF4F9031A497B2F4B00E88E5CD3603001467479E1"
-    },
-    {
-      "path": "core/ShadowAllocationRuntime.inl",
-      "size": 73048,
-      "sha256": "19A1922522CFCB230272D02D21834D90CE3BD464A5554B3DCE1EE6E3AA091682"
-    },
-    {
-      "path": "core/ShadowCacheDependenciesRuntime44.inl",
-      "size": 3533,
-      "sha256": "2B40356FE0B94A226AED2738C000800052CD7B5B2810A19667570A94D390E58A"
-    },
-    {
-      "path": "core/ShadowCasterCE.hpp",
-      "size": 4024,
-      "sha256": "B29FDC33788E13676430AEAABEF15AB4C50D658D138F296765F91340E569587B"
-    },
-    {
-      "path": "core/ShadowCasterRuntime.inl",
-      "size": 11797,
-      "sha256": "759D8DAF0C8C42FB8897EF76F94643F73E76BF6F120849EACEE35DE9C0338E51"
-    },
-    {
-      "path": "core/ShadowCpuProfile29.hpp",
-      "size": 2662,
-      "sha256": "980F346674D032070C3DAD3FDCFD25C6DBAE5DE89A30236CC05535EA2C7DE202"
-    },
-    {
-      "path": "core/ShadowCrashTrace30.hpp",
-      "size": 4139,
-      "sha256": "01FE0CCF545BD7F1277B11BB1AD3E08044747EF185A7132F665CFD17AFAE4BD5"
-    },
-    {
-      "path": "core/ShadowDrivingFocus.hpp",
-      "size": 2750,
-      "sha256": "1CD33F51E333C050B3D8939D68368B5B4A3A78BBA6E598317F9AA69E9AC27313"
-    },
-    {
-      "path": "core/ShadowFloatingPointState.hpp",
-      "size": 1123,
-      "sha256": "567DBAB59D71B750E8F4E387FD929E4E3FEFFF8C45EBBBC7CC2D0AE00096B3F9"
-    },
-    {
-      "path": "core/ShadowGuardDiagnostics.hpp",
-      "size": 3064,
-      "sha256": "D3E9B16ED85AF05F8B1B3C6B6E05C28F77FFD8A8813111E47A1BE7B73037D3B5"
-    },
-    {
-      "path": "core/ShadowInactiveSlots.hpp",
-      "size": 1074,
-      "sha256": "9E16E7B7CEA611AD75684C534546B978AD4A9DC8B5F5137735C2C6D28075ABAC"
-    },
-    {
-      "path": "core/ShadowKeyMultiplicity27.hpp",
-      "size": 1072,
-      "sha256": "49AC2E95E61BB40F39BD08061BD4EEC57891D32F285A761920247FE6B31EBBCB"
-    },
-    {
-      "path": "core/ShadowLightGeometry.hpp",
-      "size": 1678,
-      "sha256": "9EA31ED25BE5CD2EF5A300E989944DE96F8A0F0D728E899DEB7D81D126C57E4D"
-    },
-    {
-      "path": "core/ShadowLookupLayout.hpp",
-      "size": 1969,
-      "sha256": "51BEBB319F9763ECEBAE12DC4F9BCE116078FE92ABC872596352ED28309A38DF"
-    },
-    {
-      "path": "core/ShadowLookupRuntime.inl",
-      "size": 2989,
-      "sha256": "4814BF8869AABA3B611F54B1170A887BD034F8AA43BB2BB090C3D0EDE5FBFD72"
-    },
-    {
-      "path": "core/ShadowLookupValidation.hpp",
-      "size": 1669,
-      "sha256": "92CEAC6F28BC95C27EB6DD33FD64B8ED9A4946D3863D8A7F70AB8026C5B62D6D"
-    },
-    {
-      "path": "core/ShadowMapOrdinals20.hpp",
-      "size": 1865,
-      "sha256": "092885F701B295C607BD4FC157CAFBCC29494AF4D8C4F0148BF36CDD093E8099"
-    },
-    {
-      "path": "core/ShadowPrioritySmoothing20.hpp",
-      "size": 1198,
-      "sha256": "487D833A507995231F6CE3DF1C529163EF59EC4171F7D3B8E6B3FEC7BC82F67B"
-    },
-    {
-      "path": "core/ShadowReach.hpp",
-      "size": 744,
-      "sha256": "03E9FA31CDF54684ABFFA1D0419A23460A01DF986F2A345A7E4796CF82566223"
-    },
-    {
-      "path": "core/ShadowReceiver.hpp",
-      "size": 1859,
-      "sha256": "8D98643AF7EC9658295CF60FBBF675EBE93DF9482817C401FF41B202B49C841E"
-    },
-    {
-      "path": "core/ShadowSelectionLoss38.hpp",
-      "size": 2512,
-      "sha256": "01F3384B29841E3AC79EE0BE380E3339BCF59E7494B73BF178F8427BF0BA42DC"
-    },
-    {
-      "path": "core/ShadowTrace34.hpp",
-      "size": 6817,
-      "sha256": "7F6E321FA082A813BCD1FE1A95195E098872CBDA2375097AF1FDE3880C119FE7"
-    },
-    {
-      "path": "core/ShadowTransitionDetector69.hpp",
-      "size": 3049,
-      "sha256": "DB3D55837081487F80CEF86890A04A1B9B738F3D1324A12DDC0291505240B554"
-    },
-    {
-      "path": "core/ShadowViewPriority.hpp",
-      "size": 3307,
-      "sha256": "293113263167D395C975F988262452DDFC2082E5E6B993A771F5B04B201EF7A7"
-    },
-    {
-      "path": "core/ShadowVolumeVisibility43.hpp",
-      "size": 2593,
-      "sha256": "9D20CBB698B451E006BA13F3BC0820946E0EF47038B3227E57CDE54480940449"
-    },
-    {
-      "path": "core/SignalShadowPriority20.hpp",
-      "size": 1145,
-      "sha256": "96640EB3D9E3A29F95450F7E8D81D259714CA50579F8BC212959C0C4AEC6F41A"
-    },
-    {
-      "path": "core/StableHeadlightSelector.hpp",
-      "size": 14878,
-      "sha256": "E34919721623ED3F5593AF8E29FE410389CE92045AC56A726543967968B1AE72"
-    },
-    {
-      "path": "core/standalone-game-abi.hpp",
-      "size": 2507,
-      "sha256": "7FE38D505D78EF4D18F4F390F247C33A41A3EA3DF075A2099758FBDD40FC7E0E"
-    },
-    {
-      "path": "core/standalone-shadow-core.cpp",
-      "size": 12691,
-      "sha256": "D7C955BE3A3103B935025B6C11D049C49C844CBD03353B3B39D17170719B596C"
-    },
-    {
-      "path": "core/SubmittedHeadlightHistory.hpp",
-      "size": 1453,
-      "sha256": "AD1F7E28BE26A3820AC02EF2C07D62F68217E638ED71918412D32A5D06E965B8"
-    },
-    {
-      "path": "CoronaLightPolicy20.hpp",
-      "size": 3460,
-      "sha256": "CD281E57D6F9910AE8057E691CC3DC075305025161759C59FEA4767DB4B5909D"
-    },
-    {
-      "path": "CoronaLightRuntime20.inc",
-      "size": 8685,
-      "sha256": "697F18AAFAF31E02CB18E92BF7356545AB5A0946EE438E0B45EBE8EBD094FE79"
-    },
-    {
-      "path": "EmissiveSurfacePolicy20.hpp",
-      "size": 6995,
-      "sha256": "01FDCE17F350B6F6EF82195867B42F897A6B3232E7D8F6BD9D450E96570EC41A"
-    },
-    {
-      "path": "EmissiveSurfaceRegistry20.hpp",
-      "size": 2696,
-      "sha256": "E3C1F7850FD69A6453E7341DC47990D3A3C4A11D9EEF4E167D92F76DB11D872A"
-    },
-    {
-      "path": "EngineMetadata117.hpp",
-      "size": 3005,
-      "sha256": "44BDB8CDB11B9A63A5670BAC94FC2124F1C7D3A52F7BC93712EB8C26A26E16BB"
-    },
-    {
-      "path": "EnginePlatform117.hpp",
-      "size": 1263,
-      "sha256": "CC8D02916E1701DBCBCD5C0B1A4AD4247CE8CB9E675FA5DF68732F99437726EC"
-    },
-    {
-      "path": "ExperimentRuntimeOptions.hpp",
-      "size": 1320,
-      "sha256": "34BF63A4EF002149F9478B2BED3D7DBEA7890EF1C62D2A4AB1BBD9CC908B1DFB"
-    },
-    {
-      "path": "external/safetyhook/include/safetyhook/allocator.hpp",
-      "size": 4640,
-      "sha256": "563DDB64A958DBC898CE12660ADC7D90B7400F576E88B3D042B8EDB92824CECD"
-    },
-    {
-      "path": "external/safetyhook/include/safetyhook/common.hpp",
-      "size": 2750,
-      "sha256": "B9BF871DEFEB0F4491BFFE842A14DDB1DE77536BDC2D3368A5849E9FC7458879"
-    },
-    {
-      "path": "external/safetyhook/include/safetyhook/context.hpp",
-      "size": 2309,
-      "sha256": "300EA765ECD271907FB59B77E01D87FBAE7167C9680923EC75470229B868D7D3"
-    },
-    {
-      "path": "external/safetyhook/include/safetyhook/easy.hpp",
-      "size": 2706,
-      "sha256": "27F960DB482371EA995ABF21A0D4CECE97B0E87BA4F51C3CFFBCB600D972438B"
-    },
-    {
-      "path": "external/safetyhook/include/safetyhook/inline_hook.hpp",
-      "size": 17078,
-      "sha256": "E750D0483643D8CBA9B57E4730C1CEE4ABD54D3692AC298553B0ABB7FF3F35AD"
-    },
-    {
-      "path": "external/safetyhook/include/safetyhook/mid_hook.hpp",
-      "size": 6650,
-      "sha256": "20297449884FC81AD91C7DA2FCBF02DA5A18878C1F232C15AD87EF32190F7F13"
-    },
-    {
-      "path": "external/safetyhook/include/safetyhook/os.hpp",
-      "size": 2477,
-      "sha256": "B897F8A02160ADEDAF322F5159225798E0580C44B19F2396097093DB5AB02E5F"
-    },
-    {
-      "path": "external/safetyhook/include/safetyhook/utility.hpp",
-      "size": 2098,
-      "sha256": "F27E4CAEDD8BB0A0646CF7FFC4D956DE7E99854CD5D1DFD389C5FE1DF1E46B90"
-    },
-    {
-      "path": "external/safetyhook/include/safetyhook/vmt_hook.hpp",
-      "size": 6811,
-      "sha256": "B1B7FDE5622A085C1D302BD196D0FF6E24CE9D971A2C06BF7CBBD2CE4C5A384E"
-    },
-    {
-      "path": "external/safetyhook/include/safetyhook.hpp",
-      "size": 606,
-      "sha256": "83889827C669F0FEB3A832EF5BE1B435D9416CDE468289CA14CB3B91BDE9D86A"
-    },
-    {
-      "path": "external/safetyhook/LICENSE",
-      "size": 1359,
-      "sha256": "36266A8FD073568394CB81CDB2B124F7FDAE2C64C1A7ED09DB34B4D22EFA2951"
-    },
-    {
-      "path": "external/safetyhook/src/allocator.cpp",
-      "size": 8702,
-      "sha256": "5DC79A2AD34EA4BB82E6182BA2F13D63927E1D58AEBD2D68D311A35FA0006965"
-    },
-    {
-      "path": "external/safetyhook/src/easy.cpp",
-      "size": 711,
-      "sha256": "83CE9EDA38AE739757BC510F49D2B2E8E98EADCAF88C1D742F40666D70021782"
-    },
-    {
-      "path": "external/safetyhook/src/inline_hook.cpp",
-      "size": 14804,
-      "sha256": "4ACDB913FF4CCEF59306085600E0C4DCFDFC7BEAEEEAFD8F28C61FAAEA15A65E"
-    },
-    {
-      "path": "external/safetyhook/src/mid_hook.cpp",
-      "size": 9649,
-      "sha256": "725700A84FD682206047284BE6BCF3BB40A532DE88B9634A20943D7C7B39305D"
-    },
-    {
-      "path": "external/safetyhook/src/mid_hook.x86_32.asm",
-      "size": 927,
-      "sha256": "97C84F0CBD2D860DFAE73EEFBE2D5E240E8E113F66DA54EAAC46D84C3D652E54"
-    },
-    {
-      "path": "external/safetyhook/src/mid_hook.x86_64-linux.asm",
-      "size": 1611,
-      "sha256": "2BEE5FF249CCA12EDD93654ABB1D386ABC3618957E9071C6E9E0FB50F7B574CF"
-    },
-    {
-      "path": "external/safetyhook/src/mid_hook.x86_64-windows.asm",
-      "size": 1611,
-      "sha256": "B88D258C13E6538B5EE1D25CB778B3E083A98391345397C4AB9644FA4C6A16CF"
-    },
-    {
-      "path": "external/safetyhook/src/os.linux.cpp",
-      "size": 5592,
-      "sha256": "3AD06CB1FE435FA083557DB7044335E3472428CC0DA37165FACDA36DBCB45C4D"
-    },
-    {
-      "path": "external/safetyhook/src/os.windows.cpp",
-      "size": 10710,
-      "sha256": "B2F337E5317C5C1BBE662894F49A5FAF2D8D54A4D7335B57BC01972C12A80F05"
-    },
-    {
-      "path": "external/safetyhook/src/utility.cpp",
-      "size": 1158,
-      "sha256": "8E9B46591A6AFF998DD2219A7AE7B7B3BF16667F65848CD1F03F1B99606EC39D"
-    },
-    {
-      "path": "external/safetyhook/src/vmt_hook.cpp",
-      "size": 3839,
-      "sha256": "50EDC03B9E07937347089A574B785942F9960B8D4F02286D441B6A25A666400A"
-    },
-    {
-      "path": "external/zydis/LICENSE",
-      "size": 1145,
-      "sha256": "77F4584207ED4F10CA1455DFDD25264687321221692F37761E3C7D62100E3D9E"
-    },
-    {
-      "path": "external/zydis/Zydis.c",
-      "size": 11817009,
-      "sha256": "6346126CF55D5BD5BE8C687220A1C10C6ECF1DF861E18C3F6BA293293D7B4FE5"
-    },
-    {
-      "path": "external/zydis/Zydis.h",
-      "size": 412859,
-      "sha256": "3BDB00D1A3A5A21B2084CD0508C992D83C9D5A374A4A984782D266E77D64A8C7"
-    },
-    {
-      "path": "fresh-window49-tests.cmake",
-      "size": 286,
-      "sha256": "963531DC4F8700655630D362163A94A048480B0627AA42BE9EE310DC2EF4A3C4"
-    },
-    {
-      "path": "FreshPageReadable.hpp",
-      "size": 4276,
-      "sha256": "AFB73A6B919CC043C01DCC2925295BF38A8675789BD010E2957234235AB046D5"
-    },
-    {
-      "path": "FreshReadBatch30.hpp",
-      "size": 3872,
-      "sha256": "3B9DD7035D3E311077958B57070F0B90D9B73F706641764E2CEEF6F24C101626"
-    },
-    {
-      "path": "FreshReadCertificate54.hpp",
-      "size": 5292,
-      "sha256": "4F21507EAB7062C0D461362B13D40174A88F473C811015DE6A9D091F21C894E5"
-    },
-    {
-      "path": "FreshReadCertificate59.hpp",
-      "size": 5280,
-      "sha256": "9FDDB7011F0F3331957DB245C6DC33E0E585E57E0E015E6479FB0BDE7CC01E41"
-    },
-    {
-      "path": "FreshReadGroup50.hpp",
-      "size": 3805,
-      "sha256": "A3C85DF6235B37A659B237C76A548A51F3FCC96ED2CB22FCD0753796E868DF2E"
-    },
-    {
-      "path": "FreshReadNativeCertificate115.hpp",
-      "size": 7006,
-      "sha256": "B937B0A9E64424DBEC091434D0B71D12CFA31FE9AC87799479358DEE206165ED"
-    },
-    {
-      "path": "FreshReadNativeWindow115.hpp",
-      "size": 4015,
-      "sha256": "59E4829306E03FBB91368E445AD2C503689F66C5EFD45B4D8C946AA0F292DC83"
-    },
-    {
-      "path": "FreshReadWindow49.hpp",
-      "size": 4020,
-      "sha256": "CD65A300306C732BFB076455D356D87DE4CBE61A20A17C4A0722261797EF9529"
-    },
-    {
-      "path": "FreshReadWindow59.hpp",
-      "size": 3999,
-      "sha256": "DB42C2382509A3A061156BB252122DF740815C71BF330E07BEACA2F81898648A"
-    },
-    {
-      "path": "GpuProfiling39.hpp",
-      "size": 1695,
-      "sha256": "32E00D556CEC6A619B87DA28B941EE785386647F450671CF88E256C221D60A1A"
-    },
-    {
-      "path": "GpuProfilingRuntime39.inc",
-      "size": 17346,
-      "sha256": "86527BCB2EE67E3CD33D05D30844A12A1EF4CA240881C3626951165D81DF5969"
-    },
-    {
-      "path": "GpuQueryRing39.hpp",
-      "size": 3413,
-      "sha256": "A811ED0372779C9B8F4B167DD89D4547CAD428FB40C76EFF610C1FA12196B560"
-    },
-    {
-      "path": "GpuResetGate39.hpp",
-      "size": 345,
-      "sha256": "F35E1795F36A470B7BBDCD8F881A3D5BAB1F4042E6C034F4EFF4A1266D0B7819"
-    },
-    {
-      "path": "GpuResetGuard39.hpp",
-      "size": 1320,
-      "sha256": "4BF08530BC652160176A66B0CA267CA6CE4854686569CDA82A7E1777EF713FEE"
-    },
-    {
-      "path": "GpuStageSchedule48.hpp",
-      "size": 1188,
-      "sha256": "E72600ECBF27A019D99D495B6D471785B8C0B51360CE2F4780F87210489DDD7C"
-    },
-    {
-      "path": "grace-prefix108-tests.cmake",
-      "size": 2518,
-      "sha256": "72630A556774E8034D05F8A9CB7278DC918F1887EC2146117C6B0C924065DDEF"
-    },
-    {
-      "path": "ImmediateRegion33.hpp",
-      "size": 1848,
-      "sha256": "62E8546EE760309395BBA40E1CC2BC211948552E723AF10CB1B88A2E5D38D84B"
-    },
-    {
-      "path": "LibertyLighting20Runtime.inc",
-      "size": 21479,
-      "sha256": "D3EC2BCADDA301EBF89265AA507AEEF58383210F71204375CF1246AAB9842D81"
-    },
-    {
-      "path": "Libertys-Shadows117.example.ini",
-      "size": 1486,
-      "sha256": "448FB2817FAE28D047A20C5D88902E10D1D415C7979B568FC7C92699A46118D1"
-    },
-    {
-      "path": "LICENSE",
-      "size": 35823,
-      "sha256": "230184F60BAE2FEAF244F10A8BAC053C8FF33A183BCC365B4D8B876D2B7F4809"
-    },
-    {
-      "path": "light-audit-instrument.inc",
-      "size": 2419,
-      "sha256": "313F5185BD73AB024436DECD8B36299C78D7899AD250E1722A416B25A51985C2"
-    },
-    {
-      "path": "light-owner-audit.inc",
-      "size": 2856,
-      "sha256": "9FF1900EE2AA48F2049C596A9B5DCDA37F47A5131A9C8EF924E50F8B9EDF93CC"
-    },
-    {
-      "path": "light-proof.inc",
-      "size": 3674,
-      "sha256": "3179B92576B06CE6017D307CAA518BF1D380F38F01D779F08FE2302F0C98FC14"
-    },
-    {
-      "path": "LightingCapabilities16.inc",
-      "size": 1870,
-      "sha256": "CEDD68B8054FFBA4183664833A1548ACBADBD366F2E5A9A94559D2A036C5E242"
-    },
-    {
-      "path": "live-reach122-tests.cmake",
-      "size": 719,
-      "sha256": "456B8EE972D4CE884FD5F6B521A0DBD847D7BA18FF7681FAFE703636FC25BD5A"
-    },
-    {
-      "path": "LiveReach122.hpp",
-      "size": 2950,
-      "sha256": "157EDC73BDD8C97D90DD11C295290CC74E539DFA4175595E5AD62620F7F983E2"
-    },
-    {
-      "path": "MemoryReadProfile46.hpp",
-      "size": 1341,
-      "sha256": "0C4E1F9D4D0E89F6846CB8A188D5DCD9B0E47AAB3A2B96611D28845FAA6387A8"
-    },
-    {
-      "path": "MenuChainGuard117.hpp",
-      "size": 2286,
-      "sha256": "70876E9B080EA1E2939E342AD34486F76A86DCAC06976ED84A5DA380AD8B13E5"
-    },
-    {
-      "path": "MenuSnapshot117.hpp",
-      "size": 1268,
-      "sha256": "74528B805C466C3C9C6521710414FAEE11EF01C86203F51602320BF0C6FF6CE4"
-    },
-    {
-      "path": "ModelEffectGetterDiagnostic62.hpp",
-      "size": 3704,
-      "sha256": "3FAA4C2FEA2EB8D695C11F40E3455AECB6E31974714E4D7B24B6CB7B332CC407"
-    },
-    {
-      "path": "ModelEffectObserverRuntime.inc",
-      "size": 15159,
-      "sha256": "3EECE0214DE61BE678D51DEDA69023D0CFD11C2D12034BF79735973309132FB3"
-    },
-    {
-      "path": "ModelEffectObserverState.hpp",
-      "size": 5482,
-      "sha256": "36C1270C5BA7F13F04C7E9456281DA2057D26581DDF1D09ACA5DAE2A97BF15FD"
-    },
-    {
-      "path": "ModelLightCatalogRuntime20.inc",
-      "size": 27166,
-      "sha256": "BE51AAFC2DBF644EEF96B0D59478311CC242C6C09FE47F8AC1A82F250DAD53B2"
-    },
-    {
-      "path": "ModelLightRegistry20.hpp",
-      "size": 4590,
-      "sha256": "DADCBBC4C8263A319D42F655C9A1DC8B7329D648626EDC4A2828C50707D06FD6"
-    },
-    {
-      "path": "ModelLightShadowRuntime20.inc",
-      "size": 8051,
-      "sha256": "D351CE0DA2308911C6FE119E458028E4DC47789183BE36D5567D5AB1DD24BE50"
-    },
-    {
-      "path": "ModelLightSubmission20.hpp",
-      "size": 1419,
-      "sha256": "76A5D86B37DA60349395AA0B23A442271CE18176320F1CE8D2BA76719C6E51EE"
-    },
-    {
-      "path": "ModelNativeAssociation77.hpp",
-      "size": 869,
-      "sha256": "17E06522480B4A54FED205440519EDBF17AF7E7A95920D4DD7431FE4F0FC5926"
-    },
-    {
-      "path": "ModelOwnerScratch59Runtime.inc",
-      "size": 8433,
-      "sha256": "4B17F396460FA0918C5761B144FD844E53B9826EE15D44C8956ABC36704FA537"
-    },
-    {
-      "path": "ModelOwnerTransformDiagnostic46.hpp",
-      "size": 1521,
-      "sha256": "66FCE22E3D4CF103DBC3BE482FB2A109E4CBB7D2E9B10B66BB24644B78BE76DB"
-    },
-    {
-      "path": "ModelOwnerWindow49Runtime.inc",
-      "size": 8994,
-      "sha256": "9A6842BF4FDF7178EEE3753DB87A25D431622EEFFFA9AA5D309551DADCD01347"
-    },
-    {
-      "path": "ModelPointCommit50Runtime.inc",
-      "size": 6097,
-      "sha256": "4AA89FE40FE98490D2A2C5E2348EE4C100E84AAC2244C684DB1B57403470E30C"
-    },
-    {
-      "path": "ModelPointFusion50Runtime.inc",
-      "size": 6083,
-      "sha256": "3D8B43A4472F9D38A480A52F5AA5B1A0F7BA6C1255FD638E0EE693D263FE13A4"
-    },
-    {
-      "path": "ModelPointValue68Runtime.inc",
-      "size": 4660,
-      "sha256": "E3A416BBC81251EC80557B5EBD68DC40C258D10AA3E11B13D88D413358EB4406"
-    },
-    {
-      "path": "ModelPrevalidation40.hpp",
-      "size": 505,
-      "sha256": "CBCD497E6F2A8787E85E603EE9F4BF2CEC82491BE087B91593AACA0B113E886C"
-    },
-    {
-      "path": "ModelProjectionBridge69.inc",
-      "size": 1350,
-      "sha256": "41ED72A316168B9BECBFAB32780EE4DFFDB41880A8567A9AEFC2E1562BA61C14"
-    },
-    {
-      "path": "ModelQueuedScratch59Runtime.inc",
-      "size": 8063,
-      "sha256": "E352617B5DBF1635548C275CEEBA694382EBF74B5D68444B5382AE3288E530E7"
-    },
-    {
-      "path": "ModelQueuedWindow49Runtime.inc",
-      "size": 5119,
-      "sha256": "81DDAC266D707B441D5397B28D1C227AF9245648A1A64A05188C232271E76266"
-    },
-    {
-      "path": "native-copy70-tests.cmake",
-      "size": 286,
-      "sha256": "C9B440BBAF5B3F94D83F1F5C89C61D458125A9B5D0D10D9D4E5E3159357A4BAC"
-    },
-    {
-      "path": "native-owner-batch115-tests.cmake",
-      "size": 4580,
-      "sha256": "06EFBF6468FA0FBCE37DB7C94CE53BAEDC30E5C4C4911045418511972EA8535B"
-    },
-    {
-      "path": "NativeClassDomains105.hpp",
-      "size": 3644,
-      "sha256": "3EE13FFC70268E398CDB9CA80DE5189B29195304F15659E77259C94AECD1BF41"
-    },
-    {
-      "path": "NativeCopyGuard70.hpp",
-      "size": 3269,
-      "sha256": "6BF976CC5812AA4D3621ADF56823A91B4DFADCD21032E3A97BC9303E149B11AC"
-    },
-    {
-      "path": "NativeGraphicsMenu117.hpp",
-      "size": 22847,
-      "sha256": "CA9C418AB4A23FC07C2C1368C0818E874AE5385BBD90338C2ECFCDFE3C3642DD"
-    },
-    {
-      "path": "NativeGraphicsRuntime117.cpp",
-      "size": 18089,
-      "sha256": "0728013F43BD90EADE66CCBAA2153874D4602C134DA2DC6E467AB5BE2869B5BC"
-    },
-    {
-      "path": "NativeOwnerBatch115Runtime.inc",
-      "size": 16939,
-      "sha256": "3658C516A261A7C5D635853E383C94C9CE815F2CBE9713DA219F0F4DF3AB4B54"
-    },
-    {
-      "path": "NativeOwnerClass109.hpp",
-      "size": 1609,
-      "sha256": "044FA0CDBDAA237A3A2D232906A9ECB7107C84248F9BFE9492E540DB208BDC26"
-    },
-    {
-      "path": "NativeOwnerClass109Runtime.inc",
-      "size": 5090,
-      "sha256": "D6D6B672D380ED43C315CE67C635F7C8280F5BEC21EEAD5D8853C3DFE2357E8C"
-    },
-    {
-      "path": "NativeOwnerClass114.hpp",
-      "size": 1003,
-      "sha256": "A7B60D0894CDB4CEF403FBB25023DE281A7724CE11F31A3499FB8F1C3290492B"
-    },
-    {
-      "path": "NativeOwnerClass114Runtime.inc",
-      "size": 5333,
-      "sha256": "49219924D259C85FD4883EF1D863661735077A9C254348336ECC16468BA4739C"
-    },
-    {
-      "path": "NativeProducerGate116Runtime.inc",
-      "size": 4415,
-      "sha256": "F84BFAE2ACC600F3F252DC456D7877796F20003083E432907A1F2B695B8B8E84"
-    },
-    {
-      "path": "NativeProjectionRead66.hpp",
-      "size": 1690,
-      "sha256": "1ABBFA2F9CF9193C2579CC44207B6CD9842AF85C3E43BB1AE4D35CBFE713D16E"
-    },
-    {
-      "path": "NativeProjectionRegistry66.hpp",
-      "size": 11092,
-      "sha256": "07512A12AD1FC047DCB9D3173543F1A0D77FB97143A6D0DD2ADA903700E4EDCA"
-    },
-    {
-      "path": "NativeProjectionRuntime101.inc",
-      "size": 14267,
-      "sha256": "BDB68F14264240AFE175035D9C29AF854418A69433DC398C16B51D36F2F226B5"
-    },
-    {
-      "path": "NativeProjectionRuntime105.inc",
-      "size": 14683,
-      "sha256": "C41947500CFE6C2B8335A07B989E61D7E3F3D070682B50BCC19EF47C80443871"
-    },
-    {
-      "path": "NativeProjectionRuntime66.inc",
-      "size": 13812,
-      "sha256": "58260734157DD60123F4EE024F52A1737490A6BD584F630320E062795D4FE9E5"
-    },
-    {
-      "path": "owner-transform46-tests.cmake",
-      "size": 540,
-      "sha256": "BCC14570850082186F61EA334C196566278562E095D6C8E32960A64D57B21F77"
-    },
-    {
-      "path": "parallel61-tests.cmake",
-      "size": 1805,
-      "sha256": "0B0760859DF68F17A4F648D2708E1E8A897A449444F98F0BEE676496FE69A991"
-    },
-    {
-      "path": "PARENT-RECEIPT117.json",
-      "size": 235,
-      "sha256": "26B21B07B089285154F660B83C96351BCC397CE281B31D7F9BC13A8B058ECABB"
-    },
-    {
-      "path": "point-permissions47-tests.cmake",
-      "size": 4084,
-      "sha256": "E825284E3073D1C6CD39A03122DAD960DE9644C7BA8D42308EF0A7C121D3F212"
-    },
-    {
-      "path": "point-production50-tests.cmake",
-      "size": 850,
-      "sha256": "141B667A10DE91355F5D7AC215B1FFF9BA6FBE66482D66DE03ACF30202CF0FAD"
-    },
-    {
-      "path": "police-nearby.inc",
-      "size": 12041,
-      "sha256": "C1A7993022C63707505D9144F700C34591E1394AC74F29972BE019D2445AA75F"
-    },
-    {
-      "path": "PoolDescriptorSnapshots.hpp",
-      "size": 3361,
-      "sha256": "14EF308CB6BAD4B81FF24D905CCDDFB157154385142ABD4C17202CE3A70C57FB"
-    },
-    {
-      "path": "PresetGeneration117.hpp",
-      "size": 3864,
-      "sha256": "ACD5A25405FD0B2CC2B3B1B7177517F8ACD6E2EA10077FD4A431ECF16DFF7BED"
-    },
-    {
-      "path": "PresetIni117.hpp",
-      "size": 5061,
-      "sha256": "D7A8FA46F1998400EE4274044687C4DB75C3FD091FFEB6CA0A345CFC0FF6551C"
-    },
-    {
-      "path": "projection66-tests.cmake",
-      "size": 2564,
-      "sha256": "B121E05D143D0401452BACA73D85E59C1CD0547438EEF3F1A198ECA40FA964B4"
-    },
-    {
-      "path": "ProjectionDomains101.hpp",
-      "size": 3666,
-      "sha256": "3B3C01CD6F39769AC5D7D31009AAF3A5A639438CB67C0B8A0D8126FC1D4845BD"
-    },
-    {
-      "path": "promote-batch49-tests.cmake",
-      "size": 1548,
-      "sha256": "61917C0DDD72212951EF2353C4137C8F4C496915AF059FC247AACD87BB4CB619"
-    },
-    {
-      "path": "proof6-transition.inc",
-      "size": 4331,
-      "sha256": "2075B79DB9BC0D13FA6D969C09B698200450FA1AE41017C5E8B0CD95E6E7F1EC"
-    },
-    {
-      "path": "proof7-grace.inc",
-      "size": 2646,
-      "sha256": "E02B35413E524607270468D4C28B41A3C33AC4F7D91A2AFBAE71B94FBA7F0627"
-    },
-    {
-      "path": "proof8-churn.inc",
-      "size": 2657,
-      "sha256": "B1A01D5046D72B9FBED3CC51F3FEFE97FC37BAF339FEC484144367FCEBD544C9"
-    },
-    {
-      "path": "proof8-policy.inc",
-      "size": 5497,
-      "sha256": "90A94B07312537B953165CBBC984DFE52164EB96561440FAFC34D13348C978B9"
-    },
-    {
-      "path": "proof9-trace.inc",
-      "size": 4560,
-      "sha256": "0F9522010171CCE82B1B45113562E6B63C44677E8AA92E535C17CFBA522AF670"
-    },
-    {
-      "path": "proof9-vacancy.inc",
-      "size": 2064,
-      "sha256": "733595620A820D89CEF04172B1980EB9865BE6BB152091593C2F02BDC831D0F0"
-    },
-    {
-      "path": "public-runtime125-tests.cmake",
-      "size": 954,
-      "sha256": "7661196F729F2850F5CDEE6A03DFD30F97407BD38D593251A7FA4B531B87D827"
-    },
-    {
-      "path": "PublicLightingIni93.hpp",
-      "size": 4545,
-      "sha256": "3F5502AC7B8E5CE618031F2D273E0E632B869D5CFC2640AFC6F78553E24A9F78"
-    },
-    {
-      "path": "PublicLightingSettings93.hpp",
-      "size": 4582,
-      "sha256": "5C4958853A999B9A321D3F88A0704A943EE51E94E5DE0A34B1C0CE8191972DA3"
-    },
-    {
-      "path": "PublicStartupDefaults124.hpp",
-      "size": 1837,
-      "sha256": "60D01D5D1786667FDCB56935E442B6F42941E8196DAD7F803AE59AE709FED504"
-    },
-    {
-      "path": "queued-permission54-tests.cmake",
-      "size": 858,
-      "sha256": "DDF43F22618D755F89E135778F53B39CE7033676920B6016F429B56B2C433FF9"
-    },
-    {
-      "path": "queued-window49-tests.cmake",
-      "size": 767,
-      "sha256": "6A96DE7450F8C58A376ABE15BA8F10717261F0141EBA28E7AB75692506A3AA00"
-    },
-    {
-      "path": "README.md",
-      "size": 2469,
-      "sha256": "AD6DFC23574F20AC9B86D51AFE6792D6504219BA28B2E69C868AB70B1ACA1A1B"
-    },
-    {
-      "path": "RuntimeFeaturePolicy125.hpp",
-      "size": 1116,
-      "sha256": "24DE8A894402B05A57DF6109EECAF03C55D66EF09A553EA078C54AAB264CBEBF"
-    },
-    {
-      "path": "scratch59-tests.cmake",
-      "size": 302,
-      "sha256": "F86F2FD80F5EAAAA257693F216D53A529873FAD679D169E1E5919738443C6F11"
-    },
-    {
-      "path": "ScratchCounterPayload59.hpp",
-      "size": 392,
-      "sha256": "FE3E17251B3DED12B42BB6FE0CC94AF23E476DD99350FCC6C185343BDD56487D"
-    },
-    {
-      "path": "settings117-tests.cmake",
-      "size": 2172,
-      "sha256": "5BC221D5DB5607AD3812AF1552313C4FCE1EB3C7E7CB8855FC1C3132B8C808EB"
-    },
-    {
-      "path": "SettingsRuntime117.hpp",
-      "size": 796,
-      "sha256": "A4E7CDC3601F4C31CDCA9745E7FE723D56E6C7A0E65EFE3E69CE9FDF80D97F57"
-    },
-    {
-      "path": "shortlist48-tests.cmake",
-      "size": 2482,
-      "sha256": "82C2805891837E9ECDDD8C45E91462CFD57AC7FB14B6B71AF60AEAFAF346F117"
-    },
-    {
-      "path": "ShortlistHelper48tests.cmake",
-      "size": 280,
-      "sha256": "0F9DE4063687ED37E0568349F84DC1DF763770E1A642B7731F8D29AAF061D9EB"
-    },
-    {
-      "path": "ShortlistHelperGuard48.hpp",
-      "size": 3817,
-      "sha256": "1D1026EDB48EB32ECBB451B8CCC2DC335D56A6FCAFD7B66FE24EC7EAC444A5A3"
-    },
-    {
-      "path": "ShortlistHelperPatterns48.hpp",
-      "size": 3525,
-      "sha256": "CB9D7AB6A534F11FB3748B8CEE351391D93690AF25895C14E5711FF1DD87FB11"
-    },
-    {
-      "path": "ShortlistHelperRuntime48.hpp",
-      "size": 1043,
-      "sha256": "90F18AAE978B8F2E7590973F2CBFCACFAB7684208AC22D0935C591D5857A1485"
-    },
-    {
-      "path": "SOURCE-MANIFEST.json",
-      "size": 32052,
-      "sha256": "FEAEA7A7584AC4988EBCB7472ED9D7495421B14FB3B48DD2E30AA3BE19D1B94E"
-    },
-    {
-      "path": "STANDALONE-ATTRIBUTION71.md",
-      "size": 1232,
-      "sha256": "D8D07AE3732A0AF9659669BED9A6633FF5C88ECFA27D637A9417035C2E8C2E3D"
-    },
-    {
-      "path": "standalone-midstub.hpp",
-      "size": 1213,
-      "sha256": "599EFACD3FEAD35421680868CB60E47FF7F2F649BCDCD2265F03D428BFD92C69"
-    },
-    {
-      "path": "standalone-ownership.hpp",
-      "size": 3265,
-      "sha256": "980E3D8197336AAC119452616BC71B22E8D9901EFB4A4128865244FDBEB7DE69"
-    },
-    {
-      "path": "standalone-pe.hpp",
-      "size": 5505,
-      "sha256": "9A25F1FE541B3BE06B1A4FE34337BCFC52561D39BB9C1128F90F5055F05F2544"
-    },
-    {
-      "path": "standalone-runtime.cpp",
-      "size": 79022,
-      "sha256": "88385C3CDC0D79543784CAF506824A0EA6848D8D76300411EA85D5743103769C"
-    },
-    {
-      "path": "standalone-support-log.hpp",
-      "size": 2261,
-      "sha256": "82266D4D7CAB61566F06F70BABE22C6D06AE3951ED6E436481A40D34F0B4EEC9"
-    },
-    {
-      "path": "standalone-warning-policy.hpp",
-      "size": 491,
-      "sha256": "EB73237977831CFD09656DFA05A121B751D51C29314D01974CFFCF6E530FF88F"
-    },
-    {
-      "path": "TailLightPolicy20.hpp",
-      "size": 1540,
-      "sha256": "A4D0A4A57234FE5BC9979C724FF486A9885F74CEBC49A2B849FFFADECA5566A4"
-    },
-    {
-      "path": "TailLightRuntime20.inc",
-      "size": 6084,
-      "sha256": "A46F4FC989A83DF983492E94545D0BC8B31BCD9DF1B3E5A4C6A61FA28B66E9D1"
-    },
-    {
-      "path": "test-baseline-v9/TrafficSignalIdentity.hpp",
-      "size": 1585,
-      "sha256": "AB9A930F636F972FD9FF44D6984AB7D4D39BD9AFF8A0E7117536B00F3E9FF371"
-    },
-    {
-      "path": "test-baseline-v9/TrafficSignalRegistry.hpp",
-      "size": 6193,
-      "sha256": "3B8F387D6E35E7A2B65FD390685BCAC3FA83EA5485C4696942C3A5434C0176E7"
-    },
-    {
-      "path": "tests/alias-index91-tests.cpp",
-      "size": 4279,
-      "sha256": "8FB864E1552C37FFFC84A0517BD9CE901C4A46F51185C7BBFBE40153CE9004B9"
-    },
-    {
-      "path": "tests/alias-queue91-benchmark.cpp",
-      "size": 5433,
-      "sha256": "CDDF5DD36C225394791013D20C4EC7412894A54EED9E791D8F06376C2E77C97F"
-    },
-    {
-      "path": "tests/alias81-reference.inc",
-      "size": 982,
-      "sha256": "A3146EDBF9A0CDAF77188491E89680FC319121F25338F173456CE7CFB6699993"
-    },
-    {
-      "path": "tests/beam-runtime32-tests.cpp",
-      "size": 4450,
-      "sha256": "B38E826ED2902795A7581F0D82717731621022303FD8441B7F0EE4AB465A62B3"
-    },
-    {
-      "path": "tests/beam-selection32-tests.cpp",
-      "size": 1853,
-      "sha256": "B2E8F8FE02369DB0D51BE7EE57F4B4ADCF6BCC080DD45168214873572E81869D"
-    },
-    {
-      "path": "tests/benchmark-parent54.inc",
-      "size": 4759,
-      "sha256": "01EA5FECCB779050C50EA460D1E207D67EBF08067DC07BEDF0C96552996E0A88"
-    },
-    {
-      "path": "tests/capture-lease44-tests.cpp",
-      "size": 479,
-      "sha256": "06D11E4568A73C44465AD4623ACD8E2FAEC2E617B4F9E0230CA9A9BB1131E209"
-    },
-    {
-      "path": "tests/capture-lifecycle46.cpp",
-      "size": 3125,
-      "sha256": "3834BE13759D9874895610F2B4E106DF994DA3DBB52E1BDA9617E07C5397BCA1"
-    },
-    {
-      "path": "tests/capture-trace44-tests.cpp",
-      "size": 991,
-      "sha256": "72C5EC741CDF1EBFA20268C0B1CFB945A8EC72C6047703A3339A520C68CFE28A"
-    },
-    {
-      "path": "tests/CapturedTargetPackets105.hpp",
-      "size": 4359,
-      "sha256": "D8A446419176AC7737E696E4ED92B627F53BBC0C59ACFE30FC7D34563BDE1BE6"
-    },
-    {
-      "path": "tests/CapturedWorldValues105.hpp",
-      "size": 954680,
-      "sha256": "C23F7D7DE7AF0EDEA60AE15D168F42C393DCD16CA21DAC6C9C05D4380420E8F1"
-    },
-    {
-      "path": "tests/combined-traffic-police-tests.cpp",
-      "size": 7000,
-      "sha256": "1A4196475B0847086EF0F37C322B8F8A66B391C1648BD41E8E74A67D3183782F"
-    },
-    {
-      "path": "tests/consumer-guard80-tests.cpp",
-      "size": 1126,
-      "sha256": "EBCCD8E07C45467A029B63D78325DF636F9787712AB903569A14548F2ACBD550"
-    },
-    {
-      "path": "tests/consumer-shadow75-tests.cpp",
-      "size": 7279,
-      "sha256": "2322FBF49D88DC5824B48B200C01915F371DD12023D848B208820B54F92DAD82"
-    },
-    {
-      "path": "tests/corona-light20-tests.cpp",
-      "size": 5049,
-      "sha256": "25BDA3CBB709139085AAA41CDB1D86B2C9C339DC361FDC763BA337B499A36B15"
-    },
-    {
-      "path": "tests/deferred-model-shortlist48-tests.cpp",
-      "size": 6441,
-      "sha256": "310EA1D8D3337AE27E0C44E4E874E6E4C52B462FBCB723D0A734EC319409860D"
-    },
-    {
-      "path": "tests/Extract-LiveReach122.py",
-      "size": 1702,
-      "sha256": "A84CEE142422BEF84A749D8197A9F68443A970D08A80FBC34921E69122F6DCE8"
-    },
-    {
-      "path": "tests/Extract-NativeGraphicsRuntime117.py",
-      "size": 1226,
-      "sha256": "FA6060EACC68B96301C4677E99FAF1A1ECF436355A3C623184D2C0322F316C9D"
-    },
-    {
-      "path": "tests/Extract-PublicRuntime125.py",
-      "size": 1374,
-      "sha256": "5F5AA04888F48399B5901EACD2B170A1F9390BFB4403FF8E1F55A4DF1985F1CB"
-    },
-    {
-      "path": "tests/Extract-SettingsRuntime117.py",
-      "size": 1005,
-      "sha256": "C0874AD25144A8588DF13258C3BA139D469E4F673AA524951E7DFCCD38600C09"
-    },
-    {
-      "path": "tests/fresh-read-batch30-tests.cpp",
-      "size": 4174,
-      "sha256": "73A60E970F025CA97D0367135FA62D87606B16EB6FB80F25EC438D969D8CA1F6"
-    },
-    {
-      "path": "tests/fresh-read-operation44-tests.cpp",
-      "size": 4468,
-      "sha256": "1EC20D2D91F15FAD7DBD2FD3D0F291774A2C5BAC0BE8275E85CED121746B38AD"
-    },
-    {
-      "path": "tests/fresh-read30-benchmark.cpp",
-      "size": 3626,
-      "sha256": "F3BA37B27468073C1B9D01850BF4BAB1DD3FA8B6F030DB8075F0A377A43FB3A3"
-    },
-    {
-      "path": "tests/fresh-read31-benchmark.cpp",
-      "size": 4138,
-      "sha256": "33425F4B341DB58FDBDA163A1EAA26C64397E5CD15A402602CE1DA935554D58F"
-    },
-    {
-      "path": "tests/fresh-region31-tests.cpp",
-      "size": 2511,
-      "sha256": "CF18436B55A99C51750CF8DB66E8105BA83D374131E7341DF249B13F7AE5DD66"
-    },
-    {
-      "path": "tests/fresh-window49-tests.cpp",
-      "size": 7242,
-      "sha256": "D4A0F409AC5C2A5DB56C1E14E14E92C3E08AB9B20488BBADB788EB6703C945E8"
-    },
-    {
-      "path": "tests/gpu-query39-tests.cpp",
-      "size": 6670,
-      "sha256": "D1BB013119614B829DA6E1867E32FC74B0181428348828900CC295853A027087"
-    },
-    {
-      "path": "tests/gpu-stage48-production-tests.cpp",
-      "size": 5486,
-      "sha256": "25CD1851C41109BC9D78A306B2549B98193E42D08BAD7CFF072B8CB905E655A2"
-    },
-    {
-      "path": "tests/gpu-stage48-tests.cpp",
-      "size": 1371,
-      "sha256": "384DB497B0D3C1F0F47343C50D68EDFB78B6889DDC12ED06EF1BDE426F2AED0F"
-    },
-    {
-      "path": "tests/grace-allocation105-reference.inl",
-      "size": 67339,
-      "sha256": "4D0593807D4AB4BCC7BD795E8FD250EB7E5A6028825A23916765DF669560595C"
-    },
-    {
-      "path": "tests/grace-nearby105-reference.inc",
-      "size": 11030,
-      "sha256": "967DAB9ABAD9284E8D6063AF62BB36C987AE4AB0FA2706F507C1613FFF428245"
-    },
-    {
-      "path": "tests/grace-prefix108-tests.cpp",
-      "size": 16326,
-      "sha256": "FB3B8C9585B95FE0C574A5C259F1EB7733BB80432A01C9D886EBB2C32398EB60"
-    },
-    {
-      "path": "tests/header-accepted-extracted.inc",
-      "size": 3643,
-      "sha256": "39B014CE0EDB4CD3C6B2181FF482E517F5B0BBD5BF8AEC822F436999C98F2D09"
-    },
-    {
-      "path": "tests/header-batch-tests.cpp",
-      "size": 15954,
-      "sha256": "D06576D2C2A04C2ABEEE602F6783DF15147D574F458D2E8CFE5B1E1E0ACB447B"
-    },
-    {
-      "path": "tests/header-candidate-extracted.inc",
-      "size": 6421,
-      "sha256": "E1C4499B87C1911379D9DFBBFE32B730811066C790CE5DD5F28F6DA782603D43"
-    },
-    {
-      "path": "tests/immediate-region33-tests.cpp",
-      "size": 1865,
-      "sha256": "7D02394EE28744CB3DB560D5E680E67AD01B7C9BF04B5AC1B44582524756DB1A"
-    },
-    {
-      "path": "tests/live-reach122-tests.cpp",
-      "size": 11875,
-      "sha256": "57ADFC320FBB698272E00761E9115C33461C8D2FAE3EB143C9FD23305F32F9E6"
-    },
-    {
-      "path": "tests/memory-read-profile46-tests.cpp",
-      "size": 2727,
-      "sha256": "637B2335F50392993ADD28068749E04BD4F951EDAE2A2DE16C25475DD13FC067"
-    },
-    {
-      "path": "tests/menu-chain117-tests.cpp",
-      "size": 2667,
-      "sha256": "5F06742ED3D2F64450A4F7A56ED496395009AEBFFFE0CE166FB4923D0784EDF2"
-    },
-    {
-      "path": "tests/model-deferred-validation46-tests.cpp",
-      "size": 9227,
-      "sha256": "4AB88C327B83DAAFD7A8A96ABC7B155ED4EE252F6CA7434208C0BD6F843FAC07"
-    },
-    {
-      "path": "tests/model-effect-getter62-log-tests.cpp",
-      "size": 2819,
-      "sha256": "CDD4BAA7CEE3612AAC528ED66A393A672838457D7D845F018F376E76B3A9E3AA"
-    },
-    {
-      "path": "tests/model-effect-getter62-tests.cpp",
-      "size": 4087,
-      "sha256": "757D92AB13CE40E0B9785611E98655DA64A11FAC55938854E93672B0FED7B1A5"
-    },
-    {
-      "path": "tests/model-effect-observer-tests.cpp",
-      "size": 7584,
-      "sha256": "C7FA7A87685CAADD371627B85787745C376F8F170CB767AE6D28ADB4035CBFCA"
-    },
-    {
-      "path": "tests/model-key-ownership108-tests.cpp",
-      "size": 1476,
-      "sha256": "86304F4AF58AFCED7F695730BD14CCF1AFD0421D35FC93DA13910EC2D63343CA"
-    },
-    {
-      "path": "tests/model-light-registry20-tests.cpp",
-      "size": 2817,
-      "sha256": "3FE3F3B9650A0FC539C562DF8D2D1F5DE0CCA6AC820588B7E364612950672D5E"
-    },
-    {
-      "path": "tests/model-light-submission20-tests.cpp",
-      "size": 3682,
-      "sha256": "45558CC60737ACE43467F544A026F2B0632BED0D3DF83D046F14E14082F4ADDA"
-    },
-    {
-      "path": "tests/model-native-association77-tests.cpp",
-      "size": 5119,
-      "sha256": "39CC377C6B548D98892B1D9B8A553E04481A7008CCFFD12D7FE9537B468545E6"
-    },
-    {
-      "path": "tests/model-native-inactive40-tests.cpp",
-      "size": 4336,
-      "sha256": "53D11B75831AA41E519B2B6753960AF5BA0EE60DCE2CF2E9E48F1F8F1E7A5BF9"
-    },
-    {
-      "path": "tests/model-owner-batch48-tests.cpp",
-      "size": 8892,
-      "sha256": "F14813A6AD33C0F57A2B7B17187BB54937325FF1F0C2C9739D93F9B479921209"
-    },
-    {
-      "path": "tests/model-owner-transform46-tests.cpp",
-      "size": 2644,
-      "sha256": "19243B15997CBC46956366DE08CD95A437965F1118113FB717725D8CF4006951"
-    },
-    {
-      "path": "tests/model-point-value68-tests.cpp",
-      "size": 34146,
-      "sha256": "2F8936C86104D28E30344EA2EE10374F018C37390C1AB806A8472532391A805F"
-    },
-    {
-      "path": "tests/native-batch115-cases.inc",
-      "size": 26718,
-      "sha256": "D80D3B5EBF2916C2A692270110D577B97A380F522ACD3E76CF60EBFFDDFE5801"
-    },
-    {
-      "path": "tests/native-class-domains105-tests.cpp",
-      "size": 7196,
-      "sha256": "66AFFBE57F5E793CC88FAF6C22DD4C22143CC2E6D7C6B0959BC4CC72369A1FF5"
-    },
-    {
-      "path": "tests/native-copy-guard70-tests.cpp",
-      "size": 3450,
-      "sha256": "C5F2117F6CAA7D63640C584BF83421D287A2113881028E7E014BDFBAE4C98130"
-    },
-    {
-      "path": "tests/native-graphics-menu117-tests.cpp",
-      "size": 18244,
-      "sha256": "4205A92F613ACB4B78C044E939E8D81EED9BC673FD10CEAED1F097756393AB6F"
-    },
-    {
-      "path": "tests/native-graphics-runtime117-tests.cpp",
-      "size": 14911,
-      "sha256": "A499709A269E19F497D163ECCD803365C1EB10B5C0B30FD7C3F64603F494FFCD"
-    },
-    {
-      "path": "tests/native-owner-baseline111/ModelQueuedScratch59Runtime.inc",
-      "size": 6270,
-      "sha256": "1E1984BE07A6B67D863A794A1CDB1ABDDCF44DF77B40E958F371865498DE28BB"
-    },
-    {
-      "path": "tests/native-owner-baseline111/ModelQueuedWindow49Runtime.inc",
-      "size": 5119,
-      "sha256": "81DDAC266D707B441D5397B28D1C227AF9245648A1A64A05188C232271E76266"
-    },
-    {
-      "path": "tests/native-owner-baseline111/validate.inc",
-      "size": 1325,
-      "sha256": "B16E13E940024731192F48A12114F00B54302314F16B39DA200510100E705DE0"
-    },
-    {
-      "path": "tests/native-pool71.hpp",
-      "size": 586,
-      "sha256": "703CA8A503CAC3DB18FB695E79A072BCAA8A9F7DFBC4124B6BB893BADAAFBFE1"
-    },
-    {
-      "path": "tests/native-producer-gate116-runtime-tests.cpp",
-      "size": 6396,
-      "sha256": "F5052AFD0748EBB4BD504687C277E3CF4A5F88D75333D2F52DD4C22C262F3B1E"
-    },
-    {
-      "path": "tests/native-producer-gate116-tests.cpp",
-      "size": 2793,
-      "sha256": "2D4315EE07DBF2DAC4E2BD3519CFEB09D4B83CD45C2F7F448C2B53ECC78B5E4A"
-    },
-    {
-      "path": "tests/native-projection-intern66-tests.cpp",
-      "size": 4536,
-      "sha256": "C3EC23BD2F049ECDE83601D9AC05FA2BAFA7D48159C3C4B5C06473D184FDCA6D"
-    },
-    {
-      "path": "tests/native-projection-sidecar66-tests.cpp",
-      "size": 7641,
-      "sha256": "DBDBDE5FD0DEDAB42E5B8C69D4EBA8E3989D4F3222334E53E0C5CA2B812A6C4E"
-    },
-    {
-      "path": "tests/native-projection66-tests.cpp",
-      "size": 5703,
-      "sha256": "329406451398C21946E8F9C0317059C7FDD8ED9430CFE3F2A1C481A30B3532D9"
-    },
-    {
-      "path": "tests/native-shortlist-collect48-tests.cpp",
-      "size": 4858,
-      "sha256": "E04DB740E67341997BCA32DA98F90CF92F07B1F09EDCB2060BF5ED138D77F30B"
-    },
-    {
-      "path": "tests/native-shortlist-preview48-tests.cpp",
-      "size": 4641,
-      "sha256": "4A12AFC6707363D8597C065D2B64529252C9428AF498AFDFC27BB141365A1D8B"
-    },
-    {
-      "path": "tests/NativeBytes77.hpp",
-      "size": 2362,
-      "sha256": "BE79574862040F906AE2B94F5FB56655E1DD0E953DCBA658E76199F455CD9837"
-    },
-    {
-      "path": "tests/owner-runtime32-tests.cpp",
-      "size": 14426,
-      "sha256": "6FF74728C20653F56CDF984DD901A81DAAC2A321A106BAD36C883B6208341592"
-    },
-    {
-      "path": "tests/parallel-selection61-tests.cpp",
-      "size": 17315,
-      "sha256": "AC42A679049B6389FAC5F7F2254B7194411F224924F55CC731C8E0F0C4FDD4F9"
-    },
-    {
-      "path": "tests/parent-owner53-reference.inc",
-      "size": 7919,
-      "sha256": "E843A55E7AF2C6DC0980A97A5DDCBE8F35695A4F8756D29CF5D723B5AD097003"
-    },
-    {
-      "path": "tests/parent-queued53-reference.inc",
-      "size": 2924,
-      "sha256": "F393FD78138FAE2CAA7225F8705F87A95040A0D94184A16E042126ACF4FF4210"
-    },
-    {
-      "path": "tests/performance-equivalence-tests.cpp",
-      "size": 3299,
-      "sha256": "986B2B3C014DE998E5911EEA3E28F7B7E49E41C2B862B28F5E5B4A47611DA221"
-    },
-    {
-      "path": "tests/physical-lamp-continuity-tests.cpp",
-      "size": 4548,
-      "sha256": "054BB09B8F24CC8E93C795CE25B8DF16B5869DA4434CDCBDD60EFDD66B07D50D"
-    },
-    {
-      "path": "tests/player-camera-allocation-tests.cpp",
-      "size": 4914,
-      "sha256": "943D16370342A1E9A7052D09851C869C6C3F44A63E7104AEB15681CE0683DB17"
-    },
-    {
-      "path": "tests/point-permissions47-tests.cpp",
-      "size": 12914,
-      "sha256": "F6DE02C1066B0B55BC38B577CEBFEF786ACD3E760C9E3E0492FDBDCAEDB0BC2A"
-    },
-    {
-      "path": "tests/point-production50-tests.cpp",
-      "size": 32521,
-      "sha256": "2FE4AA821F9D8862BB5192471B18CBE71D121CC53AD7E18F00BC83F22209F9EB"
-    },
-    {
-      "path": "tests/projection-domains101-tests.cpp",
-      "size": 6391,
-      "sha256": "F8DF833931CE18ACA91DED36637EF3C53C341D675F7D14600E8E1DB2FADC2ACD"
-    },
-    {
-      "path": "tests/projection-identity74-tests.cpp",
-      "size": 2782,
-      "sha256": "5FAD86730276074E06C659C89D39C2B014E11D0857E39CCC09E64807A2EE53D3"
-    },
-    {
-      "path": "tests/projection-snow70-tests.cpp",
-      "size": 1949,
-      "sha256": "9DBE42DE097E8070D85CCBF89B5F6829A1802C6D4BAFEE7CF91F2EFFC195A671"
-    },
-    {
-      "path": "tests/projection-volume78-tests.cpp",
-      "size": 3199,
-      "sha256": "C9B8219DBBCB3C7EA09A98E47F8035E42D3D179D7B331691E84D4ED25D31A674"
-    },
-    {
-      "path": "tests/promote-baseline49.inc",
-      "size": 2057,
-      "sha256": "673E6CBCCC7DC2B2985732D8C62911E6D349CA876BB7C977F84E6D90CB2747F4"
-    },
-    {
-      "path": "tests/promote-batch49-tests.cpp",
-      "size": 15449,
-      "sha256": "8791F31093D95255565B977696505C1603C61F0990857611355367D8F7041279"
-    },
-    {
-      "path": "tests/public-runtime125-tests.cpp",
-      "size": 7591,
-      "sha256": "1006C3E7CB29203A84ADFEB937D9AA2E0B9334E49D67DE50A08D3E70C9CC9017"
-    },
-    {
-      "path": "tests/public-settings93-tests.cpp",
-      "size": 3328,
-      "sha256": "206E036C096805879E1BDB9B59D5722313EB6DF33B173ED30EE836978AF38771"
-    },
-    {
-      "path": "tests/public-startup124-tests.cpp",
-      "size": 4341,
-      "sha256": "C7163078CF8D7626D198EDB2163CE59C21DA7A8A26C1819CFA40060ABE317DE2"
-    },
-    {
-      "path": "tests/queued-permission54-tests.cpp",
-      "size": 20442,
-      "sha256": "ADB4210D65DD6BFB3084E16175B06251D1304C777FDB737A6FC3A98B7D384917"
-    },
-    {
-      "path": "tests/queued-scratch59-benchmark.cpp",
-      "size": 27140,
-      "sha256": "DB0076065BA2A424AF2B50AFDD2DC495B83A0DA8A135AFD4792A7B94BF6643EE"
-    },
-    {
-      "path": "tests/queued-scratch59-tests.cpp",
-      "size": 36636,
-      "sha256": "760AB7F5E65E6B73E3DC9B1F56F7E33A7AF81EAE26C02E4C5EAC38A613693F90"
-    },
-    {
-      "path": "tests/queued-window49-tests.cpp",
-      "size": 13475,
-      "sha256": "8C15C888BCD52F2EA8027E844E0DA4CCD3C443FFBE3D970D94D29BD8147F8F7F"
-    },
-    {
-      "path": "tests/receiver-consequence44-tests.cpp",
-      "size": 3771,
-      "sha256": "11C434D47DA51CB8D33A07B2771D1025DA90ADE6501824AA44BE3DAA772665F6"
-    },
-    {
-      "path": "tests/recorded-spacer124-tests.cpp",
-      "size": 3470,
-      "sha256": "49C08EEEF98BBE8048A763A64A0E233960D18D5978C36005EAFBBF95032AF8FB"
-    },
-    {
-      "path": "tests/RecordedWorldPackets101.hpp",
-      "size": 2212,
-      "sha256": "31FFE2B9C04ACB29842BB918951BEAAB72F8E59DDF5B5D76696B85CFE67F5E5E"
-    },
-    {
-      "path": "tests/reference-certificate32.hpp",
-      "size": 5337,
-      "sha256": "AB74620B7F988C7380F7EA61611490B8CA0389561CA01A81EF28EBBBF805536A"
-    },
-    {
-      "path": "tests/reference-owner32.inc",
-      "size": 8876,
-      "sha256": "EF45DCDDCB368008DE5F7A299AA12DFB1F00E0B27E55BA301F42F1DA36EA17A8"
-    },
-    {
-      "path": "tests/reference-queued32.inc",
-      "size": 4813,
-      "sha256": "DEE2C7449CA23309643D5E37243232CB9D3D13B3EC6B1D6F1B59EDDBAAEE897F"
-    },
-    {
-      "path": "tests/reference-window32.hpp",
-      "size": 3953,
-      "sha256": "AF676DCB57FE4A918C1E65BBDE643710AF7ED2194B987F73B5F69C0A6987DAA7"
-    },
-    {
-      "path": "tests/scene-score96-tests.cpp",
-      "size": 2149,
-      "sha256": "8E906A0FB2D3AE11ED92F93CCB168FDCDF751742A71A6966EF0B5DFC0883C0FF"
-    },
-    {
-      "path": "tests/settings-runtime117-tests.cpp",
-      "size": 10763,
-      "sha256": "A2D5B45E9961A5C8115B8783B366038A797AA4CB3CEA79EEF6D0641DCD20E442"
-    },
-    {
-      "path": "tests/settings117-tests.cpp",
-      "size": 7092,
-      "sha256": "C0E3538C17826F3A81F90C5FFD038A8761A178B66B89DB584375EBD749EE2D3D"
-    },
-    {
-      "path": "tests/shadow-cpu-profile29-tests.cpp",
-      "size": 898,
-      "sha256": "990680E69FCD77D678B2DF5C24C13FE5808136153BA2F02E81E9687046495820"
-    },
-    {
-      "path": "tests/shadow-key-isolation27-tests.cpp",
-      "size": 2848,
-      "sha256": "3A9E95D7A7DB53C302E84CA4142C93403BD64E9169D59C1ACD5E85F289412D78"
-    },
-    {
-      "path": "tests/shadow-selection-loss38-tests.cpp",
-      "size": 4831,
-      "sha256": "EDDBBF3F56F721C80E9A2480D2A0D7BD5086F0280176729F74B1536C59CD3AB8"
-    },
-    {
-      "path": "tests/shadow-transition69-tests.cpp",
-      "size": 2181,
-      "sha256": "DC2BFBB84EB9DC10ACC9F323E44C2626830E534CA7C279B317923C870CD35994"
-    },
-    {
-      "path": "tests/shortlist-helper48-tests.cpp",
-      "size": 3996,
-      "sha256": "DBD412A08311AEE5A9A99FC4E0CDBD182D01349E983A1BB32FE1150B798A3967"
-    },
-    {
-      "path": "tests/standalone-lab-blink-tests.cpp",
-      "size": 3993,
-      "sha256": "544B336AFABCACAA942D0E90CB5BB73188FB98ED27B896B56B0F4C837300A1EE"
-    },
-    {
-      "path": "tests/standalone-lab-police-tests.cpp",
-      "size": 2625,
-      "sha256": "9E868E4715961487BF4FDDFA3331BD8E33AB664E0C55B4EB1375EF136BC0386E"
-    },
-    {
-      "path": "tests/standalone-lab-siren-tests.cpp",
-      "size": 1777,
-      "sha256": "780B7E09BEB85F8AA61BF7928D35D184DC2CB24FAA3CB2039A9FC01A2A6C7BCC"
-    },
-    {
-      "path": "tests/standalone-lab-vacancy-tests.cpp",
-      "size": 1773,
-      "sha256": "4CDB8DD6E20D2B5A90C0E08FEDFF47AE6EBA82B93E1BEF666F96EB9742F382CC"
-    },
-    {
-      "path": "tests/standalone-log-tests.cpp",
-      "size": 2005,
-      "sha256": "A9515F95535C040C62B91FD90C5D42746023983377F3604BA11F3B3EFC8FC7AC"
-    },
-    {
-      "path": "tests/standalone-nearby-police-tests.cpp",
-      "size": 7020,
-      "sha256": "E1740A850E7A061EDA922A04C8F8B3B7E287DB742E58AA13607D8CDE2F7E4815"
-    },
-    {
-      "path": "tests/standalone-ownership-tests.cpp",
-      "size": 2233,
-      "sha256": "DA2038066D0E456A18EAF447FA05A7139EF1CFBB1025988C9FD8FBD116214168"
-    },
-    {
-      "path": "tests/tail-light20-tests.cpp",
-      "size": 3347,
-      "sha256": "E31EBF469AE4D997EFC94A711C1775CBC6003FC60AD14D927A4F3E51400BEA28"
-    },
-    {
-      "path": "tests/traffic-auth71-tests.cpp",
-      "size": 6595,
-      "sha256": "83F9A18E67FC9CA9882BA27A761B751128EF03F1E2570648D6E031BD10E0FC53"
-    },
-    {
-      "path": "tests/traffic-distance-equivalence-tests.cpp",
-      "size": 11802,
-      "sha256": "62AD385274E5D0281A8E63BE8763DE6EA50200C75BEFC8EFEE93172AD603ADB5"
-    },
-    {
-      "path": "tests/traffic-pool-hook-guard-tests.cpp",
-      "size": 4078,
-      "sha256": "FE05AEE67B74EE57C0606B704ECCABE0BE56C59E8BDFC561755FD9F0CE7CC74F"
-    },
-    {
-      "path": "tests/traffic-signal-identity-tests.cpp",
-      "size": 2696,
-      "sha256": "CA9A2916D6C55CB6F15D7E121074012C1528D9023560067068637FC677FA68B5"
-    },
-    {
-      "path": "tests/traffic-signal-promotion-tests.cpp",
-      "size": 6482,
-      "sha256": "E62A3452BE36156EB7CB76454AB1F415F5DB8FD742C0A93F2B3CE29652038CF2"
-    },
-    {
-      "path": "tests/traffic-signal-registry-tests.cpp",
-      "size": 7451,
-      "sha256": "5FDB9CA0FDDBABDA9BADB89ED51B3685245CE74AD9CDD5E7545D81383835F026"
-    },
-    {
-      "path": "tests/vehicle-lamps20-tests.cpp",
-      "size": 1905,
-      "sha256": "56C69A56DE332E0F06A1E407672BE625B2CBAA2EB5BE6FAC3BBEC04B2D649125"
-    },
-    {
-      "path": "tests/world-caster-mask20-tests.cpp",
-      "size": 1138,
-      "sha256": "ED290CFD8017048EC13269076BBA2E16D02BDDE822AD583E5F3DE0497956943E"
-    },
-    {
-      "path": "traffic-native-auth71-tests.cmake",
-      "size": 1322,
-      "sha256": "2888A1005E35CE50E9E5321553E8611F17CFEF010CB47FC8FFE81F03FA17D43A"
-    },
-    {
-      "path": "traffic-signal-observer.inc",
-      "size": 33632,
-      "sha256": "A449D7F5E3236276637A7E8041FEAFC52A603806BF2FD682602F6ACA59260145"
-    },
-    {
-      "path": "TrafficPoolHookGuard.hpp",
-      "size": 3985,
-      "sha256": "48E23926723035564950EEC56104414B2C784148FB1E770410DD3B9BB33E26A7"
-    },
-    {
-      "path": "TrafficSignalDistanceGate.hpp",
-      "size": 999,
-      "sha256": "5D8C621B8FBE84513951D48F2C8663A505AF02D9E056420CE61C225D3C7B6755"
-    },
-    {
-      "path": "TrafficSignalIdentity.hpp",
-      "size": 1585,
-      "sha256": "AB9A930F636F972FD9FF44D6984AB7D4D39BD9AFF8A0E7117536B00F3E9FF371"
-    },
-    {
-      "path": "TrafficSignalNativeQueue.hpp",
-      "size": 1068,
-      "sha256": "959B94ED9C9C84D7AB41A9656DFA3CE3B62C79420FD86BA62F03F0545C20D886"
-    },
-    {
-      "path": "TrafficSignalPromotion.hpp",
-      "size": 2164,
-      "sha256": "43D628636721C42079AEA57DDEE3CA9F9D612E897AD249757D9E2AC76DA13C3C"
-    },
-    {
-      "path": "TrafficSignalRegistry.hpp",
-      "size": 6422,
-      "sha256": "F99E1A041BA372F08262F78A5C88D25E72A92A891655A4D7FD8B5C1348653EAC"
-    },
-    {
-      "path": "VehicleLampIdentity20.hpp",
-      "size": 3124,
-      "sha256": "DBEA891B2FFC8ECEF66DA7A75038607BDA81CCE8B22FACAEE8FCA885C4DEA8D7"
-    },
-    {
-      "path": "WorldCasterMask20.hpp",
-      "size": 1101,
-      "sha256": "ACA00AF60B5DE03EDA230354115AC0995732F7ECF230F7A307079D21A04F06EA"
-    },
-    {
-      "path": "WorldGeometry20Runtime.inc",
-      "size": 5865,
-      "sha256": "0C85B7D227D8F77E0166E29D6F7B49BB412A6BCE41143627D4D85B6E3821403F"
-    },
-    {
-      "path": "WorldGeometryCatalogRuntime20.inc",
-      "size": 8925,
-      "sha256": "A0706636707EA0C7C3F13A857835A317188B274667F25FFC3705040C17CD1C91"
-    }
-  ],
-  "note": "Inherited identity files inside source are historical; this external manifest defines this seal."
+  "44tests.cmake": "17EC1DECC210536C567628F7DEA1EEEF17E2CC4BE95084F1AA9F745287BC2D66",
+  "ATTRIBUTION.md": "0B9767F81AE943AEBE4727925B7517C4BF2922C500E0502B5B80FBC1925E8516",
+  "brightness164-tests.cmake": "D670632798A79DFA1362ADF12C9189A1A0FB2E8EACE46E06FD7BB9928222A1D2",
+  "BUILD-IDENTITY.json": "042B2F68BE3417691BB918C5EA0CEA84B239A42DE4C79A484A1BE726FA1A72D0",
+  "BUILD-IDENTITY101.json": "81A685C6E53A1B67BFAC6DB1948CC5F45F5DA7AAE935EC68CE982CD34005E893",
+  "BUILD-IDENTITY143.json": "B78864FE4FED9461ED3BD6EF2D38CA6C70556858DE98557BA8C64CC84C9360F0",
+  "BUILD-IDENTITY148.json": "388B94510B126762E1B133810B308F82B8DCA4DED40C099B63AFEF700EBAC120",
+  "BUILD-IDENTITY153.json": "016143C6C0C37D119020C7C299B6C8F98A6C9864D0FE528F51D4D63AE39D41CC",
+  "BUILD-IDENTITY156.json": "DA14E5F4F903E09C84D2AF9DBD7DB7CBC523F69FBC7E94935C99D9DED97C2A2D",
+  "BUILD-IDENTITY74.json": "E66492F95C808D0D7630A76AEA4511BCB7AAB507CE5B10E4BAC4F3188AE261D6",
+  "BUILD-IDENTITY78.json": "B3E38C224DE45D6E26FEC77763435F00B218BFBEDDDD8FFE0CEF0252C556BD6B",
+  "BUILD.md": "98CB460ED5EDF8CC56A1D1B6BB021CF9C8166629CACBBD078A674FD552FA41BE",
+  "Capture44tests.cmake": "978F79038C0FDE659C95BC4E1E15E40FD3E2C32BF3BEDE4B657C13AE4F283EFF",
+  "CaptureDiagnostic44.hpp": "CBA037F6831D65637CD382BF199BB98AC61692B41B1B44AE247917D0183A5CF8",
+  "CaptureFramePrelude46.hpp": "206D303CD3A670BC224D413A37F9DB9268271EE10A8E51368513D00301905648",
+  "CaptureLease44.hpp": "7A4B32DBA36450F6AE33BF4F1D169C21229A42EAD01F7961ED5FA403E21D3185",
+  "CaptureLifecycle46tests.cmake": "1C194FDD3E284827A2F7BA39AD573770008113E40CD21C82C83C8BF7509DA40E",
+  "CHANGELOG.txt": "A08330FBC41BC506933E851EABD3DFD9DC51E785ED555F72EA1F790D837DB453",
+  "CMakeLists.txt": "02A99B429F0B3DB729DB18CCB36F412F031E45538B969BBCCC75BEA556B919E8",
+  "CONFIGURATION-2.0.md": "C38178AC82D104050883B9596575AD7B3038FD104AE2A8666C3A0B0983949BE6",
+  "consumer-prefilter142-tests.cmake": "0504BA39B8DD7EB1799AC475040F0C452D7BE8B6C0793E374440AC39A6D95C75",
+  "consumer-reach136-tests.cmake": "2E4AF205CA3DCB0C6893ACBCC500E98EE8F7EDDFDD2F33E4CAD5D7C0FD37C7E0",
+  "consumer-scoped157-tests.cmake": "745C0F45A6A57DDB491798BC366F2749F55E8941BB82459C2DA9ECBADEA27F35",
+  "ConsumerReachRuntime136.inc": "4C714FCD7559258FBB53E7A6E5FB0E41D51668D576DA25BAD711BC66A2BB97F0",
+  "ConsumerShadow75Runtime.inc": "6A973812D134FE2EC85C14A61E8E7781F14A983723AD9B8A10AB99E400B2B39A",
+  "core/CloseHeadlightRelevance.hpp": "D98A5798B3A298D3D3392F9144726CFCC4C521757A85461A841A77EEEB48C724",
+  "core/ConsumerGuard80.hpp": "8333E6A25ECAF9246BE3ABAA9CDDCC2D4AF8BF0DA160499484392383F20D07D9",
+  "core/ConsumerReach136.hpp": "6298611D1F4085974F02CDAF92C29EDEA95B5FCBFC9F61047BD5F2D73243F1F0",
+  "core/ConsumerShadow75.hpp": "E0C413E5D20321407F6AF41CA8AB851C2DCAFF836F5508D2D8C08D0B31190995",
+  "core/CrashPathContext31.hpp": "04AF42D6EDEFBA8BC0A0ED0BA8331D20DE63A8AD36DE21F93B857BEE8F2F3AE3",
+  "core/DeferredModelShortlist48.hpp": "C7C14825E9506E906E37976D6B1E78E3FEFEEB3B50B406DB6D94561D64264AB0",
+  "core/FrameBoundary154.hpp": "6C21AA84B8C23328631A85AC2A60C57DECAFD2FE474534B311A82B447ED95475",
+  "core/HeadlightCasterPolicy.hpp": "8F7CA3727A67A1877CA1B84EA58249A4CB97636F0F996CFC02D4A11B9D513D11",
+  "core/HeadlightEnhancementRuntime.inl": "D5BC012F73D499F64C16E4A412209E4A0D84E308D9EB7051BA634304A17E2634",
+  "core/LabPoliceClaim.hpp": "670BD07C334D0648F7B70DC6BF2EB8DE1EE32A9147544FEBFB84108EB6409908",
+  "core/LabSirenBlinkGrace.hpp": "2317946BE4E2318FC1204016D35753BFCC7E1575ADE9A7BD1CBB253F11D903C6",
+  "core/LabSirenLifetime.hpp": "8F900A381A7561F4EFDE92E93126149AA40A9632149CEB81634F166218B4AA78",
+  "core/LabSirenVacancy.hpp": "D5E12162C4F54C47541971A0EEC10A61217DC86E0028934B774D3E7DDEFDAA93",
+  "core/NativeCacheDependencies44.hpp": "F4EFC005F79E651D4E5422E401026A60984CD6FAD78ED181C980961B233DCBE8",
+  "core/NativeLampContinuity41.hpp": "B68036B320083EB8DFAA12EFA2D15ACE1E4E5ABCDF8E513E95ACA76BF7694DB3",
+  "core/NativeLampDistance38.hpp": "FACFE33C6F5660606261CBA4CAE8EF918F5A4D78F66D743216807C4A06C15CA2",
+  "core/NativeLampSelection35.hpp": "8DEB0444D0E54ABB0511C8C039A21872531272803DF159A88F28BA044199E02E",
+  "core/NativeProducerGate116.hpp": "E42DDE197BD548C36E56B5FAA51D045ABDEC44B53A7416F43A0379C8ED6061E0",
+  "core/NativeShadowContinuity42.hpp": "D763C6BCF27C718F29FA63EA3DE3E5611D367C45514FF9B748FBBE09F39F88CC",
+  "core/NearbyPoliceGuard.hpp": "C665802BBBC38DCF5E381032C4D8FCDA4FC0A88B62F967E9491E7E674DDE4911",
+  "core/NearbyPoliceShadows.hpp": "4962940C33FC524C29091FF0945CBABEF22048D43E9CE4D3BA64F584743A6BB1",
+  "core/NearbyVehicleReceivers36.hpp": "A93F3C17CEC2EB675031B9B379239AF942841ABA3550680EBA1ED49AA3F7C839",
+  "core/NearbyVehicleRuntime36.inl": "F20E13200B924A77ED799E59A34BDBBF9AD0C101FDA2F003E1696F2C11E1AA3A",
+  "core/ParallelSelectionMath61.hpp": "951FC288B589F4D4E6831B5CBDD56737F6DA1043468C1F31F0F767960C6784A1",
+  "core/PlayerShadowBudget.hpp": "F99E1EF62F1F1D6D9FA418EA51ABFD4320EB8ECA2C5DAFF1381584EEA7B54E19",
+  "core/PoleCasterSnapshot134.hpp": "FB09FAC94F7CF1DB89E0AEDA10B0688F4793FBA9B52868693F9E32F651AD218B",
+  "core/PoleChildrenSnapshot135.hpp": "FE2BDC3E856C62CC164905DB92748EF873D71A92B5BDEEAB7A65D56D7F52AB89",
+  "core/PoleModeContract141.hpp": "836AFB63A115E3A4E14A9D876772FB9A386936913DD67D6E0A9E768CEC4656F9",
+  "core/PoleSnapshotBatch144.hpp": "1623B98A6FE67735A9F7A009C39806FB40C3A78A522081A2F5DE6130513CAF13",
+  "core/PresentFrameTime151.hpp": "DB10093AF5E0F9D688492F199B482AB112780943F486E9587A71068C6DC0CF51",
+  "core/ReachSettings122.hpp": "16D69B0068E54D0A96F940508FD4794632F410EE96ABBD52A9660A3A0AEECFC4",
+  "core/SceneScoreContinuity96.hpp": "707C7DA55225B3B1BA93A24948E9F7B6BD5392A0FB25E37E9292FD645FA5A867",
+  "core/SceneShadowPriority21.hpp": "AC7C09005051A09A4C8EEC08170D0A47D6019AEAB7BB29A528C210D1A229FB7A",
+  "core/ShadowAdapterCE.hpp": "BA0EA2B994FD11313E81912FF44C77079A60E74699A16C5DE07AAA27B9788997",
+  "core/ShadowAllocationCE.hpp": "167EFA57392DC914D3F6F59765141B4418A9009AA19FDE5FC1A111779C01659C",
+  "core/ShadowAllocationPass.hpp": "C10886ABC371CFCBAC4F12EDF4F9031A497B2F4B00E88E5CD3603001467479E1",
+  "core/ShadowAllocationRuntime.inl": "68AF6B029ED5B91D9C28A1AB14C25F05FD27AB2598AFE30B1A503A2E7D4FEEA3",
+  "core/ShadowCacheDependenciesRuntime44.inl": "2B40356FE0B94A226AED2738C000800052CD7B5B2810A19667570A94D390E58A",
+  "core/ShadowCasterCE.hpp": "B29FDC33788E13676430AEAABEF15AB4C50D658D138F296765F91340E569587B",
+  "core/ShadowCasterRuntime.inl": "9DFA4F149A97D1701C98FA29D21ED37B267DBBCD58CCE2A25519D541D4F526CE",
+  "core/ShadowCpuProfile29.hpp": "980F346674D032070C3DAD3FDCFD25C6DBAE5DE89A30236CC05535EA2C7DE202",
+  "core/ShadowCrashTrace30.hpp": "01FE0CCF545BD7F1277B11BB1AD3E08044747EF185A7132F665CFD17AFAE4BD5",
+  "core/ShadowDrivingFocus.hpp": "1CD33F51E333C050B3D8939D68368B5B4A3A78BBA6E598317F9AA69E9AC27313",
+  "core/ShadowFloatingPointState.hpp": "567DBAB59D71B750E8F4E387FD929E4E3FEFFF8C45EBBBC7CC2D0AE00096B3F9",
+  "core/ShadowGuardDiagnostics.hpp": "D3E9B16ED85AF05F8B1B3C6B6E05C28F77FFD8A8813111E47A1BE7B73037D3B5",
+  "core/ShadowInactiveSlots.hpp": "9E16E7B7CEA611AD75684C534546B978AD4A9DC8B5F5137735C2C6D28075ABAC",
+  "core/ShadowKeyMultiplicity27.hpp": "49AC2E95E61BB40F39BD08061BD4EEC57891D32F285A761920247FE6B31EBBCB",
+  "core/ShadowLightGeometry.hpp": "9EA31ED25BE5CD2EF5A300E989944DE96F8A0F0D728E899DEB7D81D126C57E4D",
+  "core/ShadowLookupLayout.hpp": "51BEBB319F9763ECEBAE12DC4F9BCE116078FE92ABC872596352ED28309A38DF",
+  "core/ShadowLookupRuntime.inl": "4814BF8869AABA3B611F54B1170A887BD034F8AA43BB2BB090C3D0EDE5FBFD72",
+  "core/ShadowLookupValidation.hpp": "92CEAC6F28BC95C27EB6DD33FD64B8ED9A4946D3863D8A7F70AB8026C5B62D6D",
+  "core/ShadowMapOrdinals20.hpp": "092885F701B295C607BD4FC157CAFBCC29494AF4D8C4F0148BF36CDD093E8099",
+  "core/ShadowPrioritySmoothing20.hpp": "487D833A507995231F6CE3DF1C529163EF59EC4171F7D3B8E6B3FEC7BC82F67B",
+  "core/ShadowReach.hpp": "03E9FA31CDF54684ABFFA1D0419A23460A01DF986F2A345A7E4796CF82566223",
+  "core/ShadowReceiver.hpp": "8D98643AF7EC9658295CF60FBBF675EBE93DF9482817C401FF41B202B49C841E",
+  "core/ShadowSelectionLoss38.hpp": "01F3384B29841E3AC79EE0BE380E3339BCF59E7494B73BF178F8427BF0BA42DC",
+  "core/ShadowTrace34.hpp": "7F6E321FA082A813BCD1FE1A95195E098872CBDA2375097AF1FDE3880C119FE7",
+  "core/ShadowTransitionDetector69.hpp": "DB3D55837081487F80CEF86890A04A1B9B738F3D1324A12DDC0291505240B554",
+  "core/ShadowViewPriority.hpp": "75203EB7411650ECD049D374A9D6CCA58AB5BC396849236857C41B8B305A6940",
+  "core/ShadowVolumeVisibility43.hpp": "9D20CBB698B451E006BA13F3BC0820946E0EF47038B3227E57CDE54480940449",
+  "core/SignalShadowPriority20.hpp": "96640EB3D9E3A29F95450F7E8D81D259714CA50579F8BC212959C0C4AEC6F41A",
+  "core/StableHeadlightSelector.hpp": "E34919721623ED3F5593AF8E29FE410389CE92045AC56A726543967968B1AE72",
+  "core/standalone-game-abi.hpp": "7FE38D505D78EF4D18F4F390F247C33A41A3EA3DF075A2099758FBDD40FC7E0E",
+  "core/standalone-shadow-core.cpp": "D7C955BE3A3103B935025B6C11D049C49C844CBD03353B3B39D17170719B596C",
+  "core/SubmittedHeadlightHistory.hpp": "AD1F7E28BE26A3820AC02EF2C07D62F68217E638ED71918412D32A5D06E965B8",
+  "core/VisibleReceiverRanking133.hpp": "309AC5449566DB4AD54430FB9188FB935A1FF0DEAB6016B99152DAC9FB2EA5E2",
+  "CoronaLightPolicy20.hpp": "CD281E57D6F9910AE8057E691CC3DC075305025161759C59FEA4767DB4B5909D",
+  "CoronaLightRuntime20.inc": "697F18AAFAF31E02CB18E92BF7356545AB5A0946EE438E0B45EBE8EBD094FE79",
+  "dual-key-ownership127-tests.cmake": "A550F1E29720A5F83CB4D8C4FDAC1DA17CF42551834C30CFC06C71605E9712A8",
+  "DualIssuedKeys127.hpp": "44592E9555423616F349FF74588D926EDD5E985B962E3CAF6F0AE470CDE50CD9",
+  "EmissiveSurfacePolicy20.hpp": "01FDCE17F350B6F6EF82195867B42F897A6B3232E7D8F6BD9D450E96570EC41A",
+  "EmissiveSurfaceRegistry20.hpp": "E3C1F7850FD69A6453E7341DC47990D3A3C4A11D9EEF4E167D92F76DB11D872A",
+  "EngineMetadata117.hpp": "44BDB8CDB11B9A63A5670BAC94FC2124F1C7D3A52F7BC93712EB8C26A26E16BB",
+  "EnginePlatform117.hpp": "CC8D02916E1701DBCBCD5C0B1A4AD4247CE8CB9E675FA5DF68732F99437726EC",
+  "ExperimentRuntimeOptions.hpp": "34BF63A4EF002149F9478B2BED3D7DBEA7890EF1C62D2A4AB1BBD9CC908B1DFB",
+  "external/safetyhook/include/safetyhook/allocator.hpp": "563DDB64A958DBC898CE12660ADC7D90B7400F576E88B3D042B8EDB92824CECD",
+  "external/safetyhook/include/safetyhook/common.hpp": "B9BF871DEFEB0F4491BFFE842A14DDB1DE77536BDC2D3368A5849E9FC7458879",
+  "external/safetyhook/include/safetyhook/context.hpp": "300EA765ECD271907FB59B77E01D87FBAE7167C9680923EC75470229B868D7D3",
+  "external/safetyhook/include/safetyhook/easy.hpp": "27F960DB482371EA995ABF21A0D4CECE97B0E87BA4F51C3CFFBCB600D972438B",
+  "external/safetyhook/include/safetyhook/inline_hook.hpp": "E750D0483643D8CBA9B57E4730C1CEE4ABD54D3692AC298553B0ABB7FF3F35AD",
+  "external/safetyhook/include/safetyhook/mid_hook.hpp": "20297449884FC81AD91C7DA2FCBF02DA5A18878C1F232C15AD87EF32190F7F13",
+  "external/safetyhook/include/safetyhook/os.hpp": "B897F8A02160ADEDAF322F5159225798E0580C44B19F2396097093DB5AB02E5F",
+  "external/safetyhook/include/safetyhook/utility.hpp": "F27E4CAEDD8BB0A0646CF7FFC4D956DE7E99854CD5D1DFD389C5FE1DF1E46B90",
+  "external/safetyhook/include/safetyhook/vmt_hook.hpp": "B1B7FDE5622A085C1D302BD196D0FF6E24CE9D971A2C06BF7CBBD2CE4C5A384E",
+  "external/safetyhook/include/safetyhook.hpp": "83889827C669F0FEB3A832EF5BE1B435D9416CDE468289CA14CB3B91BDE9D86A",
+  "external/safetyhook/LICENSE": "36266A8FD073568394CB81CDB2B124F7FDAE2C64C1A7ED09DB34B4D22EFA2951",
+  "external/safetyhook/src/allocator.cpp": "5DC79A2AD34EA4BB82E6182BA2F13D63927E1D58AEBD2D68D311A35FA0006965",
+  "external/safetyhook/src/easy.cpp": "83CE9EDA38AE739757BC510F49D2B2E8E98EADCAF88C1D742F40666D70021782",
+  "external/safetyhook/src/inline_hook.cpp": "4ACDB913FF4CCEF59306085600E0C4DCFDFC7BEAEEEAFD8F28C61FAAEA15A65E",
+  "external/safetyhook/src/mid_hook.cpp": "725700A84FD682206047284BE6BCF3BB40A532DE88B9634A20943D7C7B39305D",
+  "external/safetyhook/src/mid_hook.x86_32.asm": "97C84F0CBD2D860DFAE73EEFBE2D5E240E8E113F66DA54EAAC46D84C3D652E54",
+  "external/safetyhook/src/mid_hook.x86_64-linux.asm": "2BEE5FF249CCA12EDD93654ABB1D386ABC3618957E9071C6E9E0FB50F7B574CF",
+  "external/safetyhook/src/mid_hook.x86_64-windows.asm": "B88D258C13E6538B5EE1D25CB778B3E083A98391345397C4AB9644FA4C6A16CF",
+  "external/safetyhook/src/os.linux.cpp": "3AD06CB1FE435FA083557DB7044335E3472428CC0DA37165FACDA36DBCB45C4D",
+  "external/safetyhook/src/os.windows.cpp": "B2F337E5317C5C1BBE662894F49A5FAF2D8D54A4D7335B57BC01972C12A80F05",
+  "external/safetyhook/src/utility.cpp": "8E9B46591A6AFF998DD2219A7AE7B7B3BF16667F65848CD1F03F1B99606EC39D",
+  "external/safetyhook/src/vmt_hook.cpp": "50EDC03B9E07937347089A574B785942F9960B8D4F02286D441B6A25A666400A",
+  "external/zydis/LICENSE": "77F4584207ED4F10CA1455DFDD25264687321221692F37761E3C7D62100E3D9E",
+  "external/zydis/Zydis.c": "6346126CF55D5BD5BE8C687220A1C10C6ECF1DF861E18C3F6BA293293D7B4FE5",
+  "external/zydis/Zydis.h": "3BDB00D1A3A5A21B2084CD0508C992D83C9D5A374A4A984782D266E77D64A8C7",
+  "frame-boundary154-tests.cmake": "5E1B01DB51541AAD30ACED630797BCD9B073BE08D8ADCA7100206FA929EDB46D",
+  "FrameBoundary154Runtime.inc": "832F63B0BE121257CE98CDBF6B89208378C9EB2FCCEDA00D2B0B37CE232B3A30",
+  "fresh-window49-tests.cmake": "963531DC4F8700655630D362163A94A048480B0627AA42BE9EE310DC2EF4A3C4",
+  "FreshPageReadable.hpp": "498ED38283C015BC24BF05D9FAF435E084AA1A6D3547B6D0870AA62272D68A99",
+  "FreshReadBatch30.hpp": "3B9DD7035D3E311077958B57070F0B90D9B73F706641764E2CEEF6F24C101626",
+  "FreshReadCertificate54.hpp": "4F21507EAB7062C0D461362B13D40174A88F473C811015DE6A9D091F21C894E5",
+  "FreshReadCertificate59.hpp": "9FDDB7011F0F3331957DB245C6DC33E0E585E57E0E015E6479FB0BDE7CC01E41",
+  "FreshReadGroup50.hpp": "A3C85DF6235B37A659B237C76A548A51F3FCC96ED2CB22FCD0753796E868DF2E",
+  "FreshReadNativeCertificate115.hpp": "B937B0A9E64424DBEC091434D0B71D12CFA31FE9AC87799479358DEE206165ED",
+  "FreshReadNativeWindow115.hpp": "59E4829306E03FBB91368E445AD2C503689F66C5EFD45B4D8C946AA0F292DC83",
+  "FreshReadWindow49.hpp": "CD65A300306C732BFB076455D356D87DE4CBE61A20A17C4A0722261797EF9529",
+  "FreshReadWindow59.hpp": "DB42C2382509A3A061156BB252122DF740815C71BF330E07BEACA2F81898648A",
+  "fusion-backend130-tests.cmake": "52940DB72FDE2E0E9811AE05E69A60D032F46C51A9CF78F765055D1B9F696F07",
+  "FusionBackend130Runtime.inc": "39A4D4BA2487FF2E2FCFC4CBB67489709AE805C1A49E42E96D52987DB09F8D8C",
+  "FusionBackendBytes130.hpp": "846846CD74B0B675CC37FB9A6559C1187420A3098485648DAA190FFE50F13F79",
+  "FusionBackendGuard130.hpp": "978E2A82E89F8913E145B57EFCD594D532E43E8DE01D2A30402503AD86D9E6AE",
+  "FusionBackendLease130.hpp": "F94D36BFE9F18A96B8F32817EF8F23B1314E4A27956939706439D16620C6DDD4",
+  "GpuProfiling39.hpp": "32E00D556CEC6A619B87DA28B941EE785386647F450671CF88E256C221D60A1A",
+  "GpuProfilingRuntime39.inc": "FE66998BE632AFD2F42388DA78034203B55913D5A861C16E273DECCB15031CAD",
+  "GpuQueryRing39.hpp": "A811ED0372779C9B8F4B167DD89D4547CAD428FB40C76EFF610C1FA12196B560",
+  "GpuResetGate39.hpp": "F35E1795F36A470B7BBDCD8F881A3D5BAB1F4042E6C034F4EFF4A1266D0B7819",
+  "GpuResetGuard39.hpp": "4BF08530BC652160176A66B0CA267CA6CE4854686569CDA82A7E1777EF713FEE",
+  "GpuStageSchedule48.hpp": "E72600ECBF27A019D99D495B6D471785B8C0B51360CE2F4780F87210489DDD7C",
+  "grace-prefix108-tests.cmake": "72630A556774E8034D05F8A9CB7278DC918F1887EC2146117C6B0C924065DDEF",
+  "head-capture146-tests.cmake": "E9C9E6820FAB95A0BF5DE95E298D7B49556181058E7DF7DF7983B9EBFD739D76",
+  "ImmediateRegion33.hpp": "62E8546EE760309395BBA40E1CC2BC211948552E723AF10CB1B88A2E5D38D84B",
+  "LibertyLighting20Runtime.inc": "0A913D8483B836D1DDE0A83C0417722A05CF498A15291957787B7CBFE26CB05E",
+  "Libertys-Shadows117.example.ini": "448FB2817FAE28D047A20C5D88902E10D1D415C7979B568FC7C92699A46118D1",
+  "LICENSE": "230184F60BAE2FEAF244F10A8BAC053C8FF33A183BCC365B4D8B876D2B7F4809",
+  "light-audit-instrument.inc": "313F5185BD73AB024436DECD8B36299C78D7899AD250E1722A416B25A51985C2",
+  "light-owner-audit.inc": "9FF1900EE2AA48F2049C596A9B5DCDA37F47A5131A9C8EF924E50F8B9EDF93CC",
+  "light-proof.inc": "3179B92576B06CE6017D307CAA518BF1D380F38F01D779F08FE2302F0C98FC14",
+  "LightingCapabilities16.inc": "CEDD68B8054FFBA4183664833A1548ACBADBD366F2E5A9A94559D2A036C5E242",
+  "live-reach122-tests.cmake": "456B8EE972D4CE884FD5F6B521A0DBD847D7BA18FF7681FAFE703636FC25BD5A",
+  "LiveReach122.hpp": "157EDC73BDD8C97D90DD11C295290CC74E539DFA4175595E5AD62620F7F983E2",
+  "MemoryReadProfile46.hpp": "0C4E1F9D4D0E89F6846CB8A188D5DCD9B0E47AAB3A2B96611D28845FAA6387A8",
+  "MenuChainGuard117.hpp": "70876E9B080EA1E2939E342AD34486F76A86DCAC06976ED84A5DA380AD8B13E5",
+  "MenuSnapshot117.hpp": "74528B805C466C3C9C6521710414FAEE11EF01C86203F51602320BF0C6FF6CE4",
+  "ModelEffectGetterDiagnostic62.hpp": "3FAA4C2FEA2EB8D695C11F40E3455AECB6E31974714E4D7B24B6CB7B332CC407",
+  "ModelEffectObserverRuntime.inc": "3EECE0214DE61BE678D51DEDA69023D0CFD11C2D12034BF79735973309132FB3",
+  "ModelEffectObserverState.hpp": "36C1270C5BA7F13F04C7E9456281DA2057D26581DDF1D09ACA5DAE2A97BF15FD",
+  "ModelLightCatalogRuntime20.inc": "7D6B9ED4F8B79EF7BF659F7416034461BC3F83CA7946598CEC5838F553EA74EA",
+  "ModelLightRegistry20.hpp": "DADCBBC4C8263A319D42F655C9A1DC8B7329D648626EDC4A2828C50707D06FD6",
+  "ModelLightShadowRuntime20.inc": "8018B928363D32D8CEA720B34957E7D03330232611AA6F569BF604C89E44712E",
+  "ModelLightSubmission20.hpp": "76A5D86B37DA60349395AA0B23A442271CE18176320F1CE8D2BA76719C6E51EE",
+  "ModelNativeAssociation77.hpp": "17E06522480B4A54FED205440519EDBF17AF7E7A95920D4DD7431FE4F0FC5926",
+  "ModelOwnerScratch59Runtime.inc": "4B17F396460FA0918C5761B144FD844E53B9826EE15D44C8956ABC36704FA537",
+  "ModelOwnerTransformDiagnostic46.hpp": "66FCE22E3D4CF103DBC3BE482FB2A109E4CBB7D2E9B10B66BB24644B78BE76DB",
+  "ModelOwnerWindow49Runtime.inc": "9A6842BF4FDF7178EEE3753DB87A25D431622EEFFFA9AA5D309551DADCD01347",
+  "ModelPointCommit50Runtime.inc": "4AA89FE40FE98490D2A2C5E2348EE4C100E84AAC2244C684DB1B57403470E30C",
+  "ModelPointFusion50Runtime.inc": "3D8B43A4472F9D38A480A52F5AA5B1A0F7BA6C1255FD638E0EE693D263FE13A4",
+  "ModelPointValue68Runtime.inc": "E3A416BBC81251EC80557B5EBD68DC40C258D10AA3E11B13D88D413358EB4406",
+  "ModelPrevalidation40.hpp": "CBCD497E6F2A8787E85E603EE9F4BF2CEC82491BE087B91593AACA0B113E886C",
+  "ModelProjectionBridge69.inc": "41ED72A316168B9BECBFAB32780EE4DFFDB41880A8567A9AEFC2E1562BA61C14",
+  "ModelQueuedScratch59Runtime.inc": "E352617B5DBF1635548C275CEEBA694382EBF74B5D68444B5382AE3288E530E7",
+  "ModelQueuedWindow49Runtime.inc": "81DDAC266D707B441D5397B28D1C227AF9245648A1A64A05188C232271E76266",
+  "native-copy70-tests.cmake": "C9B440BBAF5B3F94D83F1F5C89C61D458125A9B5D0D10D9D4E5E3159357A4BAC",
+  "native-night128-tests.cmake": "939302E99C5BD159160A34E0358B30A040958030578BB8438E809BA7CD0A70CD",
+  "native-owner-batch115-tests.cmake": "06EFBF6468FA0FBCE37DB7C94CE53BAEDC30E5C4C4911045418511972EA8535B",
+  "NativeClassDomains105.hpp": "3EE13FFC70268E398CDB9CA80DE5189B29195304F15659E77259C94AECD1BF41",
+  "NativeCopyGuard70.hpp": "6BF976CC5812AA4D3621ADF56823A91B4DFADCD21032E3A97BC9303E149B11AC",
+  "NativeGraphicsMenu117.hpp": "2A0511A1E93F3AC0AE47215D800CBCC40C77B4A7DC2E13CB7BDC818E45B9ABA3",
+  "NativeGraphicsRuntime117.cpp": "AF430F5D1EE6E500E7E702CFD1ECC357CA063F0E4E061C598807A0D7BC85845A",
+  "NativeNightPrerequisite128.hpp": "E2C3AB549B93FF11BAFC96943ACC3A1CD865668141C3F7C372214208081BC773",
+  "NativeNightPrerequisite128Runtime.inc": "B15B9BBBD0036745C7B0522056E08851DC47BC1A78FA3DC1BAA35E4AB44F6214",
+  "NativeOwnerBatch115Runtime.inc": "3658C516A261A7C5D635853E383C94C9CE815F2CBE9713DA219F0F4DF3AB4B54",
+  "NativeOwnerClass109.hpp": "044FA0CDBDAA237A3A2D232906A9ECB7107C84248F9BFE9492E540DB208BDC26",
+  "NativeOwnerClass109Runtime.inc": "D6D6B672D380ED43C315CE67C635F7C8280F5BEC21EEAD5D8853C3DFE2357E8C",
+  "NativeOwnerClass114.hpp": "A7B60D0894CDB4CEF403FBB25023DE281A7724CE11F31A3499FB8F1C3290492B",
+  "NativeOwnerClass114Runtime.inc": "49219924D259C85FD4883EF1D863661735077A9C254348336ECC16468BA4739C",
+  "NativeProducerGate116Runtime.inc": "F84BFAE2ACC600F3F252DC456D7877796F20003083E432907A1F2B695B8B8E84",
+  "NativeProjectionRead66.hpp": "1ABBFA2F9CF9193C2579CC44207B6CD9842AF85C3E43BB1AE4D35CBFE713D16E",
+  "NativeProjectionRegistry66.hpp": "07512A12AD1FC047DCB9D3173543F1A0D77FB97143A6D0DD2ADA903700E4EDCA",
+  "NativeProjectionRuntime101.inc": "BDB68F14264240AFE175035D9C29AF854418A69433DC398C16B51D36F2F226B5",
+  "NativeProjectionRuntime105.inc": "73F2D951F77E455E52C9BA46DF2D74357F50C731EC0D8278AC9772AA8D184B15",
+  "NativeProjectionRuntime66.inc": "58260734157DD60123F4EE024F52A1737490A6BD584F630320E062795D4FE9E5",
+  "owner-transform46-tests.cmake": "BCC14570850082186F61EA334C196566278562E095D6C8E32960A64D57B21F77",
+  "parallel61-tests.cmake": "0B0760859DF68F17A4F648D2708E1E8A897A449444F98F0BEE676496FE69A991",
+  "PARENT-RECEIPT117.json": "26B21B07B089285154F660B83C96351BCC397CE281B31D7F9BC13A8B058ECABB",
+  "performance162-tests.cmake": "E46F55F59A020C97868BD297DFB5BF3DC6CAAAA2409FF81FAC63A52E9F9BA753",
+  "point-permissions47-tests.cmake": "00D9970CE18D13D8C880DB50A18D06BB3CA9D94FBA3C62E15423DC84E7F6E2CC",
+  "point-production50-tests.cmake": "141B667A10DE91355F5D7AC215B1FFF9BA6FBE66482D66DE03ACF30202CF0FAD",
+  "pole-callback134-tests.cmake": "449F5DA979E17FA5DBFB39C5D76F1FDA9861989A49114353A7DB45F4911124DF",
+  "pole-draw145-tests.cmake": "E2C1C604B57802F5F2EEF0EDE1CA47BD71D983E1B92824F0DA3142AD2177FCCB",
+  "pole-prefilter160-tests.cmake": "EF89B19E7414265CBC7BD15793A4395F639A0081E974B8FD1CAA51EF37A18D31",
+  "PoleCasterDiagnostic134Runtime.inc": "CE7B612FE17D31B82264C0740FE21EAD72259A28941022DB55AE30F5F07E4254",
+  "PoleDepthRepair157.hpp": "CBA750F80C10FC01DA4F7470A5FFF06D75E0062851BF7C33632E857D9CEDEE9C",
+  "PoleDepthRepair157Runtime.inc": "4A18E023F1B56631690D5504CD73E556CD8598430830F0824411A7EE839096B9",
+  "PoleDrawWitness145Runtime.inc": "169B98B7EB748E9EAB2DD841836DCAA27741D8FD0C0B68A0091FE7B462F3331B",
+  "PoleStaticPartition141Runtime.inc": "A4E94E3F6D063379BF9E1BC9DEDDDD70332340C8F6B14F8E28BEA7501ADB95BD",
+  "PoleVolume142Runtime.inc": "26ABB51EB14B8ABEDED196A1F058CB65AFA2A7D3BBDF2D53C8191D0F6AA1DD02",
+  "police-nearby.inc": "C1A7993022C63707505D9144F700C34591E1394AC74F29972BE019D2445AA75F",
+  "PoolDescriptorSnapshots.hpp": "14EF308CB6BAD4B81FF24D905CCDDFB157154385142ABD4C17202CE3A70C57FB",
+  "present-time151-tests.cmake": "740E7B6E99BB3D97054C7BA2DC29D566EAF4199BD7234CBA260226DC6000F68D",
+  "PresentFrameTime151Runtime.inc": "297D2884514DED64DB91B78F0F3E3A30EA86B8C70BD47A5F4759DC48F0161C13",
+  "PresetGeneration117.hpp": "2974D236B52735110EA15057121FA400BD372E5037A757F529E29AAA8F35E53E",
+  "PresetIni117.hpp": "D7A8FA46F1998400EE4274044687C4DB75C3FD091FFEB6CA0A345CFC0FF6551C",
+  "projection66-tests.cmake": "B121E05D143D0401452BACA73D85E59C1CD0547438EEF3F1A198ECA40FA964B4",
+  "ProjectionDomains101.hpp": "3B3C01CD6F39769AC5D7D31009AAF3A5A639438CB67C0B8A0D8126FC1D4845BD",
+  "promote-batch49-tests.cmake": "61917C0DDD72212951EF2353C4137C8F4C496915AF059FC247AACD87BB4CB619",
+  "proof6-transition.inc": "2075B79DB9BC0D13FA6D969C09B698200450FA1AE41017C5E8B0CD95E6E7F1EC",
+  "proof7-grace.inc": "E02B35413E524607270468D4C28B41A3C33AC4F7D91A2AFBAE71B94FBA7F0627",
+  "proof8-churn.inc": "B1A01D5046D72B9FBED3CC51F3FEFE97FC37BAF339FEC484144367FCEBD544C9",
+  "proof8-policy.inc": "90A94B07312537B953165CBBC984DFE52164EB96561440FAFC34D13348C978B9",
+  "proof9-trace.inc": "0F9522010171CCE82B1B45113562E6B63C44677E8AA92E535C17CFBA522AF670",
+  "proof9-vacancy.inc": "733595620A820D89CEF04172B1980EB9865BE6BB152091593C2F02BDC831D0F0",
+  "public-runtime125-tests.cmake": "7661196F729F2850F5CDEE6A03DFD30F97407BD38D593251A7FA4B531B87D827",
+  "PublicLightingIni93.hpp": "3F5502AC7B8E5CE618031F2D273E0E632B869D5CFC2640AFC6F78553E24A9F78",
+  "PublicLightingSettings93.hpp": "5C4958853A999B9A321D3F88A0704A943EE51E94E5DE0A34B1C0CE8191972DA3",
+  "PublicStartupDefaults124.hpp": "60D01D5D1786667FDCB56935E442B6F42941E8196DAD7F803AE59AE709FED504",
+  "queued-permission54-tests.cmake": "DDF43F22618D755F89E135778F53B39CE7033676920B6016F429B56B2C433FF9",
+  "queued-window49-tests.cmake": "6A96DE7450F8C58A376ABE15BA8F10717261F0141EBA28E7AB75692506A3AA00",
+  "README.md": "AD6DFC23574F20AC9B86D51AFE6792D6504219BA28B2E69C868AB70B1ACA1A1B",
+  "RuntimeFeaturePolicy125.hpp": "24DE8A894402B05A57DF6109EECAF03C55D66EF09A553EA078C54AAB264CBEBF",
+  "scratch59-tests.cmake": "F86F2FD80F5EAAAA257693F216D53A529873FAD679D169E1E5919738443C6F11",
+  "ScratchCounterPayload59.hpp": "FE3E17251B3DED12B42BB6FE0CC94AF23E476DD99350FCC6C185343BDD56487D",
+  "settings117-tests.cmake": "5BC221D5DB5607AD3812AF1552313C4FCE1EB3C7E7CB8855FC1C3132B8C808EB",
+  "SettingsRuntime117.hpp": "A4E7CDC3601F4C31CDCA9745E7FE723D56E6C7A0E65EFE3E69CE9FDF80D97F57",
+  "shortlist48-tests.cmake": "82C2805891837E9ECDDD8C45E91462CFD57AC7FB14B6B71AF60AEAFAF346F117",
+  "ShortlistHelper48tests.cmake": "0F9DE4063687ED37E0568349F84DC1DF763770E1A642B7731F8D29AAF061D9EB",
+  "ShortlistHelperGuard48.hpp": "1D1026EDB48EB32ECBB451B8CCC2DC335D56A6FCAFD7B66FE24EC7EAC444A5A3",
+  "ShortlistHelperPatterns48.hpp": "CB9D7AB6A534F11FB3748B8CEE351391D93690AF25895C14E5711FF1DD87FB11",
+  "ShortlistHelperRuntime48.hpp": "90F18AAE978B8F2E7590973F2CBFCACFAB7684208AC22D0935C591D5857A1485",
+  "SOURCE-MANIFEST.json": "FEAEA7A7584AC4988EBCB7472ED9D7495421B14FB3B48DD2E30AA3BE19D1B94E",
+  "STANDALONE-ATTRIBUTION71.md": "D8D07AE3732A0AF9659669BED9A6633FF5C88ECFA27D637A9417035C2E8C2E3D",
+  "standalone-midstub.hpp": "599EFACD3FEAD35421680868CB60E47FF7F2F649BCDCD2265F03D428BFD92C69",
+  "standalone-ownership.hpp": "980E3D8197336AAC119452616BC71B22E8D9901EFB4A4128865244FDBEB7DE69",
+  "standalone-pe.hpp": "9A25F1FE541B3BE06B1A4FE34337BCFC52561D39BB9C1128F90F5055F05F2544",
+  "standalone-runtime.cpp": "72005CD6B6C081408664C90223E8B04EE8BFFD05F2675C7DF85FDB36063A4C9B",
+  "standalone-support-log.hpp": "9E6547F43FFE0A72EA1C964F9254D1BFC2B95DF54109A486A9D4F1092079078B",
+  "standalone-warning-policy.hpp": "EB73237977831CFD09656DFA05A121B751D51C29314D01974CFFCF6E530FF88F",
+  "startup-conflict129-tests.cmake": "D2F575EE3D69674F2CD5F20F43B13FE6A45B00D1C29ABF8ADE34566B72B5D736",
+  "StartupConflict129.hpp": "B0F5CB73FC14AD61CF80C5C74179B3CE62EF95E6E251F82616F6C841602F8E0F",
+  "StartupConflict129Runtime.inc": "9A852FE5E13C81BA8D74003AE0CE0BAEE5EE20083B319333F42E5967994625B5",
+  "StartupErrorCodes129.hpp": "164430542606EE819C435AFA5A1FABD04E8DBA3D48EF9223B5B33C7354CFDD77",
+  "TailLightPolicy20.hpp": "A4D0A4A57234FE5BC9979C724FF486A9885F74CEBC49A2B849FFFADECA5566A4",
+  "TailLightRuntime20.inc": "A46F4FC989A83DF983492E94545D0BC8B31BCD9DF1B3E5A4C6A61FA28B66E9D1",
+  "test-baseline-v9/TrafficSignalIdentity.hpp": "AB9A930F636F972FD9FF44D6984AB7D4D39BD9AFF8A0E7117536B00F3E9FF371",
+  "test-baseline-v9/TrafficSignalRegistry.hpp": "3B8F387D6E35E7A2B65FD390685BCAC3FA83EA5485C4696942C3A5434C0176E7",
+  "tests/alias-index91-tests.cpp": "8FB864E1552C37FFFC84A0517BD9CE901C4A46F51185C7BBFBE40153CE9004B9",
+  "tests/alias-queue91-benchmark.cpp": "CDDF5DD36C225394791013D20C4EC7412894A54EED9E791D8F06376C2E77C97F",
+  "tests/alias81-reference.inc": "A3146EDBF9A0CDAF77188491E89680FC319121F25338F173456CE7CFB6699993",
+  "tests/beam-runtime32-tests.cpp": "1D59B39F0E555D23DD050E28BEC9DE083E6F648EAB2F2799B0DBF13C2F9ACB96",
+  "tests/beam-selection32-tests.cpp": "B2E8F8FE02369DB0D51BE7EE57F4B4ADCF6BCC080DD45168214873572E81869D",
+  "tests/benchmark-parent54.inc": "01EA5FECCB779050C50EA460D1E207D67EBF08067DC07BEDF0C96552996E0A88",
+  "tests/brightness164-tests.cpp": "024353B63ED96B4F7662173E85F27794B54613DA16634B30BD50BA7CB9EB3B87",
+  "tests/capture-lease44-tests.cpp": "06D11E4568A73C44465AD4623ACD8E2FAEC2E617B4F9E0230CA9A9BB1131E209",
+  "tests/capture-lifecycle46.cpp": "3834BE13759D9874895610F2B4E106DF994DA3DBB52E1BDA9617E07C5397BCA1",
+  "tests/capture-trace44-tests.cpp": "72C5EC741CDF1EBFA20268C0B1CFB945A8EC72C6047703A3339A520C68CFE28A",
+  "tests/CapturedTargetPackets105.hpp": "D8A446419176AC7737E696E4ED92B627F53BBC0C59ACFE30FC7D34563BDE1BE6",
+  "tests/CapturedWorldValues105.hpp": "C23F7D7DE7AF0EDEA60AE15D168F42C393DCD16CA21DAC6C9C05D4380420E8F1",
+  "tests/clock-config162-tests.cpp": "38210503071DC2D8903F95A2EA1154E3045645F59F49CD1BC172CCD6590AD6EB",
+  "tests/combined-traffic-police-tests.cpp": "1A4196475B0847086EF0F37C322B8F8A66B391C1648BD41E8E74A67D3183782F",
+  "tests/consumer-guard80-tests.cpp": "EBCCD8E07C45467A029B63D78325DF636F9787712AB903569A14548F2ACBD550",
+  "tests/consumer-prefilter142-tests.cpp": "D829CEF74D16444D69C449D73377BAF83D18253AE85E926FE2999627443C21CA",
+  "tests/consumer-reach136-runtime-tests.cpp": "399F2C234F695B61B59102CE3CCCA6B639F543EB09874886E2BA79F9E9B0B885",
+  "tests/consumer-reach136-tests.cpp": "8E77BE98A889C725361315EB253164C9D9E434B52B2D763EB91377A1FC30550A",
+  "tests/consumer-scoped157-tests.cpp": "A73DB35D4B55F1ACBB0B863136593681D8D95460EA4CB69F4F175554599AEFA0",
+  "tests/consumer-shadow75-tests.cpp": "2E44B1BF5CA8F4005B1FBB6B42CA1269D2A8D070489E8C34E15B7B9B3C3A9A7E",
+  "tests/consumer136-baseline.inc": "39D45EA8F172C52637C52C7937A78A28A284C5D7A458E2756CC130513B9B156D",
+  "tests/consumer156-reference.inc": "C8A488A36EA88C9E8A78BF7346057DADA78D7E37621E6494DB838E11EE823F9B",
+  "tests/corona-light20-tests.cpp": "25BDA3CBB709139085AAA41CDB1D86B2C9C339DC361FDC763BA337B499A36B15",
+  "tests/deferred-model-shortlist48-tests.cpp": "310EA1D8D3337AE27E0C44E4E874E6E4C52B462FBCB723D0A734EC319409860D",
+  "tests/dual-issued-keys127-tests.cpp": "9D50B2F9CC9160714A280D5169C541D51BB9703A931A6A015B14A5DA17B936D7",
+  "tests/dual-key-production127-tests.cpp": "F47B6C62A9A954B02F4BB4449A69B9E00C23B74DA4B1C2F890D72782331C3755",
+  "tests/Extract-Brightness164.py": "EC08316CB35FD0F7D8ECE6DD6D8093FA2992AC0602999CD3D78812582D8C06C3",
+  "tests/Extract-HeadCapture146.py": "84ACF14D9072513F92B4FB4DB956F77684E97311DC51777D627B62F19C400997",
+  "tests/Extract-LiveReach122.py": "A84CEE142422BEF84A749D8197A9F68443A970D08A80FBC34921E69122F6DCE8",
+  "tests/Extract-LogPublish150.py": "E53E9F7568E49D53C303D979D3B68A17BF1E4627A9AF083C21EB555952862B7E",
+  "tests/Extract-NativeGraphicsRuntime117.py": "FA6060EACC68B96301C4677E99FAF1A1ECF436355A3C623184D2C0322F316C9D",
+  "tests/Extract-Performance162.py": "3DFDF006109576215A852EC5A28DCE39EAB422E5E92C6818D661D772224B557D",
+  "tests/Extract-PoleCallback134.py": "42911B1FF1CE45DA84962874E9E1B62F17705C933154D13A5A59E003D5750D46",
+  "tests/Extract-Present151.py": "C5ADC398E46A5A3589F51E64B8959C42FEAC6479B5D2909B7CFE6C472E12B35D",
+  "tests/Extract-PublicRuntime125.py": "5F5AA04888F48399B5901EACD2B170A1F9390BFB4403FF8E1F55A4DF1985F1CB",
+  "tests/Extract-SettingsRuntime117.py": "C0874AD25144A8588DF13258C3BA139D469E4F673AA524951E7DFCCD38600C09",
+  "tests/frame-boundary154-tests.cpp": "369EFEB9367085DC57612D7F3AEB426438A5D1CE928945328D581BC55F7BD049",
+  "tests/fresh-read-batch30-tests.cpp": "73A60E970F025CA97D0367135FA62D87606B16EB6FB80F25EC438D969D8CA1F6",
+  "tests/fresh-read-operation44-tests.cpp": "1EC20D2D91F15FAD7DBD2FD3D0F291774A2C5BAC0BE8275E85CED121746B38AD",
+  "tests/fresh-read30-benchmark.cpp": "F3BA37B27468073C1B9D01850BF4BAB1DD3FA8B6F030DB8075F0A377A43FB3A3",
+  "tests/fresh-read31-benchmark.cpp": "33425F4B341DB58FDBDA163A1EAA26C64397E5CD15A402602CE1DA935554D58F",
+  "tests/fresh-region31-tests.cpp": "CF18436B55A99C51750CF8DB66E8105BA83D374131E7341DF249B13F7AE5DD66",
+  "tests/fresh-window49-tests.cpp": "D4A0F409AC5C2A5DB56C1E14E14E92C3E08AB9B20488BBADB788EB6703C945E8",
+  "tests/fusion-backend130-runtime-tests.cpp": "ADDA56BA745DDB55705D295174C2A21820207FB814C020AA8EF7CC393648ECD7",
+  "tests/fusion-backend130-tests.cpp": "9CA2E5EAC1AA2C3FBC70F30BDC88BAC9DCC24672B0F6A3E48E265E905BE0FF37",
+  "tests/gpu-query39-tests.cpp": "D1BB013119614B829DA6E1867E32FC74B0181428348828900CC295853A027087",
+  "tests/gpu-stage48-production-tests.cpp": "25CD1851C41109BC9D78A306B2549B98193E42D08BAD7CFF072B8CB905E655A2",
+  "tests/gpu-stage48-tests.cpp": "384DB497B0D3C1F0F47343C50D68EDFB78B6889DDC12ED06EF1BDE426F2AED0F",
+  "tests/grace-allocation105-reference.inl": "4D0593807D4AB4BCC7BD795E8FD250EB7E5A6028825A23916765DF669560595C",
+  "tests/grace-nearby105-reference.inc": "967DAB9ABAD9284E8D6063AF62BB36C987AE4AB0FA2706F507C1613FFF428245",
+  "tests/grace-prefix108-tests.cpp": "FB3B8C9585B95FE0C574A5C259F1EB7733BB80432A01C9D886EBB2C32398EB60",
+  "tests/head-capture143-baseline.inc": "44E865038B82108DF381E37088DC90DAD9F6C31F4490BBE38F09D8042B738AC6",
+  "tests/head-capture146-tests.cpp": "7AE61E29D86137645648B72CAC6DA2D12DC34D4EA39B69A632EF33027B3B7090",
+  "tests/header-accepted-extracted.inc": "39B014CE0EDB4CD3C6B2181FF482E517F5B0BBD5BF8AEC822F436999C98F2D09",
+  "tests/header-batch-tests.cpp": "D06576D2C2A04C2ABEEE602F6783DF15147D574F458D2E8CFE5B1E1E0ACB447B",
+  "tests/header-candidate-extracted.inc": "E1C4499B87C1911379D9DFBBFE32B730811066C790CE5DD5F28F6DA782603D43",
+  "tests/immediate-region33-tests.cpp": "7D02394EE28744CB3DB560D5E680E67AD01B7C9BF04B5AC1B44582524756DB1A",
+  "tests/live-reach122-tests.cpp": "566BBD1006C707AA26F09BCB2875CD0C0D0DA790E61573CDDF3AC2DB7E7DCB66",
+  "tests/log-publish150-tests.cpp": "9916D21F7080A87F379507C27ECDF90F435E35C7F977B8E8E22F8E727D05FBB0",
+  "tests/memory-read-profile46-tests.cpp": "637B2335F50392993ADD28068749E04BD4F951EDAE2A2DE16C25475DD13FC067",
+  "tests/menu-chain117-tests.cpp": "5F06742ED3D2F64450A4F7A56ED496395009AEBFFFE0CE166FB4923D0784EDF2",
+  "tests/model-deferred-validation46-tests.cpp": "4AB88C327B83DAAFD7A8A96ABC7B155ED4EE252F6CA7434208C0BD6F843FAC07",
+  "tests/model-effect-getter62-log-tests.cpp": "CDD4BAA7CEE3612AAC528ED66A393A672838457D7D845F018F376E76B3A9E3AA",
+  "tests/model-effect-getter62-tests.cpp": "757D92AB13CE40E0B9785611E98655DA64A11FAC55938854E93672B0FED7B1A5",
+  "tests/model-effect-observer-tests.cpp": "C7FA7A87685CAADD371627B85787745C376F8F170CB767AE6D28ADB4035CBFCA",
+  "tests/model-key-ownership108-tests.cpp": "86304F4AF58AFCED7F695730BD14CCF1AFD0421D35FC93DA13910EC2D63343CA",
+  "tests/model-light-registry20-tests.cpp": "3FE3F3B9650A0FC539C562DF8D2D1F5DE0CCA6AC820588B7E364612950672D5E",
+  "tests/model-light-submission20-tests.cpp": "45558CC60737ACE43467F544A026F2B0632BED0D3DF83D046F14E14082F4ADDA",
+  "tests/model-native-association77-tests.cpp": "39CC377C6B548D98892B1D9B8A553E04481A7008CCFFD12D7FE9537B468545E6",
+  "tests/model-native-inactive40-tests.cpp": "53D11B75831AA41E519B2B6753960AF5BA0EE60DCE2CF2E9E48F1F8F1E7A5BF9",
+  "tests/model-owner-batch48-tests.cpp": "F14813A6AD33C0F57A2B7B17187BB54937325FF1F0C2C9739D93F9B479921209",
+  "tests/model-owner-transform46-tests.cpp": "19243B15997CBC46956366DE08CD95A437965F1118113FB717725D8CF4006951",
+  "tests/model-point-value68-tests.cpp": "2F8936C86104D28E30344EA2EE10374F018C37390C1AB806A8472532391A805F",
+  "tests/model-publish143-reference.inc": "BE51AAFC2DBF644EEF96B0D59478311CC242C6C09FE47F8AC1A82F250DAD53B2",
+  "tests/native-batch115-cases.inc": "BDD3BC6DD8F584DC8F2189362663F925FC10BE20C4B2FD77ED0AE902600F0CE5",
+  "tests/native-class-domains105-tests.cpp": "66AFFBE57F5E793CC88FAF6C22DD4C22143CC2E6D7C6B0959BC4CC72369A1FF5",
+  "tests/native-copy-guard70-tests.cpp": "C5F2117F6CAA7D63640C584BF83421D287A2113881028E7E014BDFBAE4C98130",
+  "tests/native-graphics-menu117-tests.cpp": "ECE7DCEFB2AD088CA3AAFF26422DA408976C9BE8929FAEC27B2964FE710A19AD",
+  "tests/native-graphics-runtime117-tests.cpp": "7AC76AADF4B620A1362DB073ACE7616B1AFC1A9888B4BE39921551B55BBFA451",
+  "tests/native-night-runtime128-tests.cpp": "92C0D18D1CAEF88B2777585161FA9FDE111A94463D2237DC0C9E207E6A0AC163",
+  "tests/native-night128-tests.cpp": "C17D755B2214406E891F1DC4A2FD4B0CA0E9F7B034398ECE7C43392EEFD5C917",
+  "tests/native-owner-baseline111/ModelQueuedScratch59Runtime.inc": "1E1984BE07A6B67D863A794A1CDB1ABDDCF44DF77B40E958F371865498DE28BB",
+  "tests/native-owner-baseline111/ModelQueuedWindow49Runtime.inc": "81DDAC266D707B441D5397B28D1C227AF9245648A1A64A05188C232271E76266",
+  "tests/native-owner-baseline111/validate.inc": "B16E13E940024731192F48A12114F00B54302314F16B39DA200510100E705DE0",
+  "tests/native-pool71.hpp": "703CA8A503CAC3DB18FB695E79A072BCAA8A9F7DFBC4124B6BB893BADAAFBFE1",
+  "tests/native-producer-gate116-runtime-tests.cpp": "F5052AFD0748EBB4BD504687C277E3CF4A5F88D75333D2F52DD4C22C262F3B1E",
+  "tests/native-producer-gate116-tests.cpp": "2D4315EE07DBF2DAC4E2BD3519CFEB09D4B83CD45C2F7F448C2B53ECC78B5E4A",
+  "tests/native-projection-intern66-tests.cpp": "C3EC23BD2F049ECDE83601D9AC05FA2BAFA7D48159C3C4B5C06473D184FDCA6D",
+  "tests/native-projection-sidecar66-tests.cpp": "DBDBDE5FD0DEDAB42E5B8C69D4EBA8E3989D4F3222334E53E0C5CA2B812A6C4E",
+  "tests/native-projection66-tests.cpp": "329406451398C21946E8F9C0317059C7FDD8ED9430CFE3F2A1C481A30B3532D9",
+  "tests/native-shortlist-collect48-tests.cpp": "E04DB740E67341997BCA32DA98F90CF92F07B1F09EDCB2060BF5ED138D77F30B",
+  "tests/native-shortlist-preview48-tests.cpp": "4A12AFC6707363D8597C065D2B64529252C9428AF498AFDFC27BB141365A1D8B",
+  "tests/NativeBytes77.hpp": "BE79574862040F906AE2B94F5FB56655E1DD0E953DCBA658E76199F455CD9837",
+  "tests/owner-runtime32-tests.cpp": "6FF74728C20653F56CDF984DD901A81DAAC2A321A106BAD36C883B6208341592",
+  "tests/parallel-selection61-tests.cpp": "1687F95FF1975A8BF44746C0217C814D2807A8211A83156EC5E4BDDB5C7B7BE8",
+  "tests/parent-owner53-reference.inc": "E843A55E7AF2C6DC0980A97A5DDCBE8F35695A4F8756D29CF5D723B5AD097003",
+  "tests/parent-queued53-reference.inc": "F393FD78138FAE2CAA7225F8705F87A95040A0D94184A16E042126ACF4FF4210",
+  "tests/performance-equivalence-tests.cpp": "986B2B3C014DE998E5911EEA3E28F7B7E49E41C2B862B28F5E5B4A47611DA221",
+  "tests/physical-lamp-continuity-tests.cpp": "054BB09B8F24CC8E93C795CE25B8DF16B5869DA4434CDCBDD60EFDD66B07D50D",
+  "tests/player-camera-allocation-tests.cpp": "943D16370342A1E9A7052D09851C869C6C3F44A63E7104AEB15681CE0683DB17",
+  "tests/point-permissions47-tests.cpp": "F6DE02C1066B0B55BC38B577CEBFEF786ACD3E760C9E3E0492FDBDCAEDB0BC2A",
+  "tests/point-production50-tests.cpp": "2FE4AA821F9D8862BB5192471B18CBE71D121CC53AD7E18F00BC83F22209F9EB",
+  "tests/pole-batch144-tests.cpp": "D12B7448627814AC483AC5A38997DB87E78E2323356DD540F68897029F51A879",
+  "tests/pole-callback134-production-tests.cpp": "5F04A09A362EC08FF66B7E184CA55C2F898F5C54E251C899814B28DD10A86787",
+  "tests/pole-draw145-runtime-tests.cpp": "5A877678F3ECE79BEEB48D1590988A13A1F2BFB01F4E7212F19A49BD289C1FF5",
+  "tests/pole-permission147b-tests.cpp": "90A7214EDA0B297354E5E52352C7B18B84701180F2A474B8B4FAEC43B0F2D38A",
+  "tests/pole-prefilter160-tests.cpp": "54ECB8AD2036891477BB2FE703AC1F9E63ACCD1AD785E7072F1083E5C1D06FBA",
+  "tests/pole-reclassify158-reference.inc": "C7ACA54C346FCD923F6FAB56717BEF94A3B3E950247F52E7882241A24534B85B",
+  "tests/pole-snapshot143-reference.hpp": "FB09FAC94F7CF1DB89E0AEDA10B0688F4793FBA9B52868693F9E32F651AD218B",
+  "tests/present-time151-tests.cpp": "15201E5CD07E33493B7E49F8789A0EF2A62AADC492B7A4F9F5D58D51E67A56C5",
+  "tests/projection-domains101-tests.cpp": "F8DF833931CE18ACA91DED36637EF3C53C341D675F7D14600E8E1DB2FADC2ACD",
+  "tests/projection-identity74-tests.cpp": "5FAD86730276074E06C659C89D39C2B014E11D0857E39CCC09E64807A2EE53D3",
+  "tests/projection-snow70-tests.cpp": "9DBE42DE097E8070D85CCBF89B5F6829A1802C6D4BAFEE7CF91F2EFFC195A671",
+  "tests/projection-volume78-tests.cpp": "C9B8219DBBCB3C7EA09A98E47F8035E42D3D179D7B331691E84D4ED25D31A674",
+  "tests/promote-baseline49.inc": "673E6CBCCC7DC2B2985732D8C62911E6D349CA876BB7C977F84E6D90CB2747F4",
+  "tests/promote-batch49-tests.cpp": "8791F31093D95255565B977696505C1603C61F0990857611355367D8F7041279",
+  "tests/public-runtime125-tests.cpp": "50BC544C3887F022FA8B35D1843FE8D3EB10ECDF97EE3ADE7F35FAC4BC23702B",
+  "tests/public-settings93-tests.cpp": "206E036C096805879E1BDB9B59D5722313EB6DF33B173ED30EE836978AF38771",
+  "tests/public-startup124-tests.cpp": "C7163078CF8D7626D198EDB2163CE59C21DA7A8A26C1819CFA40060ABE317DE2",
+  "tests/queued-permission54-tests.cpp": "ADB4210D65DD6BFB3084E16175B06251D1304C777FDB737A6FC3A98B7D384917",
+  "tests/queued-scratch59-benchmark.cpp": "DB0076065BA2A424AF2B50AFDD2DC495B83A0DA8A135AFD4792A7B94BF6643EE",
+  "tests/queued-scratch59-tests.cpp": "760AB7F5E65E6B73E3DC9B1F56F7E33A7AF81EAE26C02E4C5EAC38A613693F90",
+  "tests/queued-window49-tests.cpp": "8C15C888BCD52F2EA8027E844E0DA4CCD3C443FFBE3D970D94D29BD8147F8F7F",
+  "tests/readscope147-tests.cpp": "95B06D71390AF9DF7F2D9B6C0E7A326A44C5F447B8555E382549B38CDC2DB18B",
+  "tests/receiver-consequence44-tests.cpp": "11C434D47DA51CB8D33A07B2771D1025DA90ADE6501824AA44BE3DAA772665F6",
+  "tests/reclassify158-body.inc": "F192DA59CB7003104486809FBD940C589A0D7D3E86F55023454F6136612A0A5A",
+  "tests/recorded-spacer124-tests.cpp": "49C08EEEF98BBE8048A763A64A0E233960D18D5978C36005EAFBBF95032AF8FB",
+  "tests/RecordedWorldPackets101.hpp": "31FFE2B9C04ACB29842BB918951BEAAB72F8E59DDF5B5D76696B85CFE67F5E5E",
+  "tests/reference-certificate32.hpp": "AB74620B7F988C7380F7EA61611490B8CA0389561CA01A81EF28EBBBF805536A",
+  "tests/reference-owner32.inc": "EF45DCDDCB368008DE5F7A299AA12DFB1F00E0B27E55BA301F42F1DA36EA17A8",
+  "tests/reference-queued32.inc": "DEE2C7449CA23309643D5E37243232CB9D3D13B3EC6B1D6F1B59EDDBAAEE897F",
+  "tests/reference-window32.hpp": "AF676DCB57FE4A918C1E65BBDE643710AF7ED2194B987F73B5F69C0A6987DAA7",
+  "tests/scene-score96-tests.cpp": "8E906A0FB2D3AE11ED92F93CCB168FDCDF751742A71A6966EF0B5DFC0883C0FF",
+  "tests/settings-runtime117-tests.cpp": "9BBA52A74CC8FC0C9613D9A0A49A6DDA7A9F969567C9C3B80F03922CBF4350DF",
+  "tests/settings117-tests.cpp": "CB929C9F25F9486419296F0AC4B7F3584E360450CAD1A77C12BC7CEBFC60B639",
+  "tests/shadow-cpu-profile29-tests.cpp": "990680E69FCD77D678B2DF5C24C13FE5808136153BA2F02E81E9687046495820",
+  "tests/shadow-key-isolation27-tests.cpp": "3A9E95D7A7DB53C302E84CA4142C93403BD64E9169D59C1ACD5E85F289412D78",
+  "tests/shadow-selection-loss38-tests.cpp": "EDDBBF3F56F721C80E9A2480D2A0D7BD5086F0280176729F74B1536C59CD3AB8",
+  "tests/shadow-transition69-tests.cpp": "DC2BFBB84EB9DC10ACC9F323E44C2626830E534CA7C279B317923C870CD35994",
+  "tests/shortlist-helper48-tests.cpp": "DBD412A08311AEE5A9A99FC4E0CDBD182D01349E983A1BB32FE1150B798A3967",
+  "tests/standalone-lab-blink-tests.cpp": "544B336AFABCACAA942D0E90CB5BB73188FB98ED27B896B56B0F4C837300A1EE",
+  "tests/standalone-lab-police-tests.cpp": "9E868E4715961487BF4FDDFA3331BD8E33AB664E0C55B4EB1375EF136BC0386E",
+  "tests/standalone-lab-siren-tests.cpp": "780B7E09BEB85F8AA61BF7928D35D184DC2CB24FAA3CB2039A9FC01A2A6C7BCC",
+  "tests/standalone-lab-vacancy-tests.cpp": "4CDB8DD6E20D2B5A90C0E08FEDFF47AE6EBA82B93E1BEF666F96EB9742F382CC",
+  "tests/standalone-log-tests.cpp": "A9515F95535C040C62B91FD90C5D42746023983377F3604BA11F3B3EFC8FC7AC",
+  "tests/standalone-nearby-police-tests.cpp": "E1740A850E7A061EDA922A04C8F8B3B7E287DB742E58AA13607D8CDE2F7E4815",
+  "tests/standalone-ownership-tests.cpp": "DA2038066D0E456A18EAF447FA05A7139EF1CFBB1025988C9FD8FBD116214168",
+  "tests/startup-conflict129-tests.cpp": "32F38DB3564BDF5A21AAF56E3252AA0F34EF29633F84EF06819580DF6B8D43FF",
+  "tests/tail-light20-tests.cpp": "E31EBF469AE4D997EFC94A711C1775CBC6003FC60AD14D927A4F3E51400BEA28",
+  "tests/traffic-auth71-tests.cpp": "83F9A18E67FC9CA9882BA27A761B751128EF03F1E2570648D6E031BD10E0FC53",
+  "tests/traffic-distance-equivalence-tests.cpp": "62AD385274E5D0281A8E63BE8763DE6EA50200C75BEFC8EFEE93172AD603ADB5",
+  "tests/traffic-pool-hook-guard-tests.cpp": "FE05AEE67B74EE57C0606B704ECCABE0BE56C59E8BDFC561755FD9F0CE7CC74F",
+  "tests/traffic-signal-identity-tests.cpp": "CA9A2916D6C55CB6F15D7E121074012C1528D9023560067068637FC677FA68B5",
+  "tests/traffic-signal-promotion-tests.cpp": "E62A3452BE36156EB7CB76454AB1F415F5DB8FD742C0A93F2B3CE29652038CF2",
+  "tests/traffic-signal-registry-tests.cpp": "E52C4AF91BE0268B0DF1FD8E83E65AF7ABB945A7032AAF8B3B84770804984271",
+  "tests/vehicle-lamps20-tests.cpp": "56C69A56DE332E0F06A1E407672BE625B2CBAA2EB5BE6FAC3BBEC04B2D649125",
+  "tests/visible-receiver133-runtime-tests.cpp": "92C671F2457C35A2074AFE562FBA3AC355601C84C07158B728C675FF8CA3438B",
+  "tests/visible-receiver133-tests.cpp": "E077BC50809AB0E075A6EEB8D50C10A730609805861AB2434DA895A0796BFE0B",
+  "tests/world-caster-mask20-tests.cpp": "ED290CFD8017048EC13269076BBA2E16D02BDDE822AD583E5F3DE0497956943E",
+  "tests/world-counters162-tests.cpp": "AA2E2DB71312F8FE1C40531980E761CC4812CDA7703F84BAF5FC2353366124F1",
+  "traffic-native-auth71-tests.cmake": "2888A1005E35CE50E9E5321553E8611F17CFEF010CB47FC8FFE81F03FA17D43A",
+  "traffic-signal-observer.inc": "D9280E21D8190FB9C18B78BF91D3D9869B0BA9049725380D382A56CB1DA365B5",
+  "TrafficPoolHookGuard.hpp": "48E23926723035564950EEC56104414B2C784148FB1E770410DD3B9BB33E26A7",
+  "TrafficSignalBrightness164.hpp": "D73D18B1CE88F462FE5E80AA3EC11C66CA33F84F0ADF3962F68668A3D22E9D6D",
+  "TrafficSignalDistanceGate.hpp": "5D8C621B8FBE84513951D48F2C8663A505AF02D9E056420CE61C225D3C7B6755",
+  "TrafficSignalIdentity.hpp": "AB9A930F636F972FD9FF44D6984AB7D4D39BD9AFF8A0E7117536B00F3E9FF371",
+  "TrafficSignalNativeQueue.hpp": "959B94ED9C9C84D7AB41A9656DFA3CE3B62C79420FD86BA62F03F0545C20D886",
+  "TrafficSignalPromotion.hpp": "43D628636721C42079AEA57DDEE3CA9F9D612E897AD249757D9E2AC76DA13C3C",
+  "TrafficSignalRegistry.hpp": "F99E1A041BA372F08262F78A5C88D25E72A92A891655A4D7FD8B5C1348653EAC",
+  "VehicleLampIdentity20.hpp": "DBEA891B2FFC8ECEF66DA7A75038607BDA81CCE8B22FACAEE8FCA885C4DEA8D7",
+  "visible-receiver133-tests.cmake": "D44DD8CB6A1C274F898B888673F47ADCC5B086140813E3B7D465E0927C07DD13",
+  "WorldCasterMask20.hpp": "ACA00AF60B5DE03EDA230354115AC0995732F7ECF230F7A307079D21A04F06EA",
+  "WorldGeometry20Runtime.inc": "0C85B7D227D8F77E0166E29D6F7B49BB412A6BCE41143627D4D85B6E3821403F",
+  "WorldGeometryCatalogRuntime20.inc": "66735D79C18D4C4BB46D9B69914A9F6D35036EF08D84BDBFA0B4F7CAF5B1BE11"
 }

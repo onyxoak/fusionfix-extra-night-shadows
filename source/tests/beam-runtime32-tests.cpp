@@ -9,6 +9,7 @@
 #include <vector>
 #include "core/ShadowAdapterCE.hpp"
 #include "VehicleLampIdentity20.hpp"
+#include "DualIssuedKeys127.hpp"
 #include "ImmediateRegion33.hpp"
 #include "FreshReadBatch30.hpp"
 namespace rage {struct VehiclePool {uint8_t* m_aStorage;uint8_t* m_aFlags;int32_t m_nSize,m_nStorageSize,m_nFirstFreeIndex,m_numSlotsUsed;};}
@@ -27,6 +28,7 @@ namespace TrafficSignal {bool Readable(uintptr_t address,size_t bytes) noexcept 
 namespace Liberty20 {
 std::atomic<bool> dualActive{true};std::atomic_flag registryLock=ATOMIC_FLAG_INIT;std::atomic<unsigned> contentions{};
 alignas(64) uint8_t keyStorage[16384][64]{};liberty20::VehicleLampRegistry<> lampRegistry;
+dual_keys127::PublishedKeys<> publishedKeys127;
 #include "beam-runtime32-extracted.inc"
 }
 int main(){
@@ -39,6 +41,10 @@ int main(){
  liberty20::VehicleIdentity identity{};reads=0;batchQueries36=0;assert(Liberty20::Vehicle(uint32_t(reinterpret_cast<uintptr_t>(owner)),identity));
  assert(reads==3&&batchQueries36==2);std::cout<<"Vehicle36: 3 scalar + 2 batch queries; previous production path used 9 scalar queries.\n";
  assert(Liberty20::lampRegistry.Configure(uint32_t(reinterpret_cast<uintptr_t>(Liberty20::keyStorage))));auto pair=Liberty20::lampRegistry.Observe(identity,frame);assert(pair);auto key=pair->keys[0];
+ // Allocated-but-unpublished is not our source identity or caster authority.
+ reads=0;assert(!Liberty20::VehicleBeam(key,identity.owner));
+ assert(!Liberty20::BeamOwner(key));assert(!Liberty20::BeamOrder(key));assert(reads==0);
+ assert(Liberty20::publishedKeys127.PublishPair(uint32_t(reinterpret_cast<uintptr_t>(Liberty20::keyStorage)),pair->keys));
  using namespace fusionfix::shadows::ce;
  AdditionalVehicleBeam=Liberty20::VehicleBeam;AdditionalVehicleBeamOwner=Liberty20::BeamOwner;AdditionalVehicleBeamOrder=Liberty20::BeamOrder;
  reads=0;auto legacy=ResolveBeamSelection32(key,identity.owner);auto oldReads=reads;
@@ -52,5 +58,7 @@ int main(){
  assert(!legacy.own&&!combined.own&&legacy.privateOwner==combined.privateOwner&&oldReads==newReads);
  flags[0]=8;auto reused=ResolveBeamSelection32(key,identity.owner);assert(!reused.own&&!reused.privateOwner&&!reused.order);flags[0]=7;
  Liberty20::lampRegistry.Free(identity.pool,identity.owner,identity.slot);auto freed=ResolveBeamSelection32(key,identity.owner);assert(!freed.own&&!freed.privateOwner);
+ assert(Liberty20::publishedKeys127.Contains(uint32_t(reinterpret_cast<uintptr_t>(Liberty20::keyStorage)),key));
+ reads=0;assert(!Liberty20::BeamOwner(key+1));assert(!Liberty20::VehicleBeam(key+1,identity.owner));assert(reads==0);
  assert(VirtualFree(owner,0,MEM_RELEASE));std::cout<<"Traffic equivalence, current reference changes, and freed keys rejected.\n";
 }

@@ -125,7 +125,7 @@ HRESULT STDMETHODCALLTYPE End(IDirect3DDevice9* d) {
  return endHook.original<HRESULT(STDMETHODCALLTYPE*)(IDirect3DDevice9*)>()(d);
 }
 HRESULT STDMETHODCALLTYPE Present(IDirect3DDevice9* d,const RECT* source,const RECT* destination,HWND window,const RGNDATA* dirty) {
- const auto hr=presentHook.original<HRESULT(STDMETHODCALLTYPE*)(IDirect3DDevice9*,const RECT*,const RECT*,HWND,const RGNDATA*)>()(d,source,destination,window,dirty);
+ const auto hr=FrameTime151::Call(presentHook.original<FrameTime151::NativePresent>(),d,source,destination,window,dirty);
  if(!enabled.load()&&!stopRequested.load())return hr;
  {const StateScope state;try{
   if(!resetGate.Blocked()&&(enabled.load()||stopRequested.load())&&Current(d)&&Thread(false)){
@@ -143,6 +143,7 @@ HRESULT STDMETHODCALLTYPE Reset(IDirect3DDevice9* d,D3DPRESENT_PARAMETERS* param
  bool affected=false;
  {const StateScope state;const std::lock_guard lock(measurementMutex);affected=current||boundFacade==d;if(affected){resetGate.Begin();StopOnOwner();++resets;}}
  const auto hr=resetHook.original<HRESULT(STDMETHODCALLTYPE*)(IDirect3DDevice9*,D3DPRESENT_PARAMETERS*)>()(d,parameters);
+ if(affected)FrameTime151::ObserveReset();
  {const StateScope state;if(affected){const std::lock_guard lock(measurementMutex);unavailable=FAILED(hr);reason=FAILED(hr)?5:0;ownerThread=0;if(SUCCEEDED(hr)&&enabled.load())stopRequested=false;++generation;resetGate.End();}}
  return hr;
 }

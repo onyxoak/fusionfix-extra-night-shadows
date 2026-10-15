@@ -25,9 +25,11 @@ bool (*matchModelConstructor66)(const native_projection66::ConstructorContext&) 
 uint32_t (*legacyFallback66)(Packet&,uint32_t,const native_projection66::ConstructorContext&) noexcept=nullptr;
 void (*constructorCompleted66)(bool,const native_projection66::ConstructorContext&) noexcept=nullptr;
 bool Enabled() noexcept {return requested&&active.load(std::memory_order_acquire)&&addonActive.load(std::memory_order_acquire)&&PlayerShadowAllocation::Enabled()&&bool(bExtraNightShadows);}
-bool CopyPacket(const rage::CLightSource& light,Packet& p,bool fresh=true) noexcept {
+bool CopyPacket(const rage::CLightSource& light,Packet& p,bool fresh=true,unsigned* queryCount133=nullptr) noexcept {
+ if(queryCount133)*queryCount133=0;
  p={};if(fresh){++winnerPreflights;const auto permission=native_projection66::Preflight(reinterpret_cast<uintptr_t>(&light),0x78);
   permissionQueries.fetch_add(permission.queries,std::memory_order_relaxed);
+  if(queryCount133)*queryCount133=permission.queries;
   if(!permission.allowed){++winnerDenied;return false;}
  }
  const auto copied=Liberty20::CopyLocal(reinterpret_cast<uintptr_t>(&light),p.data(),0x78);

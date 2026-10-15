@@ -71,7 +71,7 @@ uint32_t Promote(SafetyHookContext& regs,const model_effect_observer::Invocation
 bool ValidateOne48(rage::CLightSource& l) noexcept {
  const auto key=uint32_t(l.mCastShadows);
  if(!registry.Contains(key)||!(l.mFlags&4u))return true;
- const traffic_signal::fresh_page::Operation44 queuedReadOperation47;
+ const traffic_signal::fresh_page::Operation44 queuedReadOperation47(32);
  bool valid=false;
  if(active.load(std::memory_order_acquire)&&!lock.test_and_set(std::memory_order_acquire)){
   auto* entry=registry.Lookup(key);TrafficSignal::Match fresh{};std::array<uint8_t,0x6c> bytes{};
@@ -116,4 +116,5 @@ void Publish() {
   scratchAllocationFallback59.load(std::memory_order_relaxed)));
 }
 }
+
 

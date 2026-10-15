@@ -6,5 +6,13 @@
     "source_sha256": "1e8f1f5a30d14fc36d8bd1b9d0cdd49c22fdcdb150723b160a14b9a0af02825e",
     "asi_sha256": "903ce8c32126301ffe8e3cc04b2ac487a8725d93baf3cd34fc0113277316562d",
     "source_files": 351
+  },
+  {
+    "version": "2.0.1",
+    "candidate": 164,
+    "player_sha256": "8f161260b0c1f3e17045101e4a570f29c13c60fc78d1e018c8de358949292a5f",
+    "source_sha256": "53a75256d8fbf54349dd6ea8da1e14c7c6a7f63cef7e49ce74402005dd94baba",
+    "asi_sha256": "bcff08e78fc2d3806e1df066fff2a664b76a209544d09376ec28f1ad0c33849d",
+    "source_files": 438
   }
 ]

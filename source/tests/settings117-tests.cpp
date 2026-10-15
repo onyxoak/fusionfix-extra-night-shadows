@@ -9,6 +9,7 @@ namespace preset117 {ReadResult startup;}
 using namespace preset117;
 int main(){
  const auto low=*Defaults(Preset::Low),medium=*Defaults(Preset::Medium),high=*Defaults(Preset::High);
+ assert(State{}.lampReachSteps==50&&low.lampReachSteps==40&&medium.lampReachSteps==40&&high.lampReachSteps==50);for(const auto& named162:{low,medium,high})assert(named162.headlightReachSteps==10);assert(Requests(high).lampReach==50&&Requests(high).headlightReach==10);
  assert(Requests(low).base&&!Requests(low).dual&&!Requests(low).model&&!Requests(low).projection&&!Requests(low).worldGeometry);
  assert(Requests(medium).traffic&&Requests(medium).emergency&&!Requests(medium).model&&!Requests(medium).tail);
  const auto p=Requests(high);assert(p.base&&p.dual&&p.tail&&p.traffic&&p.emergency&&p.model&&p.corona&&p.projection&&p.keyedWorld&&p.worldGeometry);
@@ -42,6 +43,8 @@ int main(){
   assert(migrated125.migrated&&!migrated125.invalid&&migrated125.state==custom125&&migrated125.state.preset==Preset::Custom);
  }
  assert(Save(f,high));
+ //162 High is canonical250ft even when an old200ft snapshot remains serialized.
+ assert(WritePrivateProfileStringW(liberty_settings93::Section,L"StreetlightReachFeet",L"200",f.c_str()));assert(WritePrivateProfileStringW(liberty_settings93::Section,L"HeadlightReachFeet",L"75",f.c_str()));assert(Read(f.c_str()).state==high&&Read(f.c_str()).state.lampReachSteps==50&&Read(f.c_str()).state.headlightReachSteps==10);auto restore162=medium;assert(Select(restore162,Preset::High)&&restore162==high&&Save(f,restore162));
  auto custom=high;Change(custom,Feature::WorldLighting,false);assert(ChangeReach(custom,true,80)&&ChangeReach(custom,false,30));assert(Save(f,custom)&&Read(f.c_str()).state==custom);
  custom.enabled=false;assert(Save(f,custom));assert(Read(f.c_str()).state==custom);assert(WritePrivateProfileStringW(liberty_settings93::Section,L"Preset",L"Unknown",f.c_str()));r=Read(f.c_str());assert(r.invalid&&!r.state.enabled&&Implementation(r.state)==Engine::None);
  assert(WritePrivateProfileStringW(liberty_settings93::Section,L"SchemaVersion",L"999",f.c_str()));assert(!Read(f.c_str()).state.enabled&&Read(f.c_str()).invalid);

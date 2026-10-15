@@ -1,4 +1,6 @@
 #define NOMINMAX
+#include "FreshPageReadable.hpp"
+#include "ImmediateRegion33.hpp"
 #include <windows.h>
 #include <array>
 #include <atomic>
@@ -34,6 +36,7 @@ bool Copy(uintptr_t p,void* out,size_t n) noexcept {
  }return Contained(p,out,n);
 }
 }
+namespace ConsumerReach136 {inline void Observe(consumer_shadow75::Stage,SafetyHookContext&) noexcept{}}
 namespace ConsumerShadow75 {
 std::atomic<bool> active{false};thread_local consumer_shadow75::Context context;thread_local bool busy=false;
 consumer_shadow75::FrameBudget budget,unkeyedBudget;std::atomic<uint32_t> completed{},refused{},limited{},sizeRejected{};
@@ -91,3 +94,5 @@ int main(){
  s.sizeGate=0;consumer_shadow75::Calculate(s);assert(!s.reproduced);s.ratio=NAN;consumer_shadow75::Calculate(s);assert(!s.finite);
  return 0;
 }
+
+

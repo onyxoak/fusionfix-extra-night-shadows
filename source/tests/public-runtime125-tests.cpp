@@ -17,6 +17,7 @@ namespace ModelLightShadow20 {bool requested{};}
 namespace CoronaLight20 {bool requested{};}
 namespace NativeProjection66 {bool requested{},replacementRequested{};}
 namespace ModelEffectObserver {bool requested{};}
+namespace ConsumerReach136 {bool requested{};}
 namespace ConsumerShadow75 {bool requested{};}
 namespace NativeProducerGate116 {bool requested{};}
 namespace PlayerShadowAllocation {bool additionalFeatures{};}
@@ -70,3 +71,4 @@ int main(){
  assert(std::filesystem::remove(pe::profile125));
  std::cout<<"PASS125 actual Configure/500ms UpdateProof+UpdateNearby+Poll prefixes: minimal schema3 persists/public stale private keys ignored/Low Custom Off staydisabled/legacy rereads+retirement unchanged/no public INI reads\n";
 }
+

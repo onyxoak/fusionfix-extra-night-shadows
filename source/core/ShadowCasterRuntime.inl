@@ -17,6 +17,11 @@ namespace OwnHeadlightCaster
     static std::atomic<uint32_t> casterVisits{0}, carExcluded{0}, occupantsExcluded{0};
     static std::atomic<uint32_t> trafficCarExcluded{0};
     static uintptr_t (*additionalCasterOwner)(uintptr_t) noexcept=nullptr;
+    // Set only by our owned dual-lamp adapter installation; recheck the tuple
+    // on every pass so foreign/legacy adapters retain their original behavior.
+    static decltype(fusionfix::shadows::ce::AdditionalVehicleBeamPriority32) singlePriority146=nullptr;
+    static decltype(fusionfix::shadows::ce::AdditionalVehicleBeamOwner) singleOwner146=nullptr;
+    static decltype(fusionfix::shadows::ce::AdditionalVehicleBeam) singleBeam146=nullptr;
 
     static policy::Context Capture(void* renderPass) noexcept
     {
@@ -45,12 +50,20 @@ namespace OwnHeadlightCaster
         if(labRenderObserver)labRenderObserver(key,slot,kind,active);
         const bool headlights=bHeadlightShadows && bVehicleNightShadows;
         const auto car = CPlayer::findPlayerCar?CPlayer::findPlayerCar():0;
+        const bool nativeOwn146=car && (key==car || (car<UINTPTR_MAX && key==car+1));
+        const bool singleWitness146=headlights && kind==4 && active &&
+            (bTrafficSelfShadowFix || (car && !nativeOwn146)) && singlePriority146 &&
+            fusionfix::shadows::ce::AdditionalVehicleBeamPriority32==singlePriority146 &&
+            fusionfix::shadows::ce::AdditionalVehicleBeamOwner==singleOwner146 &&
+            fusionfix::shadows::ce::AdditionalVehicleBeam==singleBeam146;
+        fusionfix::shadows::ce::BeamSelection32 selection146{};
+        if(singleWitness146) selection146=fusionfix::shadows::ce::ResolveBeamSelection32(key,car);
         // The inherited 64-key submission history is smaller than a busy
         // scene's two-per-car key set. Private lamp authority comes from the
         // fresh pool/model lifetime registry, not that lossy admission cache.
         if (headlights && bTrafficSelfShadowFix && kind == 4 && active &&
             fusionfix::shadows::ce::AdditionalVehicleBeamOwner)
-            result.trafficBeamOwner = fusionfix::shadows::ce::AdditionalVehicleBeamOwner(key);
+            result.trafficBeamOwner = singleWitness146?selection146.privateOwner:fusionfix::shadows::ce::AdditionalVehicleBeamOwner(key);
         if (bTrafficSelfShadowFix && kind == 4 && active && !result.trafficBeamOwner && additionalCasterOwner)
             result.trafficBeamOwner = additionalCasterOwner(key);
         // Exclude only the source vehicle from its own immediate
@@ -59,7 +72,7 @@ namespace OwnHeadlightCaster
         if (headlights && bTrafficSelfShadowFix && kind == 4 && active &&
             CShadows::gStableHeadlightShadow.IsSubmittedBeam(key))
             result.trafficBeamKey = key;
-        if (!headlights || !policy::OwnBeam(slot, kind, active, key, car)) return result;
+        if (!headlights || !(singleWitness146?selection146.own:policy::OwnBeam(slot, kind, active, key, car))) return result;
         result.car = car;
         result.ownBeam = true;
         // Audited CE/official FusionFix: driver followed by eight passengers.
@@ -173,6 +186,7 @@ namespace ShadowDiagnostics
         catch (...) {}
     }
 }
+
 
 
 

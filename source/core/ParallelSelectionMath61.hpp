@@ -4,6 +4,7 @@
 #define NOMINMAX
 #endif
 #include "SceneShadowPriority21.hpp"
+#include "VisibleReceiverRanking133.hpp"
 #include "ShadowVolumeVisibility43.hpp"
 #include "ShadowFloatingPointState.hpp"
 #include <windows.h>
@@ -20,7 +21,7 @@ constexpr unsigned Slots=8192; // two independent pure phases per4096 native ind
 struct ErrorScope {DWORD error=GetLastError();~ErrorScope(){SetLastError(error);}};
 struct Scope {DWORD error=GetLastError();FloatingPointState fp;~Scope(){SetLastError(error);}};
 struct Context {
- ShadowView view{};Vec3 player{},focus{};uint32_t driving{};float strength{};uint32_t mxcsr{};uint16_t control{};
+ ShadowView view{};Vec3 player{},focus{};uint32_t driving{};float strength{};uint32_t mxcsr{};uint16_t control{};uint32_t visibleReceiver133{};float lampReach133{};
 };
 inline void CaptureControl(Context& c) noexcept {c.mxcsr=_mm_getcsr()&~0x3fu;
 #if defined(_M_IX86)
@@ -35,7 +36,8 @@ inline bool Equal(const Context&a,const Context&b) noexcept {
  return a.view.valid==b.view.valid&&!std::memcmp(a.view.view,b.view.view,sizeof(a.view.view))&&
  !std::memcmp(a.view.projection,b.view.projection,sizeof(a.view.projection))&&
  !std::memcmp(&a.player,&b.player,sizeof(a.player))&&!std::memcmp(&a.focus,&b.focus,sizeof(a.focus))&&
- a.driving==b.driving&&!std::memcmp(&a.strength,&b.strength,4)&&a.mxcsr==b.mxcsr&&a.control==b.control;
+ a.driving==b.driving&&!std::memcmp(&a.strength,&b.strength,4)&&a.mxcsr==b.mxcsr&&a.control==b.control&&
+ a.visibleReceiver133==b.visibleReceiver133&&!std::memcmp(&a.lampReach133,&b.lampReach133,4);
 }
 // Match precisely the numeric dependencies of each Compute phase.
 inline bool EqualPhase(const Context&a,const Context&b,unsigned phase) noexcept {
@@ -43,7 +45,11 @@ inline bool EqualPhase(const Context&a,const Context&b,unsigned phase) noexcept 
  if(phase==0)return a.view.valid==b.view.valid&&!std::memcmp(a.view.view,b.view.view,sizeof(a.view.view))&&
   !std::memcmp(a.view.projection,b.view.projection,sizeof(a.view.projection));
  if(phase==1)return !std::memcmp(&a.player,&b.player,sizeof(a.player))&&
-  !std::memcmp(&a.focus,&b.focus,sizeof(a.focus))&&a.driving==b.driving&&!std::memcmp(&a.strength,&b.strength,4);
+  !std::memcmp(&a.focus,&b.focus,sizeof(a.focus))&&a.driving==b.driving&&!std::memcmp(&a.strength,&b.strength,4)&&
+  a.visibleReceiver133==b.visibleReceiver133&&!std::memcmp(&a.lampReach133,&b.lampReach133,4)&&
+  (!a.visibleReceiver133||(a.view.valid==b.view.valid&&
+   !std::memcmp(a.view.view,b.view.view,sizeof(a.view.view))&&
+   !std::memcmp(a.view.projection,b.view.projection,sizeof(a.view.projection))));
  return false;
 }
 struct Input {
@@ -63,6 +69,12 @@ inline Output Compute(const Context& c,const Input& in) noexcept {
   const float roadCoverage=c.driving?SceneReceiverCoverage21(c.focus,p,d,int(in.type),in.outerCone):coverage;
   out.consequence=SceneConsequence44(subject,road,in.radius,in.intensity,
    {in.rgb[0],in.rgb[1],in.rgb[2]},in.viewWeight,in.volumeVisible!=0,c.driving!=0,coverage,roadCoverage,c.strength);
+  if(c.visibleReceiver133&&in.beam==0&&VisibleReceiverEmission133(in.intensity,{in.rgb[0],in.rgb[1],in.rgb[2]})){
+   const float benefit=VisibleReceiverBenefit133(true,true,c.view.valid,in.volumeVisible!=0,subject,in.radius,c.lampReach133,in.viewWeight,in.type,in.outerCone);
+   out.consequence=VisibleReceiverScore133(out.consequence,benefit,subject,in.radius,in.intensity,
+       {in.rgb[0],in.rgb[1],in.rgb[2]},in.viewWeight,in.volumeVisible!=0,
+    SceneryReceiverFactor163(c.view,p,d,in.radius,in.type));
+  }
  }
  return out;
 }

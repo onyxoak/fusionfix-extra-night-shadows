@@ -28,6 +28,9 @@ void Observe(consumer_shadow75::Stage stage,SafetyHookContext& regs) noexcept {
   !ShadowTrace34::enabled.load(std::memory_order_acquire)){context={};return;}
  if(busy)return;
  busy=true;struct Leave {~Leave(){busy=false;}} leave;
+ // Diagnostic callback has no native call/write; each new stage starts fresh.
+ const traffic_signal::fresh_page::Operation44 pages157(32);
+ const immediate_region33::Scope regions157;
  const auto read=[](uintptr_t address,void* output,size_t size) noexcept {return Liberty20::Copy(address,output,size);};
  uint32_t frame{};
  if(!CShadows::pFrameCounter||!read(reinterpret_cast<uintptr_t>(CShadows::pFrameCounter),&frame,4)){context={};++refused;return;}
@@ -40,8 +43,8 @@ void Observe(consumer_shadow75::Stage stage,SafetyHookContext& regs) noexcept {
  const consumer_shadow75::Registers values{regs.esp,regs.edi,regs.eax,regs.esi,regs.xmm0.f32[0],regs.xmm1.f32[0]};
  if(!consumer_shadow75::Probe(context,stage,values,frame,GetTickCount(),game+0xc3efdc,read,Emit))++refused;
 }
-void Lookup(SafetyHookContext& r) noexcept {Observe(consumer_shadow75::Stage::Lookup,r);}
-void Gate(SafetyHookContext& r) noexcept {Observe(consumer_shadow75::Stage::Gate,r);}
+void Lookup(SafetyHookContext& r) noexcept {ConsumerReach136::Observe(consumer_shadow75::Stage::Lookup,r);Observe(consumer_shadow75::Stage::Lookup,r);}
+void Gate(SafetyHookContext& r) noexcept {Observe(consumer_shadow75::Stage::Gate,r);ConsumerReach136::Observe(consumer_shadow75::Stage::Gate,r);}
 void Dispatch(SafetyHookContext& r) noexcept {Observe(consumer_shadow75::Stage::Dispatch,r);}
 void Disable() noexcept {active=false;for(auto* h:{&lookupHook,&gateHook,&dispatchHook})if(*h)(void)h->disable();prepared=false;context={};}
 void PrepareHooks() noexcept {
@@ -76,7 +79,7 @@ void PrepareHooks() noexcept {
 void Enable() noexcept {
  if(!requested||!prepared)return;
  try {Require(bool(lookupHook.enable())&&bool(gateHook.enable())&&bool(dispatchHook.enable()),"consumer75_enable_failed");
-  active=true;Event(1,"CONSUMER75_ACTIVE","read_only=1 capture_lease_only=1 maximum_tracked_samples_per_frame=16 maximum_unkeyed_samples_per_frame=4 stages=80_85 native_changes=0");
+  active=true;Event(1,"CONSUMER75_ACTIVE",ConsumerReach136::requested?"static_reach136=1 read_only=0 static_gate_distance_scale=1.30 stages=80_85_160 native_map_allocation_unchanged=1":"read_only=1 capture_lease_only=1 maximum_tracked_samples_per_frame=16 maximum_unkeyed_samples_per_frame=4 stages=80_85 native_changes=0");
  }catch(const std::exception& e){Disable();Event(1,"CONSUMER75_REFUSED",e.what());}
  catch(...){Disable();Event(1,"CONSUMER75_REFUSED","unknown_enable_failure");}
 }
@@ -87,3 +90,5 @@ void Publish() {
   " limited="+std::to_string(limited.load())+" size_rejected="+std::to_string(sizeRejected.load())+" diagnostic_not_clean_timing=1");
 }
 }
+
+

@@ -18,8 +18,9 @@ struct Operation44;
 inline thread_local Operation44* operation44=nullptr;
 struct Operation44 {
  struct Entry {uintptr_t page{};Query query{};};
- Operation44* previous;Entry entries[8]{};unsigned count{};
- Operation44() noexcept:previous(operation44){memory_read46::Record(memory_read46::Metric::Operations);if(previous)memory_read46::Record(memory_read46::Metric::NestedOperations);operation44=this;}
+ static constexpr unsigned Maximum147=32;
+ Operation44* previous;Entry entries[Maximum147]{};unsigned count{},capacity=8;
+ explicit Operation44(unsigned requestedCapacity=8) noexcept:previous(operation44),capacity(requestedCapacity>Maximum147?Maximum147:requestedCapacity){memory_read46::Record(memory_read46::Metric::Operations);if(previous)memory_read46::Record(memory_read46::Metric::NestedOperations);operation44=this;}
  ~Operation44() noexcept{operation44=previous;}
  Operation44(const Operation44&)=delete;Operation44& operator=(const Operation44&)=delete;
 };
@@ -29,7 +30,7 @@ inline bool Known44(uintptr_t address,size_t size,DWORD page,Query query) noexce
  return false;
 }
 inline void Remember44(uintptr_t address,DWORD page,Query query) noexcept {
- if(!operation44||operation44->count>=8)return;
+ if(!operation44||operation44->count>=operation44->capacity)return;
  for(unsigned i=0;i<operation44->count;++i)if(operation44->entries[i].page==address/page&&operation44->entries[i].query==query)return;
  operation44->entries[operation44->count++]={address/page,query};
 }
@@ -67,3 +68,4 @@ __declspec(noinline) inline bool Readable(uintptr_t address,size_t size,Check fa
  }
 }
 }
+

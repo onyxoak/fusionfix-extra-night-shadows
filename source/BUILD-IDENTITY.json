@@ -1,18 +1,16 @@
 {
-  "Candidate": "2.0-private-build125",
-  "Parent": "2.0-private-build124",
-  "IntegrationInputs": [
-    "125 public recurring feature authority",
-    "125 three tiers"
+  "Candidate": "experimental138",
+  "Parents": [
+    "sealed135-pole-witness",
+    "sealed136-static-consumer"
   ],
   "PublicRelease": false,
   "Installed": false,
-  "NativeShadowMaps": 7,
-  "Behavior": "Four shared-engine presets; High unchanged200/50ft; VeryHigh same features300/75ft. Shared reach cap corrected to500ft; saved compatible reach edits committed only at authenticated outer selection then acknowledged on later native frame. Master and feature transitions remain restart-required.",
-  "Validation": "Final combined validation pending",
-  "Limits": [
-    "No new source discovery, light radius, illumination, caster geometry, shader or map-capacity change.",
-    "VeryHigh enlarges eligible consideration, does not guarantee selected/rendered shadows orFPS.",
-    "No live startupOff\u00e2\u2020\u2019On or feature-family install/retirement implementation."
-  ]
+  "NativeMaps": 7,
+  "FunctionalChange": "Opt-in 15 percent certified static consumer application shoulder; no vehicle emission/range change",
+  "PoleRepair": false,
+  "PoleWitness": "26 physical pole models; repeated child and entity+38; stages145/146/147",
+  "PrivateProfile": "High, recording/logging; LAB VisibleReceiverRanking133=1 and StaticConsumerReach136=1",
+  "VisualAcceptancePending": true,
+  "PerformanceUnmeasured": true
 }

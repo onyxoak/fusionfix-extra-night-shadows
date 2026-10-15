@@ -1,5 +1,6 @@
 #include "TrafficSignalRegistry.hpp"
 #include "TrafficSignalNativeQueue.hpp"
+#include "TrafficSignalBrightness164.hpp"
 #include "core/NativeShadowContinuity42.hpp"
 #include <cassert>
 #include <iostream>
@@ -10,6 +11,28 @@ template<size_t N> bool Apply(Registry<N>& r,uint32_t index,uint32_t frame,bool 
  const auto okay=r.Apply(index,r.entries[index].id,frame,0x921029,2,frame%3,collision,flags,key);
  assert(okay?(flags==0x204&&key==r.entries[index].key):(flags==0x200&&key==0));return okay;}
 int main(){
+ // Actual production admission wrapper: all three active signal phases gain
+ // exactly5% intensity once. Geometry/color/range/other words remain exact.
+ for(uint32_t phase164=0;phase164<3;++phase164){Registry<8> registry164;assert(registry164.Configure(0x100000,0x200000));
+  const auto identity164=Id();const auto entry164=registry164.Observe(identity164,10,phase164,true);
+  std::array<uint32_t,17> words164{};for(unsigned i=0;i<17;++i)words164[i]=100+i;
+  words164[2]=2;words164[3]=0x200;words164[16]=0;words164[8]=std::bit_cast<uint32_t>(2.f);auto original164=words164;
+  float rgb164[3]{};rgb164[phase164]=1;
+  assert(ApplySignalSpill164(registry164,entry164.index,identity164,10,0x921029,phase164,false,words164.data(),rgb164));
+  assert(std::bit_cast<float>(words164[8])==2.f*1.05f&&words164[3]==0x204&&words164[16]==registry164.entries[entry164.index].key);
+  for(unsigned i=0;i<17;++i)if(i!=3&&i!=8&&i!=16)assert(words164[i]==original164[i]);
+  auto admitted164=words164;assert(!ApplySignalSpill164(registry164,entry164.index,identity164,10,0x921029,phase164,false,words164.data(),rgb164)&&words164==admitted164);
+  words164=original164;assert(!ApplySignalSpill164(registry164,entry164.index,identity164,10,0x921029,phase164,false,words164.data(),rgb164)&&words164==original164);
+  registry164.Observe(identity164,11,phase164,true);assert(ApplySignalSpill164(registry164,entry164.index,identity164,11,0x921029,phase164,false,words164.data(),rgb164)&&std::bit_cast<float>(words164[8])==2.f*1.05f);
+ }
+ // A foreign producer/type, retired/reused owner, collision, disabled registry,
+ // or zero RGB cannot accidentally boost some other light source.
+ for(unsigned refusal164=0;refusal164<7;++refusal164){Registry<8> registry164;assert(registry164.Configure(0x100000,0x200000));auto identity164=Id();const auto entry164=registry164.Observe(identity164,20,0,true);
+  std::array<uint32_t,17> words164{};words164[2]=2;words164[3]=0x200;words164[8]=std::bit_cast<uint32_t>(2.f);float rgb164[]{1,0,0};uint32_t caller164=0x921029;bool collision164=false;
+  if(refusal164==0)caller164++;if(refusal164==1)words164[2]=0;if(refusal164==2)identity164.reference++;if(refusal164==3)registry164.Free(identity164.pool,identity164.owner);if(refusal164==4)collision164=true;if(refusal164==5)registry164.Disable();if(refusal164==6)rgb164[0]=0;
+  auto original164=words164;const bool result164=ApplySignalSpill164(registry164,entry164.index,identity164,20,caller164,0,collision164,words164.data(),rgb164);
+  assert(result164==(refusal164==6)&&words164[8]==original164[8]);if(refusal164!=6)assert(words164==original164);
+ }
  {Registry<8> r;assert(r.Configure(0x100000,0x200000));
   auto a=r.Observe(Id(),10,0,true),b=r.Observe(Id(40,3,0xe0494133),10,2,true);
   assert(a.visit==Visit::New&&b.visit==Visit::New&&a.index!=b.index);

@@ -1,6 +1,7 @@
 // Private implementation; included after the inherited traffic owner validator.
 // Features are explicitly selected by candidate profiles; no publication.
 #include "VehicleLampIdentity20.hpp"
+#include "DualIssuedKeys127.hpp"
 #include "FreshReadBatch30.hpp"
 namespace Liberty20 {
 bool dualRequested=false,worldRequested=false;
@@ -8,6 +9,7 @@ std::atomic<bool> dualActive{false},worldActive{false};
 SafetyHookMid dualPre,dualPost,singlePre,freeObserver;
 alignas(64) uint8_t keyStorage[16384][64]{};
 liberty20::VehicleLampRegistry<> lampRegistry;
+dual_keys127::PublishedKeys<> publishedKeys127;
 std::atomic_flag registryLock=ATOMIC_FLAG_INIT;
 std::atomic<uint32_t> splitPairs{0},fallbacks{0},contentions{0},collisions{0},worldEligible{0};
 std::atomic<uint32_t> playerPairs{0},selectedLamps{0},renderVisits{0},maxSelectedLamps{0},maxSelectedPairs{0},staleQueued{0};
@@ -51,14 +53,16 @@ bool Vehicle(uint32_t owner,liberty20::VehicleIdentity& id) noexcept {
  id={uint32_t(reinterpret_cast<uintptr_t>(pool)),storage,flags,owner,slot,reference,info,model};return true;
 }
 bool VehicleBeam(uintptr_t key,uintptr_t owner) noexcept {
- if(!dualActive.load(std::memory_order_acquire)||key>UINT32_MAX||owner>UINT32_MAX||!owner||!CShadows::pFrameCounter)return false;
+ if(!dualActive.load(std::memory_order_acquire)||key>UINT32_MAX||owner>UINT32_MAX||!owner||!CShadows::pFrameCounter||
+    !publishedKeys127.Contains(uint32_t(reinterpret_cast<uintptr_t>(keyStorage)),uint32_t(key)))return false;
  if(registryLock.test_and_set(std::memory_order_acquire)){++contentions;return false;}
  liberty20::VehicleIdentity id{};const bool resolved=lampRegistry.Resolve(uint32_t(key),*CShadows::pFrameCounter,id);
  registryLock.clear(std::memory_order_release);
  liberty20::VehicleIdentity fresh{};return resolved&&id.owner==owner&&Vehicle(uint32_t(owner),fresh)&&fresh==id;
 }
 fusionfix::shadows::ce::BeamPriorityEvidence32 BeamPriority32(uintptr_t key) noexcept {
- if(!dualActive.load(std::memory_order_acquire)||key>UINT32_MAX||!CShadows::pFrameCounter)return {};
+ if(!dualActive.load(std::memory_order_acquire)||key>UINT32_MAX||!CShadows::pFrameCounter||
+    !publishedKeys127.Contains(uint32_t(reinterpret_cast<uintptr_t>(keyStorage)),uint32_t(key)))return {};
  if(registryLock.test_and_set(std::memory_order_acquire)){++contentions;return {};}
  liberty20::VehicleIdentity id{};const bool resolved=lampRegistry.Resolve(uint32_t(key),*CShadows::pFrameCounter,id);
  registryLock.clear(std::memory_order_release);
@@ -131,17 +135,22 @@ bool Split(const std::array<int,16>& input) noexcept {
  liberty20::VehicleIdentity fresh{};
  if(!Vehicle(invocation.owner,fresh)||!(fresh==invocation.identity)){++fallbacks;return false;}
  if(registryLock.test_and_set(std::memory_order_acquire)){++contentions;return false;}
- const auto previousUsed=lampRegistry.used;
  const auto* pair=lampRegistry.Observe(fresh,invocation.frame);
  std::array<uint32_t,2> keys{};bool ok=pair!=nullptr;
  if(ok){keys=pair->keys;
-  if(lampRegistry.used!=previousUsed&&(Collision(keys[0])||Collision(keys[1]))){lampRegistry.Retire(fresh.slot);++collisions;ok=false;}
+  // An allocated pair can remain unpublished after a refused input. Recheck
+  // collision authority at its FIRST successful publication, not only allocation.
+  if(!publishedKeys127.ContainsPair(uint32_t(reinterpret_cast<uintptr_t>(keyStorage)),keys)&&
+     (Collision(keys[0])||Collision(keys[1]))){lampRegistry.Retire(fresh.slot);++collisions;ok=false;}
   if(ok&&uint32_t(input[2])==0x504){lastPositions=invocation.positions;lastSlot=fresh.slot;lastReference=fresh.reference;}
  }
  registryLock.clear(std::memory_order_release);
  if(!ok){++fallbacks;return false;}
  float intensity{};std::memcpy(&intensity,&input[7],4);if(!std::isfinite(intensity)||intensity<0){++fallbacks;return false;}
  const float half=intensity*.5f;int bits{};std::memcpy(&bits,&half,4);
+ // Successful collision-checked ownership precedes both native calls. Freed
+ // published keys remain owned forever; burned/unused addresses remain foreign.
+ if(!publishedKeys127.PublishPair(uint32_t(reinterpret_cast<uintptr_t>(keyStorage)),keys)){++fallbacks;return false;}
  // Replace the combined packet, preserving cone, color, mask, room and range.
  // Actual attachment-derived native positions; two half-intensity sources.
  for(unsigned side=0;side<2;++side){
@@ -160,8 +169,7 @@ void PromoteNativeWorld(rage::CLightSource* lights,uint32_t count) noexcept {
   // Issued private keys can never gain shadow authority from a stale packet.
   // Keep illumination, but refuse queued shadows after free/reuse/rewind.
   const auto key=uint32_t(light.mCastShadows);
-  if(key>=uint32_t(reinterpret_cast<uintptr_t>(keyStorage))&&
-     uint64_t(key)-uint32_t(reinterpret_cast<uintptr_t>(keyStorage))<sizeof(keyStorage)){
+  if(publishedKeys127.Contains(uint32_t(reinterpret_cast<uintptr_t>(keyStorage)),key)){
    liberty20::VehicleIdentity id{},fresh{};bool valid=false;
    if(dualActive.load(std::memory_order_acquire)&&!registryLock.test_and_set(std::memory_order_acquire)){
     valid=lampRegistry.Resolve(key,*CShadows::pFrameCounter,id);registryLock.clear(std::memory_order_release);
@@ -219,14 +227,14 @@ void PrepareHooks(const std::vector<uint8_t>& image) {
  if(!dualRequested&&!worldRequested&&!TailLight20::requested&&!ModelLightShadow20::requested&&!CoronaLight20::requested)return;
  if(worldRequested)worldActive=true;
  if(dualRequested||TailLight20::requested||ModelLightShadow20::requested||CoronaLight20::requested){
-  Require(!memcmp(image.data()+0x70ba00,original->bytes.data()+0x70ba00,0x22),"vehicle_free_observer_modified");
+  RequireNativeRange129(image,0x70ba00,0x22,"vehicle_free_observer_modified");
   Prepare(freeObserver,game+0x70ba07,Free);
  }
  if(!dualRequested)return;
  // Authenticate full producer and both transforms BEFORE inherited brightness
  // hooks are installed. Unknown graphics/headlight patches are refused.
  for(const auto& [rva,size]:{std::pair<uint32_t,size_t>{0x63f5e0,0x63ff1f-0x63f5e0},{0x63de90,0x63e1eb-0x63de90},{0x70ba00,0x22}}){
-  Require(!memcmp(image.data()+rva,original->bytes.data()+rva,size),"dual_native_producer_modified");
+  RequireNativeRange129(image,rva,size,"dual_native_producer_modified");
  }
  Require(OriginalCall(0x63fe11)==game+0x63e070,"dual_combined_target_changed");
  Require(lampRegistry.Configure(uint32_t(reinterpret_cast<uintptr_t>(keyStorage))),"dual_key_storage_invalid");
@@ -237,6 +245,9 @@ void EnableHooks() {
  if(dualRequested){for(auto* hook:{&dualPost,&singlePre,&dualPre})Require(bool(hook->enable()),"dual_hook_enable_failed");dualActive=true;
   fusionfix::shadows::ce::AdditionalVehicleBeam=VehicleBeam;
   fusionfix::shadows::ce::AdditionalVehicleBeamOwner=BeamOwner;
+  OwnHeadlightCaster::singlePriority146=BeamPriority32;
+  OwnHeadlightCaster::singleOwner146=BeamOwner;
+  OwnHeadlightCaster::singleBeam146=VehicleBeam;
   fusionfix::shadows::ce::AdditionalVehicleBeamOrder=BeamOrder;
   fusionfix::shadows::ce::AdditionalVehicleBeamPriority32=BeamPriority32;
  }

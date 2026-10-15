@@ -21,6 +21,8 @@ namespace preset117 { ReadResult startup;State applied;bool backendLimited{},veh
 #include "standalone-ownership.hpp"
 #include "standalone-support-log.hpp"
 #include "ShortlistHelperRuntime48.hpp"
+#include "NativeNightPrerequisite128.hpp"
+#include "StartupConflict129.hpp"
 #include "standalone-warning-policy.hpp"
 #include "core/LabSirenBlinkGrace.hpp"
 #include "core/LabPoliceClaim.hpp"
@@ -33,7 +35,7 @@ namespace preset117 { ReadResult startup;State applied;bool backendLimited{},veh
 namespace standalone {
 using namespace onyxoak;
 using pe::U32;
-constexpr char CandidateBuild32[]="libertys-shadows-2.0-candidate125-release";
+constexpr char CandidateBuild32[]="libertys-shadows-2.0.1-candidate164";
 HMODULE self{};
 uintptr_t game{},ff{},loop{};
 uint8_t *pauseUser{},*pauseScript{};
@@ -55,6 +57,9 @@ namespace ModelLightShadow20 {
  void LifecycleFault() noexcept;
 }
 namespace CoronaLight20 {extern bool requested;}
+namespace PoleCasterDiagnostic134 {extern bool requested;void Observe(uintptr_t,uint32_t,bool,bool) noexcept;}
+namespace PoleDrawWitness145 {void SunCaster(uintptr_t,uint32_t,uint32_t,uintptr_t,bool)noexcept;}
+namespace PoleStaticPartition141 {bool Reclassify(uintptr_t,uint32_t,uint32_t,uintptr_t,bool,uint32_t*) noexcept;}
 int32_t ownWidth=800,ownHeight=600;
 namespace Liberty20 {
  extern bool dualRequested,worldRequested;
@@ -84,6 +89,8 @@ struct RecordedRegion { uintptr_t address;std::vector<uint8_t> bytes; };
 std::vector<RecordedRegion> records;
 #endif
 void Event(unsigned level,const char* code,const std::string& fields={}) noexcept {if(log)log->Event(level,code,fields);}
+void Require(bool success,const char* why);
+#include "StartupConflict129Runtime.inc"
 // Private observation only: copied on the existing guarded selection thread.
 // No source writes, new hooks, allocation decisions, or raw-pointer logging.
 struct LightAuditSnapshot {
@@ -408,6 +415,10 @@ void Caster(SafetyHookContext& regs) {
  const bool artificial=!*reinterpret_cast<const uint8_t*>(regs.esp+0x0b);
  bool skip=OwnHeadlightCaster::Exclude(regs.esi,regs.eax,artificial);
  if(!bVehicleNightShadows&&regs.eax==3&&(*reinterpret_cast<const uint8_t*>(regs.esi+620)&4)&&artificial)skip=true;
+ PoleCasterDiagnostic134::Observe(regs.esi,regs.eax,artificial,skip);
+ PoleDrawWitness145::SunCaster(regs.esi,uint32_t(regs.eax),uint32_t(regs.edx),regs.ebp,skip);
+ uint32_t eligibility142{};
+ if(PoleStaticPartition141::Reclassify(regs.esi,uint32_t(regs.eax),uint32_t(regs.edx),regs.ebp,skip,&eligibility142)){regs.eax=eligibility142;regs.eip=game+0x6e3767;return;}
  regs.eip=game+(skip?0x6e3867:0x6e374f);
 }
 void Contact(SafetyHookContext& regs) {
@@ -416,7 +427,7 @@ void Contact(SafetyHookContext& regs) {
  *reinterpret_cast<uint32_t*>(regs.esp+0x28)=0; // Exact displaced native instruction.
  regs.eip=game+0x63de66; // Skip stock compensation, already handled once above.
 }
-void Brightness(SafetyHookContext& regs){if(addonActive.load(std::memory_order_acquire))HeadlightEnhancement::RetainAfterExit(regs);}
+void Brightness(SafetyHookContext& regs){if(!addonActive.load(std::memory_order_acquire))return;const fusionfix::shadows::FloatingPointState fp;const DWORD error=GetLastError();HeadlightEnhancement::RetainAfterExit(regs);const float intensity=regs.xmm1.f32[0];if(std::isfinite(intensity)&&intensity>=0)regs.xmm1.f32[0]=intensity*.85f;SetLastError(error);}
 void Warning(SafetyHookContext& regs) {
  if(!addonActive.load(std::memory_order_acquire))return;
  if(SuppressStockShadowWarning(true,PlayerShadowAllocation::ready.load(std::memory_order_acquire),
@@ -441,20 +452,99 @@ template<class Hook,class Function> void Prepare(Hook& hook,uintptr_t target,Fun
 }
 #include "traffic-signal-observer.inc"
 #include "LibertyLighting20Runtime.inc"
+#include "PoleCasterDiagnostic134Runtime.inc"
 #include "TailLightRuntime20.inc"
 #include "ModelLightShadowRuntime20.inc"
 #include "ModelLightCatalogRuntime20.inc"
 #include "NativeProjectionRuntime105.inc"
 #include "ModelProjectionBridge69.inc"
+#include "ConsumerReachRuntime136.inc"
 #include "ConsumerShadow75Runtime.inc"
 #include "NativeProducerGate116Runtime.inc"
 #include "CoronaLightRuntime20.inc"
 #include "WorldGeometryCatalogRuntime20.inc"
+#include "PresentFrameTime151Runtime.inc"
+#include "FrameBoundary154Runtime.inc"
 #include "GpuProfilingRuntime39.inc"
 #include "LightingCapabilities16.inc"
+#include "NativeNightPrerequisite128Runtime.inc"
+#include "FusionBackend130Runtime.inc"
+#include "PoleStaticPartition141Runtime.inc"
+#include "PoleDrawWitness145Runtime.inc"
+#include "PoleDepthRepair157Runtime.inc"
 uintptr_t LightCasterOwner(uintptr_t key) noexcept {
  const auto beam=Liberty20::BeamOwner(key);
  return beam?beam:TailLight20::CasterOwner(key);
+}
+std::atomic<uint32_t> projectionRankingChecks133{0},projectionRankingQueries133{0},projectionRankingAccepted133{0},projectionRankingRefused133{0};
+void PublishVisibleReceiver133() {
+ if(!PlayerShadowAllocation::visibleReceiverExperiment133||!hotCountersEnabled||!log||!log->Enabled())return;
+ static std::atomic<uint32_t> previous{0};const auto tick=GetTickCount();auto before=previous.load(std::memory_order_relaxed);
+ if(uint32_t(tick-before)<5000u||!previous.compare_exchange_strong(before,tick,std::memory_order_relaxed))return;
+ Event(2,"VISIBLE_RECEIVER133","projected_checks="+std::to_string(projectionRankingChecks133.load())+
+  " projected_permission_queries="+std::to_string(projectionRankingQueries133.load())+
+  " projected_accepted="+std::to_string(projectionRankingAccepted133.load())+
+  " projected_refused="+std::to_string(projectionRankingRefused133.load())+" cumulative_non_atomic=1 ranking_only=1 no_fps_claim=1");
+}
+// RECEIVER133_SOURCE_BEGIN
+bool VisibleReceiverSource133(const rage::CLightSource& light,unsigned index,rage::CLightSource* lights,uint32_t count,uint32_t frame) noexcept {
+ if(!lights||count>640||index>=count||uint64_t(reinterpret_cast<uintptr_t>(&light))!=
+    uint64_t(reinterpret_cast<uintptr_t>(lights))+uint64_t(index)*sizeof(rage::CLightSource))return false;
+ const auto key=uint32_t(light.mCastShadows);
+ if(!key||(light.mFlags&0x500u)||TailLight20::Contains(key)||
+    Liberty20::publishedKeys127.Contains(uint32_t(reinterpret_cast<uintptr_t>(Liberty20::keyStorage)),key))return false;
+ if(ModelLightShadow20::active.load(std::memory_order_acquire)&&ModelLightShadow20::registry.Contains(key))return true;
+ if(TrafficSignal::LampGeneration(light)!=0)return true;
+ // Generic current projector, not a physical family. This path is called
+ // only after a positive current numeric receiver-benefit prefilter.
+ if(NativeProjection66::Classify(index,key,lights,count,frame)!=1||
+    NativeProjection66::sidecar.decisions[index]!=native_projection66::Decision::Valid)return false;
+ const ModelEffectObserver::LastErrorScope error;
+ ++projectionRankingChecks133;unsigned queries{};NativeProjection66::Packet packet{};
+ const bool copied=NativeProjection66::CopyPacket(light,packet,true,&queries);
+ projectionRankingQueries133.fetch_add(queries,std::memory_order_relaxed);
+ const bool valid=copied&&packet[24]==key&&
+   fusionfix::shadows::VisibleReceiverEmission133(std::bit_cast<float>(packet[16]),
+    {std::bit_cast<float>(packet[12]),std::bit_cast<float>(packet[13]),std::bit_cast<float>(packet[14])})&&
+   NativeProjection66::active.load(std::memory_order_acquire)&&
+   NativeProjection66::sidecar.Current(index,packet,reinterpret_cast<uintptr_t>(lights),count,frame,0)==native_projection66::Decision::Valid;
+ if(valid)++projectionRankingAccepted133;else ++projectionRankingRefused133;
+ return valid; // stack0 leaves insertion anchor untouched; later witness remains.
+}
+// RECEIVER133_SOURCE_END
+// Functional consumer136 permission: complete current packet, unique bank key,
+// fresh source family/sidecar, positive emission and current gameplay view.
+// No historical key or selected slot can substitute for these witnesses.
+bool ConsumerReach136::Authorize(const consumer_shadow75::Packet& packet,uint32_t frame) noexcept {
+ if(!requested||!addonActive.load(std::memory_order_acquire)||!CShadows::pFrameCounter||
+    *CShadows::pFrameCounter!=frame||!PlayerShadowAllocation::visibleReceiverExperiment133)return false;
+ auto* bank=PlayerShadowAllocation::CurrentLights();const auto count=PlayerShadowAllocation::CurrentCount();
+ if(!bank||!count||count>640)return false;
+ // Numeric snapshots locate a candidate only. Fresh copies below authorize it.
+ thread_local std::array<rage::CLightSource,640> snapshot;
+ if(!Liberty20::Copy(reinterpret_cast<uintptr_t>(bank),snapshot.data(),count*sizeof(rage::CLightSource)))return false;
+ unsigned match=count,matches=0;
+ for(unsigned i=0;i<count;++i)if(uint32_t(snapshot[i].mCastShadows)==packet.words[24]){match=i;++matches;}
+ if(matches!=1)return false;
+ rage::CLightSource light{};
+ if(!Liberty20::Copy(reinterpret_cast<uintptr_t>(bank+match),&light,sizeof(light))||
+    std::memcmp(&light,packet.words.data(),sizeof(packet))||
+    !VisibleReceiverSource133(bank[match],match,bank,count,frame)||
+    !fusionfix::shadows::VisibleReceiverEmission133(light.mIntensity,{light.mColor.x,light.mColor.y,light.mColor.z}))return false;
+ // Use the authenticated gameplay viewport, never a shadow/reflection viewport.
+ const auto* viewport=PlayerShadowAllocation::SceneViewport();rage::grcViewport copiedView{};
+ if(!viewport||!Liberty20::Copy(reinterpret_cast<uintptr_t>(viewport),&copiedView,sizeof(copiedView)))return false;
+ const auto view=PlayerShadowAllocation::ReadView(&copiedView);
+ if(!view.valid||!fusionfix::shadows::ShadowVolumeMayReachView(
+    fusionfix::shadows::PrepareShadowVolumeFrustum20(view),
+    {light.mPosition.x,light.mPosition.y,light.mPosition.z},light.mRadius))return false;
+ // Final fresh owner/packet/scene guard follows every potentially nested read.
+ rage::CLightSource finalLight{};
+ return *CShadows::pFrameCounter==frame&&PlayerShadowAllocation::CurrentLights()==bank&&
+    PlayerShadowAllocation::CurrentCount()==count&&PlayerShadowAllocation::SceneViewport()==viewport&&
+    Liberty20::Copy(reinterpret_cast<uintptr_t>(bank+match),&finalLight,sizeof(finalLight))&&
+    !std::memcmp(&finalLight,packet.words.data(),sizeof(packet))&&
+    VisibleReceiverSource133(bank[match],match,bank,count,frame);
 }
 void ApplyLiveReach122Boundary() noexcept {
  const ModelEffectObserver::LastErrorScope error;
@@ -467,6 +557,7 @@ void RefreshApplied119State() noexcept {
  const ModelEffectObserver::LastErrorScope error;
  const fusionfix::shadows::FloatingPointState fp;
  if(!preset117::startup.present)return;
+ NativeNightPrerequisite128::Refresh();
  if(!addonActive.load(std::memory_order_acquire)){
   // Off has no installed refresh hook. If an active manager later fails,
   // report that actual state while retaining the user's requested settings.
@@ -486,7 +577,7 @@ void RefreshApplied119State() noexcept {
  preset117::backendReadFailed119=!gateRead;
  preset117::vehicleDepthUnavailable119=gateRead&&!vehicleGate;
  if(!gateRead||!vehicleGate){actual.features[size_t(preset117::Feature::DualHeadlights)]=false;actual.features[size_t(preset117::Feature::TailLights)]=false;}
- preset117::backendLimited=actual.features!=preset117::startup.state.features||!bExtraNightShadows||!bHeadlightShadows||!gateRead||!vehicleGate;
+ preset117::backendLimited=actual.features!=preset117::startup.state.features||!bExtraNightShadows||!bHeadlightShadows||!gateRead||!vehicleGate||FusionBackend130::Limited();
  if(preset117::backendLimited)actual.preset=preset117::Preset::Custom;
  preset117::applied=actual;
 }
@@ -520,6 +611,8 @@ void __fastcall Render(void* object,void* edx){
  }
  const shadow_cpu29::Scope cpu(phase,16);
  const GpuProfiling39::StageScope gpuSpan(object);
+ const PoleCasterDiagnostic134::Scope poleDiagnostic134(object);
+ const PoleStaticPartition141::Scope polePartition141(object);
  const WorldGeometry20::Scope geometry(object);sub_D77A00(object,edx);
 }
 void PreCacheSelection(SafetyHookContext& regs) noexcept {
@@ -529,9 +622,10 @@ void PreCacheSelection(SafetyHookContext& regs) noexcept {
  PlayerShadowAllocation::StabilizeMapOrdinals(regs);
 }
 void DisableAll() noexcept {
+ FusionBackend130::Close();
  NativeProducerGate116::Disable();ConsumerShadow75::Disable();
  NativeProjection66::Disable();
- GpuProfiling39::Disable();
+ FrameBoundary154::enabled=false;FrameTime151::Disable();GpuProfiling39::Disable();
  CoronaLight20::Disable();
  ModelLightShadow20::active=false;TrafficSignal::ownerClass109Active=false;TrafficSignal::ownerClass114Active=false;
  TailLight20::Disable();Liberty20::Disable();ModelEffectObserver::DisableHooks();WorldGeometry20::Disable();if(nativeSubmit)(void)nativeSubmit.disable();
@@ -545,7 +639,7 @@ void DisableAll() noexcept {
 }
 void Install() {
  VerifyLightingCapabilities(pe::Read(pe::ModulePath(nullptr)));
- VerifyOfficial();const auto image=GuardedImage();
+ VerifyOfficial();const auto image=GuardedImage();FusionBackend130::PrepareHooks();PoleStaticPartition141::Prepare(image);PoleDepthRepair157::PrepareHooks();PoleDrawWitness145::PrepareHooks();
  Liberty20::PrepareHooks(image);
  if(ModelLightShadow20::requested||CoronaLight20::requested)Require(ModelLightShadow20::registry.Configure(uint32_t(reinterpret_cast<uintptr_t>(ModelLightShadow20::keyStorage))),"model_shadow_key_storage_invalid");
  TailLight20::PrepareHooks(image);
@@ -625,8 +719,8 @@ void Install() {
   Prepare(ownerProbe,game+0x6bcc50,ObserveOwner);
   Require(bool(ownerProbe.enable()),"siren_probe_enable_failed");
  }
- const std::array inlinePlan{&nativeSubmit,&playerSubmit,&npcSubmit,&shsub_925DB0,&shsub_D77A00,&selectionHook};
- const std::array midPlan{&caster,&contact,&camera,&brightness,&warning,&collectHook,&finalizeHook,&lampDistanceHook,&compareResultHook,&cacheResultHook,&stableOrdinalsHook};
+ const std::array inlinePlan{&nativeSubmit,&playerSubmit,&npcSubmit,&shsub_925DB0,&shsub_D77A00,&selectionHook,&FusionBackend130::settingHook,&FusionBackend130::admissionHook,&PoleDrawWitness145::consumerHook};
+ const std::array midPlan{&caster,&contact,&camera,&brightness,&warning,&collectHook,&finalizeHook,&lampDistanceHook,&compareResultHook,&cacheResultHook,&stableOrdinalsHook,&PoleDrawWitness145::objectHook,&PoleDrawWitness145::constructorHook,&PoleDrawWitness145::childHook,&PoleDepthRepair157::dispatchHook};
  unsigned requiredHooks=0;
  std::vector<PreparedHookRange> preparedRanges;
  for(const auto* hook:inlinePlan)if(*hook)preparedRanges.push_back({hook->target_address(),hook->original_bytes().size()});
@@ -643,13 +737,16 @@ void Install() {
   if(*hook)preparedRanges.push_back({hook->target_address(),hook->original_bytes().size()});
  Require(DisjointPreparedHooks(preparedRanges),"prepared_hook_ranges_overlap");
  GpuProfiling39::PrepareHooks(preparedRanges);
+ FrameTime151::PrepareHooks(preparedRanges,GpuProfiling39::prepared);FrameBoundary154::Prepare();
  for(const auto* hook:inlinePlan)if(*hook)++requiredHooks;
  for(const auto* hook:midPlan)if(*hook)++requiredHooks;
  ActivationGate gate(requiredHooks);
  for(auto* hook:inlinePlan)if(*hook)Require(gate.HookEnabled(bool(hook->enable())),"inline_enable_failed");
  for(auto* hook:midPlan)if(*hook)Require(gate.HookEnabled(bool(hook->enable())),"mid_enable_failed");
  Require(gate.Commit(),"activation_incomplete");
+ Require(FusionBackend130::Commit(),"fusion_backend130_commit_refused");
  requiredHooks+=GpuProfiling39::EnableHooks();
+ requiredHooks+=FrameTime151::Enable(GpuProfiling39::enabled.load());
  cameraPriority=true;nativeLampPriority=true;publicationEnabled=true;ShadowLookupGuard::ready=true;HeadlightEnhancement::imageBase=game;
  bCloseHeadlightRelevance=true;bTrafficSelfShadowFix=true;
  OwnHeadlightCaster::enabled.store(true,std::memory_order_release);NearbyVehicleLighting36::enabled.store(true,std::memory_order_release);ready.store(true,std::memory_order_release);
@@ -665,6 +762,7 @@ void Install() {
  NativeProjection66::Enable();
  ConsumerShadow75::Enable();NativeProducerGate116::Enable();
  preset117::refreshApplied119Hook=RefreshApplied119State;
+ NativeNightPrerequisite128::Prepare();
  RefreshApplied119State();
  preset117::EngineActivated117(game,original->bytes.data(),original->bytes.size());
  PlayerShadowAllocation::bulkModelSources48=(!preset117::startup.present||ModelLightShadow20::requested||CoronaLight20::requested)?ModelLightShadow20::ValidateQueued:nullptr;
@@ -788,25 +886,28 @@ void PublishShadowTransitions69() {
    " allocator_evidence_only=1 pixel_flicker_confirmed=0");
 }
 void OnFrame(SafetyHookContext&) noexcept {
+ FusionBackend130::Boundary(); // Restore/defer service MUST precede failed return.
+ const auto frameStart154=FrameBoundary154::Start();
  if(addonActive.load(std::memory_order_acquire)&&original&&preset117::menuPending117.load(std::memory_order_acquire))preset117::RetryMenu117(game,original->bytes.data(),original->bytes.size());
  const fusionfix::shadows::FloatingPointState fp;
  if(!capture_frame46::ContinueGameplay(failed.load(),addonActive.load(std::memory_order_acquire),pauseUser,pauseScript,[]{
   const auto transition=CaptureDiagnostic44::Poll();
   if(transition)Event(1,"CAPTURE_DIAGNOSTIC44","transition="+std::to_string(transition)+" sampled_sources="+std::to_string(CaptureDiagnostic44::sampleSources.load())+" trace="+std::to_string(ShadowTrace34::enabled.load())+" optional_not_clean_timing=1");
- }))return;
+ })){FrameBoundary154::Sample(frameStart154,false);return;}
+ FrameBoundary154::Sample(frameStart154,true);
  if(addonActive.load(std::memory_order_acquire)){
   if(nativeBackend){const auto* viewport=PlayerShadowAllocation::SceneViewport();
    if(viewport&&Liberty20::Copy(uintptr_t(viewport)+0x2b0,&ownWidth,4)&&Liberty20::Copy(uintptr_t(viewport)+0x2b4,&ownHeight,4)){
     if(ownWidth<16||ownWidth>16384||ownHeight<16||ownHeight>16384){ownWidth=800;ownHeight=600;}
    }
   }
-  PublishSelectionHelpers48();GpuProfiling39::Publish();PublishRuntimeControls38();PublishCpuProfile29();PublishMemoryReads46();Liberty20::Publish();TailLight20::Publish();ModelEffectObserver::Publish();ModelLightShadow20::Publish();WorldGeometry20::Publish();CoronaLight20::Publish();NativeProjection66::Publish();ConsumerShadow75::Publish();NativeProducerGate116::Publish();
+  PublishSelectionHelpers48();PoleDepthRepair157::Publish();FrameBoundary154::Publish();FrameTime151::Publish();GpuProfiling39::Publish();PublishRuntimeControls38();PublishCpuProfile29();PublishMemoryReads46();Liberty20::Publish();TailLight20::Publish();ModelEffectObserver::Publish();ModelLightShadow20::Publish();WorldGeometry20::Publish();CoronaLight20::Publish();NativeProjection66::Publish();PublishVisibleReceiver133();ConsumerShadow75::Publish();NativeProducerGate116::Publish();
   PublishShadowTransitions69();
   NearbyVehicleLighting36::Update(); if(policeTestEnabled){UpdateProof();} TrafficPoll(); if(diagnosticsEnabled){PublishNine(); MeasureProofCadence(); PublishChurn(); PublishPolicePackets(); PublishProofTransition(); PublishLightAudit(); PublishOwnerAudit();PublishCombinedStatus();}
   static uint64_t last{};const auto now=GetTickCount64();if(hotCountersEnabled&&now-last>=5000){last=now;Event(2,"COUNTERS","passes="+std::to_string(PlayerShadowAllocation::appliedPasses.load())+" caster="+std::to_string(OwnHeadlightCaster::casterVisits.load())+" own="+std::to_string(OwnHeadlightCaster::ownPasses.load())+" deferred="+std::to_string(OwnHeadlightCaster::deferredPasses.load())+" proofRequested="+std::to_string(proofRequested.load())+" proofRetired="+std::to_string(proofRetired.load())+" proofPromoted="+std::to_string(proofPromoted.load())+" proofSelected="+std::to_string(proofSelected.load())+" proofRenderCalls="+std::to_string(proofRenderCalls.load())+" policeMode="+std::to_string(policePolicy.load())+" policeOverrides="+std::to_string(policeOverrides.load())+" vacancy="+std::to_string(vacancyRequested.load())+" vacancySuppressed="+std::to_string(vacancySuppressed.load())+" packetDropped="+std::to_string(policeDropped.load())+" graceComparisons="+std::to_string(proofGraceComparisons.load())+" proofFrames="+std::to_string(proofFrames.load())+" maxSlots="+std::to_string(proofMaxSlots.load())+" collected="+std::to_string(PlayerShadowAllocation::labCollected.load())+" observed="+std::to_string(PlayerShadowAllocation::labObserved.load())+" nativeChosen="+std::to_string(PlayerShadowAllocation::labNativeChosen.load())+" finalChosen="+std::to_string(PlayerShadowAllocation::labFinalChosen.load())+" cmp0="+std::to_string(PlayerShadowAllocation::labComparisons[0].load())+" cmp1="+std::to_string(PlayerShadowAllocation::labComparisons[1].load())+" cmp2="+std::to_string(PlayerShadowAllocation::labComparisons[2].load())+" result0="+std::to_string(PlayerShadowAllocation::labResults[0].load())+" result1="+std::to_string(PlayerShadowAllocation::labResults[1].load())+" result2="+std::to_string(PlayerShadowAllocation::labResults[2].load())+" claimLoss="+std::to_string(PlayerShadowAllocation::labClaimLoss.load())+" ownLoss="+std::to_string(PlayerShadowAllocation::labOwnLoss.load())+" warningHidden="+std::to_string(warningHidden.load()));}return;
  }
  if(attempted.exchange(true))return;
- try{Install();}catch(const std::exception& e){DisableAll();failed=true;Event(1,"DISABLED",e.what());}
+ try{Install();}catch(const std::exception& e){DisableAll();failed=true;Event(1,"DISABLED",e.what());StartupFailure129(e.what());}
 }
 void PrepareNativeBaseModelStore(const std::filesystem::path& ini) {
  if(GetModuleHandleW(L"GTAIV.EFLC.FusionFix.asi")||GetPrivateProfileIntW(L"LIGHTING20",L"NativeBaseModelStore",0,ini.c_str())!=1)return;
@@ -839,9 +940,11 @@ DWORD StartShadow117(const std::filesystem::path& ini) {
   ModelLightShadow20::ConfigureQueuedScratch59(ini.c_str());
   publicSettings93=liberty_settings93::ReadPublic(ini.c_str());
   log=std::make_unique<SupportLog>(pe::ModulePath(self).replace_extension(L".log"),mode,GetPrivateProfileIntW(L"SUPPORT",L"MaxLogKiB",256,ini.c_str()));
+  FrameTime151::requested=mode!=0&&GetPrivateProfileIntW(L"SUPPORT",L"FrameTimeProfiling151",0,ini.c_str())==1;
+  FrameBoundary154::requested=GetPrivateProfileIntW(L"SUPPORT",L"FrameBoundaryProfiling154",0,ini.c_str())==1;
   GpuProfiling39::requested=mode!=0&&GetPrivateProfileIntW(L"SUPPORT",L"GpuProfiling",0,ini.c_str())==1;
   GpuProfiling39::shadowStages=GpuProfiling39::requested&&GetPrivateProfileIntW(L"SUPPORT",L"GpuShadowStages",0,ini.c_str())==1;
-  Event(1,"START",std::string("build=")+CandidateBuild32+" private not_release");
+  Event(1,"START",std::string("build=")+CandidateBuild32+" candidate validation_pending");
   Event(1,"GPU_REQUESTED48",GpuProfiling39::requested?(GpuProfiling39::shadowStages?"requested=1 span=shadow_command_span":"requested=1 span=BeginScene_EndScene"):"requested=0 default_off=1");
   if(memory_read46::enabled)Event(1,"MEMORY_READ_PROFILE46_CONFIG","enabled=1 startup_opt_in=1 helper_tls_flush=4096 worker_tail_max_helpers=4095 thread_exit_tail_unreported=1 publish_interval_ms=5000 actual_working_set_queries=1 fallback_requests_not_os_queries=1");
   Event(1,"VALIDATION31",traffic_signal::fresh_page::preferRegion?"fresh_region=1 current_permissions owner_checks_unchanged=1":"fresh_region=0 working_set_override=1");
@@ -866,6 +969,8 @@ DWORD StartShadow117(const std::filesystem::path& ini) {
   PlayerShadowAllocation::signalShadowPriority=configuredFloat(L"SignalShadowPriority",1.5f,1.f,4.f);
   PlayerShadowAllocation::scenePriorityStrength=configuredFloat(L"ScenePriorityStrength",1.5f,0.f,4.f);
   PlayerShadowAllocation::scenePriorityReleaseMs=configuredFloat(L"ScenePriorityReleaseMs",450.f,50.f,1500.f);
+  PlayerShadowAllocation::visibleReceiverExperiment133=GetPrivateProfileIntW(L"LAB",L"VisibleReceiverRanking133",0,ini.c_str())==1;
+  PlayerShadowAllocation::visibleReceiverSource133=VisibleReceiverSource133;
   glow.allowApproximation=GetPrivateProfileIntW(L"LIGHTING20",L"CoronaApproximation",1,ini.c_str())==1;
   glow.radiusPerAuthoredSize=configuredFloat(L"CoronaRadiusPerAuthoredSize",12.f,.001f,1024.f);
   glow.fallbackIntensity=configuredFloat(L"CoronaFallbackIntensity",1.f,.001f,1024.f);
@@ -885,9 +990,11 @@ DWORD StartShadow117(const std::filesystem::path& ini) {
   TrafficSignal::promotionRequested=TrafficSignal::requested&&GetPrivateProfileIntW(L"LIGHTING20",L"TrafficSignalShadows",GetPrivateProfileIntW(L"LAB",L"TrafficPromote",0,ini.c_str()),ini.c_str())==1;
   Require(TrafficSignal::registry.Configure(TrafficSignal::PrivateKey(),ProofKey()),"traffic_reserved_key_collision");
   for(unsigned i=0;i<nearbyKeys.size();++i)Require(TrafficSignal::registry.IndexOfKey(NearbyKey(i))==UINT32_MAX,"traffic_emergency_reserved_key_collision");
+  PoleCasterDiagnostic134::requested=mode!=0&&GetPrivateProfileIntW(L"SUPPORT",L"PoleCasterDiagnostic134",0,ini.c_str())==1;
   CaptureDiagnostic44::directory=ini.parent_path();
   NativeProducerGate116::requested=GetPrivateProfileIntW(L"SUPPORT",L"NativeProducerGateDiagnostics116",0,ini.c_str())==1;
-  ConsumerShadow75::requested=GetPrivateProfileIntW(L"SUPPORT",L"ConsumerShadowDiagnostics",0,ini.c_str())==1;
+  ConsumerReach136::requested=GetPrivateProfileIntW(L"LAB",L"StaticConsumerReach136",0,ini.c_str())==1;
+  ConsumerShadow75::requested=ConsumerReach136::requested||GetPrivateProfileIntW(L"SUPPORT",L"ConsumerShadowDiagnostics",0,ini.c_str())==1;
   diagnosticsEnabled=options.detail;hotCountersEnabled=options.counters;ownerTelemetryEnabled=options.ownerTelemetry;OwnHeadlightCaster::diagnosticCounters=options.counters;
   policeTestEnabled=GetPrivateProfileIntW(L"LIGHTING20",L"EmergencyLightShadows",GetPrivateProfileIntW(L"LAB",L"PoliceTest",0,ini.c_str()),ini.c_str())==1;
   nearbyPoliceEnabled=policeTestEnabled&&GetPrivateProfileIntW(L"LIGHTING20",L"EmergencyLightShadows",GetPrivateProfileIntW(L"LAB",L"PoliceNearby",0,ini.c_str()),ini.c_str())==1;
@@ -918,7 +1025,7 @@ DWORD StartShadow117(const std::filesystem::path& ini) {
    PlayerShadowAllocation::additionalFeatures=p.tail||p.model||p.corona||p.traffic||p.emergency;
    // Named lower tiers bypass enhanced catalog/owner/profiling branches even
    // when retained SUPPORT/LAB keys were written by an older full profile.
-   if(!p.model&&!p.corona){ConsumerShadow75::requested=false;NativeProducerGate116::requested=false;}
+   if(!p.model&&!p.corona){ConsumerReach136::requested=false;ConsumerShadow75::requested=false;NativeProducerGate116::requested=false;}
    Event(1,"SETTINGS117","schema=3 single_shared_manager=1 restart_required=1 migrated="+std::to_string(preset117::startup.migrated)+" invalid_values="+std::to_string(preset117::startup.invalid));
   }
   PlayerShadowAllocation::additionalFeatures=PlayerShadowAllocation::additionalFeatures||TrafficSignal::requested||nearbyPoliceEnabled;
@@ -945,7 +1052,7 @@ DWORD StartShadow117(const std::filesystem::path& ini) {
   const auto pause=original->Pause();pauseUser=reinterpret_cast<uint8_t*>(U32(original->bytes.data()+pause+2));pauseScript=reinterpret_cast<uint8_t*>(U32(original->bytes.data()+pause+8));
   for(unsigned attempt=0;attempt<2400;++attempt){const auto bytes=ReadMemory(loop+5,16);if(!memcmp(bytes.data(),original->bytes.data()+call+5,16)){boundary=safetyhook::create_mid(loop+5,OnFrame);Require(bool(boundary),"boundary_hook_failed");Event(1,"WAITING","post_FusionFix_unpaused_frame");return 0;}Sleep(50);}
   throw std::runtime_error("unpacked_boundary_timeout");
- }catch(const std::exception& e){failed=true;Event(1,"DISABLED",e.what());}return 0;
+ }catch(const std::exception& e){failed=true;Event(1,"DISABLED",e.what());StartupFailure129(e.what());}return 0;
 }
 DWORD WINAPI Start(void*) {
  try {
@@ -960,12 +1067,19 @@ DWORD WINAPI Start(void*) {
   return preset117::RouteStartup117(effective,preset117::runtimeLease,
    [&]{OutputDebugStringW(L"Liberty's Shadows: Off; frontend only, no lighting services.\n");return preset117::FrontendOnly117(self);},
    [&]{return StartShadow117(ini);});
- }catch(const std::exception& e){failed=true;OutputDebugStringA(e.what());return 1;}
+ }catch(const std::exception& e){failed=true;OutputDebugStringA(e.what());StartupFailure129(e.what());return 1;}
 }
 
 }
 extern "C" __declspec(dllexport) void InitializeASI(){static std::once_flag once;std::call_once(once,[]{if(auto h=CreateThread(nullptr,0,standalone::Start,nullptr,0,nullptr))CloseHandle(h);});}
 BOOL WINAPI DllMain(HMODULE h,DWORD reason,void*){if(reason==DLL_PROCESS_ATTACH){standalone::self=h;DisableThreadLibraryCalls(h);}return TRUE;}
+
+
+
+
+
+
+
 
 
 

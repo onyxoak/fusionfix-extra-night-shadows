@@ -1,0 +1,14 @@
+{
+  "Candidate": "experimental156-combined",
+  "Parents": [
+    "154-frame-boundary",
+    "155-current-command"
+  ],
+  "PublicRelease": false,
+  "Installed": false,
+  "PhysicalPoleFixed": false,
+  "PerformanceMeasured": false,
+  "AdditionalShadowMaps": 0,
+  "FrameTimeProfiling151": 0,
+  "FrameBoundaryProfiling154": 1
+}

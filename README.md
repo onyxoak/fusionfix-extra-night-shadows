@@ -1,8 +1,8 @@
-# Liberty’s Shadows — 2.0
+# Liberty’s Shadows — 2.0.1
 
 Expanded dynamic-shadow interaction for GTA IV’s existing vehicle, city and environmental lights. Created and maintained by **OnyxOak**, with OpenAI Codex development assistance. Original FusionFix/FusionShaders and dependency attribution and license notices remain applicable.
 
-- **[Download 2.0 and matching source](https://github.com/onyxoak/fusionfix-extra-night-shadows/releases/tag/v2.0)**
+- **[Download 2.0.1 and matching source](https://github.com/onyxoak/fusionfix-extra-night-shadows/releases/tag/v2.0.1)**
 - **[Nexus page, comparisons and support](https://www.nexusmods.com/gta4/mods/1459)**
 - **[Release history](https://github.com/onyxoak/fusionfix-extra-night-shadows/releases)** · [Changelog](CHANGELOG.md)
 
@@ -12,13 +12,13 @@ Use the explicitly named player ZIP attached to the selected release. It is a fu
 
 ## Source
 
-`source/` is the exact ASI source for 2.0 (candidate125). It includes the renderer adapters, allocator, settings, guarded compatibility code and tests. `config/` contains the matching packaged INI. `shaders/` contains the paired transition-shader assembly and rebuild recipe when applicable.
+`source/` is the exact ASI source for 2.0.1 (candidate164). It includes the renderer adapters, allocator, settings, guarded compatibility code and tests. `config/` contains the matching packaged INI. `shaders/` contains the paired transition-shader assembly and rebuild recipe when applicable.
 
-For the **complete corresponding source**, download `Libertys-Shadows-2.0-source.zip` from this release. It also contains the full shader-source component and original build materials. GitHub’s automatic source snapshots do not replace that full source package. See [BUILD.md](BUILD.md), [SOURCE-MANIFEST.json](SOURCE-MANIFEST.json) and [RELEASE-CATALOG.json](RELEASE-CATALOG.json).
+For the **complete corresponding source**, download `Libertys-Shadows-2.0.1-source.zip` from this release. It also contains the full shader-source component and original build materials. GitHub’s automatic source snapshots do not replace that full source package. See [BUILD.md](BUILD.md), [SOURCE-MANIFEST.json](SOURCE-MANIFEST.json) and [RELEASE-CATALOG.json](RELEASE-CATALOG.json).
 
 ## Validation and remaining work
 
-Expanded supported city and vehicle lighting, including dual headlights and taillights on High and traffic/emergency-light shadows from Medium. Added Low/Medium/High choices and matching shaders. Further optimization and model-specific shadow refinements remained ongoing.
+Improved scenery priority and reduced unnecessary background processing. High considers scenery shadows out to 250 ft; headlight/taillight reach remains unchanged. Headlights were reduced 15 percent and traffic-light spill raised 5 percent. Physical lamp-pole shadows and the brightness change when leaving a car remained unresolved.
 
 Offline checks do not establish universal mod compatibility, shadow coverage or an FPS guarantee. Heavy nighttime scenes, model-specific pole shadows and further shadow transitions remain active refinement areas. Unfinished research is not represented as released functionality.
 

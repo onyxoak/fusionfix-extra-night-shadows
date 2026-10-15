@@ -55,6 +55,7 @@ void UpdateValues() noexcept {
  if(!controller)return;
  preset117::RefreshApplied119();
  controller->ObserveApplied119(preset117::applied,preset117::backendLimited,preset117::vehicleDepthUnavailable119,preset117::backendReadFailed119);
+ controller->ObserveNight128(native_night128::currentState.load(std::memory_order_acquire));
  try{for(size_t n=0;n<ControlCount;++n){const auto text=Control(n)==Control::Preset?controller->QualityValue121():controller->Value(Control(n));if(text.size()>=values[n].size())return;
   std::copy(text.begin(),text.end(),values[n].begin());values[n][text.size()]=0;
  }}catch(...){OutputDebugStringW(L"Liberty's Shadows: menu text update refused.\n");}

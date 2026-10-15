@@ -14,7 +14,7 @@ inline constexpr unsigned Schema=3;
 struct State {
  Preset preset=Preset::High,base=Preset::High;
  std::array<bool,size_t(Feature::Count)> features{true,true,true,true,true};
- unsigned lampReachSteps=40,headlightReachSteps=10;
+ unsigned lampReachSteps=50,headlightReachSteps=10;
  bool enabled=true;
  bool operator==(const State&) const=default;
 };
@@ -26,7 +26,7 @@ constexpr bool Enabled(const State& s,Feature f) noexcept {return s.enabled&&f<F
 inline std::optional<State> Defaults(Preset p) noexcept {
  if(!Implemented(p))return {};
  State s{};s.preset=s.base=p;
- if(p<Preset::High)s.features={false,false,p==Preset::Medium,p==Preset::Medium,false};
+ if(p<Preset::High){s.lampReachSteps=40;s.features={false,false,p==Preset::Medium,p==Preset::Medium,false};}
  return s;
 }
 inline Engine Implementation(const State& s) noexcept {return s.enabled&&(Implemented(s.preset)||(s.preset==Preset::Custom&&Implemented(s.base)))?Engine::Shared:Engine::None;}

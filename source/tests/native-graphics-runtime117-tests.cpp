@@ -177,6 +177,7 @@ template<class R> R CheckArgumentReturn(Role role,unsigned callsBefore) {
 }
 
 int main() {
+ native_night128::currentState=native_night128::State::Enabled;
  using namespace native_ui117;using namespace fixture117;
  Reset();uint8_t adjusted=0x5a;
  Invoke(&Scroll,{0,0xffffffffu,0xfffffffeu,uint32_t(reinterpret_cast<uintptr_t>(&adjusted))});CheckArgumentReturn<uint8_t>(Role::Scroll,0);
@@ -187,6 +188,16 @@ int main() {
  Invoke(&Label,{uint32_t(reinterpret_cast<uintptr_t>(foreign)),uint32_t(reinterpret_cast<uintptr_t>(text))});assert(CheckArgumentReturn<const char*>(Role::Label,3)==reinterpret_cast<const char*>(uintptr_t(0x17602000)));
  // Owned rendering routes no original call and returns stable addon strings.
  Reset();Invoke(&Value,{0,49,1,15});assert(calls.empty()&&reinterpret_cast<wchar_t*>(uintptr_t(resultBits))==values[size_t(Control::Preset)].data());Fp(entryFp,EntryError);
+ // Actual owned native Value callback reports prerequisites without native
+ // settings writes, pending-preset changes or losing ABI/FP/LastError state.
+ native_night128::currentState=native_night128::State::Off;
+ Invoke(&Value,{0,49,1,15});assert(calls.empty()&&controller->Pending()==high);
+ assert(std::wstring(values[size_t(Control::Preset)].data())==L"High (Night Shadows Off)");Fp(entryFp,EntryError);
+ native_night128::currentState=native_night128::State::Unknown;
+ Invoke(&Value,{0,49,1,15});assert(calls.empty()&&controller->Pending()==high);
+ assert(std::wstring(values[size_t(Control::Preset)].data())==L"High (Night state unknown)");Fp(entryFp,EntryError);
+ native_night128::currentState=native_night128::State::Enabled;
+ Invoke(&Value,{0,49,1,15});assert(calls.empty()&&std::wstring(values[size_t(Control::Preset)].data())==L"High");Fp(entryFp,EntryError);
  const auto& receipt=receipts[0];const auto* ownLabel=reinterpret_cast<const char*>(uintptr_t(receipt.array.data+15*sizeof(Option)+offsetof(Option,label)));
  Invoke(&Label,{uint32_t(reinterpret_cast<uintptr_t>(ownLabel)),uint32_t(reinterpret_cast<uintptr_t>(text))});assert(calls.empty()&&resultBits==0&&std::wstring(text)==Labels[size_t(Control::Preset)]);Fp(entryFp,EntryError);
  // No process context: own-looking inputs still run the existing chain once.
