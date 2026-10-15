@@ -154,6 +154,9 @@ void Resolve(SafetyHookContext& regs) noexcept {
  // All following reads are SEH-contained; no native emission/callback runs
  // before this scope ends. Values and owner generation are still reread fresh.
  const traffic_signal::fresh_page::Operation44 readOperation(32);
+ // Region fallbacks may repeat for locked, nonresident or crossing pages.
+ // Borrow permissions only within this callback; all data is read again.
+ const immediate_region33::Scope regions196;
  ResolveEvidence evidence{};
  if(!InnerEvidence(regs,evidence)){local.state.Invalidate();++readRejected;return;}
  if(!local.state.Resolve(evidence)){
@@ -185,6 +188,10 @@ uint32_t FinishPoint68(SafetyHookContext& regs,uint32_t site,
  const std::array<uint32_t,18>& arguments,const PointEvidence& evidence,
  const Invocation* current,Sample& sample,
  std::array<uint32_t,32>* owned68=nullptr) noexcept {
+ // Also reached from the deferred constructor fallback, after its native
+ // call has returned. Never carry a permission proof through that call.
+ std::optional<immediate_region33::Scope> regions196;
+ if(!immediate_region33::current)regions196.emplace();
  if(!sample.diagnostic&&pointFusion50&&!traffic_signal::fresh_page::preferRegion){
   if(owned68)++ownedFusedAttempts79;
   if(FusePoint50(regs,*current,sample,site,arguments,evidence,owned68)==PointFusion50Result::Complete){
@@ -230,6 +237,7 @@ void Point(SafetyHookContext& regs,uint32_t site) noexcept {
  // promotion reads; all bytes and owner generations are still reread fresh.
  // SEH-contained copies reject an access revoked after the initial query.
  const traffic_signal::fresh_page::Operation44 pointReadOperation47(32);
+ const immediate_region33::Scope regions196;
  const auto abi=model_light_submission20::Layout(site);const auto words=abi.words;
  std::array<uint32_t,18> arguments{};uint32_t returnAndEffect[3]{};
  const traffic_signal::fresh_batch30::Span contextSpans[]{

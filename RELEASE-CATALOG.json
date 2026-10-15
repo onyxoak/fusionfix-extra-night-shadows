@@ -22,5 +22,13 @@
     "source_sha256": "bcc8589622a006362161d0fe83f550e917c570df25692f6a711072dbe612ec35",
     "asi_sha256": "1bcb296af89107d3888c67a3be9b494481a381439c8ac8279c089605fd566ed2",
     "source_files": 443
+  },
+  {
+    "version": "2.0.3",
+    "candidate": 210,
+    "player_sha256": "bfcf51eb98cf9e57c6eb31f70a991d175881bba08d2817ad76bd1ded2087c05b",
+    "source_sha256": "108f19be0798e0be4b31c0c7705f3737be910b90e50b908a25c96b17ebddb84c",
+    "asi_sha256": "66894b1870a3f1813b941a2dd38650042ce2df93faf4b5016e629753e1361f39",
+    "source_files": 484
   }
 ]

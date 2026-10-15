@@ -1,0 +1,33 @@
+{
+  "input": "D:\\SteamLibrary\\steamapps\\common\\Grand Theft Auto IV\\GTAIV\\update\\common\\shaders\\win32_30\\deferred_lighting.fxc",
+  "input_sha256": "534e1f863ef9555b591afd205556b2fc40506c14ec86634a7b7df14b1ce7277b",
+  "output": "D:\\Codex-Work\\Libertys-Shadows-2.0\\refinement198-shadow-transition\\fade198B\\shader\\deferred_lighting.fxc",
+  "output_sha256": "2c2c8711e477d0ba2ceb9bdc493fc058f8f0bb3c0d497c8338d0e0e677631cfa",
+  "changed_pixels": [
+    {
+      "pixel": 13,
+      "baseline_sha256": "c22263ca14c3910f607d0d284891f9d7fdcca9cc44997ce374de92b0a31b1966",
+      "candidate_sha256": "f6e4d1d81b4a576e91f47825afe80ca4c59ed40927cf2d9ab33ecdf59bf2e425",
+      "bytes": 4428,
+      "extra_arithmetic_instructions": 8
+    },
+    {
+      "pixel": 14,
+      "baseline_sha256": "c1fc810542448b86a3b7ab36346cd79fdbca6eb4efbffcbbc3b7487c67d32765",
+      "candidate_sha256": "7f697da7eba2fbe2ba919fec765ba11de762126311f5f5ea3f80208acfdd7d9d",
+      "bytes": 3948,
+      "extra_arithmetic_instructions": 8
+    },
+    {
+      "pixel": 16,
+      "baseline_sha256": "bcae4b82bb0c03188080cad8d5d36d088a07671e738533a650074b1121041134",
+      "candidate_sha256": "ebfee32ee4001b84939c64ecde97c447d0fb6a903607791c2c2f150ad9240d61",
+      "bytes": 4636,
+      "extra_arithmetic_instructions": 8
+    }
+  ],
+  "other_fragments_and_techniques_identical": true,
+  "equation_tests": true,
+  "rendered_pixels_verified": false,
+  "installed": false
+}

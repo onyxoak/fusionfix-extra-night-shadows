@@ -38,6 +38,8 @@ namespace PlayerShadowAllocation
     static bool (*labPointSource)(const rage::CLightSource&) noexcept=nullptr;
     static uint64_t (*labLampGeneration)(const rage::CLightSource&) noexcept=nullptr;
     static void (*observeShadowResult)() noexcept=nullptr;
+    static void (*observeSelected198C)() noexcept=nullptr;
+    static thread_local bool freshView198C=false;
     static void (*observeSubmittedLights)(const rage::CLightSource*,uint32_t) noexcept = nullptr;
     static SafetyHookMid collectHook, finalizeHook, lampDistanceHook, compareResultHook, cacheResultHook, stableOrdinalsHook;
     static std::atomic<uint32_t> stableOrdinalPasses{0},stableOrdinalMoves{0},stableOrdinalRejected{0};
@@ -401,9 +403,9 @@ namespace PlayerShadowAllocation
         state.tracedComparison=false;
         state.ownEligibleCount=0;
         state.stackAnchor = 0;
-        state.view = {};
+        state.view = {}; freshView198C=false;
         if (cameraPriority && rage::pCurrentViewport) {
-            state.view = ReadGameplayView();
+            state.view = ReadGameplayView(); freshView198C=state.view.valid;
             // Shadow passes replace the current viewport. Keep only a recent,
             // full-resolution perspective view. Selection can consume a view on a different
             // thread; publish a consistent snapshot without waiting in either hook.
@@ -1033,6 +1035,7 @@ namespace PlayerShadowAllocation
         if(state.deferModels48 && (!state.continuityActive || !shortlistGetterSafe48()))FlushPending48();
         selectionHook.unsafe_ccall<void>();
         if(observeShadowResult && state.depth==1)observeShadowResult();
+        if(observeSelected198C && state.depth==1)observeSelected198C();
         // Native copying marks holes inactive but leaves their previous keys.
         // Clear only those dead identities before native frame-buffer copying.
         // This prevents lighting lookup from finding a stale, unrendered map.

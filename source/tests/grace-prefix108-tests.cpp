@@ -13,6 +13,7 @@
 #include "ExperimentRuntimeOptions.hpp"
 #include "NativeClassDomains105.hpp"
 #include "NativeProjectionRead66.hpp"
+#include "ArcadePlacement197.hpp"
 #include "core/DeferredModelShortlist48.hpp"
 #include "core/ShadowFloatingPointState.hpp"
 #include "core/ShadowViewPriority.hpp"
@@ -64,8 +65,10 @@ alignas(64)uint8_t tokens[4096][64]{},classTokens105[3][4096][64]{};
 native_class_domains105::Registry<> registry;
 native_class_domains105::IssuedKeys<> issuedKeys;
 std::array<std::atomic<uint32_t>,4> classTokensUsed105{};
+arcade_placement197::Projections privateProjections197;
 #include "intern108.inc"
 #include "read108.inc"
+bool (*placementBank197)(rage::CLightSource&,Packet&,uint32_t) noexcept=nullptr;
 #include "queued108.inc"
 }
 lab_siren::NearbyPolice nearbyPolice;
@@ -170,3 +173,4 @@ int main(int argc,char** argv){
  enabled108=false;fullGate();enabled108=true;
  std::puts("PASS actual prefix/gate/compare/nearby/owned-witness extraction, ordinary/police parity, unknown callback, key/index/frame/reentry guards; native owner proof cost not simulated, no FPS claim.");return 0;
 }
+

@@ -10,6 +10,13 @@
 #include <optional>
 #include <vector>
 #include <algorithm>
+#ifdef MODEL_REGION196
+#include "ImmediateRegion33.hpp"
+bool forceLocked196=false,failQuery196=false,crossPage196=false,disableRegions196=false;
+SIZE_T WINAPI CountVirtualQuery196(LPCVOID,PMEMORY_BASIC_INFORMATION,SIZE_T);
+void AfterRegion196(uintptr_t,size_t,bool) noexcept;
+void AfterPoint196() noexcept;
+#endif
 BOOL WINAPI CountQuery(HANDLE,PVOID,DWORD);
 inline constexpr auto RealQuery=QueryWorkingSetEx;
 // Production helper default query functions are bound to the real counted OS
@@ -37,10 +44,21 @@ namespace traffic_signal::fresh_batch30 {
 namespace fp=traffic_signal::fresh_page;
 unsigned queries=0,queriedPages50=0,regionCalls50=0;
 void AfterQuery(PVOID bytes,DWORD size,BOOL success) noexcept;
-BOOL WINAPI CountQuery(HANDLE process,PVOID bytes,DWORD size){++queries;queriedPages50+=size/sizeof(PSAPI_WORKING_SET_EX_INFORMATION);const auto ok=RealQuery(process,bytes,size);AfterQuery(bytes,size,ok);return ok;}
+BOOL WINAPI CountQuery(HANDLE process,PVOID bytes,DWORD size){++queries;queriedPages50+=size/sizeof(PSAPI_WORKING_SET_EX_INFORMATION);const auto ok=RealQuery(process,bytes,size);AfterQuery(bytes,size,ok);
+#ifdef MODEL_REGION196
+ if(forceLocked196&&ok){auto* entries=static_cast<PSAPI_WORKING_SET_EX_INFORMATION*>(bytes);for(unsigned i=0;i<size/sizeof(*entries);++i)if(entries[i].VirtualAttributes.Valid)entries[i].VirtualAttributes.Locked=1;}
+ if(failQuery196)return FALSE;
+#endif
+ return ok;}
 bool Region(uintptr_t address,size_t size) noexcept {
+#ifdef MODEL_REGION196
+ ++regionCalls50;auto* saved=immediate_region33::current;if(disableRegions196)immediate_region33::current=nullptr;
+ const bool ok=immediate_region33::Readable(address,size,CountVirtualQuery196);
+ immediate_region33::current=saved;AfterRegion196(address,size,ok);return ok;
+#else
  ++regionCalls50; MEMORY_BASIC_INFORMATION m{};if(!VirtualQuery(reinterpret_cast<void*>(address),&m,sizeof(m)))return false;
  return m.State==MEM_COMMIT&&!(m.Protect&(PAGE_GUARD|PAGE_NOACCESS))&&address>=uintptr_t(m.BaseAddress)&&size<=m.RegionSize-(address-uintptr_t(m.BaseAddress));
+#endif
 }
 struct SafetyHookContext{uint32_t eflags{},esp{},ebp{},edi{};};
 #include "core/ShadowFloatingPointState.hpp"
@@ -209,6 +227,9 @@ Result Run(bool scoped,Change requestedChange=Change::None,bool keyed=false,bool
  args[0]=2;args[1]=abi50.type;args[2]=keyed?4u:inputFlags79;args[3]=vectors;args[4]=vectors+16;args[5]=vectors+32;args[6]=vectors+48;args[7]=0x3f800000;args[10]=0x41200000;args[11]=std::bit_cast<uint32_t>(0.4f);args[12]=std::bit_cast<uint32_t>(0.8f);args[15]=keyed?77u:0u;
  if(scattered50){args[3]=uint32_t(uintptr_t(vectorPages50));args[4]=uint32_t(uintptr_t(vectorPages50+4096));args[5]=uint32_t(uintptr_t(vectorPages50+8192));args[6]=uint32_t(uintptr_t(vectorPages50+12288));}
  auto* floats=reinterpret_cast<float*>(memory+12288);for(unsigned i=0;i<16;++i)floats[i]=1;
+#ifdef MODEL_REGION196
+ if(crossPage196){for(unsigned i=3;i<=6;++i)args[i]=uint32_t(uintptr_t(vectorPages50+4092));const float crossing[3]{1,1,1};std::memcpy(reinterpret_cast<void*>(args[5]),crossing,sizeof(crossing));}
+#endif
  const auto base=uint32_t(reinterpret_cast<uintptr_t>(memory));
  auto* context=reinterpret_cast<uint32_t*>(memory+128);context[0]=game+DispatchReturn;context[1]=2;context[2]=base+12288;
  Invocation invocation{};invocation.frame=7;invocation.nonce=9;invocation.preStack=base+132;invocation.owner=base+8192;invocation.effect=2;invocation.matrix=base+12288;invocation.modelInfo=uint32_t(uintptr_t(model50));invocation.sampled=true;invocation.ordinal=3;invocation.proposedKey=invocation.owner+invocation.ordinal;
@@ -239,6 +260,9 @@ Result Run(bool scoped,Change requestedChange=Change::None,bool keyed=false,bool
  }
  LARGE_INTEGER tickBegin{},tickEnd{};QueryPerformanceCounter(&tickBegin);
  if(scoped)PointScoped47(regs,site50);else PointUnscoped47(regs,site50);
+#ifdef MODEL_REGION196
+ AfterPoint196();
+#endif
  uint32_t finalFlags68=args[2],finalKey68=args[keyIndex50];
  if(fast68&&ModelValue68::pending[0].present&&outcome68!=3){
   const auto slot68=ModelValue68::ReturnSlot(regs.esp,site50);
@@ -288,7 +312,12 @@ Result Run(bool scoped,Change requestedChange=Change::None,bool keyed=false,bool
  if(requestedChange==Change::Revoke||requestedChange==Change::Guard)assert(VirtualProtect(memory+4096,4096,PAGE_READWRITE,&oldProtection));
  // Native caller resumes after the callback: fresh permission observation is
  // mandatory even for a page whose approval was reused inside Point.
- const auto before=queries,regionBefore50=regionCalls50;assert(TrafficSignal::Readable(base,4));assert(queries==before+(fp::preferRegion?0u:1u));assert(regionCalls50==regionBefore50+(fp::preferRegion?1u:0u));
+ const auto before=queries,regionBefore50=regionCalls50;assert(TrafficSignal::Readable(base,4));assert(queries==before+(fp::preferRegion?0u:1u));
+#ifdef MODEL_REGION196
+ assert(regionCalls50==regionBefore50+((fp::preferRegion||forceLocked196||failQuery196)?1u:0u));
+#else
+ assert(regionCalls50==regionBefore50+(fp::preferRegion?1u:0u));
+#endif
  return result;
 }
 Result Queued(bool scoped,Change requestedChange=Change::None){
@@ -313,6 +342,7 @@ Result Queued(bool scoped,Change requestedChange=Change::None){
  const auto before=queries,regionBefore50=regionCalls50;assert(TrafficSignal::Readable(base,4));assert(queries==before+(fp::preferRegion?0u:1u));assert(regionCalls50==regionBefore50+(fp::preferRegion?1u:0u));
  return result;
 }
+#ifndef MODEL_REGION196
 int main(){
  memory=static_cast<uint8_t*>(VirtualAlloc(nullptr,4096*4,MEM_COMMIT|MEM_RESERVE,PAGE_READWRITE));assert(memory);
  auto allocate50=[](){auto* p=static_cast<uint8_t*>(VirtualAlloc(nullptr,4096,MEM_COMMIT|MEM_RESERVE,PAGE_READWRITE));assert(p);return p;};
@@ -448,3 +478,4 @@ int main(){
  assert(fp::operation44==nullptr);for(auto q68:{headers50,flags50,model50,dummyOwner50,vectorPages50})assert(VirtualFree(q68,0,MEM_RELEASE));assert(VirtualFree(memory,0,MEM_RELEASE));
  std::puts("68 extracted production OFF/ON/nonactive/category/fallback/reentrant/frame/ABI/owner-fault/native-args checks passed; simulated66 boundary, no live FPS claim");
 }
+#endif

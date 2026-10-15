@@ -7,6 +7,7 @@
 #include <cstdio>
 #include "NativeClassDomains105.hpp"
 #include "NativeProjectionRead66.hpp"
+#include "ArcadePlacement197.hpp"
 #include "FreshPageReadable.hpp"
 #include "ImmediateRegion33.hpp"
 #include "TrafficSignalNativeQueue.hpp"
@@ -32,6 +33,7 @@ native_class_domains105::IssuedKeys<> issuedKeys;
 native_class_domains105::Registry<> registry;std::atomic_flag lock=ATOMIC_FLAG_INIT;
 std::atomic<uint32_t> contended{},capacityFallback{},tokensUsed74{};
 std::array<std::atomic<uint32_t>,4> classTokensUsed105{};
+arcade_placement197::Projections privateProjections197;
 #include "projection66-intern-extracted.inc"
 }
 using namespace NativeProjection66;

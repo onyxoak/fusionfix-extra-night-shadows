@@ -19,13 +19,15 @@ void Emit(const consumer_shadow75::Sample& s) noexcept {
  ShadowTrace34::Emit({85,s.frame,s.tick,s.key,0,0,0,0,s.recomputedRatio,s.recomputedThreshold,0,0});
 }
 void Observe(consumer_shadow75::Stage stage,SafetyHookContext& regs) noexcept {
- // Preserve all incoming application-visible state even on OFF/fault paths.
- // SafetyHook saves GPR/EFLAGS/XMM; this scope covers x87/MXCSR/LastError.
- const ModelEffectObserver::LastErrorScope error;
- const fusionfix::shadows::FloatingPointState fp;
+ // Disabled diagnostics perform only atomic/integer checks and clear our
+ // private context. Avoid saving/resetting FP state for every rendered light.
  if(!active.load(std::memory_order_acquire)||!addonActive.load(std::memory_order_acquire)||
   !CaptureDiagnostic44::sampleSources.load(std::memory_order_acquire)||
   !ShadowTrace34::enabled.load(std::memory_order_acquire)){context={};return;}
+ // SafetyHook saves GPR/EFLAGS/XMM; active probing also preserves x87,
+ // MXCSR and LastError, including every fault/reentrancy return below.
+ const ModelEffectObserver::LastErrorScope error;
+ const fusionfix::shadows::FloatingPointState fp;
  if(busy)return;
  busy=true;struct Leave {~Leave(){busy=false;}} leave;
  // Diagnostic callback has no native call/write; each new stage starts fresh.

@@ -1,5 +1,9 @@
 # Release history
 
+## 2.0.3
+
+Added compatibility with official VolumetricLights 2.00. Reduced repeated CPU work in shadow processing and validation. Added scenery-shadow distance transitions and brief retention of available static maps. Updated pole handling using existing maps and corrected two low arcade-light placements. Improved startup-conflict guidance. Heavy nighttime scenes and missing model-specific pole shadows remained open.
+
 ## 2.0.2
 
 Added protection against the native model-reference queue overflow investigated during nighttime crashes. Reduced redundant shadow-caster CPU work without changing lighting, range, brightness or geometry coverage. High remained the default, with routine diagnostics off. VolumetricLights was not compatible with this historical version.

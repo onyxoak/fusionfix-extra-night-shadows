@@ -22,8 +22,9 @@ inline void Preflight(Certificate& result,const Group* groups,unsigned count,fre
  for(unsigned g=0;g<count;++g)if(groups[g].spans&&groups[g].count<=Spans){result.counts[g]=groups[g].count;
   for(unsigned j=0;j<groups[g].count;++j)result.ranges[g][j]={groups[g].spans[j].address,groups[g].spans[j].size};}
  const auto page=fresh_page::PageSize();
- PSAPI_WORKING_SET_EX_INFORMATION pages[Total]{};
- struct Item{unsigned page{};bool individual{};};Item items[Groups][Spans]{};
+ // A validated <=128-byte span can touch at most two ordinary pages.
+ PSAPI_WORKING_SET_EX_INFORMATION pages[Total*2]{};
+ struct Item{unsigned pages[2]{},count{};};Item items[Groups][Spans]{};
  bool valid[Groups]{};unsigned used=0;
  for(unsigned g=0;g<count;++g){const auto& group=groups[g];
   if(!group.spans||!group.count||group.count>Spans)continue;
@@ -34,9 +35,13 @@ inline void Preflight(Certificate& result,const Group* groups,unsigned count,fre
   }
   if(!good)continue;valid[g]=true;
   for(unsigned j=0;j<group.count;++j){const auto& s=group.spans[j];auto& item=items[g][j];
-   if(!page||(page&(page-1))||s.address/page!=(s.address+s.size-1)/page){item.individual=true;continue;}
-   unsigned n=0;for(;n<used;++n)if(uintptr_t(pages[n].VirtualAddress)/page==s.address/page)break;
-   if(n==used)pages[used++].VirtualAddress=reinterpret_cast<void*>(s.address);item.page=n;
+   if(page<fresh_batch30::MaximumBytes||(page&(page-1)))continue;
+   const uintptr_t first=s.address/page,last=(s.address+s.size-1)/page;
+   for(uintptr_t number=first;number<=last;++number){
+    unsigned n=0;for(;n<used;++n)if(uintptr_t(pages[n].VirtualAddress)/page==number)break;
+    if(n==used)pages[used++].VirtualAddress=reinterpret_cast<void*>(number==first?s.address:number*page);
+    item.pages[item.count++]=n;
+   }
   }
  }
  if(used){++result.osQueries;result.queriedPages=used;memory_read46::Record(memory_read46::Metric::BatchOSQueries);memory_read46::Record(memory_read46::Metric::QueriedPages,used);}
@@ -44,15 +49,20 @@ inline void Preflight(Certificate& result,const Group* groups,unsigned count,fre
  for(unsigned g=0;g<count;++g){if(!valid[g])continue;const auto& group=groups[g];bool permitted=true;
   for(unsigned j=0;j<group.count&&permitted;++j){const auto& s=group.spans[j];const auto& item=items[g][j];
    auto region=[&]() noexcept {result.reusable[g]=false;++result.fallbacks;memory_read46::Record(memory_read46::Metric::FallbackRequests);return fallback(s.address,s.size);};
-   if(item.individual||!queried){permitted=region();continue;}
-   const auto a=pages[item.page].VirtualAttributes;
-   if(!a.Valid){permitted=region();continue;}
-   const auto protection=a.Win32Protection;
-   if(protection&(PAGE_GUARD|PAGE_NOACCESS)){permitted=false;continue;}
-   if(a.Locked||a.LargePage||a.Bad){permitted=region();continue;}
-   switch(protection){case PAGE_READONLY:case PAGE_READWRITE:case PAGE_WRITECOPY:
-    case PAGE_EXECUTE_READ:case PAGE_EXECUTE_READWRITE:case PAGE_EXECUTE_WRITECOPY:break;
-    default:permitted=region();break;}
+   if(!item.count||!queried){permitted=region();continue;}
+   bool needsRegion=false;
+   // Inspect BOTH pages before fallback: a known denial is never hidden by
+   // a nonresident/exotic peer. Only ordinary positives become reusable.
+   for(unsigned k=0;k<item.count;++k){const auto a=pages[item.pages[k]].VirtualAttributes;
+    if(!a.Valid){needsRegion=true;continue;}
+    const auto protection=a.Win32Protection;
+    if(protection&(PAGE_GUARD|PAGE_NOACCESS)){permitted=false;break;}
+    if(a.Locked||a.LargePage||a.Bad){needsRegion=true;continue;}
+    switch(protection){case PAGE_READONLY:case PAGE_READWRITE:case PAGE_WRITECOPY:
+     case PAGE_EXECUTE_READ:case PAGE_EXECUTE_READWRITE:case PAGE_EXECUTE_WRITECOPY:break;
+     default:needsRegion=true;break;}
+   }
+   if(permitted&&needsRegion)permitted=region();
   }
   if(!permitted)continue;
   result.allowed[g]=true;

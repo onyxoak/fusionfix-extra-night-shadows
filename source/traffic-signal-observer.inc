@@ -158,6 +158,8 @@ bool MatchOwnerContained32(uintptr_t owner,Match& value) noexcept {
 bool MatchOwner(uintptr_t owner,Match& value) noexcept {
  const shadow_cpu29::Scope cpu(shadow_cpu29::Phase::OwnerMatch,128);
  const immediate_region33::Scope operation;
+ std::optional<traffic_signal::fresh_page::Operation44> pages205;
+ if(!traffic_signal::fresh_page::operation44)pages205.emplace(32);
  return MatchOwnerContained32(owner,value);
 }
 // Model-only combined entry: no owner result or descriptor survives this call.
@@ -173,6 +175,8 @@ bool MatchOwnerWithDescriptor48(uintptr_t owner,Match& value,
  uintptr_t descriptor,void* output,size_t size,bool& copied) noexcept {
  const shadow_cpu29::Scope cpu(shadow_cpu29::Phase::OwnerMatch,128);
  const immediate_region33::Scope operation;
+ std::optional<traffic_signal::fresh_page::Operation44> pages205;
+ if(!traffic_signal::fresh_page::operation44)pages205.emplace(32);
  copied=false;
  const traffic_signal::fresh_batch30::Span extra{descriptor,output,size};
  bool descriptorFault49=false;

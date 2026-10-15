@@ -59,13 +59,18 @@ inline uint32_t ConstructOwned(void* destination,Original original,Adapt adapt,A
  alignas(16) Packet packet{};const auto result=original(packet.data());
  adapt(packet);assign(destination,packet.data());return result;
 }
-inline Projection Values(const Packet& p,bool snowMetadata70=false) noexcept {
+inline Projection Values(const Packet& p,bool snowMetadata70=false,bool volumetricMetadata199=false) noexcept {
  Projection out{};for(unsigned i=0;i<Fields.size();++i)out[i]=p[Fields[i]];
  // Authenticated FF511 after-copy snow callback changes only volumetric
  // metadata in this scoped spot domain. Native depth/caster consumers do not
  // receive these three values. Illumination packet and full witness stay exact.
- if(snowMetadata70&&p[17]==2&&!(p[18]&0x390u)&&
-    p[21]>=std::bit_cast<uint32_t>(8.f)&&p[21]<=std::bit_cast<uint32_t>(20.f)){
+ // Released v2.00 changes only volume flag8/intensity/scale after the native
+ // bank copy for point/spot packets marked 0xDEAD. Permit those metadata
+ // differences only with the complete pinned copy chain authenticated. They
+ // never authorize owner lifetime or packet reuse: Witness stays fully exact.
+ if((snowMetadata70&&p[17]==2&&!(p[18]&0x390u)&&
+    p[21]>=std::bit_cast<uint32_t>(8.f)&&p[21]<=std::bit_cast<uint32_t>(20.f))||
+    (volumetricMetadata199&&(p[17]==0||p[17]==2)&&p[20]==0xdead)){
   for(unsigned i=0;i<Fields.size();++i){
    if(Fields[i]==18)out[i]&=~8u;
    if(Fields[i]==28||Fields[i]==29)out[i]=0;
@@ -95,7 +100,7 @@ template<unsigned Capacity=4096> struct Registry {
  std::array<Entry,Capacity> entries{};
  std::array<uint32_t,Capacity*2> cells{};
  uint32_t used{},keyBase{};
- bool snowMetadata70=false;
+ bool snowMetadata70=false,volumetricMetadata199=false;
  void Init(uint32_t base) noexcept {keyBase=base;}
  bool Contains(uint32_t key) const noexcept {
   return key>=keyBase&&uint64_t(key)-keyBase<uint64_t(used)*64&&(key-keyBase)%64==0;
@@ -105,7 +110,7 @@ template<unsigned Capacity=4096> struct Registry {
  }
  template<class Collision> uint32_t Observe(const Packet& packet,uint32_t frame,Collision collision) noexcept {
   if(!keyBase||!Eligible(packet))return 0;
-  const auto projection=Values(packet,snowMetadata70);auto cell=Hash(projection)&(cells.size()-1);
+  const auto projection=Values(packet,snowMetadata70,volumetricMetadata199);auto cell=Hash(projection)&(cells.size()-1);
   for(unsigned n=0;n<cells.size();++n){auto& slot=cells[cell];
    if(slot){auto& e=entries[slot-1];if(e.projection==projection){e.lastFrame=frame;return e.issued?e.key:0;}}
    else {
@@ -122,7 +127,7 @@ template<unsigned Capacity=4096> struct Registry {
   // describes projection only; it never authorizes replay or a retained source.
   const auto* e=Lookup(key);if(!e||packet[24]!=key||(packet[18]&6u)!=4u)return false;
   auto normalized=packet;normalized[18]&=~4u;normalized[24]=0;
-  return Eligible(normalized)&&e->projection==Values(normalized,snowMetadata70);
+  return Eligible(normalized)&&e->projection==Values(normalized,snowMetadata70,volumetricMetadata199);
  }
 };
 // TLS sidecar bound to one allocator pass; never modifies native packet storage.
@@ -164,8 +169,8 @@ template<unsigned Max=640> struct AliasPass {
   return key&(Cells-1);
  }
  void Begin() noexcept {count=0;alias.fill(false);indexed=false;}
- bool Add(unsigned index,uint32_t key,const Packet& packet,float weight=0.f,bool snowMetadata70=false) noexcept {
-  if(index>=Max||!key)return false;const auto value=Values(packet,snowMetadata70);
+ bool Add(unsigned index,uint32_t key,const Packet& packet,float weight=0.f,bool snowMetadata70=false,bool volumetricMetadata199=false) noexcept {
+  if(index>=Max||!key)return false;const auto value=Values(packet,snowMetadata70,volumetricMetadata199);
   unsigned found=Max,cell=0;
   // Keep tiny/duplicate-heavy passes on the original scan. The table is built
   // exactly once after32 distinct keys, including all earlier representatives.

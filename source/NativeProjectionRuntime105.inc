@@ -3,6 +3,7 @@
 #include "NativeClassDomains105.hpp"
 #include "NativeProjectionRead66.hpp"
 #include "NativeCopyGuard70.hpp"
+#include "ArcadePlacement197.hpp"
 #include <intrin.h>
 namespace NativeProjection66 {
 bool requested=false,replacementRequested=false,authenticated=false;
@@ -12,6 +13,7 @@ alignas(64) uint8_t tokens[4096][64]{};
 alignas(64) uint8_t classTokens105[3][4096][64]{};
 native_class_domains105::Registry<> registry;
 native_class_domains105::IssuedKeys<> issuedKeys;
+arcade_placement197::Projections privateProjections197;
 thread_local native_projection66::AliasPass<> aliases;
 thread_local native_projection66::Sidecar<> sidecar;
 std::atomic_flag lock=ATOMIC_FLAG_INIT;
@@ -24,10 +26,13 @@ using native_projection66::Packet;
 bool (*matchModelConstructor66)(const native_projection66::ConstructorContext&) noexcept=nullptr;
 uint32_t (*legacyFallback66)(Packet&,uint32_t,const native_projection66::ConstructorContext&) noexcept=nullptr;
 void (*constructorCompleted66)(bool,const native_projection66::ConstructorContext&) noexcept=nullptr;
+bool (*placeModel197)(Packet&,Packet&,uint32_t,const native_projection66::ConstructorContext&) noexcept=nullptr;
+bool (*finishPlacement197)(Packet&,uint32_t,const native_projection66::ConstructorContext&,bool) noexcept=nullptr;
+bool (*placementBank197)(rage::CLightSource&,Packet&,uint32_t) noexcept=nullptr;
 bool Enabled() noexcept {return requested&&active.load(std::memory_order_acquire)&&addonActive.load(std::memory_order_acquire)&&PlayerShadowAllocation::Enabled()&&bool(bExtraNightShadows);}
 bool CopyPacket(const rage::CLightSource& light,Packet& p,bool fresh=true,unsigned* queryCount133=nullptr) noexcept {
  if(queryCount133)*queryCount133=0;
- p={};if(fresh){++winnerPreflights;const auto permission=native_projection66::Preflight(reinterpret_cast<uintptr_t>(&light),0x78);
+ p={};if(fresh){++winnerPreflights;const auto permission=native_projection66::PacketPreflight203(reinterpret_cast<uintptr_t>(&light));
   permissionQueries.fetch_add(permission.queries,std::memory_order_relaxed);
   if(queryCount133)*queryCount133=permission.queries;
   if(!permission.allowed){++winnerDenied;return false;}
@@ -36,7 +41,7 @@ bool CopyPacket(const rage::CLightSource& light,Packet& p,bool fresh=true,unsign
  if(!copied)++packetFaults;return copied;
 }
 bool OwnKey(uint32_t key) noexcept {
- return issuedKeys.Contains(registry,key);
+ return privateProjections197.Owns(key)||issuedKeys.Contains(registry,key);
 }
 bool CanReplaceModelSubmission(uint32_t type,uint32_t flags,uint32_t key) noexcept {
  return replacementRequested&&authenticated&&Enabled()&&(type==0||type==2)&&!(flags&6u)&&!key;
@@ -54,6 +59,11 @@ uint32_t Intern(Packet& packet,uint32_t frame) noexcept {
   if(!issuedKeys.Publish(registry,key))return 0;
   packet[24]=key;packet[18]|=4u;
  }return key;
+}
+uint32_t InternPlacement197(Packet& packet,uint32_t frame) noexcept {
+ if(lock.test_and_set(std::memory_order_acquire)){++contended;return 0;}
+ const auto key=privateProjections197.Intern(packet,frame,[](uint32_t candidate)noexcept{return Liberty20::Collision(candidate);});
+ lock.clear(std::memory_order_release);return key;
 }
 // Exact native thiscall signature: ECXdestination,17 stack DWORDs,ret44.
 // The inline hook has a fastcall dummy EDX and the same stack cleanup. Only the
@@ -83,7 +93,10 @@ __declspec(noinline) uint32_t __fastcall Constructor(void* destination,void*,uin
   const ModelEffectObserver::LastErrorScope error;
   const fusionfix::shadows::FloatingPointState fp;
   const auto frame=*CShadows::pFrameCounter;
-  const bool success=Enabled()&&Intern(packet,frame)!=0;
+  const bool success=arcade_placement197::Adapt(packet,currentModel&&placeModel197,
+   [&](Packet& p,Packet& before) noexcept{return placeModel197(p,before,frame,context);},
+   [&](Packet& p,bool relocated) noexcept{return Enabled()&&(relocated?InternPlacement197(p,frame):Intern(p,frame))!=0;},
+   [&](Packet& p,bool issued) noexcept{return finishPlacement197&&finishPlacement197(p,frame,context,issued);});
   if(success)++promoted;
   else {++fallback;if(currentModel&&legacyFallback66)(void)legacyFallback66(packet,frame,context);}
   if(currentModel&&constructorCompleted66)constructorCompleted66(success,context);
@@ -114,10 +127,11 @@ void PrepareHooks() {
   callback.assign(expected.bytes.begin()+native_copy70::CallbackRva,
    expected.bytes.begin()+native_copy70::CallbackRva+native_copy70::CallbackSize);
  }
- const auto copyEvidence=native_copy70::Verify(uint32_t(game),uint32_t(ff),known511,
+ const auto copyEvidence=VolumetricCompat199::authenticated?native_copy70::Evidence{VolumetricCompat199::copyChain.fusionFix,0,0}:native_copy70::Verify(uint32_t(game),uint32_t(ff),known511,
   std::span<const uint8_t>(original->bytes.data()+native_copy70::CopyRva,native_copy70::CopySize),callback,
   [](uint32_t address,size_t size){return ReadMemory(address,size);});
  registry.snowMetadata70=known511&&copyEvidence.fusionFixOverlay;
+ registry.volumetricMetadata199=VolumetricCompat199::authenticated;
  Event(1,"PROJECTION_COPY70_AUTHENTICATED","fusionfix_overlay="+std::to_string(copyEvidence.fusionFixOverlay)+
   " scratch_copy_bytes=120 native_bank_callback_preserved=1 duplicate_callback=0");
  Require(OriginalCall(0x6bd18f)==game+0x1b8580&&OriginalCall(0x6bd23b)==game+0x1b8580,"projection66_ctor_call_guard_failed");
@@ -127,6 +141,8 @@ void PrepareHooks() {
 }
 void Enable() {if(requested&&authenticated){Require(bool(constructorHook.enable()),"projection66_ctor_enable_failed");active.store(true,std::memory_order_release);}}
 void Disable() noexcept {active=false;if(constructorHook)(void)constructorHook.disable();}
+using DiagnosticPacket199C=void(*)(unsigned,rage::CLightSource*,uint32_t,uint32_t,const Packet&) noexcept;
+std::atomic<DiagnosticPacket199C> diagnosticPacket199c{nullptr};
 void ValidateQueued(rage::CLightSource* lights,uint32_t count) noexcept {
  const auto frame=*CShadows::pFrameCounter;
  aliases.Begin();sidecar.Begin(reinterpret_cast<uintptr_t>(lights),count,frame);
@@ -146,7 +162,15 @@ void ValidateQueued(rage::CLightSource* lights,uint32_t count) noexcept {
  // Snapshot every own-domain entry as invalid before attempting registry lock.
  // A failed bounded read cannot authorize any insertion in this pass.
  for(unsigned i=0;i<count;++i){Packet packet{};
-  if(CopyPacket(lights[i],packet,false)&&OwnKey(packet[24]))sidecar.Own(i,packet);
+  if(CopyPacket(lights[i],packet,false)){
+   if(const auto observer=diagnosticPacket199c.load(std::memory_order_acquire))observer(i,lights,count,frame,packet);
+   if(OwnKey(packet[24])){
+    // Observe raw current packets before the exact placement-retirement check.
+    // A retired placement never receives sidecar authority for its old packet.
+    if(placementBank197&&!placementBank197(lights[i],packet,frame))continue;
+    sidecar.Own(i,packet);
+   }
+  }
  }
  if(lock.test_and_set(std::memory_order_acquire)){++contended;return;}
  for(unsigned i=0;i<count;++i){
@@ -154,7 +178,8 @@ void ValidateQueued(rage::CLightSource* lights,uint32_t count) noexcept {
   const auto& packet=sidecar.packets[i];const auto key=packet[24];
   const float weight=fusionfix::shadows::SceneBrightness44(std::bit_cast<float>(packet[16]),
    {std::bit_cast<float>(packet[12]),std::bit_cast<float>(packet[13]),std::bit_cast<float>(packet[14])});
-  if(!registry.Validate(key,packet)||!aliases.Add(i,key,packet,weight,registry.snowMetadata70)){++invalidQueued;continue;}
+  const bool valid197=privateProjections197.Owns(key)?privateProjections197.Validate(key,packet):registry.Validate(key,packet);
+  if(!valid197||!aliases.Add(i,key,packet,weight,registry.snowMetadata70,registry.volumetricMetadata199)){++invalidQueued;continue;}
   sidecar.Accept(i,false);++accepted;
  }
  for(unsigned i=0;i<count;++i)if(sidecar.decisions[i]==native_projection66::Decision::Valid){
@@ -176,6 +201,7 @@ unsigned CollectDecision(unsigned index,rage::CLightSource* lights,uint32_t coun
    sidecar.decisions[index]!=native_projection66::Decision::Ordinary?3u:0u;
  }
  if(!OwnKey(packet[24]))return 0;
+ if(placementBank197&&!placementBank197(lights[index],packet,frame))return 3;
  if(!active.load(std::memory_order_acquire))return 3;
  const auto decision=sidecar.Current(index,packet,reinterpret_cast<uintptr_t>(lights),count,frame,stack);
  return decision==native_projection66::Decision::Valid?1u:decision==native_projection66::Decision::Alias?2u:3u;

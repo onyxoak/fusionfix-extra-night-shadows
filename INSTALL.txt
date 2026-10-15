@@ -1,77 +1,87 @@
-Liberty's Shadows 2.0.2
+Liberty's Shadows 2.0.3
 By OnyxOak
 
-Dynamic lighting and shadows for Liberty City: headlights, taillights,
-traffic and emergency lights, and supported city lights and fixtures.
+Dynamic shadows from headlights, taillights, traffic and emergency lights,
+storefronts and supported city fixtures. High is the full lighting experience.
 
 INSTALL / UPDATE
-1. Close GTA IV and back up files this package will replace outside the game.
-2. Install the complete official FusionFix package for GTA IV Complete Edition.
-3. Copy this package's plugins and update folders beside the GTAIV.exe you
-   actually launch. Keep both folders together and preserve their structure.
-   Remove older loadable Liberty's Shadows ASI copies from other locations.
-4. In Graphics, keep Shadow Quality and Night Shadows above Off. Apply and
-   confirm the game's Keep Settings prompt. Launch normally through Steam.
+1. Close GTA IV. Back up the files you replace outside the game folder.
+2. Install the complete official FusionFix package for Complete Edition.
+3. Copy BOTH plugins and update from this ZIP beside the GTAIV.exe you launch.
+   Replace previous Liberty's Shadows files. Remove duplicate older copies of
+   OnyxOak.ExtraNightShadows.asi from other loader folders.
+4. Keep Shadow Quality and Night Shadows above Off in the Graphics menu.
+   Apply and confirm the game's Keep Settings prompt. Launch normally.
+5. Reapply this package after a later FusionFix install replaces its shaders.
 
-Tested target: GTA IV Complete Edition1.2.0.59, FusionFix5.1.1, Vulkan/DXVK.
-No trainer, ScriptHook, capture software, PDB, custom launcher or D: drive
-is required. Diagnostic and recording features are disabled by default.
+Tested: Complete Edition1.2.0.59, official FusionFix5.1.1, Vulkan/DXVK.
+Requires FusionFix and its ordinary ASI loader. SISCO, DLSS-IV, a trainer,
+ScriptHook, recording software and custom launchers are not required.
+No source files, PDBs or local test helpers are needed by players.
 
-QUALITY
-High is the default and enables the full supported lighting feature set.
-Low: corrected headlight/streetlamp behavior.
-Medium: Low plus supported traffic-signal/emergency-light shadows.
-High: Medium plus separate headlights, taillights and expanded city coverage.
-If performance is your priority, choose Low or Medium before loading the
-world. Dense nighttime scenes remain demanding on High; improvements continue.
-Restart after preset/Off-On/individual feature changes. Reach-only custom
-INI settings are in feet; named High uses street250ft/headlight50ft.
+QUALITY / CUSTOM SETTINGS
+High is the default. For more performance, select Low or Medium in Graphics
+before loading into the world. Restart after quality or On/Off changes.
+Low: corrected headlights and streetlamp shadows.
+Medium: Low plus supported traffic-signal and emergency-light shadows.
+High: Medium plus dual headlights, taillights and expanded world lighting.
+High reach defaults: street250ft, headlights50ft; brightness remains unchanged.
+For individual options, set Preset=Custom in the INI and use the documented
+controls beneath it. Back up your customized INI before future updates.
 
 WHAT CHANGED
-Added protection against a native model-reference queue overflow identified
-in a nighttime crash dump. Repeated holds of the same model are coalesced
-within each native queue, preserving reference lifetimes and shadow draws.
-Reduced redundant CPU work for ordinary shadow-casting geometry without
-cutting lights, casters, shadow range or changing brightness. Full High
-lighting remains enabled by default. Passed119 offline checks; the author
-reported no crash in the latest Experimental195 test. Broader testing and
-optimization continue; this is not a claim that every crash is resolved.
+- Reduced repeated shadow processing and validation work; retained the native
+  model-reference overflow protection from2.0.2.
+- Added compatibility with official VolumetricLights v2.00 while preserving
+  both mods' headlight/light-copy callbacks.
+- Added scenery-shadow transitions near the existing application distance
+  and brief retention for available static shadow maps.
+- Updated physical lamp-pole shadow handling using existing selected maps.
+- Corrected two identified low arcade light-source placements.
+- Clear startup troubleshooting now keeps the actual compatibility error and
+  explains safe disabling when an unsupported VolumetricLights setup is found.
+High remains default. Normal logging, recording and profiling are OFF.
+This is the exact candidate210 binary tested by OnyxOak, without a rebuild.
+
+OPTIONAL VOLUMETRICLIGHTS
+Official VolumetricLights v2.00 was tested running together with this build
+and official FusionFix5.1.1. It is optional and NOT included in this ZIP.
+https://github.com/RecklessGlue540/VolumetricLights/releases/tag/v2.00
+Install its complete official package if wanted, with backups. This supports
+that exact binary; unknown modified copies and other renderer hooks can still
+conflict. A Project Lights bundle may contain a different version: check it.
 
 HAVING ISSUES?
-VolumetricLights.asi (including the copy bundled with Project Lights) is
-incompatible. Back up and move that ASI and its INI outside plugins, then
-restart; other Project Lights assets can remain. Other lighting plugins
-that alter the same renderer may conflict. Check the launched game folder
-and install both this package's plugins and update folders together.
-Reapply this package if a later FusionFix install replaces its shader files.
+First check the launched folder and install BOTH package folders together.
+Read plugins/OnyxOak.ExtraNightShadows.log for a startup failure; it records
+fatal compatibility failures even when normal Logging=0.
+If the log rejects VolumetricLights, close GTA IV and move VolumetricLights.asi
+AND VolumetricLights.ini outside the entire GTA IV game folder, then restart.
+Moving the ASI from plugins to the game root does not disable it. If the log
+says VolumetricLights was accepted, a later check failed for another reason.
+Do not bypass protections. Send the full log, exact FusionFix/VolumetricLights
+versions and ASI lists from both the game root and plugins folders.
 
-KNOWN ISSUES
-Headlights can still dim when you exit the car; retention needs further work.
-Physical lamp poles may not cast their own shadows. Occasional shadow
-pop-in/flicker, spotlight cutouts, headlight seams/leaks and demanding dense
-night scenes remain under review. Camera-dependent nighttime stalls remain under investigation. The crash
-protection above targets an identified overflow, not every possible hang.
+NOTES
+Dense nighttime scenes remain demanding, especially on High. Optimization
+continues. Some pole models, abrupt map replacements/pop-in, light cutouts
+and other shadow artifacts can still need refinement. Fire-shadow coverage
+is unfinished. This update does not promise every compatibility or crash fix.
 
 REPORT / ROLLBACK
-Use Nexus Bugs, one issue per ticket: game/FusionFix/mod versions, preset,
-other lighting plugins, renderer, hardware/resolution for performance,
-location/time/weather, exact steps, and a screenshot or short clip.
+Use Nexus Bugs with one issue per ticket: versions, preset, other lighting
+mods, location/time/weather, exact steps and a screenshot or short clip.
+For performance reports include hardware, resolution and renderer.
 https://www.nexusmods.com/gta4/mods/1459?tab=bugs
-Startup compatibility failures may produce OnyxOak.ExtraNightShadows.log.
-For a detailed reproduction, temporarily set SUPPORT Logging=2 and restart,
-then restore Logging=0. Do not disable compatibility protections.
-To uninstall, close the game, remove this package's ASI/INI and restore
-the matching backed-up shaders. Keep official FusionFix. Off alone retains
-this shader payload and is not a clean FusionFix comparison.
+For detailed support only, set SUPPORT Logging=2 and restart, reproduce
+briefly, then restore Logging=0. Diagnostic runs do not represent clean FPS.
+To undo an update restore your backed-up ASI, INI and shaders together.
+Off in the menu alone does not restore stock FusionFix comparison shaders.
 
-CREDITS / SOURCE
+CREDITS
 OnyxOak: concept, direction, integration, visual testing and releases.
 Development assistance: OpenAI Codex. FusionFix: ThirteenAG and contributors.
-Applicable GPL and dependency licenses/notices are preserved in licenses.
-Project, corresponding source and older releases:
-https://github.com/onyxoak/fusionfix-extra-night-shadows
-This is an unofficial mod, without official FusionFix endorsement.
-Photos can show separate vehicle/graphics mods not included here.
-
-Build identity: tested Experimental195 binary, packaged as2.0.2.
-Its internal diagnostic build label is retained to preserve exact tested bytes.
+GPL and dependency licenses/notices are preserved in the license folder.
+Project: https://github.com/onyxoak/fusionfix-extra-night-shadows
+Unofficial mod, without official FusionFix endorsement. Photos may include
+separate vehicle or graphics mods not included here.

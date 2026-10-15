@@ -8,6 +8,7 @@
 #include "GpuResetGate39.hpp"
 #include "NativeProjectionRegistry66.hpp"
 #include "NativeProjectionRead66.hpp"
+#include "VolumetricCompat199.hpp"
 #include "core/standalone-shadow-core.cpp"
 #include "CaptureDiagnostic44.hpp"
 #include "CaptureFramePrelude46.hpp"
@@ -23,6 +24,7 @@ namespace preset117 { ReadResult startup;State applied;bool backendLimited{},veh
 #include "ShortlistHelperRuntime48.hpp"
 #include "NativeNightPrerequisite128.hpp"
 #include "StartupConflict129.hpp"
+#include "StartupGuidance210.hpp"
 #include "standalone-warning-policy.hpp"
 #include "core/LabSirenBlinkGrace.hpp"
 #include "core/LabPoliceClaim.hpp"
@@ -35,7 +37,7 @@ namespace preset117 { ReadResult startup;State applied;bool backendLimited{},veh
 namespace standalone {
 using namespace onyxoak;
 using pe::U32;
-constexpr char CandidateBuild32[]="libertys-shadows-private195-caster-fastpath";
+constexpr char CandidateBuild32[]="candidate210";
 HMODULE self{};
 uintptr_t game{},ff{},loop{};
 uint8_t *pauseUser{},*pauseScript{};
@@ -363,6 +365,7 @@ void VerifyOfficial() {
  shortlist_helper48::runtime::binding={game,ff,original->bytes.size(),expected.bytes.size(),
   layout==&Layout511&&pe::Hash(raw)==Layout511.hash};
 }
+#include "VolumetricCompat199Runtime.inc"
 uintptr_t Operand(const char* signature,unsigned offset){return U32(bindings->bytes.data()+bindings->Find(signature)+offset);}
 size_t Binding(const char* first,const char* second){
  try{return bindings->Find(first);}catch(const std::runtime_error& e){if(std::string(e.what()).rfind("pattern count=0:",0)!=0)throw;return bindings->Find(second);}
@@ -464,9 +467,11 @@ template<class Hook,class Function> void Prepare(Hook& hook,uintptr_t target,Fun
 #include "ModelLightShadowRuntime20.inc"
 #include "ModelLightCatalogRuntime20.inc"
 #include "NativeProjectionRuntime105.inc"
+#include "EffectAttribution199CRuntime.inc"
 #include "ModelReferenceQueue189Runtime.inc"
 #include "ModelProjectionBridge69.inc"
 #include "ConsumerReachRuntime136.inc"
+#include "SceneryFade198BRuntime.inc"
 #include "ConsumerShadow75Runtime.inc"
 #include "NativeProducerGate116Runtime.inc"
 #include "CoronaLightRuntime20.inc"
@@ -480,6 +485,7 @@ template<class Hook,class Function> void Prepare(Hook& hook,uintptr_t target,Fun
 #include "PoleStaticPartition141Runtime.inc"
 #include "PoleDrawWitness145Runtime.inc"
 #include "PoleDepthRepair157Runtime.inc"
+#include "MapContribution198CRuntime.inc"
 uintptr_t LightCasterOwner(uintptr_t key) noexcept {
  const auto beam=Liberty20::BeamOwner(key);
  return beam?beam:TailLight20::CasterOwner(key);
@@ -618,6 +624,7 @@ void __fastcall Render(void* object,void* edx){
   }
  }
  const shadow_cpu29::Scope cpu(phase,16);
+ const MapContribution198C::RenderScope contribution198C;
  const GpuProfiling39::StageScope gpuSpan(object);
  const PoleCasterDiagnostic134::Scope poleDiagnostic134(object);
  const PoleStaticPartition141::Scope polePartition141(object);
@@ -630,9 +637,10 @@ void PreCacheSelection(SafetyHookContext& regs) noexcept {
  PlayerShadowAllocation::StabilizeMapOrdinals(regs);
 }
 void DisableAll() noexcept {
+ EffectAttribution199C::Disable();
  ModelReferenceQueue189::Disable();
  FusionBackend130::Close();
- NativeProducerGate116::Disable();ConsumerShadow75::Disable();
+ SceneryFade198B::Disable();NativeProducerGate116::Disable();ConsumerShadow75::Disable();
  NativeProjection66::Disable();
  FrameBoundary154::enabled=false;FrameTime151::Disable();GpuProfiling39::Disable();
  CoronaLight20::Disable();
@@ -648,7 +656,7 @@ void DisableAll() noexcept {
 }
 void Install() {
  VerifyLightingCapabilities(pe::Read(pe::ModulePath(nullptr)));
- VerifyOfficial();const auto image=GuardedImage();FusionBackend130::PrepareHooks();PoleStaticPartition141::Prepare(image);PoleDepthRepair157::PrepareHooks();PoleDrawWitness145::PrepareHooks();
+ VerifyOfficial();auto image=GuardedImage();VolumetricCompat199::AuthenticateAndNormalize(image);FusionBackend130::PrepareHooks();PoleStaticPartition141::Prepare(image);PoleDepthRepair157::PrepareHooks();PoleDrawWitness145::PrepareHooks();
  Liberty20::PrepareHooks(image);
  if(ModelLightShadow20::requested||CoronaLight20::requested)Require(ModelLightShadow20::registry.Configure(uint32_t(reinterpret_cast<uintptr_t>(ModelLightShadow20::keyStorage))),"model_shadow_key_storage_invalid");
  TailLight20::PrepareHooks(image);
@@ -716,8 +724,9 @@ void Install() {
  CoronaLight20::PrepareHooks();
  WorldGeometry20::PrepareHooks();
  ModelReferenceQueue189::PrepareHooks();
- NativeProjection66::PrepareHooks();
- ConsumerShadow75::PrepareHooks();NativeProducerGate116::PrepareHooks();
+ NativeProjection66::PrepareHooks();ArcadePlacement197::Prepare();
+ EffectAttribution199C::PrepareHooks();
+ ConsumerShadow75::PrepareHooks();SceneryFade198B::PrepareHooks(ConsumerShadow75::prepared);NativeProducerGate116::PrepareHooks();
  if(ownerAuditEnabled){
   // Entire wrapper and candidate producer bodies must remain the exact mapped executable.
   const std::pair<uint32_t,size_t> ranges[]={{0x6bcc50,0x7f},{0x640790,0x1e20},{0x644b36,0x35},{0x640620,0x167}};
@@ -743,7 +752,7 @@ void Install() {
      &ModelEffectObserver::wrapperSpotHook,&ModelEffectObserver::directSpotHook,
      &WorldGeometry20::collection,&WorldGeometry20::draw,&WorldGeometry20::mask,&CoronaLight20::activeHook,
      &ConsumerShadow75::lookupHook,&ConsumerShadow75::gateHook,&ConsumerShadow75::dispatchHook,
-     &NativeProducerGate116::planeHook,&NativeProducerGate116::sphereHook})
+     &NativeProducerGate116::planeHook,&NativeProducerGate116::sphereHook,&EffectAttribution199C::insertionHook,&SceneryFade198B::binderHook})
   if(*hook)preparedRanges.push_back({hook->target_address(),hook->original_bytes().size()});
  Require(DisjointPreparedHooks(preparedRanges),"prepared_hook_ranges_overlap");
  GpuProfiling39::PrepareHooks(preparedRanges);
@@ -770,7 +779,8 @@ void Install() {
  CoronaLight20::EnableHooks();
  WireModelProjection69();
  NativeProjection66::Enable();
- ConsumerShadow75::Enable();NativeProducerGate116::Enable();
+ EffectAttribution199C::Enable();
+ ConsumerShadow75::Enable();SceneryFade198B::Enable(ConsumerShadow75::active.load(std::memory_order_acquire));NativeProducerGate116::Enable();
  preset117::refreshApplied119Hook=RefreshApplied119State;
  NativeNightPrerequisite128::Prepare();
  RefreshApplied119State();
@@ -902,6 +912,7 @@ void OnFrame(SafetyHookContext&) noexcept {
  const fusionfix::shadows::FloatingPointState fp;
  if(!capture_frame46::ContinueGameplay(failed.load(),addonActive.load(std::memory_order_acquire),pauseUser,pauseScript,[]{
   const auto transition=CaptureDiagnostic44::Poll();
+  EffectAttribution199C::CaptureTransition(transition);
   if(transition)Event(1,"CAPTURE_DIAGNOSTIC44","transition="+std::to_string(transition)+" sampled_sources="+std::to_string(CaptureDiagnostic44::sampleSources.load())+" trace="+std::to_string(ShadowTrace34::enabled.load())+" optional_not_clean_timing=1");
  })){FrameBoundary154::Sample(frameStart154,false);return;}
  FrameBoundary154::Sample(frameStart154,true);
@@ -911,7 +922,7 @@ void OnFrame(SafetyHookContext&) noexcept {
     if(ownWidth<16||ownWidth>16384||ownHeight<16||ownHeight>16384){ownWidth=800;ownHeight=600;}
    }
   }
-  ModelReferenceQueue189::Publish();PublishSelectionHelpers48();PoleDepthRepair157::Publish();FrameBoundary154::Publish();FrameTime151::Publish();GpuProfiling39::Publish();PublishRuntimeControls38();PublishCpuProfile29();PublishMemoryReads46();Liberty20::Publish();TailLight20::Publish();ModelEffectObserver::Publish();ModelLightShadow20::Publish();WorldGeometry20::Publish();CoronaLight20::Publish();NativeProjection66::Publish();PublishVisibleReceiver133();ConsumerShadow75::Publish();NativeProducerGate116::Publish();
+  ModelReferenceQueue189::Publish();PublishSelectionHelpers48();PoleDepthRepair157::Publish();FrameBoundary154::Publish();FrameTime151::Publish();GpuProfiling39::Publish();PublishRuntimeControls38();PublishCpuProfile29();PublishMemoryReads46();Liberty20::Publish();TailLight20::Publish();ModelEffectObserver::Publish();ModelLightShadow20::Publish();WorldGeometry20::Publish();CoronaLight20::Publish();NativeProjection66::Publish();ArcadePlacement197::Publish();PublishVisibleReceiver133();ConsumerShadow75::Publish();NativeProducerGate116::Publish();
   PublishShadowTransitions69();
   NearbyVehicleLighting36::Update(); if(policeTestEnabled){UpdateProof();} TrafficPoll(); if(diagnosticsEnabled){PublishNine(); MeasureProofCadence(); PublishChurn(); PublishPolicePackets(); PublishProofTransition(); PublishLightAudit(); PublishOwnerAudit();PublishCombinedStatus();}
   static uint64_t last{};const auto now=GetTickCount64();if(hotCountersEnabled&&now-last>=5000){last=now;Event(2,"COUNTERS","passes="+std::to_string(PlayerShadowAllocation::appliedPasses.load())+" caster="+std::to_string(OwnHeadlightCaster::casterVisits.load())+" own="+std::to_string(OwnHeadlightCaster::ownPasses.load())+" deferred="+std::to_string(OwnHeadlightCaster::deferredPasses.load())+" proofRequested="+std::to_string(proofRequested.load())+" proofRetired="+std::to_string(proofRetired.load())+" proofPromoted="+std::to_string(proofPromoted.load())+" proofSelected="+std::to_string(proofSelected.load())+" proofRenderCalls="+std::to_string(proofRenderCalls.load())+" policeMode="+std::to_string(policePolicy.load())+" policeOverrides="+std::to_string(policeOverrides.load())+" vacancy="+std::to_string(vacancyRequested.load())+" vacancySuppressed="+std::to_string(vacancySuppressed.load())+" packetDropped="+std::to_string(policeDropped.load())+" graceComparisons="+std::to_string(proofGraceComparisons.load())+" proofFrames="+std::to_string(proofFrames.load())+" maxSlots="+std::to_string(proofMaxSlots.load())+" collected="+std::to_string(PlayerShadowAllocation::labCollected.load())+" observed="+std::to_string(PlayerShadowAllocation::labObserved.load())+" nativeChosen="+std::to_string(PlayerShadowAllocation::labNativeChosen.load())+" finalChosen="+std::to_string(PlayerShadowAllocation::labFinalChosen.load())+" cmp0="+std::to_string(PlayerShadowAllocation::labComparisons[0].load())+" cmp1="+std::to_string(PlayerShadowAllocation::labComparisons[1].load())+" cmp2="+std::to_string(PlayerShadowAllocation::labComparisons[2].load())+" result0="+std::to_string(PlayerShadowAllocation::labResults[0].load())+" result1="+std::to_string(PlayerShadowAllocation::labResults[1].load())+" result2="+std::to_string(PlayerShadowAllocation::labResults[2].load())+" claimLoss="+std::to_string(PlayerShadowAllocation::labClaimLoss.load())+" ownLoss="+std::to_string(PlayerShadowAllocation::labOwnLoss.load())+" warningHidden="+std::to_string(warningHidden.load()));}return;
@@ -954,7 +965,7 @@ DWORD StartShadow117(const std::filesystem::path& ini) {
   FrameBoundary154::requested=GetPrivateProfileIntW(L"SUPPORT",L"FrameBoundaryProfiling154",0,ini.c_str())==1;
   GpuProfiling39::requested=mode!=0&&GetPrivateProfileIntW(L"SUPPORT",L"GpuProfiling",0,ini.c_str())==1;
   GpuProfiling39::shadowStages=GpuProfiling39::requested&&GetPrivateProfileIntW(L"SUPPORT",L"GpuShadowStages",0,ini.c_str())==1;
-  Event(1,"START",std::string("build=")+CandidateBuild32+" candidate validation_pending");
+  Event(1,"START",std::string("build=")+CandidateBuild32);
   Event(1,"GPU_REQUESTED48",GpuProfiling39::requested?(GpuProfiling39::shadowStages?"requested=1 span=shadow_command_span":"requested=1 span=BeginScene_EndScene"):"requested=0 default_off=1");
   if(memory_read46::enabled)Event(1,"MEMORY_READ_PROFILE46_CONFIG","enabled=1 startup_opt_in=1 helper_tls_flush=4096 worker_tail_max_helpers=4095 thread_exit_tail_unreported=1 publish_interval_ms=5000 actual_working_set_queries=1 fallback_requests_not_os_queries=1");
   Event(1,"VALIDATION31",traffic_signal::fresh_page::preferRegion?"fresh_region=1 current_permissions owner_checks_unchanged=1":"fresh_region=0 working_set_override=1");
@@ -962,9 +973,11 @@ DWORD StartShadow117(const std::filesystem::path& ini) {
   Liberty20::worldRequested=GetPrivateProfileIntW(L"LIGHTING20",L"NativeKeyedWorldShadows",0,ini.c_str())==1;
   TailLight20::requested=GetPrivateProfileIntW(L"LIGHTING20",L"TailLightShadows",0,ini.c_str())==1;
   WorldGeometry20::requested=GetPrivateProfileIntW(L"LIGHTING20",L"WorldGeometryCasters",0,ini.c_str())==1;
+  ArcadePlacement197::requested=GetPrivateProfileIntW(L"SUPPORT",L"ArcadePlacement197",0,ini.c_str())==1;
   NativeProjection66::requested=GetPrivateProfileIntW(L"LAB",L"NativeProjection66",0,ini.c_str())==1;
   NativeProjection66::replacementRequested=GetPrivateProfileIntW(L"LAB",L"ReplaceModelProjection66",0,ini.c_str())==1;
   PlayerShadowAllocation::transitionDetectorEnabled69=preset117::ReadTransitionDiagnostics124(ini.c_str());
+  MapContribution198C::requested=GetPrivateProfileIntW(L"SUPPORT",L"MapContribution198C",0,ini.c_str())==1;
   ModelLightShadow20::requested=GetPrivateProfileIntW(L"LIGHTING20",L"ModelLightShadows",0,ini.c_str())==1;
   CoronaLight20::requested=GetPrivateProfileIntW(L"LIGHTING20",L"CoronaLightShadows",0,ini.c_str())==1;
   const auto configuredFloat=[&](const wchar_t* key,float fallback,float minimum,float maximum){
@@ -1001,9 +1014,14 @@ DWORD StartShadow117(const std::filesystem::path& ini) {
   Require(TrafficSignal::registry.Configure(TrafficSignal::PrivateKey(),ProofKey()),"traffic_reserved_key_collision");
   for(unsigned i=0;i<nearbyKeys.size();++i)Require(TrafficSignal::registry.IndexOfKey(NearbyKey(i))==UINT32_MAX,"traffic_emergency_reserved_key_collision");
   PoleCasterDiagnostic134::requested=mode!=0&&GetPrivateProfileIntW(L"SUPPORT",L"PoleCasterDiagnostic134",0,ini.c_str())==1;
+  PoleDepthRepair157::requested=mode!=0&&GetPrivateProfileIntW(L"SUPPORT",L"PoleDepthRepair197C",0,ini.c_str())==1;
+  PoleStaticPartition141::requested=mode!=0&&GetPrivateProfileIntW(L"SUPPORT",L"PoleStaticAdmission197C",0,ini.c_str())==1;
   CaptureDiagnostic44::directory=ini.parent_path();
   NativeProducerGate116::requested=GetPrivateProfileIntW(L"SUPPORT",L"NativeProducerGateDiagnostics116",0,ini.c_str())==1;
+  EffectAttribution199C::requested=GetPrivateProfileIntW(L"SUPPORT",L"EffectProducerDiagnostics199C",0,ini.c_str())==1;
   ConsumerReach136::requested=GetPrivateProfileIntW(L"LAB",L"StaticConsumerReach136",0,ini.c_str())==1;
+  ConsumerReach136::retentionRequested198=GetPrivateProfileIntW(L"LAB",L"SceneryShadowRetention198A",0,ini.c_str())==1;
+  SceneryFade198B::requested=GetPrivateProfileIntW(L"LAB",L"SceneryShadowFade198B",0,ini.c_str())==1;
   ConsumerShadow75::requested=ConsumerReach136::requested||GetPrivateProfileIntW(L"SUPPORT",L"ConsumerShadowDiagnostics",0,ini.c_str())==1;
   diagnosticsEnabled=options.detail;hotCountersEnabled=options.counters;ownerTelemetryEnabled=options.ownerTelemetry;OwnHeadlightCaster::diagnosticCounters=options.counters;
   policeTestEnabled=GetPrivateProfileIntW(L"LIGHTING20",L"EmergencyLightShadows",GetPrivateProfileIntW(L"LAB",L"PoliceTest",0,ini.c_str()),ini.c_str())==1;
@@ -1044,6 +1062,7 @@ DWORD StartShadow117(const std::filesystem::path& ini) {
   ownerAuditEnabled=TrafficSignal::requested||policeTestEnabled || (!preset117::startup.present && mode==2 && GetPrivateProfileIntW(L"LAB",L"ObserveOwners",0,ini.c_str())==1);
   if(ownerAuditEnabled){PlayerShadowAllocation::observeShadowResult=PrivateResults;OwnHeadlightCaster::labRenderObserver=PrivateRender;}
   else if(Liberty20::dualRequested){PlayerShadowAllocation::observeShadowResult=Liberty20::Result;OwnHeadlightCaster::labRenderObserver=Liberty20::Render;}
+  MapContribution198C::Wire();
   if(policeTestEnabled){PlayerShadowAllocation::labPointSource=IsProofPoint;PlayerShadowAllocation::labCompareGrace=ComparePoliceClaim;PlayerShadowAllocation::labGracePairNeutral108=NearbyGracePairNeutral108;}
   if(TrafficSignal::requested)PlayerShadowAllocation::labLampGeneration=TrafficSignal::LampGeneration;
   if(auditEnabled || policeTestEnabled) PlayerShadowAllocation::observeSubmittedLights=ObserveLabLights;
@@ -1083,6 +1102,7 @@ DWORD WINAPI Start(void*) {
 }
 extern "C" __declspec(dllexport) void InitializeASI(){static std::once_flag once;std::call_once(once,[]{if(auto h=CreateThread(nullptr,0,standalone::Start,nullptr,0,nullptr))CloseHandle(h);});}
 BOOL WINAPI DllMain(HMODULE h,DWORD reason,void*){if(reason==DLL_PROCESS_ATTACH){standalone::self=h;DisableThreadLibraryCalls(h);}return TRUE;}
+
 
 
 

@@ -97,6 +97,8 @@ uint32_t Call(void* object){inputError=GetLastError();inputFP=_mm_getcsr();const
 }
 
 
+#include "native-rigid197c-harness.hpp"
+
 int main(){
  using namespace standalone;using namespace fixture134;using namespace PoleDrawWitness145;
  // Failed physical158 experiment must remain durably off in a normal startup.
@@ -146,17 +148,32 @@ int main(){
  Put(command+0x54,uint32_t(0));Put(info+0x3c,pole_caster134::PoleHash);
  std::array<uint8_t,128> dispatchStack{};actualStack157=uintptr_t(dispatchStack.data());SafetyHookContext dispatch;dispatch.esp=actualStack157;dispatch.eax=0xaabbcc00;dispatch.ecx=987;dispatch.edx=654;dispatch.esi=0x4a000000;dispatch.edi=3;
  {PoleDepthRepair157::Scope active(reinterpret_cast<void*>(command));assert(PoleDepthRepair157::current.valid);const auto originalRegs=dispatch;const auto originalStack=dispatchStack;SetLastError(73);const auto originalFp=_mm_getcsr();PoleDepthRepair157::Dispatch(dispatch);
-  assert(dispatch.eax==0xaabbcc01&&dispatchStack[0x30]==1&&dispatch.ecx==originalRegs.ecx&&dispatch.edx==originalRegs.edx&&dispatch.esi==originalRegs.esi&&dispatch.edi==originalRegs.edi&&dispatch.ebp==0);
-  auto expectedRegs=originalRegs;expectedRegs.eax=0xaabbcc01;assert(!std::memcmp(&dispatch,&expectedRegs,sizeof(dispatch)));auto expectedStack=originalStack;expectedStack[0x30]=1;assert(dispatchStack==expectedStack);
+  assert(dispatch.eax==0xaabbcc00&&dispatchStack[0x30]==1&&dispatch.ecx==originalRegs.ecx&&dispatch.edx==originalRegs.edx&&dispatch.esi==originalRegs.esi&&dispatch.edi==originalRegs.edi&&dispatch.ebp==0);
+  auto expectedRegs=originalRegs;assert(!std::memcmp(&dispatch,&expectedRegs,sizeof(dispatch)));auto expectedStack=originalStack;expectedStack[0x30]=1;assert(dispatchStack==expectedStack);
   assert(GetLastError()==73&&_mm_getcsr()==originalFp);uint32_t originalMode{};assert(PoleDepthRepair157::Read(command+0x54,&originalMode,4)&&originalMode==0);
-  //Native instruction branch parity: both flagstrue choosevirtual30/arg1; MODE1 arg2 never used.
-  const auto nativeBranch=[](uint32_t mode,bool forced,bool promote){bool depth=forced&&(mode&3);bool sun=forced&&depth&&((mode>>1)&1);if(promote){depth=true;sun=true;}return std::array<unsigned,2>{depth?0x30u:0x28u,depth?(sun?1u:2u):0u};};
-  assert(nativeBranch(0,true,true)==nativeBranch(2,true,false));assert(nativeBranch(1,true,false)[1]==2);
+  Native197c::Check(command);
   dispatch.eax=0xaabbcc00;dispatchStack[0x30]=0;Put(game+0x13f59d4,uint32_t(0));PoleDepthRepair157::Dispatch(dispatch);assert(dispatch.eax==0xaabbcc00&&!dispatchStack[0x30]);Put(game+0x13f59d4,uint32_t(0x39000000));
   Put(game+0xc6b308,int32_t(5));PoleDepthRepair157::Dispatch(dispatch);assert(dispatch.eax==0xaabbcc00&&!dispatchStack[0x30]);Put(game+0xc6b308,int32_t(0));
   ++CShadows::frame;PoleDepthRepair157::Dispatch(dispatch);assert(dispatch.eax==0xaabbcc00&&!dispatchStack[0x30]);--CShadows::frame;
   dispatch.ebx=1;PoleDepthRepair157::Dispatch(dispatch);assert(dispatch.eax==0xaabbcc00&&!dispatchStack[0x30]);dispatch.ebx=0;
   uint32_t originalTag157{};std::memcpy(&originalTag157,PoleDepthRepair157::current.bytes.data()+4,4);Put(command+4,uint32_t(777));PoleDepthRepair157::Dispatch(dispatch);assert(dispatch.eax==0xaabbcc00&&!dispatchStack[0x30]);Put(command+4,originalTag157);
+  //197 Native owner-class parity: only class0x80 takes the separate owner
+  //draw route. TYPE4 objects remain generic even with a nonnull context owner.
+  Put(game+0x11dbdbc,entity);
+  for(uint32_t type=0;type<16;++type){
+   Put(entity+0x28,uint32_t(0xa500003fu|(type<<6)));
+   dispatch.eax=0xaabbcc00;dispatchStack[0x30]=0;
+   SetLastError(73);const auto before197=_mm_getcsr();PoleDepthRepair157::Dispatch(dispatch);
+   assert(dispatch.eax==0xaabbcc00);assert((dispatchStack[0x30]==1)==(type!=2));
+   assert(GetLastError()==73&&_mm_getcsr()==before197);
+  }
+  Put(entity+0x28,uint32_t(4<<6));dispatch.eax=0xaabbcc00;dispatchStack[0x30]=0;
+  failAddress=entity+0x28;PoleDepthRepair157::Dispatch(dispatch);assert(dispatch.eax==0xaabbcc00&&!dispatchStack[0x30]);failAddress=0;
+  for(const auto at:{uint64_t(game+0x11dbdbc),uint64_t(entity+0x28)}){
+   mutateAddress=at;mutateNth=2;mutateReads=0;mutateOffset=0;
+   PoleDepthRepair157::Dispatch(dispatch);assert(dispatch.eax==0xaabbcc00&&!dispatchStack[0x30]);mutateAddress=0;
+  }
+  Put(game+0x11dbdbc,uint32_t(0));
  }
  assert(!PoleDepthRepair157::current.valid);Put(info+0x3c,uint32_t(123));{PoleDepthRepair157::Scope rejected(reinterpret_cast<void*>(command));assert(!PoleDepthRepair157::current.valid);}Put(info+0x3c,pole_caster134::PoleHash);
  Put(ff+0x3366f0,int32_t(-1));{PoleDepthRepair157::Scope rejected(reinterpret_cast<void*>(command));assert(!PoleDepthRepair157::current.valid);}Put(ff+0x3366f0,int32_t(-2147483591));

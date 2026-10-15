@@ -8,6 +8,7 @@
 #include <algorithm>
 #include "NativeClassDomains105.hpp"
 #include "NativeProjectionRead66.hpp"
+#include "ArcadePlacement197.hpp"
 #include "core/ShadowCpuProfile29.hpp"
 #include "core/SceneShadowPriority21.hpp"
 namespace rage {struct CLightSource {std::array<uint32_t,24> before;uint32_t mCastShadows;std::array<uint32_t,7> after;};static_assert(sizeof(CLightSource)==128);}
@@ -24,6 +25,11 @@ namespace Liberty20 {
 namespace reference81 {
 using native_projection66::Projection;using native_projection66::Packet;using native_projection66::Values;
 #include "alias81-reference.inc"
+struct Compat199 : AliasPass<> {
+ bool Add(unsigned index,uint32_t key,const Packet& packet,float weight,bool snow,bool volume) noexcept {
+  assert(!volume);return AliasPass<>::Add(index,key,packet,weight,snow);
+ }
+};
 }
 namespace Old91 {
 using native_projection66::Packet;
@@ -31,11 +37,13 @@ alignas(64) uint8_t tokens[4096][64]{};
 alignas(64) uint8_t classTokens105[3][4096][64]{};
 native_class_domains105::Registry<> registry;
 native_class_domains105::IssuedKeys<> issuedKeys;
-thread_local reference81::AliasPass<> aliases;
+thread_local reference81::Compat199 aliases;
 thread_local native_projection66::Sidecar<> sidecar;
 std::atomic<bool> active{true};std::atomic_flag lock=ATOMIC_FLAG_INIT;
 std::atomic<uint32_t> accepted{},invalidQueued{},aliasPackets{},contended{},bankPreflights{},bankDenied{},packetFaults{},permissionQueries{},winnerPreflights{},winnerDenied{};
+arcade_placement197::Projections privateProjections197;
 #include "projection66-read-extracted.inc"
+bool (*placementBank197)(rage::CLightSource&,Packet&,uint32_t) noexcept=nullptr;
 #include "projection66-queue-extracted.inc"
 }
 namespace New91 {
@@ -48,7 +56,9 @@ thread_local native_projection66::AliasPass<> aliases;
 thread_local native_projection66::Sidecar<> sidecar;
 std::atomic<bool> active{true};std::atomic_flag lock=ATOMIC_FLAG_INIT;
 std::atomic<uint32_t> accepted{},invalidQueued{},aliasPackets{},contended{},bankPreflights{},bankDenied{},packetFaults{},permissionQueries{},winnerPreflights{},winnerDenied{};
+arcade_placement197::Projections privateProjections197;
 #include "projection66-read-extracted.inc"
+bool (*placementBank197)(rage::CLightSource&,Packet&,uint32_t) noexcept=nullptr;
 #include "projection66-queue-extracted.inc"
 }
 native_projection66::Packet Light(){native_projection66::Packet p{};p[0]=std::bit_cast<uint32_t>(1.f);p[5]=std::bit_cast<uint32_t>(1.f);p[12]=p[13]=p[14]=p[16]=std::bit_cast<uint32_t>(1.f);p[17]=0;p[18]=0x260;p[21]=std::bit_cast<uint32_t>(20.f);p[25]=UINT32_MAX;return p;}
@@ -81,3 +91,4 @@ int main(){
  assert(VirtualFree(oldBank,0,MEM_RELEASE)&&VirtualFree(newBank,0,MEM_RELEASE));
  std::puts("Exact extracted production ValidateQueued/read/copy bodies, real bank preflight and packet reads included; offline callback timing, not game FPS.");
 }
+

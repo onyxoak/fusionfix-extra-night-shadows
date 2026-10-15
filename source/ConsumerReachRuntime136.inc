@@ -4,9 +4,10 @@
 #include "ImmediateRegion33.hpp"
 #include <optional>
 namespace ConsumerReach136 {
-inline bool requested=false;
+inline bool requested=false,retentionRequested198=false;
 inline thread_local consumer_shadow75::Context context;
 inline thread_local bool busy=false;
+inline thread_local consumer_reach136::ApplicationHistory198 applicationHistory198;
 bool Authorize(const consumer_shadow75::Packet&,uint32_t) noexcept;
 __declspec(noinline) bool WriteByte(uintptr_t address,uint8_t value) noexcept {
  MEMORY_BASIC_INFORMATION m{};
@@ -17,15 +18,18 @@ __declspec(noinline) bool WriteByte(uintptr_t address,uint8_t value) noexcept {
  __except(GetExceptionCode()==EXCEPTION_ACCESS_VIOLATION||GetExceptionCode()==EXCEPTION_GUARD_PAGE?EXCEPTION_EXECUTE_HANDLER:EXCEPTION_CONTINUE_SEARCH){return false;}
 }
 void Observe(consumer_shadow75::Stage stage,SafetyHookContext& regs) noexcept {
- if(!requested){context={};return;}
+ if(!requested){context={};applicationHistory198.Clear();return;}
  if(stage==consumer_shadow75::Stage::Lookup&&regs.eax==UINT32_MAX){context={};return;}
  const ModelEffectObserver::LastErrorScope error;
  const fusionfix::shadows::FloatingPointState fp;
- if(!requested||!addonActive.load(std::memory_order_acquire)){context={};return;}
+ if(!requested||!addonActive.load(std::memory_order_acquire)){context={};applicationHistory198.Clear();return;}
+ if(!retentionRequested198)applicationHistory198.Clear();
  if(busy)return;
  busy=true;struct Leave {~Leave(){busy=false;}} leave;
  if(stage==consumer_shadow75::Stage::Gate&&(!context.pending||
-    !consumer_reach136::NumericPotential142(regs.xmm0.f32[0],regs.xmm1.f32[0]))){context={};return;}
+    (!consumer_reach136::NumericPotential142(regs.xmm0.f32[0],regs.xmm1.f32[0])&&
+     (!retentionRequested198||!consumer_reach136::NumericPotential142(regs.xmm0.f32[0],regs.xmm1.f32[0],consumer_reach136::ApplicationHistory198::ReleaseScale)||
+      !applicationHistory198.Retained(context.packet,context.frame,GetTickCount()))))){context={};return;}
  // Fresh positive exact-page permission proof only within this callback.
  // Every byte/generation read remains fresh; no proof crosses a native call.
  std::optional<traffic_signal::fresh_page::Operation44> pages157;
@@ -44,7 +48,7 @@ void Observe(consumer_shadow75::Stage stage,SafetyHookContext& regs) noexcept {
    // Release borrowed approvals before the existing final stack decision write.
    regions157.reset();pages157.reset();return WriteByte(address,value);
   };
-  if(consumer_reach136::Gate(true,context,r,frame,GetTickCount(),game+0xc3efdc,read,Authorize,write157))
+  if(consumer_reach136::Gate(true,context,r,frame,GetTickCount(),game+0xc3efdc,read,Authorize,write157,retentionRequested198?&applicationHistory198:nullptr))
    ShadowTrace34::Emit({160,frame,GetTickCount(),context.packet.words[24],int(context.sample.type),int(context.sample.flags),1,0,r.ratio,r.threshold,r.threshold/consumer_reach136::StaticShoulder162,consumer_reach136::StaticShoulder162});
   context={};
  }else context={};

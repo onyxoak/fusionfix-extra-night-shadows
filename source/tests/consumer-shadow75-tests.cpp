@@ -69,6 +69,22 @@ int main(){
  _fxsave(before);Lookup(l);_fxsave(after);
  assert(GetLastError()==0x12345678&&Liberty20::reads==0&&std::memcmp(&l,&unchanged,sizeof(l))==0);
  assert(std::memcmp(before,after,160)==0);_mm_setcsr(oldMxcsr);__asm {fstp st(0)}
+ // Every disabled-gate combination at all three actual hook stages must
+ // clear stale private state without reads, FP changes or game writes.
+ for(unsigned mask=0;mask<15;++mask)for(unsigned stage=0;stage<3;++stage){
+  active=(mask&1)!=0;addonActive=(mask&2)!=0;
+  CaptureDiagnostic44::sampleSources=(mask&4)!=0;ShadowTrace34::enabled=(mask&8)!=0;
+  std::memset(&context,0xa5,sizeof(context));Liberty20::reads=0;
+  l=LookupRegs();unchanged=l;SetLastError(0x196196);_mm_setcsr(0x5fa0);
+  __asm fninit
+  __asm fld1
+  _fxsave(before);Observe(static_cast<consumer_shadow75::Stage>(stage),l);_fxsave(after);
+  assert(GetLastError()==0x196196&&Liberty20::reads==0&&std::memcmp(&l,&unchanged,sizeof(l))==0);
+  assert(std::memcmp(before,after,160)==0&&!context.pending&&!context.gateSeen&&!context.source);
+  for(const auto word:context.packet.words)assert(!word);
+  __asm {fstp st(0)}
+ }
+ _mm_setcsr(oldMxcsr);addonActive=true;CaptureDiagnostic44::sampleSources=false;
  active=true;ShadowTrace34::enabled=true;Lookup(l);assert(Liberty20::reads==0); // lease OFF
  CaptureDiagnostic44::sampleSources=true;Init();auto bank=packet;auto cam=camera;auto st=stack;
  Run();assert(completed==1&&ShadowTrace34::events.size()==6&&sizeRejected==1);

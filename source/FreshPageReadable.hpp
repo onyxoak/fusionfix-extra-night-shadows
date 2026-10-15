@@ -19,7 +19,7 @@ inline thread_local Operation44* operation44=nullptr;
 struct Operation44 {
  struct Entry {uintptr_t page{};Query query{};};
  static constexpr unsigned Maximum147=32;
- Operation44* previous;Entry entries[Maximum147]{};unsigned count{},capacity=8;
+ Operation44* previous;Entry entries[Maximum147]{};unsigned count{},capacity=8;DWORD pageSize196{};
  explicit Operation44(unsigned requestedCapacity=8) noexcept:previous(operation44),capacity(requestedCapacity>Maximum147?Maximum147:requestedCapacity){memory_read46::Record(memory_read46::Metric::Operations);if(previous)memory_read46::Record(memory_read46::Metric::NestedOperations);operation44=this;}
  ~Operation44() noexcept{operation44=previous;}
  Operation44(const Operation44&)=delete;Operation44& operator=(const Operation44&)=delete;
@@ -32,6 +32,7 @@ inline bool Known44(uintptr_t address,size_t size,DWORD page,Query query) noexce
 inline void Remember44(uintptr_t address,DWORD page,Query query) noexcept {
  if(!operation44||operation44->count>=operation44->capacity)return;
  for(unsigned i=0;i<operation44->count;++i)if(operation44->entries[i].page==address/page&&operation44->entries[i].query==query)return;
+ if(!operation44->count)operation44->pageSize196=page;
  operation44->entries[operation44->count++]={address/page,query};
 }
 struct Preserve {
@@ -44,6 +45,13 @@ inline DWORD PageSize() noexcept {
  return value;
 }
 __declspec(noinline) inline bool Readable(uintptr_t address,size_t size,Check fallback,Query query=QueryWorkingSetEx) noexcept {
+ // A hit is integer-only and inherits exactly this read-only callback's
+ // existing permission. PageSize() may initialize through GetSystemInfo, so
+ // borrow the page size from a successful entry rather than call it here.
+ // Profiling retains its complete original guarded path and counters.
+ if(!shadow_cpu29::enabled&&!memory_read46::enabled&&!preferRegion&&
+    address>=0x10000&&size&&address<=UINTPTR_MAX-size&&operation44&&operation44->pageSize196&&
+    Known44(address,size,operation44->pageSize196,query))return true;
  const Preserve preserve;
  memory_read46::Record(memory_read46::Metric::ScalarHelpers);
  const shadow_cpu29::Scope cpu(shadow_cpu29::Phase::PageCheck,256);

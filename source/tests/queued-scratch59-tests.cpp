@@ -1,3 +1,4 @@
+#include <optional>
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 #include <windows.h>
@@ -136,7 +137,9 @@ void Metadata49(){ModelLightShadow20::registry.entries[0].descriptor=uint32_t(ui
 std::vector<rage::CLightSource> Run49(bool window,unsigned count=Number49){auto v=initial49;ModelLightShadow20::queuedWindow49=true;ModelLightShadow20::queuedCommitCertificate54=window;queries49=pages49=0;ModelLightShadow20::ValidateQueued(v.data(),count);return v;}
 void AssertSame49(const std::vector<rage::CLightSource>& a,const std::vector<rage::CLightSource>& b){assert(a.size()==b.size());for(unsigned i=0;i<a.size();++i)assert(a[i].mCastShadows==b[i].mCastShadows&&a[i].mFlags==b[i].mFlags);}
 int RunSuite59(bool scratch){ModelLightShadow20::queuedScratch32Requested59=scratch;Initialize49();Configure49();auto baseline=Run49(false);const auto serialQueries=queries49,serialPages=pages49;auto candidate=Run49(true);const auto wideQueries=queries49,widePages=pages49;AssertSame49(baseline,candidate);for(auto l:candidate)assert(l.mFlags==0x44);
- assert(serialQueries==(scratch?719u:799u)&&wideQueries==(scratch?145u:245u)&&wideQueries<serialQueries);
+ // 202's two-page preflight prevents a crossing owner from disabling the
+ // later32-entry commits. The legacy16 path retains its exact old count.
+ assert(serialQueries==(scratch?719u:799u)&&wideQueries==(scratch?100u:245u)&&wideQueries<serialQueries);
  std::printf("Production ValidateQueued, %u actual pool owners: queries %u -> %u, pages %u -> %u; identical %u accepted packet flags/keys.\n",Number49,serialQueries,wideQueries,serialPages,widePages,Number49);
  // Stable bad bytes/generation/frame/identity reject exactly as serial does.
  for(unsigned kind=0;kind<5;++kind){Configure49();if(kind==0)Descriptor49();if(kind==1)Generation49();if(kind==2)CShadows::frame=10;if(kind==3)Retire49();if(kind==4){const int16_t bad=-1;std::memcpy(owners49+0x2e,&bad,2);}
@@ -236,7 +239,9 @@ void ExtraTests59(){Initialize49();Configure49();ModelLightShadow20::queuedScrat
  for(unsigned count:{1u,16u,17u,31u,32u,33u,63u,64u,65u,639u}){
   Configure49();ReferenceQueued32::registry=ModelLightShadow20::registry;queryOrder59.clear();queries49=pages49=0;
   auto expected=initial49;ReferenceQueued32::ValidateQueuedWindow49(expected.data(),count);auto expectedOrder=queryOrder59;
-  queryOrder59.clear();auto actual=Run49(true,count);AssertSame49(expected,actual);assert(queryOrder59==expectedOrder);
+  queryOrder59.clear();auto actual=Run49(true,count);AssertSame49(expected,actual);
+  if(count<639)assert(queryOrder59==expectedOrder); // no crossing owner in these prefixes
+  else assert(expectedOrder.size()==145&&queryOrder59.size()==100); // exact cross-page reduction, unchanged output
  }
  // Allocation failure chooses the exact original16 before any source reads.
  Configure49();ModelLightShadow20::queuedScratch32Requested59=false;queryOrder59.clear();auto expected=Run49(true);auto expectedOrder=queryOrder59;
@@ -255,7 +260,7 @@ for(unsigned reg59=0;reg59<2;++reg59)assert(!std::memcmp(beforeFp59+32+reg59*16,
  std::printf("Callback-owned scratch bytes: %zu; allocations %u, releases %u (one deliberate allocation failure).\n",sizeof(ModelLightShadow20::QueuedScratch59),allocations59,releases59);
  assert(allocations59==releases59+1); // one deliberate failed allocation
  for(auto p:{headers49,owners49,building49,flags49,model49,matrices49,descriptors49})assert(VirtualFree(p,0,MEM_RELEASE));
- std::puts("Exact frozen32 query order/boundaries, original16 allocation-failure fallback, nested independent scratch and LastError passed.");
+ std::puts("Frozen32 output parity; unchanged noncrossing query order, crossing639 query count145->100; exact original16 allocation-failure fallback, nested independent scratch and LastError passed.");
 }
 void ConfigTest59(){
  wchar_t module59[MAX_PATH]{};assert(GetModuleFileNameW(nullptr,module59,MAX_PATH)>0);

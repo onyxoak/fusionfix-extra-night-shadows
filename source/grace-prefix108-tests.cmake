@@ -25,7 +25,7 @@ string(REPLACE "int CompareNearby(" "int CompareNearby105(" baseline "${baseline
 file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/grace108/nearby105.inc" "${baseline}")
 extract_grace108(NativeProjectionRuntime105.inc "uint32_t Intern(" "// Exact native thiscall" intern108.inc)
 extract_grace108(NativeProjectionRuntime105.inc "bool CopyPacket(" "bool CanReplaceModelSubmission(" read108.inc)
-extract_grace108(NativeProjectionRuntime105.inc "void ValidateQueued(" "void Publish()" queued108.inc)
+extract_grace108(NativeProjectionRuntime105.inc "using DiagnosticPacket199C=" "void Publish()" queued108.inc)
 extract_grace108(LibertyLighting20Runtime.inc "__declspec(noinline) bool CopyLocal(" "bool Copy(" copy-local.inc)
 add_executable(grace-prefix108-tests tests/grace-prefix108-tests.cpp)
 target_include_directories(grace-prefix108-tests PRIVATE . "${CMAKE_CURRENT_BINARY_DIR}/grace108")

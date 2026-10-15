@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <vector>
 #include "StartupConflict129.hpp"
+#include "StartupGuidance210.hpp"
 #include "standalone-support-log.hpp"
 #include "standalone-ownership.hpp"
 #include "core/ShadowFloatingPointState.hpp"
@@ -54,7 +55,7 @@ alignas(64) uint8_t keyStorage[64]{};
 struct Registry {bool Configure(uint32_t){return true;}} lampRegistry;
 #include "startup129-prepare.inc"
 std::string Read(const std::filesystem::path& path){std::ifstream f(path);return {std::istreambuf_iterator<char>(f),{}};}
-void Reset(){startupMismatch129={};startupFailureAttempt129.clear();freeObserver={};dualPre={};dualPost={};singlePre={};}
+void Reset(){startupMismatch129={};startupAdviceEvidence210={};startupFailureAttempt129.clear();freeObserver={};dualPre={};dualPost={};singlePre={};}
 int Run(){
  const auto folder=std::filesystem::current_path()/"startup129-output";
  assert(!std::filesystem::exists(folder));std::filesystem::create_directory(folder);
@@ -112,6 +113,38 @@ int Run(){
  Reset();{std::ofstream blocker(folder/"blocked");blocker<<"file";}
  pe::modulePath=folder/"blocked"/"cannot.asi";SetLastError(12877);StartupFailure129("startup_fixed_error");assert(GetLastError()==12877&&!std::filesystem::exists(folder/"blocked"/"cannot.log"));
  assert(startupFailureAttempt129.test_and_set());
+ // Fatal guidance is written even with ordinary logging disabled. Only
+ // a detected module undergoing adapter validation is named as a VL failure.
+ const std::string volumeHash210(64,'a');unsigned helpCase210=0;
+ for(const char* error210:{"volumetric199_unsupported_binary","volumetric199_setting_range","volumetric199_outer_owner","volumetric199_unsupported_fusionfix","unreadable_code"}){
+  Reset();const auto helpPath210=folder/("help210-"+std::to_string(helpCase210++)+".log");
+  log=std::make_unique<SupportLog>(helpPath210,0);
+  RecordVolumetric210(startup_guidance210::Volume::Checking,volumeHash210);
+  StartupFailure129(error210);const auto advice210=Read(helpPath210);
+  assert(advice210.find("Disable it temporarily: close GTA IV")!=std::string::npos);
+  assert(advice210.find("VolumetricLights.asi and VolumetricLights.ini outside the GTA IV game folder")!=std::string::npos);
+  assert(advice210.find("volumetric_sha256="+volumeHash210)!=std::string::npos);
+  if(std::string_view(error210).starts_with("volumetric199_"))assert(advice210.find(std::string("error=")+error210)!=std::string::npos);
+  assert(advice210.size()<512);StartupFailure129("second_failure");assert(Read(helpPath210)==advice210);
+ }
+ Reset();const auto acceptedPath210=folder/"accepted210.log";log=std::make_unique<SupportLog>(acceptedPath210,0);
+ RecordVolumetric210(startup_guidance210::Volume::Checking,volumeHash210);
+ RecordVolumetric210(startup_guidance210::Volume::Accepted);StartupFailure129("corona_context_or_settings_invalid");
+ const auto accepted210=Read(acceptedPath210);assert(accepted210.find("VolumetricLights was accepted")!=std::string::npos);
+ assert(accepted210.find("Disable it temporarily")==std::string::npos);
+ assert(accepted210.find("error=corona_context_or_settings_invalid")!=std::string::npos);
+ Reset();const auto unknownPath210=folder/"unknown210.log";log=std::make_unique<SupportLog>(unknownPath210,0);
+ StartupFailure129("dual_native_producer_modified");const auto unknown210=Read(unknownPath210);
+ assert(unknown210.find("VolumetricLights")==std::string::npos&&unknown210.find("ASI list")!=std::string::npos);
+ startup_guidance210::Evidence unsafeHash210;unsafeHash210.SetHash("C:\\Users\\Private\\secret");
+ assert(startup_guidance210::Help("user_secret_token",unsafeHash210).find("secret")==std::string::npos);
+ unsafeHash210.SetHash(std::string(64,'z'));assert(startup_guidance210::Help("startup_exception",unsafeHash210).find("volumetric_sha256=")==std::string::npos);
+ // Successful guard checks remain quiet; advice does not poll or open files.
+ Reset();const auto quietPath210=folder/"success210.log";log=std::make_unique<SupportLog>(quietPath210,0);
+ RecordVolumetric210(startup_guidance210::Volume::Accepted,volumeHash210);
+ RequireNativeRange129(normalized,0x63f5e0,8,"dual_native_producer_modified");
+ assert(!std::filesystem::exists(quietPath210));
+ std::cout<<"PASS210 exact VL error codes; fatal help with Logging0; disable-ASI-and-INI instructions; accepted and unknown-owner separation; fixed-format hash only; quiet success and one fatal report\n";
  std::cout<<"PASS actual GuardedImage511 normalization and full producer/free guards; first/last-byte mismatch before throw; quiet success no IO; one bounded fatal report; unsafe fields omitted; failure IO contained; FP and LastError preserved\n";
  return 0;
 }

@@ -76,6 +76,8 @@ bool SameHeader(const rage::VehiclePool& a,const rage::VehiclePool& b) noexcept 
 // Staging discovers addresses, never certifies a source. Old-pool results and
 // faults are untouched. Unknown/changed classes retain the scalar matcher.
 void Stage(const OwnerRequest49* requests,OwnerResult49* results,unsigned count,Scratch& scratch) noexcept {
+ // Permission-only region cache ends at this read phase, before any caller restart.
+ const immediate_region33::Scope regions202;
  using namespace traffic_signal::fresh_native_window115;
  if(!requested||count>Groups){for(auto& row:scratch.rows)row.ready=false;return;}
  for(unsigned i=0;i<Groups;++i){scratch.rows[i]={};scratch.groups[i]={};}
@@ -151,6 +153,8 @@ unsigned OwnerSpans(const Hint& addresses,Hint& output,traffic_signal::fresh_nat
  return n;
 }
 void Preflight(Scratch& scratch,unsigned count) noexcept {
+ // Permission-only region cache ends at this read phase, before any caller restart.
+ const immediate_region33::Scope regions202;
  using namespace traffic_signal::fresh_native_window115;uint8_t dummy{};
  bool any=false;for(unsigned i=0;i<count;++i)any=any||scratch.rows[i].ready;
  if(!requested||!any)return;
@@ -168,6 +172,8 @@ void Preflight(Scratch& scratch,unsigned count) noexcept {
 // hints; bind fresh roots/body/flag/table/hash/pose twice, then copy descriptor.
 bool Commit(const Hint& addresses,Match& published,std::array<uint8_t,0x6c>& bytes,bool& faulted,bool& restart,
  Scratch& scratch,unsigned group) noexcept {
+ // Permission-only region cache ends at this read phase, before any caller restart.
+ const immediate_region33::Scope regions202;
  using namespace traffic_signal::fresh_native_window115;
  faulted=false;restart=false;if(!addresses.ready||!Active(addresses.roots))return false;
  Hint current=addresses,again=addresses;Span spans[16]{};

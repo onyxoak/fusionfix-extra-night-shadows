@@ -1,3 +1,4 @@
+#include <optional>
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 #include <windows.h>
@@ -13,8 +14,16 @@
 #include "ImmediateRegion33.hpp"
 #include "NativeOwnerClass109.hpp"
 #include "NativeOwnerClass114.hpp"
-#include "FreshReadGroup50.hpp"
+#define Stage ProductionStage205
 #include "FreshReadBatch30.hpp"
+#undef Stage
+void BeforeFinalGroup205() noexcept;
+namespace traffic_signal::fresh_batch30 {
+ inline bool Stage(const Span* spans,unsigned count,unsigned char (*bytes)[MaximumBytes]) noexcept {
+  BeforeFinalGroup205();return ProductionStage205(spans,count,bytes);
+ }
+}
+#include "FreshReadGroup50.hpp"
 namespace rage {struct VehiclePool {uint8_t* m_aStorage;uint8_t* m_aFlags;int32_t m_nSize,m_nStorageSize,m_nFirstFreeIndex,m_numSlotsUsed;};}
 std::vector<uint8_t> image(0x12f7d64);
 uintptr_t game=reinterpret_cast<uintptr_t>(image.data());
@@ -22,6 +31,11 @@ struct Match {traffic_signal::Identity identity{};uint32_t kind{};float entity[3
 void* revokeAddress{};size_t revokeSize{};bool inject{};
 unsigned scalarQueries35{},batchQueries35{};
 unsigned mutationAt109{};uint8_t* mutationByte109{};uint8_t mutationValue109{};
+// Final group permission queries can disappear in205; inject at the actual
+// fresh final copy boundary, after initial model/pose/header observations.
+void BeforeFinalGroup205() noexcept {
+ if(mutationAt109&&mutationByte109){*mutationByte109=mutationValue109;mutationAt109=0;}
+}
 bool Readable(uintptr_t address,size_t bytes) noexcept {
  ++scalarQueries35;
  MEMORY_BASIC_INFORMATION info{};
@@ -34,7 +48,6 @@ bool ReadableOriginal(uintptr_t address,size_t bytes) noexcept{return Readable(a
 BOOL WINAPI InjectQuery35(HANDLE process,PVOID buffer,DWORD size){
  ++batchQueries35;
  auto ok=QueryWorkingSetEx(process,buffer,size);
- if(ok&&mutationAt109==batchQueries35&&mutationByte109){*mutationByte109=mutationValue109;mutationAt109=0;}
  auto* entries=static_cast<PSAPI_WORKING_SET_EX_INFORMATION*>(buffer);
  if(ok&&inject)for(unsigned i=0;i<size/sizeof(*entries);++i)
   if(entries[i].VirtualAddress==revokeAddress){DWORD old{};assert(VirtualProtect(revokeAddress,revokeSize,PAGE_NOACCESS,&old));inject=false;break;}
@@ -90,7 +103,7 @@ int main(){
  ownerClass109Active=true;scalarQueries35=batchQueries35=0;
  assert(MatchOwner(uintptr_t(extraOwner109),value)&&value.kind==2&&value.entity[2]==10&&value.identity.reference==13);
  assert(value.identity.pool==uintptr_t(extra109)&&value.modelInfo==uintptr_t(model2));
- assert(value.ownerPose109[0]==0&&batchQueries35==7);
+ assert(value.ownerPose109[0]==0&&batchQueries35==5);
  // Current allocated matrix and inline owner placement remain distinct from
  // a native emitter matrix. Only current finite owner XYZ are used here.
  std::memcpy(extraOwner109+0x20,&matrixPointer,4);
@@ -131,7 +144,7 @@ int main(){
  ownerClass114Active=true;scalarQueries35=batchQueries35=0;
  assert(MatchOwner(uintptr_t(extraOwner114),value)&&value.kind==3&&value.entity[2]==10&&value.identity.reference==13);
  assert(value.identity.pool==uintptr_t(extra114)&&value.modelInfo==uintptr_t(model2));
- assert(value.ownerPose109[0]==0&&batchQueries35==9);
+ assert(value.ownerPose109[0]==0&&batchQueries35==5);
  // Current allocated matrix and inline owner placement remain distinct from
  // a native emitter matrix. Only current finite owner XYZ are used here.
  std::memcpy(extraOwner114+0x20,&matrixPointer,4);
