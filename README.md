@@ -6,6 +6,18 @@ Expanded dynamic-shadow interaction for GTA IV’s existing vehicle, city and en
 - **[Nexus page, comparisons and support](https://www.nexusmods.com/gta4/mods/1459)**
 - **[Release history](https://github.com/onyxoak/fusionfix-extra-night-shadows/releases)** · [Changelog](CHANGELOG.md)
 
+## Credit and link-back request
+
+**If you use, adapt or redistribute code from Liberty’s Shadows, please credit OnyxOak as the original creator of Liberty’s Shadows and link to the [original mod on Nexus](https://www.nexusmods.com/gta4/mods/1459).**
+
+Please distinguish your own additions from the original work, and do not present Liberty’s Shadows as something you created entirely yourself. Retain the applicable FusionFix, FusionShaders and third-party attribution and license notices as well.
+
+Suggested credit:
+
+> Includes work from Liberty’s Shadows by OnyxOak. Original mod: https://www.nexusmods.com/gta4/mods/1459
+
+This credit and link-back request adds no restriction to the GPL or other applicable licenses. Existing license obligations, including preservation of required notices and access to corresponding source, remain unchanged.
+
 ## Players
 
 Use the explicitly named player ZIP attached to the selected release. It is a full package; follow its included README and preserve your customINI before updating. Other lighting/vehicle/texture mods shown in the gallery are separate. Complete Edition and Legacy are different packages.
