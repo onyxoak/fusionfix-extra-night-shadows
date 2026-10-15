@@ -70,7 +70,7 @@ namespace PoleDrawWitness145 {void SunCaster(uintptr_t,uint32_t,uint32_t,uintptr
 #undef GetTickCount
 struct SafetyHookContext {uintptr_t esi{},eax{},esp{},eip{},ebx{},ecx{},edx{},edi{},ebp{};};
 bool bVehicleNightShadows=true;
-namespace OwnHeadlightCaster {bool skip=false;bool Exclude(uintptr_t,uint32_t,bool) noexcept{return skip;}}
+namespace OwnHeadlightCaster {bool diagnosticCounters=true;bool skip=false;bool Exclude(uintptr_t,uint32_t,bool) noexcept{return skip;}}
 #include "caster134-extracted.inc"
 }
 

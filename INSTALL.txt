@@ -1,4 +1,4 @@
-Liberty's Shadows 2.0.1
+Liberty's Shadows 2.0.2
 By OnyxOak
 
 Dynamic lighting and shadows for Liberty City: headlights, taillights,
@@ -28,10 +28,14 @@ Restart after preset/Off-On/individual feature changes. Reach-only custom
 INI settings are in feet; named High uses street250ft/headlight50ft.
 
 WHAT CHANGED
-Reduced repeated CPU validation and unnecessary diagnostic work; steadier
-scene priority with farther scenery coverage on High. Headlights are15%
-dimmer and authenticated traffic-light spill is5% brighter. Headlight range,
-light colors and taillight behavior are preserved. No extra shadow slots.
+Added protection against a native model-reference queue overflow identified
+in a nighttime crash dump. Repeated holds of the same model are coalesced
+within each native queue, preserving reference lifetimes and shadow draws.
+Reduced redundant CPU work for ordinary shadow-casting geometry without
+cutting lights, casters, shadow range or changing brightness. Full High
+lighting remains enabled by default. Passed119 offline checks; the author
+reported no crash in the latest Experimental195 test. Broader testing and
+optimization continue; this is not a claim that every crash is resolved.
 
 HAVING ISSUES?
 VolumetricLights.asi (including the copy bundled with Project Lights) is
@@ -45,8 +49,8 @@ KNOWN ISSUES
 Headlights can still dim when you exit the car; retention needs further work.
 Physical lamp poles may not cast their own shadows. Occasional shadow
 pop-in/flicker, spotlight cutouts, headlight seams/leaks and demanding dense
-night scenes remain under review. A recently reported hang/crash has not
-been proven fixed by this update. This release does not claim these repairs.
+night scenes remain under review. Camera-dependent nighttime stalls remain under investigation. The crash
+protection above targets an identified overflow, not every possible hang.
 
 REPORT / ROLLBACK
 Use Nexus Bugs, one issue per ticket: game/FusionFix/mod versions, preset,
@@ -68,3 +72,6 @@ Project, corresponding source and older releases:
 https://github.com/onyxoak/fusionfix-extra-night-shadows
 This is an unofficial mod, without official FusionFix endorsement.
 Photos can show separate vehicle/graphics mods not included here.
+
+Build identity: tested Experimental195 binary, packaged as2.0.2.
+Its internal diagnostic build label is retained to preserve exact tested bytes.

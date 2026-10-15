@@ -436,3 +436,13 @@ include(consumer-scoped157-tests.cmake)
 include(pole-prefilter160-tests.cmake)
 include(performance162-tests.cmake)
 include(brightness164-tests.cmake)
+
+add_executable(model-reference189-tests tests/model-reference189-tests.cpp)
+target_include_directories(model-reference189-tests PRIVATE .)
+target_compile_options(model-reference189-tests PRIVATE /UNDEBUG)
+add_test(NAME model-reference189 COMMAND model-reference189-tests)
+
+add_executable(caster-fast195-tests tests/caster-fast195-tests.cpp "${CMAKE_CURRENT_BINARY_DIR}/caster134-extracted.inc")
+target_include_directories(caster-fast195-tests BEFORE PRIVATE "${CMAKE_CURRENT_BINARY_DIR}" . core)
+target_compile_options(caster-fast195-tests PRIVATE /UNDEBUG /W4 /WX)
+add_test(NAME caster-fast195 COMMAND caster-fast195-tests)

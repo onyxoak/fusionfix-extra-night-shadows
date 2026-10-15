@@ -35,7 +35,7 @@ namespace preset117 { ReadResult startup;State applied;bool backendLimited{},veh
 namespace standalone {
 using namespace onyxoak;
 using pe::U32;
-constexpr char CandidateBuild32[]="libertys-shadows-2.0.1-candidate164";
+constexpr char CandidateBuild32[]="libertys-shadows-private195-caster-fastpath";
 HMODULE self{};
 uintptr_t game{},ff{},loop{};
 uint8_t *pauseUser{},*pauseScript{};
@@ -59,7 +59,7 @@ namespace ModelLightShadow20 {
 namespace CoronaLight20 {extern bool requested;}
 namespace PoleCasterDiagnostic134 {extern bool requested;void Observe(uintptr_t,uint32_t,bool,bool) noexcept;}
 namespace PoleDrawWitness145 {void SunCaster(uintptr_t,uint32_t,uint32_t,uintptr_t,bool)noexcept;}
-namespace PoleStaticPartition141 {bool Reclassify(uintptr_t,uint32_t,uint32_t,uintptr_t,bool,uint32_t*) noexcept;}
+namespace PoleStaticPartition141 {extern bool requested;bool Reclassify(uintptr_t,uint32_t,uint32_t,uintptr_t,bool,uint32_t*) noexcept;}
 int32_t ownWidth=800,ownHeight=600;
 namespace Liberty20 {
  extern bool dualRequested,worldRequested;
@@ -411,6 +411,13 @@ int __cdecl Lookup(int a,int b,int c){if(!addonActive.load(std::memory_order_acq
 void __fastcall Render(void* object,void* edx);
 void Caster(SafetyHookContext& regs) {
  if(!addonActive.load(std::memory_order_acquire))return;
+ // Ordinary geometry cannot be an own vehicle/occupant. With the optional
+ // pole observers/override and visit counters off, every remaining check is
+ // a no-op. Keep the native allow continuation without touching FP state.
+ if(regs.eax!=2&&regs.eax!=3&&!OwnHeadlightCaster::diagnosticCounters&&
+    !PoleCasterDiagnostic134::requested&&!PoleStaticPartition141::requested){
+  regs.eip=game+0x6e374f;return;
+ }
  const fusionfix::shadows::FloatingPointState fp;
  const bool artificial=!*reinterpret_cast<const uint8_t*>(regs.esp+0x0b);
  bool skip=OwnHeadlightCaster::Exclude(regs.esi,regs.eax,artificial);
@@ -457,6 +464,7 @@ template<class Hook,class Function> void Prepare(Hook& hook,uintptr_t target,Fun
 #include "ModelLightShadowRuntime20.inc"
 #include "ModelLightCatalogRuntime20.inc"
 #include "NativeProjectionRuntime105.inc"
+#include "ModelReferenceQueue189Runtime.inc"
 #include "ModelProjectionBridge69.inc"
 #include "ConsumerReachRuntime136.inc"
 #include "ConsumerShadow75Runtime.inc"
@@ -622,6 +630,7 @@ void PreCacheSelection(SafetyHookContext& regs) noexcept {
  PlayerShadowAllocation::StabilizeMapOrdinals(regs);
 }
 void DisableAll() noexcept {
+ ModelReferenceQueue189::Disable();
  FusionBackend130::Close();
  NativeProducerGate116::Disable();ConsumerShadow75::Disable();
  NativeProjection66::Disable();
@@ -706,6 +715,7 @@ void Install() {
  ModelEffectObserver::PrepareHooks();
  CoronaLight20::PrepareHooks();
  WorldGeometry20::PrepareHooks();
+ ModelReferenceQueue189::PrepareHooks();
  NativeProjection66::PrepareHooks();
  ConsumerShadow75::PrepareHooks();NativeProducerGate116::PrepareHooks();
  if(ownerAuditEnabled){
@@ -719,7 +729,7 @@ void Install() {
   Prepare(ownerProbe,game+0x6bcc50,ObserveOwner);
   Require(bool(ownerProbe.enable()),"siren_probe_enable_failed");
  }
- const std::array inlinePlan{&nativeSubmit,&playerSubmit,&npcSubmit,&shsub_925DB0,&shsub_D77A00,&selectionHook,&FusionBackend130::settingHook,&FusionBackend130::admissionHook,&PoleDrawWitness145::consumerHook};
+ const std::array inlinePlan{&ModelReferenceQueue189::drainHook,&ModelReferenceQueue189::hook,&nativeSubmit,&playerSubmit,&npcSubmit,&shsub_925DB0,&shsub_D77A00,&selectionHook,&FusionBackend130::settingHook,&FusionBackend130::admissionHook,&PoleDrawWitness145::consumerHook};
  const std::array midPlan{&caster,&contact,&camera,&brightness,&warning,&collectHook,&finalizeHook,&lampDistanceHook,&compareResultHook,&cacheResultHook,&stableOrdinalsHook,&PoleDrawWitness145::objectHook,&PoleDrawWitness145::constructorHook,&PoleDrawWitness145::childHook,&PoleDepthRepair157::dispatchHook};
  unsigned requiredHooks=0;
  std::vector<PreparedHookRange> preparedRanges;
@@ -901,7 +911,7 @@ void OnFrame(SafetyHookContext&) noexcept {
     if(ownWidth<16||ownWidth>16384||ownHeight<16||ownHeight>16384){ownWidth=800;ownHeight=600;}
    }
   }
-  PublishSelectionHelpers48();PoleDepthRepair157::Publish();FrameBoundary154::Publish();FrameTime151::Publish();GpuProfiling39::Publish();PublishRuntimeControls38();PublishCpuProfile29();PublishMemoryReads46();Liberty20::Publish();TailLight20::Publish();ModelEffectObserver::Publish();ModelLightShadow20::Publish();WorldGeometry20::Publish();CoronaLight20::Publish();NativeProjection66::Publish();PublishVisibleReceiver133();ConsumerShadow75::Publish();NativeProducerGate116::Publish();
+  ModelReferenceQueue189::Publish();PublishSelectionHelpers48();PoleDepthRepair157::Publish();FrameBoundary154::Publish();FrameTime151::Publish();GpuProfiling39::Publish();PublishRuntimeControls38();PublishCpuProfile29();PublishMemoryReads46();Liberty20::Publish();TailLight20::Publish();ModelEffectObserver::Publish();ModelLightShadow20::Publish();WorldGeometry20::Publish();CoronaLight20::Publish();NativeProjection66::Publish();PublishVisibleReceiver133();ConsumerShadow75::Publish();NativeProducerGate116::Publish();
   PublishShadowTransitions69();
   NearbyVehicleLighting36::Update(); if(policeTestEnabled){UpdateProof();} TrafficPoll(); if(diagnosticsEnabled){PublishNine(); MeasureProofCadence(); PublishChurn(); PublishPolicePackets(); PublishProofTransition(); PublishLightAudit(); PublishOwnerAudit();PublishCombinedStatus();}
   static uint64_t last{};const auto now=GetTickCount64();if(hotCountersEnabled&&now-last>=5000){last=now;Event(2,"COUNTERS","passes="+std::to_string(PlayerShadowAllocation::appliedPasses.load())+" caster="+std::to_string(OwnHeadlightCaster::casterVisits.load())+" own="+std::to_string(OwnHeadlightCaster::ownPasses.load())+" deferred="+std::to_string(OwnHeadlightCaster::deferredPasses.load())+" proofRequested="+std::to_string(proofRequested.load())+" proofRetired="+std::to_string(proofRetired.load())+" proofPromoted="+std::to_string(proofPromoted.load())+" proofSelected="+std::to_string(proofSelected.load())+" proofRenderCalls="+std::to_string(proofRenderCalls.load())+" policeMode="+std::to_string(policePolicy.load())+" policeOverrides="+std::to_string(policeOverrides.load())+" vacancy="+std::to_string(vacancyRequested.load())+" vacancySuppressed="+std::to_string(vacancySuppressed.load())+" packetDropped="+std::to_string(policeDropped.load())+" graceComparisons="+std::to_string(proofGraceComparisons.load())+" proofFrames="+std::to_string(proofFrames.load())+" maxSlots="+std::to_string(proofMaxSlots.load())+" collected="+std::to_string(PlayerShadowAllocation::labCollected.load())+" observed="+std::to_string(PlayerShadowAllocation::labObserved.load())+" nativeChosen="+std::to_string(PlayerShadowAllocation::labNativeChosen.load())+" finalChosen="+std::to_string(PlayerShadowAllocation::labFinalChosen.load())+" cmp0="+std::to_string(PlayerShadowAllocation::labComparisons[0].load())+" cmp1="+std::to_string(PlayerShadowAllocation::labComparisons[1].load())+" cmp2="+std::to_string(PlayerShadowAllocation::labComparisons[2].load())+" result0="+std::to_string(PlayerShadowAllocation::labResults[0].load())+" result1="+std::to_string(PlayerShadowAllocation::labResults[1].load())+" result2="+std::to_string(PlayerShadowAllocation::labResults[2].load())+" claimLoss="+std::to_string(PlayerShadowAllocation::labClaimLoss.load())+" ownLoss="+std::to_string(PlayerShadowAllocation::labOwnLoss.load())+" warningHidden="+std::to_string(warningHidden.load()));}return;

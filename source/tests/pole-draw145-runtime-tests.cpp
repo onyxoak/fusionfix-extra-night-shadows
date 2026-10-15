@@ -71,7 +71,7 @@ namespace native_projection66 {struct Permission142{bool allowed=true;};inline P
 #undef GetTickCount
 struct SafetyHookContext {uintptr_t esi{},eax{},esp{},eip{},ebx{},ecx{},edx{},edi{},ebp{};};
 bool bVehicleNightShadows=true;
-namespace OwnHeadlightCaster {bool skip=false;bool Exclude(uintptr_t,uint32_t,bool) noexcept{return skip;}}
+namespace OwnHeadlightCaster {bool diagnosticCounters=true;bool skip=false;bool Exclude(uintptr_t,uint32_t,bool) noexcept{return skip;}}
 namespace PoleDrawWitness145 {void SunCaster(uintptr_t,uint32_t,uint32_t,uintptr_t,bool)noexcept;}
 #include "caster134-extracted.inc"
 namespace fixture145 {unsigned calls{},inputFP{},outputFP{};DWORD inputError{};uint32_t Native(void*) noexcept;uint32_t Call(void*);}
