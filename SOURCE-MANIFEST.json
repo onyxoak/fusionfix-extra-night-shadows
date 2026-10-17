@@ -1,6 +1,6 @@
 {
-  "version": "2.0.5",
-  "corresponding_source_archive_sha256": "fcc82e89ca4b8a8ffe9dfb0eb24f429a851d2b153ca9d01c256482c7155f4381",
+  "version": "2.0.6",
+  "corresponding_source_archive_sha256": "ec70cfaa2e84933bdb02a04e596c9f8558e74592e8ce2fd0f1a318ecc8fd662c",
   "files": [
     {
       "path": "Build.cmd",
@@ -8,9 +8,14 @@
       "sha256": "ce4da3b8d200cb5bf5115ca1fa13693eeac6e7ad7d6aedd5e67b901a929dccc1"
     },
     {
+      "path": "RunTests.py",
+      "bytes": 1530,
+      "sha256": "72dc5a848156a38b987cf68d28728293e4dbec334b23775b4c7cbdf077c35eba"
+    },
+    {
       "path": "shader-source/README.md",
-      "bytes": 564,
-      "sha256": "30ad0c4355d9253a0b71e53caa6b492dc3004800c4dc03bfdf94e8b197732711"
+      "bytes": 576,
+      "sha256": "e62b4152d560326e83309c417a2b4f6e416508180ed3f8761584c585c0fb96be"
     },
     {
       "path": "shader-source/scenery-fade/BuildShader198B.py",
@@ -923,24 +928,14 @@
       "sha256": "1894b2bf7ee9d9e5196b5676a7373a56731ba811cd76562b6f81bc01a3bffd3c"
     },
     {
-      "path": "shader-source/world-local/provenance/historical-ATTRIBUTION.md",
-      "bytes": 534,
-      "sha256": "e2857c743b75b8b58f33694063c228efe32109f9e4ef8efae279811769814478"
-    },
-    {
-      "path": "shader-source/world-local/provenance/historical-shader18-receipt.json",
-      "bytes": 56069,
-      "sha256": "8f05561b187be8cb75048b7380256e8ac7ff00f11524688db71768ab6b93a894"
-    },
-    {
-      "path": "shader-source/world-local/provenance/REBUILD-PROOF.json",
-      "bytes": 9826,
-      "sha256": "412dfe6109549ecd7d376f6f012bb51d704b3ea38d5ad9f252da61ed8d2270be"
+      "path": "shader-source/world-local/provenance/ATTRIBUTION.md",
+      "bytes": 491,
+      "sha256": "a6ffc92b361bccff77b9717e469d968c3f362fff3efe48a87e1e756fc914afd1"
     },
     {
       "path": "shader-source/world-local/provenance/UPSTREAM.json",
-      "bytes": 914,
-      "sha256": "19c8988ae22c2d336e0bd56d7fc57d5e73fad938edca825ccd6a57dffbcc0adb"
+      "bytes": 656,
+      "sha256": "db56f25f8a8ee2822367c3a708b70668218356a2ca455a9cdbfeed2d23755a8f"
     },
     {
       "path": "shader-source/world-local/tools/disassemble_fxc18.py",
@@ -984,8 +979,8 @@
     },
     {
       "path": "shader-source/world-local/upstream/cached-FusionShaders-source/README.md",
-      "bytes": 754,
-      "sha256": "c5c536ecb3df7cc709cfac2af8e18cf32bf4caeb0da04c2538db382c10dbb59a"
+      "bytes": 763,
+      "sha256": "5178d6c2228cf0379a6c7a18bf4e76f50d809ccff6ffb3d353db536b1ef56775"
     },
     {
       "path": "shader-source/world-local/upstream/FusionFix-5.1.1-shader-sources/.gitmodules",
@@ -1029,8 +1024,8 @@
     },
     {
       "path": "source/ATTRIBUTION.md",
-      "bytes": 2731,
-      "sha256": "c5047fc8fa67a307b7fdbf123fe55dd3b3a806939c837ba71463a2b75a19c954"
+      "bytes": 2734,
+      "sha256": "dbbf32a97d85b09639d84b6ef7f6d9fb3feebc88f896f90554558cd8fa49e61a"
     },
     {
       "path": "source/BackendVersions213.hpp",
@@ -1049,8 +1044,8 @@
     },
     {
       "path": "source/BUILD.md",
-      "bytes": 751,
-      "sha256": "bd0182d6b14bc764529237fe2820f74d35eecc9d7ecfbf01145584a9ba1b1745"
+      "bytes": 1201,
+      "sha256": "6e51fe37579883f2375f00b0e2432d3e95d8d0b28efd855ea1060bebdd16a6f4"
     },
     {
       "path": "source/Capture44tests.cmake",
@@ -1079,18 +1074,18 @@
     },
     {
       "path": "source/CHANGELOG.txt",
-      "bytes": 3307,
-      "sha256": "618b298f6dd3852f79dfbeac187ccfae8514d59d9004efc5ab3caa6dafee7372"
+      "bytes": 874,
+      "sha256": "abd7cb15fa49b949b18f441db995d0ab6ecd7d117704744b7eb4e5fdfd424b0e"
     },
     {
       "path": "source/CMakeLists.txt",
-      "bytes": 44589,
-      "sha256": "d73721940196f99bbcd0b5d20e77da4bc1eb96b43232fcb7fdd55d78d3cb002e"
+      "bytes": 45594,
+      "sha256": "27373487d8d17441cfc3eabd326a4c036c1dd2f1414b63837aaa7af06df9652b"
     },
     {
       "path": "source/CONFIGURATION-2.0.md",
-      "bytes": 464,
-      "sha256": "99b0b95354cc655f70942e5dd56d646ea6c55cd5ade6f0e609b5c12b293cbfd9"
+      "bytes": 571,
+      "sha256": "bca42e0aa3f5489b5ad31a36238fd4898639bc472cd7b4c90628a674beb97bcd"
     },
     {
       "path": "source/consumer-prefilter142-tests.cmake",
@@ -1688,6 +1683,21 @@
       "sha256": "3bdb00d1a3a5a21b2084cd0508c992d83c9d5a374a4a984782d266e77d64a8c7"
     },
     {
+      "path": "source/FixtureLight244.hpp",
+      "bytes": 957,
+      "sha256": "e190b38e143087b608ed266fca586f0335f9890b20eed782d721ca21253625c9"
+    },
+    {
+      "path": "source/FixtureLight244Runtime.inc",
+      "bytes": 2577,
+      "sha256": "6e0e9ef179f55995f87fed62bd0bb98990c1c940112d4d6e54e2cd80d19c79f5"
+    },
+    {
+      "path": "source/FixtureShadow244Runtime.inc",
+      "bytes": 12692,
+      "sha256": "b7f0757d66c0be38120f153c37bc3ba1e1de17daf333734a37c4775d9e4d3a27"
+    },
+    {
       "path": "source/frame-boundary154-tests.cmake",
       "bytes": 290,
       "sha256": "5e1b01db51541aad30aced630797bcd9b073be08d8adca7100206fa929edb46d"
@@ -1829,8 +1839,8 @@
     },
     {
       "path": "source/head-capture146-tests.cmake",
-      "bytes": 812,
-      "sha256": "e9c9e6820fab95a0bf5de95e298d7b49556181058e7df7df7983b9ebfd739d76"
+      "bytes": 750,
+      "sha256": "e2bfad6572f5de156dabca11c7e16cf4b3db66410a441b347af836dbf5329539"
     },
     {
       "path": "source/HeadlightFailure213.hpp",
@@ -1859,8 +1869,8 @@
     },
     {
       "path": "source/Libertys-Shadows117.example.ini",
-      "bytes": 11653,
-      "sha256": "be441fcb0d8f5f7b43a87f50d9dce036ef7de879a21c2889ffe98e564fe9a0ff"
+      "bytes": 11959,
+      "sha256": "ea28a9fa10f24f8547bb43fbd1ca4ed8cd9769cc54b36fd0d70e83911cfe3ef9"
     },
     {
       "path": "source/LICENSE",
@@ -1896,6 +1906,16 @@
       "path": "source/LiveReach122.hpp",
       "bytes": 2950,
       "sha256": "157edc73bdd8c97d90dd11c295290cc74e539dfa4175595e5ad62620f7f983e2"
+    },
+    {
+      "path": "source/LocalShader244Runtime.inc",
+      "bytes": 1192,
+      "sha256": "4d510ab1643d97228244649342f99b6d29a37a8ccae37322801143769a7646cb"
+    },
+    {
+      "path": "source/LocalShaderBinding244.hpp",
+      "bytes": 1862,
+      "sha256": "f695ce63bfd4dd5d2f7e23e03c48afa6537d778006b703974cf071ef1fcbcda1"
     },
     {
       "path": "source/MapContribution198CRuntime.inc",
@@ -1934,8 +1954,8 @@
     },
     {
       "path": "source/ModelLightCatalogRuntime20.inc",
-      "bytes": 28579,
-      "sha256": "a3f69bbb3860457e434a69a48fa0547ff00819e3da62a4ca66a64d7a0db097f2"
+      "bytes": 29174,
+      "sha256": "b2b01443c47aa4ace4880e20bc1305083668df624646030e739694315c925a3a"
     },
     {
       "path": "source/ModelLightRegistry20.hpp",
@@ -1984,8 +2004,8 @@
     },
     {
       "path": "source/ModelPointValue68Runtime.inc",
-      "bytes": 4660,
-      "sha256": "e3a416bbc81251ec80557b5ebd68dc40c258d10aa3e11b13d88d413358eb4406"
+      "bytes": 4634,
+      "sha256": "361aca26099ab242c1fa68a22d49440cd4a477cf07e1245aada0d5470fe08b51"
     },
     {
       "path": "source/ModelPrevalidation40.hpp",
@@ -2104,8 +2124,8 @@
     },
     {
       "path": "source/NativeProjectionRuntime105.inc",
-      "bytes": 17252,
-      "sha256": "eaa4b697aca0a71cd3206a0b68353ba19f928f4eb5e68ca76f6688d858c660e0"
+      "bytes": 17534,
+      "sha256": "e7616a6032bdf49c8a3a4aeb376c1a3f74873fdac7364d81dd7d70b50d6c1d68"
     },
     {
       "path": "source/NativeProjectionRuntime66.inc",
@@ -2129,8 +2149,8 @@
     },
     {
       "path": "source/performance162-tests.cmake",
-      "bytes": 1426,
-      "sha256": "e46f55f59a020c97868bd297dfb5bf3dc6caaaa2409ff81fac63a52e9f9ba753"
+      "bytes": 1357,
+      "sha256": "561b18c339045a06e209213f532150ad05b3d55177e9c7b1dd5fa20280a6abea"
     },
     {
       "path": "source/PerformanceWorkAvoidance224.hpp",
@@ -2144,8 +2164,8 @@
     },
     {
       "path": "source/point-permissions47-tests.cmake",
-      "bytes": 4094,
-      "sha256": "00d9970ce18d13d8c880db50a18d06bb3ca9d94fba3c62e15423dc84e7f6e2cc"
+      "bytes": 4145,
+      "sha256": "8556ecadff46ba9c29c3a134e71f2096e53391974451161999a8f3bde13eedc6"
     },
     {
       "path": "source/point-production50-tests.cmake",
@@ -2154,8 +2174,8 @@
     },
     {
       "path": "source/pole-callback134-tests.cmake",
-      "bytes": 995,
-      "sha256": "449f5da979e17fa5dbfb39c5d76f1fda9861989a49114353a7db45f4911124df"
+      "bytes": 926,
+      "sha256": "a73f0b1de79e068a9697c44bc8cecb56ac267ad972f7827c45a71f3808ad018c"
     },
     {
       "path": "source/pole-draw145-tests.cmake",
@@ -2174,13 +2194,13 @@
     },
     {
       "path": "source/PoleDepthRepair157.hpp",
-      "bytes": 496,
-      "sha256": "cba750f80c10fc01da4f7470a5fff06d75e0062851bf7c33632e857d9cedee9c"
+      "bytes": 512,
+      "sha256": "5c0695070cd24208d6fb63f3e2fc6a1ecb2ffc0547ff0e3cd4957e680eaa290d"
     },
     {
       "path": "source/PoleDepthRepair157Runtime.inc",
-      "bytes": 10562,
-      "sha256": "98bb35dedcd394384cb1f2354f38829f31afb5d16b992e47a2cc85a9581c2045"
+      "bytes": 18794,
+      "sha256": "813c0a9d04544c4ee33a9066472e67db4d1a51af60fe5094ed3ded3d8ec8cbfa"
     },
     {
       "path": "source/PoleDrawWitness145Runtime.inc",
@@ -2209,8 +2229,8 @@
     },
     {
       "path": "source/present-time151-tests.cmake",
-      "bytes": 809,
-      "sha256": "740e7b6e99bb3d97054c7ba2dc29d566eaf4199bd7234cba260226dc6000f68d"
+      "bytes": 748,
+      "sha256": "3908f785a200f58efb52c0a3b0a9c4111e232c48be1d7b50e3afc28904659811"
     },
     {
       "path": "source/PresentFrameTime151Runtime.inc",
@@ -2274,8 +2294,8 @@
     },
     {
       "path": "source/public-runtime125-tests.cmake",
-      "bytes": 954,
-      "sha256": "7661196f729f2850f5cdee6a03dfd30f97407bd38d593251a7fa4b531b87d827"
+      "bytes": 893,
+      "sha256": "221423956998392677c86040c192ed049bf2ba3a4ec393179886f2d02337669a"
     },
     {
       "path": "source/PublicLightingIni93.hpp",
@@ -2304,8 +2324,8 @@
     },
     {
       "path": "source/README.md",
-      "bytes": 519,
-      "sha256": "51d9e84664da7ff80bbb855fd7d3ec275cb29714d86008f3f36579c1fa183e7f"
+      "bytes": 600,
+      "sha256": "560808da96278f7a3bd3231d757c4a65d1fce16e7817345ce22cdcf807d4b5b7"
     },
     {
       "path": "source/ReceiverCull226Runtime.inc",
@@ -2334,8 +2354,8 @@
     },
     {
       "path": "source/settings117-tests.cmake",
-      "bytes": 2172,
-      "sha256": "5bc221d5db5607ad3812af1552313c4fce1eb3c7e7cb8855fc1c3132b8c808eb"
+      "bytes": 2125,
+      "sha256": "ff1cba61eb00d02140c1af1f2b28d86fdf08836712c1ebdba5a652cfa56d014b"
     },
     {
       "path": "source/SettingsRuntime117.hpp",
@@ -2383,9 +2403,9 @@
       "sha256": "7c0f8a474765658dcd16bc097d4cd72402219cc6b3d2a39811dfb0df2bb42587"
     },
     {
-      "path": "source/STANDALONE-ATTRIBUTION71.md",
-      "bytes": 1232,
-      "sha256": "d8d07ae3732a0af9659669bed9a6633ff5c88ecfa27d637a9417035c2e8c2e3d"
+      "path": "source/STANDALONE-ATTRIBUTION.md",
+      "bytes": 721,
+      "sha256": "c36e362c31fb4f45be11451bafc942c973563ab226d9728a3cf8fe9fe5b37327"
     },
     {
       "path": "source/standalone-midstub.hpp",
@@ -2404,8 +2424,8 @@
     },
     {
       "path": "source/standalone-runtime.cpp",
-      "bytes": 100672,
-      "sha256": "04f0e69458862d2f707b4e2fb161c21f149022ee8102f9ad60205743fd4ff304"
+      "bytes": 101206,
+      "sha256": "ffebcb97b2a3bb203f1495d5d465da679f6a548387d369fe3d7c951891bbb5b0"
     },
     {
       "path": "source/standalone-support-log.hpp",
@@ -2479,8 +2499,8 @@
     },
     {
       "path": "source/tests/arcade-placement197-runtime-tests.cpp",
-      "bytes": 18689,
-      "sha256": "d2a5466bb593d9286d8df2fca6fbcd97353a4a386e7de63cf53f6ca9a4fb65db"
+      "bytes": 19077,
+      "sha256": "effd5121287750643e7deb72f668ea116bdb2256192932751db68e79424db4f8"
     },
     {
       "path": "source/tests/attribution199c-decoder-tests.py",
@@ -2728,6 +2748,16 @@
       "sha256": "486f2eee6b2d32716d37d6fc8a092541f510376cf77604478be3154c3cff6656"
     },
     {
+      "path": "source/tests/fixture-light244-tests.cpp",
+      "bytes": 3383,
+      "sha256": "dcc9944a6ce41680081235288e79f3b2f34af547d9e91fd934d23acc6b365616"
+    },
+    {
+      "path": "source/tests/fixture-shadow244-tests.cpp",
+      "bytes": 10885,
+      "sha256": "73e2cd6f27d3327d6b551618070e3d2eedf46ef87960b6910c3e81f4d4a492e1"
+    },
+    {
       "path": "source/tests/frame-boundary154-tests.cpp",
       "bytes": 2882,
       "sha256": "369efeb9367085dc57612d7f3aeb426438a5d1ce928945328d581bc55f7bd049"
@@ -2874,13 +2904,18 @@
     },
     {
       "path": "source/tests/late-draw228-tests.cpp",
-      "bytes": 4500,
-      "sha256": "730b3b0e6b45fa1870cdc2d42c70e4ba56c4843fb65e23109a0fb774a3fa8ed2"
+      "bytes": 4657,
+      "sha256": "e7d81063a3dceb07c2c90812daebcd6b457bf82b64e0702adc72d733ae80a271"
     },
     {
       "path": "source/tests/live-reach122-tests.cpp",
       "bytes": 12202,
       "sha256": "566bbd1006c707aa26f09bcb2875cd0c0d0da790e61573cddf3ac2db7e7dcb66"
+    },
+    {
+      "path": "source/tests/local-shader244-tests.cpp",
+      "bytes": 1369,
+      "sha256": "afe5a4ddf0204a76cc1ea892ea5a95438937489352597e1c89d31ec6b7254abb"
     },
     {
       "path": "source/tests/log-publish150-tests.cpp",
@@ -2914,8 +2949,8 @@
     },
     {
       "path": "source/tests/model-deferred-validation46-tests.cpp",
-      "bytes": 9261,
-      "sha256": "5ac83d93a8965572f9d09e458b6e2a32b3f702161637f0ff3bba46b2bfff2a80"
+      "bytes": 9546,
+      "sha256": "813cb3f524f82a136cd7d85b30a7d7a2c25740ca501a4d93fc47ab5740dd11f2"
     },
     {
       "path": "source/tests/model-effect-getter62-log-tests.cpp",
@@ -2969,8 +3004,8 @@
     },
     {
       "path": "source/tests/model-point-value68-tests.cpp",
-      "bytes": 35614,
-      "sha256": "d74d2b0ccb6064965a6eb9b643eefae7eed3905cd3a9f21b908c76003f63034c"
+      "bytes": 36060,
+      "sha256": "7f6aa2ebfbef4c6536373c817527c72b834f448953aa499974edb7b9797ea319"
     },
     {
       "path": "source/tests/model-publish143-reference.inc",
@@ -3094,8 +3129,8 @@
     },
     {
       "path": "source/tests/native-rigid197c-harness.hpp",
-      "bytes": 6508,
-      "sha256": "7bd37a8e9d6422b086a6c1136bdc10dfaeef5579913ca6767a7aa481187917c3"
+      "bytes": 7699,
+      "sha256": "f0cbc7c337daa9f7c826fe4b8c7cbe0ecaf68760b18e4dcd9c28d164a711c9f9"
     },
     {
       "path": "source/tests/native-shortlist-collect48-tests.cpp",
@@ -3199,13 +3234,13 @@
     },
     {
       "path": "source/tests/point-permissions47-tests.cpp",
-      "bytes": 12983,
-      "sha256": "bef3341a77d10fa68e8bf565d382bdceed657cdfb2fca2ee5addbcf00f34e8d4"
+      "bytes": 13953,
+      "sha256": "64289f9fb9e83f0e98cf31607ce820d66fce585d20a3e0f3bcd65828a9d95138"
     },
     {
       "path": "source/tests/point-production50-tests.cpp",
-      "bytes": 32556,
-      "sha256": "c043267632eb9fcd78297e33bd30d8bc1b9c010d165202a9ece2e144721533fa"
+      "bytes": 32690,
+      "sha256": "5fa950590bf1e1e7a899c9e4b9eecb2c99207826042dcb4ecf0fff13cf0fdc97"
     },
     {
       "path": "source/tests/pole-batch144-tests.cpp",
@@ -3219,8 +3254,13 @@
     },
     {
       "path": "source/tests/pole-draw145-runtime-tests.cpp",
-      "bytes": 20042,
-      "sha256": "275ccd61941d0f96762f4f86316ef6df6f290297ac2a9948bec7af30c329ae1b"
+      "bytes": 29740,
+      "sha256": "539794b2fadab86a0bc9d3dd86ee9ea463ead7cf54b6948eb24e3f2223ff1786"
+    },
+    {
+      "path": "source/tests/pole-hook252-native.hpp",
+      "bytes": 1877,
+      "sha256": "bad6c2279f69aa004d46d70aeeadd32202707959c36df69e700d41f02303160f"
     },
     {
       "path": "source/tests/pole-permission147b-tests.cpp",

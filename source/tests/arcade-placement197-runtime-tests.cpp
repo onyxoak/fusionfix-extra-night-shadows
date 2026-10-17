@@ -133,6 +133,11 @@ void Reset(unsigned ordinal=0){
  SafetyHookContext regs{};regs.esp=uint32_t(uintptr_t(memory+45000));
  std::array<uint32_t,18> arguments{};arguments[1]=0;arguments[2]=1;arguments[5]=uint32_t(uintptr_t(position));arguments[6]=uint32_t(uintptr_t(memory+21000));
  assert(ModelValue68::TryDefer(regs,WrapperPoint,arguments,*local.state.Current(),local.samples[0]));
+ const auto ordinaryDeferred=ModelValue68::pending[0];
+ ModelValue68::ClearDepth(1);local.samples[0].diagnostic=true;
+ assert(ModelValue68::TryDefer(regs,WrapperPoint,arguments,*local.state.Current(),local.samples[0]));
+ assert(ModelValue68::pending[0].arguments==ordinaryDeferred.arguments&&ModelValue68::pending[0].site==ordinaryDeferred.site);
+ local.samples[0].diagnostic=false;
  const auto slot=ModelValue68::ReturnSlot(regs.esp,WrapperPoint);
  binding={game+0x6bd194,slot,slot+0xa8,0,0,arguments[5],arguments[6],0,0x41,0,0,0};
  assert(ModelValue68::Matches(ModelBinding69(binding)));copies=ownerCalls=queryCalls=0;

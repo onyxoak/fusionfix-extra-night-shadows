@@ -49,6 +49,9 @@ namespace ModelEffectObserver {
  constexpr size_t MaxDepth=8;
  struct LastErrorScope{~LastErrorScope(){}};
  struct Sample{std::array<uint8_t,68> ownerPose109{};bool diagnostic=false,ownerMatched=false,modelInfoMatched=false,descriptorCopied=false,matrixCopied=false,packetCopied=false;uint32_t identity{},ownerKind{},resolveMismatch{},site{},type{},flags{},key{},promotedKey{};std::array<uint8_t,108> descriptor{};std::array<float,16> matrix{};model_owner_transform46::Snapshot ownerTransform{};model_effect_getter62::Snapshot getter62{};std::array<float,3> position{},color{},direction{},up{};float intensity{},radius{},innerCone{},outerCone{};};
+ // Historical observer fixture leaves the separate correction disabled;
+ // fixture-light244 compiles and exercises its actual production callback.
+ namespace FixtureLight244 {void Correct(SafetyHookContext&,uint32_t,std::array<uint32_t,18>&,const Invocation&,Sample&) noexcept{}}
  struct Local{model_light_submission20::State state;std::array<Sample,8> samples{};} local;
  std::atomic<bool> enabled{true};std::atomic<uint32_t> readRejected{0},contextRejected{0},nativeInactiveSkipped40{0};bool hotCountersEnabled=true;
  unsigned innerReads=0,descriptorReads=0,typeReads=0,matrixReads=0;uint8_t descriptorValue=1,fixtureType=1;bool copyOK=true,getterFault62=false;

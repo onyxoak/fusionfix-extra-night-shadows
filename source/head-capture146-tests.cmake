@@ -1,4 +1,4 @@
-set(HEAD146_PYTHON "C:/Users/Austin/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe")
+set(HEAD146_PYTHON "${Python3_EXECUTABLE}")
 add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/head-capture146-extracted.inc"
  COMMAND "${HEAD146_PYTHON}" "${CMAKE_CURRENT_SOURCE_DIR}/tests/Extract-HeadCapture146.py" "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_BINARY_DIR}/head-capture146-extracted.inc"
  DEPENDS core/ShadowCasterRuntime.inl tests/Extract-HeadCapture146.py VERBATIM)

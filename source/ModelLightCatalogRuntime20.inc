@@ -101,6 +101,9 @@ bool InnerEvidence(const SafetyHookContext& regs,ResolveEvidence& evidence) noex
  return true;
 }
 #include "ModelPointFusion50Runtime.inc"
+namespace FixtureLight244 {void Correct(SafetyHookContext&,uint32_t,std::array<uint32_t,18>&,const Invocation&,Sample&) noexcept;}
+// Receives only the current authenticated native keyed model submission.
+void (*nativeFixture256)(const Invocation&,uint32_t,uint32_t,uint32_t) noexcept=nullptr;
 void ValidateSource46(const Invocation& current,Sample& sample) noexcept {
  std::optional<traffic_signal::fresh_page::Operation44> readOperation;
  if(!traffic_signal::fresh_page::operation44)readOperation.emplace();
@@ -256,7 +259,11 @@ void Point(SafetyHookContext& regs,uint32_t site) noexcept {
  // model shadow identity. Its native submission still executes unchanged.
  // Keep full emitted-vector evidence for diagnostic samples; eligible
  // unshadowed packets retain every current validation below and in Promote.
+ // Observe native already-keyed emitters without replacing their source/key.
+ if(arguments[abi.keyOffset/4]&&(arguments[2]&4u)&&nativeFixture256)
+  nativeFixture256(*current,arguments[abi.keyOffset/4],arguments[1],arguments[2]);
  if(!sample.diagnostic&&((arguments[2]&6u)||arguments[abi.keyOffset/4]))return;
+ FixtureLight244::Correct(regs,site,arguments,*current,sample);
  // Region-preferring profiles retain their established full legacy path.
  if(ModelValue68::TryDefer(regs,site,arguments,*current,sample))return;
  (void)FinishPoint68(regs,site,arguments,evidence,current,sample);

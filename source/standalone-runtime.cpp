@@ -41,13 +41,14 @@ namespace preset117 { ReadResult startup;State applied;bool backendLimited{},veh
 #include "core/NearbyPoliceGuard.hpp"
 #include <memory>
 #include <bit>
+#include "FixtureLight244.hpp"
 #include <cwctype>
 #include "PerformanceWorkAvoidance224.hpp"
 extern "C" {__declspec(dllexport) void* LibertyPerformanceControl224=&work_avoidance224::mode;}
 namespace standalone {
 using namespace onyxoak;
 using pe::U32;
-constexpr char CandidateBuild32[]="candidate242";
+constexpr char CandidateBuild32[]="candidate259";
 HMODULE self{};
 uintptr_t game{},ff{},loop{};
 uint8_t *pauseUser{},*pauseScript{};
@@ -528,6 +529,9 @@ template<class Hook,class Function> void Prepare(Hook& hook,uintptr_t target,Fun
 #include "TailLightRuntime20.inc"
 #include "ModelLightShadowRuntime20.inc"
 #include "ModelLightCatalogRuntime20.inc"
+namespace ModelEffectObserver {
+#include "FixtureLight244Runtime.inc"
+}
 #include "NativeProjectionRuntime105.inc"
 #include "EffectAttribution199CRuntime.inc"
 #include "ModelReferenceQueue189Runtime.inc"
@@ -550,9 +554,11 @@ namespace VehicleBoxes216 {void Lookup(SafetyHookContext&) noexcept;}
 #include "LightingCapabilities16.inc"
 #include "NativeNightPrerequisite128Runtime.inc"
 #include "FusionBackend130Runtime.inc"
+#include "LocalShader244Runtime.inc"
 #include "PoleStaticPartition141Runtime.inc"
 #include "PoleDrawWitness145Runtime.inc"
 #include "PoleDepthRepair157Runtime.inc"
+#include "FixtureShadow244Runtime.inc"
 #include "MapContribution198CRuntime.inc"
 uintptr_t LightCasterOwner(uintptr_t key) noexcept {
  const auto beam=Liberty20::BeamOwner(key);
@@ -737,7 +743,7 @@ void AppendPreparedOptionalRanges221(std::vector<PreparedHookRange>& preparedRan
 void Install() {
  // Required native hook instruction/binding guards below replace whole-producer hash gates.
  if(original)Event(1,"OWNED_IMAGE_READ224",("data_ranges="+std::to_string(owned_image224::Configure(game,original->bytes.size(),original->sections))+" fresh_SEH_copies=1 heap_checks_unchanged=1").c_str());
- VerifyOfficial();auto image=GuardedImage();VolumetricCompat199::AuthenticateAndNormalize(image);FusionBackend130::PrepareHooks();PoleStaticPartition141::Prepare(image);PoleDepthRepair157::PrepareHooks();PoleDrawWitness145::PrepareHooks();
+ VerifyOfficial();auto image=GuardedImage();VolumetricCompat199::AuthenticateAndNormalize(image);FusionBackend130::PrepareHooks();PoleStaticPartition141::Prepare(image);PoleDepthRepair157::discoverLocal244=LocalShader244::Discover;PoleDepthRepair157::PrepareHooks();PoleDrawWitness145::PrepareHooks();
  Liberty20::PrepareHooks(image);
  if(ModelLightShadow20::requested||CoronaLight20::requested)Require(ModelLightShadow20::registry.Configure(uint32_t(reinterpret_cast<uintptr_t>(ModelLightShadow20::keyStorage))),"model_shadow_key_storage_invalid");
  TailLight20::PrepareHooks(image);
@@ -835,7 +841,7 @@ void Install() {
   Require(bool(ownerProbe.enable()),"siren_probe_enable_failed");
  }
  const std::array inlinePlan{&ModelReferenceQueue189::drainHook,&ModelReferenceQueue189::hook,&nativeSubmit,&playerSubmit,&npcSubmit,&shsub_925DB0,&shsub_D77A00,&selectionHook,&FusionBackend130::settingHook,&FusionBackend130::admissionHook,&PoleDrawWitness145::consumerHook};
- const std::array midPlan{&caster,&contact,&camera,&brightness,&warning,&collectHook,&finalizeHook,&lampDistanceHook,&compareResultHook,&cacheResultHook,&stableOrdinalsHook,&PoleDrawWitness145::objectHook,&PoleDrawWitness145::constructorHook,&PoleDrawWitness145::childHook,&PoleDepthRepair157::dispatchHook};
+ const std::array midPlan{&caster,&contact,&camera,&brightness,&warning,&collectHook,&finalizeHook,&lampDistanceHook,&compareResultHook,&cacheResultHook,&stableOrdinalsHook,&PoleDrawWitness145::objectHook,&PoleDrawWitness145::constructorHook,&PoleDrawWitness145::childHook,&PoleDepthRepair157::dispatchHook,&PoleDepthRepair157::geometryHook251};
  unsigned requiredHooks=0;
  std::vector<PreparedHookRange> preparedRanges;
  for(const auto* hook:inlinePlan)if(*hook)preparedRanges.push_back({hook->target_address(),hook->original_bytes().size()});
@@ -876,7 +882,7 @@ void Install() {
  WireModelProjection69();
  NativeProjection66::Enable();
  EffectAttribution199C::Enable();
- ConsumerShadow75::Enable();SceneryFade198B::Enable(ConsumerShadow75::active.load(std::memory_order_acquire));NativeProducerGate116::Enable();VehicleBoxes216::Enable();ShutdownResource235::Enable();
+ ConsumerShadow75::Enable();SceneryFade198B::Enable(ConsumerShadow75::active.load(std::memory_order_acquire));NativeProducerGate116::Enable();VehicleBoxes216::Enable();ShutdownResource235::Enable();FixtureShadow244::Enable();
  preset117::refreshApplied119Hook=RefreshApplied119State;
  NativeNightPrerequisite128::Prepare();
  Event(1,"NIGHT_STATE236_ROUTE",NativeNightPrerequisite128::route.authenticated?"setting_hook=connected version_allowlist=0":"setting_getter_hook_unavailable lighting_stays_active=1 version_allowlist=0");
@@ -1140,9 +1146,11 @@ DWORD StartShadow117(const std::filesystem::path& ini) {
   TrafficSignal::promotionRequested=TrafficSignal::requested&&GetPrivateProfileIntW(L"LIGHTING20",L"TrafficSignalShadows",GetPrivateProfileIntW(L"LAB",L"TrafficPromote",0,ini.c_str()),ini.c_str())==1;
   Require(TrafficSignal::registry.Configure(TrafficSignal::PrivateKey(),ProofKey()),"traffic_reserved_key_collision");
   for(unsigned i=0;i<nearbyKeys.size();++i)Require(TrafficSignal::registry.IndexOfKey(NearbyKey(i))==UINT32_MAX,"traffic_emergency_reserved_key_collision");
+  FixtureShadow244::requested=GetPrivateProfileIntW(L"SUPPORT",L"FixtureSelfOcclusion",1,ini.c_str())==1;
+  ModelEffectObserver::FixtureLight244::requested=GetPrivateProfileIntW(L"SUPPORT",L"FixtureLightCorrections",1,ini.c_str())==1;
   PoleCasterDiagnostic134::requested=mode!=0&&GetPrivateProfileIntW(L"SUPPORT",L"PoleCasterDiagnostic134",0,ini.c_str())==1;
-  PoleDepthRepair157::requested=mode!=0&&GetPrivateProfileIntW(L"SUPPORT",L"PoleDepthRepair197C",0,ini.c_str())==1;
-  PoleStaticPartition141::requested=mode!=0&&GetPrivateProfileIntW(L"SUPPORT",L"PoleStaticAdmission197C",0,ini.c_str())==1;
+  PoleDepthRepair157::requested=GetPrivateProfileIntW(L"SUPPORT",L"PoleDepthRepair197C",0,ini.c_str())==1;
+  PoleStaticPartition141::requested=GetPrivateProfileIntW(L"SUPPORT",L"PoleStaticAdmission197C",0,ini.c_str())==1;
   CaptureDiagnostic44::directory=ini.parent_path();
   NativeProducerGate116::requested=GetPrivateProfileIntW(L"SUPPORT",L"NativeProducerGateDiagnostics116",0,ini.c_str())==1;
   EffectAttribution199C::requested=GetPrivateProfileIntW(L"SUPPORT",L"EffectProducerDiagnostics199C",0,ini.c_str())==1;
@@ -1235,6 +1243,8 @@ DWORD WINAPI Start(void*) {
 }
 extern "C" __declspec(dllexport) void InitializeASI(){static std::once_flag once;std::call_once(once,[]{if(auto h=CreateThread(nullptr,0,standalone::Start,nullptr,0,nullptr))CloseHandle(h);});}
 BOOL WINAPI DllMain(HMODULE h,DWORD reason,void*){if(reason==DLL_PROCESS_ATTACH){standalone::self=h;DisableThreadLibraryCalls(h);}return TRUE;}
+
+
 
 
 

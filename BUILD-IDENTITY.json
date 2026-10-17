@@ -1,10 +1,7 @@
 {
-  "version": "2.0.5",
-  "asi_sha256": "5b7ec7993a9bd622038de8063ac782de568856fa00a276855e723951dc935f1b",
-  "corresponding_source_sha256": "fcc82e89ca4b8a8ffe9dfb0eb24f429a851d2b153ca9d01c256482c7155f4381",
-  "source_files": 735,
-  "editions": {
-    "full": "config/OnyxOak.ExtraNightShadows.ini",
-    "fix_only_no_enhancements": "config/Fix-Only-No-Enhancements.ini"
-  }
+  "version": "2.0.6",
+  "asi_sha256": "599fa93f2385f6f1ed19bded7ff40aaaf94e5f6394feef363976233a5e179366",
+  "corresponding_source_sha256": "ec70cfaa2e84933bdb02a04e596c9f8558e74592e8ce2fd0f1a318ecc8fd662c",
+  "source_files": 743,
+  "full_config": "config/OnyxOak.ExtraNightShadows.ini"
 }

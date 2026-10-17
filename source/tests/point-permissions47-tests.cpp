@@ -98,6 +98,7 @@ namespace ModelEffectObserver{
  using namespace model_effect_observer;
  struct LastErrorScope{DWORD error=GetLastError();~LastErrorScope(){SetLastError(error);}};
  struct Sample{std::array<uint8_t,68> ownerPose109{};bool diagnostic=false,ownerMatched=false,modelInfoMatched=false,descriptorCopied=false,matrixCopied=false,packetCopied=false;traffic_signal::Identity identity{};uint32_t ownerKind{},resolveMismatch{},site{},type{},flags{},key{},promotedKey{};std::array<uint8_t,108> descriptor{};std::array<float,16> matrix{};model_owner_transform46::Snapshot ownerTransform{};model_effect_getter62::Snapshot getter62{};std::array<float,3> position{},color{},direction{},up{};float intensity{},radius{},innerCone{},outerCone{};};
+ namespace FixtureLight244 {void Correct(SafetyHookContext&,uint32_t,std::array<uint32_t,18>&,const Invocation&,Sample&) noexcept{}}
  struct Local{model_light_submission20::State state;std::array<Sample,8> samples{};} local;
  std::atomic<bool> enabled{true};std::atomic<uint32_t> readRejected{0},contextRejected{0},nativeInactiveSkipped40{0};bool hotCountersEnabled=true;
  uint32_t Frame() noexcept{return 7;}
@@ -111,12 +112,12 @@ namespace ModelEffectObserver{
  #include "point-permissions47-extracted.inc"
 }
 struct Result{unsigned queries{},owners{};uint32_t flags{},key{};bool invalid{};};
-Result Run(bool scoped,Change requestedChange=Change::None,bool keyed=false,bool nested=false){
+Result Run(bool scoped,Change requestedChange=Change::None,bool keyed=false,bool nested=false,uint32_t nativeFlags=4){
  using namespace ModelEffectObserver;
  assert(fp::operation44==nullptr);
  change=requestedChange;changeAtOwnerRead=2;ownerReads=0;queries=0;revokeAfterQuery=false;std::memset(memory,0,4096*4);memory[4096]=23;memory[4096+0x5b]=1;memory[8192]=7;
  auto* args=reinterpret_cast<uint32_t*>(memory);const auto vectors=uint32_t(reinterpret_cast<uintptr_t>(memory+12288));
- args[0]=2;args[1]=0;args[2]=keyed?4u:0u;args[3]=vectors;args[4]=vectors+16;args[5]=vectors+32;args[6]=vectors+48;args[7]=0x3f800000;args[10]=0x41200000;args[15]=keyed?77u:0u;
+ args[0]=2;args[1]=0;args[2]=keyed?nativeFlags:0u;args[3]=vectors;args[4]=vectors+16;args[5]=vectors+32;args[6]=vectors+48;args[7]=0x3f800000;args[10]=0x41200000;args[15]=keyed?77u:0u;
  auto* floats=reinterpret_cast<float*>(memory+12288);for(unsigned i=0;i<16;++i)floats[i]=1;
  const auto base=uint32_t(reinterpret_cast<uintptr_t>(memory));
  auto* context=reinterpret_cast<uint32_t*>(memory+128);context[0]=game+DispatchReturn;context[1]=2;context[2]=3;
@@ -167,7 +168,17 @@ int main(){
  assert(unscoped.flags==scoped.flags&&unscoped.key==scoped.key&&scoped.flags==4&&scoped.key==0x30000000);
  assert(scoped.owners==2&&unscoped.owners==2&&scoped.queries<unscoped.queries);
  std::printf("accepted production Point/Promote: QWS calls %u -> %u; fresh owner reads %u -> %u\n",unscoped.queries,scoped.queries,unscoped.owners,scoped.owners);
+ unsigned nativeCallbacks256=0;
+ static unsigned* nativeCount256=nullptr;nativeCount256=&nativeCallbacks256;
+ ModelEffectObserver::nativeFixture256=[](const model_effect_observer::Invocation& current,uint32_t key,uint32_t type,uint32_t flags) noexcept {
+  assert(ModelEffectObserver::local.state.Current()==&current&&current.frame==7&&current.submitted&&!current.invalid);
+  assert(key==current.proposedKey&&type==0&&(flags==4||flags==7));++*nativeCount256;
+ };
  const auto rejectedBaseline=Run(false,Change::None,true),rejectedScoped=Run(true,Change::None,true);
+ assert(nativeCallbacks256==2&&rejectedScoped.flags==4&&rejectedScoped.key!=0);
+ const auto nativeSeven257=Run(true,Change::None,true,false,7);assert(nativeSeven257.flags==7&&nativeCallbacks256==3);
+ Run(true);assert(nativeCallbacks256==3); // Unkeyed source takes its existing path.
+ ModelEffectObserver::nativeFixture256=nullptr;
  assert(rejectedBaseline.flags==rejectedScoped.flags&&rejectedBaseline.key==rejectedScoped.key&&rejectedScoped.owners==0);
  for(const auto scenario:{Change::Descriptor,Change::Generation,Change::Revoke}){
   const auto a=Run(false,scenario),b=Run(true,scenario);

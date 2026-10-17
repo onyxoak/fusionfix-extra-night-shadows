@@ -1,4 +1,4 @@
-set(PRESENT151_PYTHON "C:/Users/Austin/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe")
+set(PRESENT151_PYTHON "${Python3_EXECUTABLE}")
 add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/present151-extracted.inc"
  COMMAND "${PRESENT151_PYTHON}" "${CMAKE_CURRENT_SOURCE_DIR}/tests/Extract-Present151.py" "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_BINARY_DIR}/present151-extracted.inc"
  DEPENDS PresentFrameTime151Runtime.inc tests/Extract-Present151.py VERBATIM)

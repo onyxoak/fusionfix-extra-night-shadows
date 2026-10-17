@@ -1,4 +1,4 @@
-set(PUBLIC125_PYTHON "C:/Users/Austin/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe")
+set(PUBLIC125_PYTHON "${Python3_EXECUTABLE}")
 add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/public-runtime125-extracted.inc"
  COMMAND "${PUBLIC125_PYTHON}" "${CMAKE_CURRENT_SOURCE_DIR}/tests/Extract-PublicRuntime125.py" "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_BINARY_DIR}/public-runtime125-extracted.inc"
  DEPENDS standalone-runtime.cpp police-nearby.inc traffic-signal-observer.inc RuntimeFeaturePolicy125.hpp PresetGeneration117.hpp PresetIni117.hpp tests/Extract-PublicRuntime125.py VERBATIM)

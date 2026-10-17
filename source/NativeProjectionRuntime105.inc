@@ -26,6 +26,8 @@ using native_projection66::Packet;
 bool (*matchModelConstructor66)(const native_projection66::ConstructorContext&) noexcept=nullptr;
 uint32_t (*legacyFallback66)(Packet&,uint32_t,const native_projection66::ConstructorContext&) noexcept=nullptr;
 void (*constructorCompleted66)(bool,const native_projection66::ConstructorContext&) noexcept=nullptr;
+using Constructed244=void(*)(const Packet&,uint32_t,const native_projection66::ConstructorContext&) noexcept;
+std::atomic<Constructed244> constructed244{nullptr};
 bool (*placeModel197)(Packet&,Packet&,uint32_t,const native_projection66::ConstructorContext&) noexcept=nullptr;
 bool (*finishPlacement197)(Packet&,uint32_t,const native_projection66::ConstructorContext&,bool) noexcept=nullptr;
 bool (*placementBank197)(rage::CLightSource&,Packet&,uint32_t) noexcept=nullptr;
@@ -97,7 +99,7 @@ __declspec(noinline) uint32_t __fastcall Constructor(void* destination,void*,uin
    [&](Packet& p,Packet& before) noexcept{return placeModel197(p,before,frame,context);},
    [&](Packet& p,bool relocated) noexcept{return Enabled()&&(relocated?InternPlacement197(p,frame):Intern(p,frame))!=0;},
    [&](Packet& p,bool issued) noexcept{return finishPlacement197&&finishPlacement197(p,frame,context,issued);});
-  if(success)++promoted;
+  if(success){++promoted;if(currentModel)if(const auto observe=constructed244.load(std::memory_order_acquire))observe(packet,frame,context);}
   else {++fallback;if(currentModel&&legacyFallback66)(void)legacyFallback66(packet,frame,context);}
   if(currentModel&&constructorCompleted66)constructorCompleted66(success,context);
  },[](void* output,const void* packet) noexcept {

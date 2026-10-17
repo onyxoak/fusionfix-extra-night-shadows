@@ -32,9 +32,9 @@ bool SameInvocation(const Invocation& a,const Invocation& b) noexcept {
   a.submitted&&b.submitted&&!a.invalid&&!b.invalid;
 }
 bool TryDefer(const SafetyHookContext& regs,uint32_t site,
- const std::array<uint32_t,18>& args,const Invocation& current,const Sample& sample) noexcept {
+ const std::array<uint32_t,18>& args,const Invocation& current,const Sample&) noexcept {
  const auto abi=model_light_submission20::Layout(site);const auto depth=local.state.Depth();
- if(!abi||!depth||depth>pending.size()||sample.diagnostic||!ModelLightShadow20::requested||
+ if(!abi||!depth||depth>pending.size()||!ModelLightShadow20::requested||
     !ModelLightShadow20::active.load(std::memory_order_acquire)||!current.nonce||
     !SameInvocation(current,current)||!ReturnSlot(regs.esp,site)||!canReplace||
     !canReplace(args[1],args[2],args[abi.keyOffset/4]))return false;

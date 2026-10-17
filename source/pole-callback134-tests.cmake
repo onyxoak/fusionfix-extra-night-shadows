@@ -1,4 +1,4 @@
-set(POLE134_PYTHON "C:/Users/Austin/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe")
+set(POLE134_PYTHON "${Python3_EXECUTABLE}")
 add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/caster134-extracted.inc"
  COMMAND "${POLE134_PYTHON}" "${CMAKE_CURRENT_SOURCE_DIR}/tests/Extract-PoleCallback134.py" "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_BINARY_DIR}/caster134-extracted.inc"
  DEPENDS standalone-runtime.cpp PoleCasterDiagnostic134Runtime.inc PoleStaticPartition141Runtime.inc core/PoleCasterSnapshot134.hpp tests/Extract-PoleCallback134.py VERBATIM)

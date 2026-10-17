@@ -1,28 +1,26 @@
-# Build Liberty's Shadows 2.0.5
+# Building Liberty's Shadows
 
-Use Windows, Visual Studio C++ build tools with C++23 support, the Windows SDK, CMake 3.24+ and Ninja. Open an **x86 Native Tools** developer command prompt at the repository root, then run:
+Use a Visual Studio x86 Native Tools command prompt with MSVC C++23 support,
+the Windows SDK, CMake, Ninja and Python 3 available.
 
-```bat
-Build.cmd
-```
+Run Build.cmd from the extracted source package. The ASI is written to
+`build/OnyxOak.ExtraNightShadows.asi`. No game installation is required to
+compile the ASI.
 
-Or configure manually:
+To configure manually:
 
 ```bat
 cmake -S source -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
 cmake --build build --target OnyxOak.ExtraNightShadows --parallel
 ```
 
-The plugin is `build/OnyxOak.ExtraNightShadows.asi`. All ASI build dependencies are included. The release archive and this checkout contain the same ASI and shader source bytes; no local development directory is required to build the ASI.
+To build tests, build all targets with `cmake --build build --parallel`.
+Run `python RunTests.py --build build` from the extracted package root. The
+runner gives every check a fresh working folder so test settings cannot collide.
+Binary-contract tests require your own GTA IV, FusionFix and Volumetric Lights
+fixtures. Supply their paths through the COMPAT CMake cache variables, including
+COMPAT199_GAME, COMPAT199_VOLUME, COMPAT199_FUSION, COMPAT218_FUSION,
+COMPAT213_FUSION510 and COMPAT213_FUSION501. Third-party/game binaries are not
+bundled. Python can be selected with `-DPython3_EXECUTABLE=...`.
 
-For Fix Only, install the built ASI as `plugins/OnyxOak.ExtraNightShadows.asi` and copy `config/Fix-Only-No-Enhancements.ini` as `plugins/OnyxOak.ExtraNightShadows.ini`. No shader replacement is required. For Full, use the matching full INI and player-package shaders, following INSTALL.txt.
-
-For the vehicle-fallback shader, use Python 3 on Windows with d3dcompiler_47.dll:
-
-```bat
-python shader-source/vehicle-fallback/BuildShader.py
-```
-
-See `shader-source/README.md` for the other shader inputs and preserved rebuilding recipes. These shader changes are for the full edition.
-
-Tests include binary-contract fixtures requiring legitimate local GTA IV, FusionFix and Volumetric Lights binaries. Set COMPAT199_GAME, COMPAT199_FUSION, COMPAT199_VOLUME and any other fixture cache paths referenced by the selected tests before running them. Some inherited fixture defaults and historical shader recipes retain original local paths; adjust those inputs to your environment. No copyrighted game or companion binaries are included. Compilation and offline checks do not prove gameplay correctness or universal compatibility.
+Install the compiled ASI with the matching shaders and INI after closing GTA IV.

@@ -161,6 +161,7 @@ namespace ModelEffectObserver{
  using namespace model_effect_observer;
  struct LastErrorScope{DWORD error=GetLastError();~LastErrorScope(){SetLastError(error);}};
  struct Sample{std::array<uint8_t,68> ownerPose109{};bool diagnostic=false,ownerMatched=false,modelInfoMatched=false,descriptorCopied=false,matrixCopied=false,packetCopied=false;traffic_signal::Identity identity{};uint32_t ownerKind{},resolveMismatch{},site{},type{},flags{},key{},promotedKey{};std::array<uint8_t,108> descriptor{};std::array<float,16> matrix{};model_owner_transform46::Snapshot ownerTransform{};model_effect_getter62::Snapshot getter62{};std::array<float,3> position{},color{},direction{},up{};float intensity{},radius{},innerCone{},outerCone{};};
+ namespace FixtureLight244 {void Correct(SafetyHookContext&,uint32_t,std::array<uint32_t,18>&,const Invocation&,Sample&) noexcept{}}
  struct Local{model_light_submission20::State state;std::array<Sample,8> samples{};} local;
  std::atomic<bool> enabled{true};std::atomic<uint32_t> readRejected{0},contextRejected{0},nativeInactiveSkipped40{0};bool hotCountersEnabled=true;
  uint32_t Frame() noexcept{return 7;}

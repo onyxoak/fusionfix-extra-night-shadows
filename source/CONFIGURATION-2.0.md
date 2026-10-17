@@ -1,9 +1,10 @@
 # Configuration
 
-Edit plugins/OnyxOak.ExtraNightShadows.ini after closing GTA IV. High is the
-included preset. Restart after INI edits. SUPPORT / ReceiverCasterCulling=1
-enables conservative caster culling; set0 to disable. VEHICLE_BOX_SHADOWS /
-Enabled=1 enables vehicle fallback. SUPPORT / Logging=1 enables support logs.
+Close GTA IV before editing plugins/OnyxOak.ExtraNightShadows.ini, then restart.
+High is included, with full lighting, vehicle shadow fallback and conservative
+shadow-caster culling. Choose Low or Medium for a lighter preset; individual
+feature settings apply with Custom. The commented INI explains every setting.
 
-Offscreen/reflection shadows with culling remain under testing. See the player
-README and changelog for support and remaining limitations.
+SUPPORT / Logging=1 enables a support log. Return it to0 after troubleshooting.
+Functional lamp repairs do not require diagnostic logging. See the player
+README and changelog for installation, credits and remaining limitations.

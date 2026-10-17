@@ -1,5 +1,21 @@
 # Release history
 
+## 2.0.6
+
+- Fixed missing headlight shadows from supported street, park and breakable lamps.
+- Fixed supported dock, arrival-port, airport and industrial worklights losing
+  ground illumination as you approach.
+- Fixed supported lamp fixtures blocking their own light and becoming dim when
+  their shadows activate, while retaining shadows from other light sources.
+- Fixed severe lamp flicker caused by active lights overwriting each other's
+  self-shadow records.
+- Corrected matching between a fixture's native geometry copies so unused matrix
+  values no longer prevent the lighting correction.
+- Updated lamp-shadow integration to find the active local-light shader binding.
+- Made functional lamp repairs independent of diagnostic logging.
+- Added a portable test runner with separate working folders for each check.
+
+
 ## 2.0.5
 
 - Reduced repeated validation, vehicle scans and unnecessary shadow-caster processing; added configurable conservative caster culling.

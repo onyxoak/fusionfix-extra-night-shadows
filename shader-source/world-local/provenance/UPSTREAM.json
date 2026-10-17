@@ -1,10 +1,8 @@
 {
   "source_zip_sha256": "7144BFF9DE29008D5AC9A62873564DFB30113FAFE2633E270290FFC13A61376A",
-  "source_zip": "upstream/FusionFix-v5.1.1-source.zip",
   "FusionFix_tag": "v5.1.1",
   "FusionShaders_submodule_in_archive": "directory only; no files",
   "cached_xml_source": "upstream/cached-FusionShaders-source",
   "cached_source_limitation": "The three XML files are historical research copies; exact upstream tag/commit equivalence is not asserted. Exact original compiled inputs, generated assembly and own reconstruction scripts are supplied and validated separately.",
-  "modified_shader_attribution": "FusionFix / GTAIV.EFLC.FusionShaders; preserved GPL-3.0; OnyxOak/Codex local world-depth additions",
-  "scope": "Only27 shader originals/patched outputs, one shader donor and their source/provenance; no game executable, RPF archives, saves, private installed configuration or official binary ZIP."
+  "modified_shader_attribution": "FusionFix / GTAIV.EFLC.FusionShaders; preserved GPL-3.0; OnyxOak/Codex local world-depth additions"
 }

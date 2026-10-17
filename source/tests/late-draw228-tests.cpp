@@ -50,7 +50,10 @@ static void Run228(unsigned i,uintptr_t* entity){
  __asm mov after,esp
  assert(before==after&&GetLastError()==228);
 }
+
+#include "pole-hook252-native.hpp"
 int main(){
+ PoleHook252::Check();
  using namespace standalone;using namespace LateDrawCull228;
  game=uintptr_t(VirtualAlloc(nullptr,0x700000,MEM_COMMIT|MEM_RESERVE,PAGE_EXECUTE_READWRITE));assert(game);
  std::array<uintptr_t,36> table{};table[35]=uintptr_t(Draw228);uintptr_t entity=uintptr_t(table.data());
@@ -80,4 +83,5 @@ int main(){
  ReceiverCull226::prepared=true;PrepareHooks();assert(!prepared&&!ReceiverCull226::prepared&&addonActive);
  assert(VirtualFree(reinterpret_cast<void*>(game),0,MEM_RELEASE));
  std::cout<<"PASS228 actual x86 production hooks: all three native pre-push sites, original RET16 arguments, disabled/accepted/rejected draws, unchanged stack/LastError, optional foreign-site refusal and rollback. Not FPS or pixel proof.\n";
+ return 0;
 }

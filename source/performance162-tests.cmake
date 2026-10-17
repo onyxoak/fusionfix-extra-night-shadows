@@ -1,4 +1,4 @@
-set(PERF162_PYTHON "C:/Users/Austin/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe")
+set(PERF162_PYTHON "${Python3_EXECUTABLE}")
 add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/clock-config162-extracted.inc" "${CMAKE_CURRENT_BINARY_DIR}/world-callbacks162-extracted.inc" "${CMAKE_CURRENT_BINARY_DIR}/world-publish162-extracted.inc"
  COMMAND "${PERF162_PYTHON}" "${CMAKE_CURRENT_SOURCE_DIR}/tests/Extract-Performance162.py" "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_BINARY_DIR}"
  DEPENDS standalone-runtime.cpp WorldGeometryCatalogRuntime20.inc tests/Extract-Performance162.py VERBATIM)

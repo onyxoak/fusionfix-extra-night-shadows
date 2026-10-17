@@ -1,38 +1,36 @@
-Liberty's Shadows 2.0.5
+Liberty's Shadows 2.0.6
 By OnyxOak
 
 INSTALLATION
 Requires GTA IV Complete Edition, an ASI loader and a working FusionFix install.
 Close GTA IV and back up your customized OnyxOak.ExtraNightShadows.ini.
-Copy BOTH plugins and update folders into the folder containing GTAIV.exe.
-Replace the previous Liberty's Shadows files. Keep one copy of the ASI and use
-the matching shaders from this package. No previous Liberty's Shadows release
-is required. FusionFix, Volumetric Lights and DLSS-IV are separate downloads.
+Copy both plugins and update folders beside GTAIV.exe. Keep one copy of the ASI
+and install the matching shaders. FusionFix, Volumetric Lights and DLSS-IV are
+separate downloads.
 
 SETTINGS
-High is the included preset; vehicle shadow fallback and conservative caster
-culling are enabled. Choose a preset in Graphics or edit the commented INI.
-Restart after changing the INI or any setting marked restart required.
-To disable the new culling path, set ReceiverCasterCulling=0 under SUPPORT.
-To disable vehicle fallback, set Enabled=0 under VEHICLE_BOX_SHADOWS.
+High is included, with vehicle shadow fallback and conservative caster culling
+enabled. Choose a preset in Graphics or edit the commented INI, then restart.
+Routine logging and profiling are disabled for ordinary play.
 
-COMPATIBILITY
-Tested with FusionFix 5.1.2 and Volumetric Lights 2.00. Integration checks actual
-hooks and bindings; unfamiliar version numbers alone do not block it. Different
-calling conventions or conflicting required hooks can still prevent integration.
-Compatibility with every game edition, future release or modpack is not guaranteed.
+LATEST LIGHTING CHANGES
+Supported street and park lamps now cast headlight shadows. Selected industrial,
+dock and airport light families retain their ground illumination on approach.
+Independent emitting lamps keep separate self-shadow exclusions, preventing
+record collisions that caused the confirmed flicker. See the included changelog.
 
-SUPPORT
-Dense night scenes can remain demanding. Indoor flicker, some pop-in and pole
-shadow issues remain under refinement. Reflected/offscreen shadows with culling
-are still being checked; disable culling and restart if shadows disappear.
-For a report, enable SUPPORT / Logging=1, restart and reproduce the problem.
-Include plugins/OnyxOak.ExtraNightShadows.log, the preset, location, game build
-and installed graphics mods. Return Logging=0 after troubleshooting.
-Official downloads and support: https://www.nexusmods.com/gta4/mods/1459
+PERFORMANCE AND SUPPORT
+Further performance work remains. The latest lighting repair was reported to
+run slightly slower in the tested scene; no FPS improvement is claimed for it.
+Indoor competition, other edge-case flicker and some fixture beam shapes remain
+under refinement. Compatibility follows actual hooks and bindings; changed
+interfaces or conflicting hooks can still require an update.
+For troubleshooting, set SUPPORT / Logging=1, restart, reproduce once and send
+the log with your preset, location and installed lighting mods. Return Logging=0
+afterwards. Official support: https://www.nexusmods.com/gta4/mods/1459
 
 CREDITS
 Created and maintained by OnyxOak. Special thanks to MrBulkinAleksey for the
-vehicle shadow-box fallback. Upstream FusionFix/FusionShaders and dependency
-credits and licenses are included in Libertys-Shadows-licenses.
-Source: https://github.com/onyxoak/fusionfix-extra-night-shadows
+vehicle shadow-box fallback. Upstream and dependency credits/licenses are in
+Libertys-Shadows-licenses. Please credit OnyxOak and link the original mod when
+using its source. Source: https://github.com/onyxoak/fusionfix-extra-night-shadows

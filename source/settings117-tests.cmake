@@ -5,7 +5,7 @@ foreach(test IN ITEMS settings117 native-graphics-menu117 menu-chain117)
  add_test(NAME ${test} COMMAND ${test}-tests)
 endforeach()
 target_link_libraries(menu-chain117-tests PRIVATE bcrypt)
-set(SETTINGS117_PYTHON "C:/Users/Austin/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe" CACHE FILEPATH "Python for actual frontend callback extraction")
+set(SETTINGS117_PYTHON "${Python3_EXECUTABLE}" CACHE FILEPATH "Python for actual frontend callback extraction")
 add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/native-graphics-runtime117-extracted.inc"
  COMMAND "${SETTINGS117_PYTHON}" "${CMAKE_CURRENT_SOURCE_DIR}/tests/Extract-NativeGraphicsRuntime117.py" "${CMAKE_CURRENT_SOURCE_DIR}/NativeGraphicsRuntime117.cpp" "${CMAKE_CURRENT_BINARY_DIR}/native-graphics-runtime117-extracted.inc"
  DEPENDS NativeGraphicsRuntime117.cpp tests/Extract-NativeGraphicsRuntime117.py VERBATIM)

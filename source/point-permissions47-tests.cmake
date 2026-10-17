@@ -1,5 +1,5 @@
 file(READ "${CMAKE_CURRENT_SOURCE_DIR}/ModelLightCatalogRuntime20.inc" POINT47_CATALOG)
-string(FIND "${POINT47_CATALOG}" "void ValidateSource46(" POINT47_BEGIN)
+string(FIND "${POINT47_CATALOG}" "// Receives only the current authenticated native keyed model submission." POINT47_BEGIN)
 string(FIND "${POINT47_CATALOG}" "void Point(" POINT47_POINT)
 string(FIND "${POINT47_CATALOG}" "void Wrapper(" POINT47_END)
 math(EXPR POINT47_PREFIX_LENGTH "${POINT47_POINT}-${POINT47_BEGIN}")

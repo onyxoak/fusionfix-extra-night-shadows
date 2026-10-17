@@ -5,7 +5,7 @@
 namespace Native197c {
 using namespace standalone;
 struct Saved {uint32_t edi,esi,ebp,esp,ebx,edx,ecx,eax;};
-bool repair{},forced=true,old157{};unsigned calls{},slot{},mask{},selectedLod{};
+bool repair{},forced=true,old157{},historicalDepth{};unsigned calls{},slot{},mask{},selectedLod{};
 uint32_t callbackMode{},drawLod{},drawFilter{};
 void* drawThis{};
 void __cdecl Forward(Saved* saved) {
@@ -14,12 +14,17 @@ void __cdecl Forward(Saved* saved) {
  r.ebx=saved->ebx;r.edx=saved->edx;r.ecx=saved->ecx;r.eax=saved->eax;
  const auto previous=fixture134::actualStack157;fixture134::actualStack157=r.esp;
  PoleDepthRepair157::Dispatch(r);
+ // Historical forced-depth routing fixture;254 production preserves this byte.
+ if(historicalDepth&&PoleDepthRepair157::current.valid)*reinterpret_cast<uint8_t*>(r.esp+0x30)=1;
  if(old157&&*reinterpret_cast<uint8_t*>(r.esp+0x30))r.eax|=1;
  fixture134::actualStack157=previous;
- saved->eax=uint32_t(r.eax);saved->ebp=uint32_t(r.ebp);saved->ebx=uint32_t(r.ebx);
+ saved->edx=uint32_t(r.edx);saved->eax=uint32_t(r.eax);saved->ebp=uint32_t(r.ebp);saved->ebx=uint32_t(r.ebx);
 }
 __declspec(naked) void Mid() {
  __asm {
+  mov edx,[esp+14h]
+  mov ecx,[esp+2ch]
+  mov edx,[edx+8]
   pushfd
   pushad
   mov eax,esp
@@ -28,8 +33,6 @@ __declspec(naked) void Mid() {
   add esp,4
   popad
   popfd
-  mov edx,[esp+14h]
-  mov ecx,[esp+2ch]
   ret
  }
 }
@@ -75,6 +78,7 @@ void Check(uint32_t command) {
  RelCall(code,0xcb,uintptr_t(&Owner));RelCall(code,0x156,uintptr_t(&Owner));
  assert(!std::memcmp(code+0x9a,"\x8b\x54\x24\x10\x8b\x4c\x24\x28",8));
  code[0x9a]=0xe8;RelCall(code,0x9a,uintptr_t(&Mid));code[0x9f]=code[0xa0]=code[0xa1]=0x90;
+ code[0xa2]=code[0xa3]=code[0xa4]=0x90; // Context-filter load executed before callback by Mid.
  DWORD previous{};assert(VirtualProtect(code,sizeof(NativeDispatchBytes197c),PAGE_EXECUTE_READ,&previous));assert(FlushInstructionCache(GetCurrentProcess(),code,sizeof(NativeDispatchBytes197c)));
  using Fn=uint32_t(__fastcall*)(void*,void*,void*,uint32_t,uint32_t,uint32_t,float);
  const auto run=reinterpret_cast<Fn>(code);
@@ -92,8 +96,17 @@ void Check(uint32_t command) {
   assert(slot==(depth?(pointers?0x30u:0x2cu):(pointers?0x28u:0x20u)));
   if(depth&&pointers)assert(mask==(skin?1u:2u));++decisions;
  }
- context[3]=0;forced=true;repair=true;
- for(unsigned pointers=0;pointers<3;++pointers){
+ context[3]=0;repair=true;
+ // Production254 leaves native mode0 on the regular per-material shader path.
+ for(unsigned forcing=0;forcing<2;++forcing)for(unsigned pointers=0;pointers<3;++pointers){
+  forced=forcing!=0;fixture134::Put(game+0x13f59d4,uint32_t(forced?0x39000000:0));
+  calls=slot=mask=0;selectedLod=1;
+  run(context.data(),nullptr,drawable.data(),0x1234,pointers==1?0x2345:0,pointers==2?0x3456:0,1.f);
+  assert(calls==1&&slot==(pointers?0x28u:0x20u)&&mask==0&&context[3]==0&&drawLod==1&&drawFilter==11);
+ }
+ historicalDepth=true;
+ for(unsigned forcing=0;forcing<2;++forcing)for(unsigned pointers=0;pointers<3;++pointers){
+  forced=forcing!=0;fixture134::Put(game+0x13f59d4,uint32_t(forced?0x39000000:0));
   calls=slot=mask=0;selectedLod=1;
   run(context.data(),nullptr,drawable.data(),0x1234,pointers==1?0x2345:0,pointers==2?0x3456:0,1.f);
   assert(calls==1&&slot==(pointers?0x30u:0x2cu)&&mask==2&&context[3]==0&&drawLod==1&&drawFilter==11);
@@ -105,12 +118,13 @@ void Check(uint32_t command) {
   old157=false;
   if(!pointers)assert(calls==0);else{assert(calls==1&&slot==0x30&&mask==1);model[0x19]=0;assert(!GeometryBranch(model.data(),0,0,mask));}
  }
+ fixture134::Put(game+0x13f59d4,uint32_t(0x39000000));
  // Actual native LOD return occurs before the production MID/counters.
  const auto before=PoleDepthRepair157::dispatch197.load();selectedLod=3;drawable[19]=0;calls=0;
  run(context.data(),nullptr,drawable.data(),0x1234,0,0x3456,1.f);assert(calls==0&&PoleDepthRepair157::dispatch197.load()==before);
  // All branch-byte/argument combinations: masks are mutually exclusive for1/2.
  for(unsigned branch=0;branch<256;++branch)for(unsigned bits=0;bits<4;++bits){model[0x19]=uint8_t(branch);assert(GeometryBranch(model.data(),0,0,bits)==unsigned(bool(bits&(branch?1:2))));}
- repair=false;forced=true;assert(VirtualFree(code,0,MEM_RELEASE));
- std::cout<<"PASS197c native instruction dispatch: "<<decisions<<" original branches, repaired rigid/pointer routes, old157 skips, LOD early return,1024 geometry mask cases; no GPU proof\n";
+ historicalDepth=false;repair=false;forced=true;assert(VirtualFree(code,0,MEM_RELEASE));
+ std::cout<<"PASS197c native instruction dispatch: "<<decisions<<" original branches,254 regular routes, historical rigid routes and old157 skips, LOD early return,1024 geometry mask cases; no GPU proof\n";
 }
 }

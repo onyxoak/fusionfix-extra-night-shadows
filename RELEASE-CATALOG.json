@@ -48,5 +48,12 @@
     "source_files": 735,
     "fix_only_config_sha256": "f4c5058a793e4720738835477ab58ef061d81d734bf0a87da5cbef6023b6b782",
     "fix_only_nexus_sha256": "695221f839808fc7d731b1bb31feececca1c8db301f39e09b8f01dff632e45be"
+  },
+  {
+    "version": "2.0.6",
+    "player_sha256": "17e84c0ede3cfbcd4632bd601fbf2bba630061344a3fe803bdac7ad8a990ccce",
+    "source_sha256": "ec70cfaa2e84933bdb02a04e596c9f8558e74592e8ce2fd0f1a318ecc8fd662c",
+    "asi_sha256": "599fa93f2385f6f1ed19bded7ff40aaaf94e5f6394feef363976233a5e179366",
+    "source_files": 743
   }
 ]
