@@ -1,5 +1,16 @@
 # Release history
 
+## 2.0.5
+
+- Reduced repeated validation, vehicle scans and unnecessary shadow-caster processing; added configurable conservative caster culling.
+- Uses discovered hooks and required bindings rather than unfamiliar FusionFix version numbers as a rejection criterion. Includes tested FusionFix 5.1.2 / Volumetric Lights 2.00 integration improvements.
+- Added vehicle shadow-box fallback, with special thanks to **MrBulkinAleksey** for the original implementation in his FusionFix fork. Adapted and integrated by OnyxOak.
+- Improved layered callback handling and night-state status; fixed the captured invalid-negative-index MMA10 shutdown corruption.
+- Added the optional **Fix Only — No Enhancements** configuration using the same core, with the preset menu and enhancements disabled and no replacement shaders required.
+- Headlight shadows from lamp poles remain unresolved. Further performance, edge-case flicker and shadow transitions remain under refinement.
+
+See [full changes and test limits](release-notes/2.0.5.txt) and [fix-only changes](release-notes/2.0.5-fix-only.txt). The full changelog's roughly 15% result compares development builds in one controlled scene; it is not a direct 2.0.4 performance result or a universal FPS promise.
+
 ## 2.0.4
 
 - Corrected version-specific startup adapters for official FusionFix 5.0.1 and 5.1.0, including the matching VolumetricLights paths.

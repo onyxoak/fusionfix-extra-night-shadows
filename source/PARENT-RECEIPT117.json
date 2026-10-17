@@ -1,6 +1,0 @@
-{
-  "parent": "sealed114",
-  "verified_files": 308,
-  "manifest_sha256": "D4C73B223C541FB7CE44E7CEAC2E1D2BED00FE5240C06F8B7BB4C4BC746B5860",
-  "frontend_source": "sealed97 frontend only; no generation engines/bootstrap imported"
-}

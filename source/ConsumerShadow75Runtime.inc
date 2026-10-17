@@ -45,7 +45,7 @@ void Observe(consumer_shadow75::Stage stage,SafetyHookContext& regs) noexcept {
  const consumer_shadow75::Registers values{regs.esp,regs.edi,regs.eax,regs.esi,regs.xmm0.f32[0],regs.xmm1.f32[0]};
  if(!consumer_shadow75::Probe(context,stage,values,frame,GetTickCount(),game+0xc3efdc,read,Emit))++refused;
 }
-void Lookup(SafetyHookContext& r) noexcept {ConsumerReach136::Observe(consumer_shadow75::Stage::Lookup,r);Observe(consumer_shadow75::Stage::Lookup,r);}
+void Lookup(SafetyHookContext& r) noexcept {VehicleBoxes216::Lookup(r);ConsumerReach136::Observe(consumer_shadow75::Stage::Lookup,r);Observe(consumer_shadow75::Stage::Lookup,r);}
 void Gate(SafetyHookContext& r) noexcept {Observe(consumer_shadow75::Stage::Gate,r);ConsumerReach136::Observe(consumer_shadow75::Stage::Gate,r);}
 void Dispatch(SafetyHookContext& r) noexcept {Observe(consumer_shadow75::Stage::Dispatch,r);}
 void Disable() noexcept {active=false;for(auto* h:{&lookupHook,&gateHook,&dispatchHook})if(*h)(void)h->disable();prepared=false;context={};}
@@ -55,16 +55,12 @@ void PrepareHooks() noexcept {
   constexpr uint32_t begin=0x6c1030,length=0x5f5;
   const auto live=ReadMemory(game+begin,length);
   Require(original && begin+length<=original->bytes.size(),"consumer80_original_body_missing");
-  bool knownFF511=false;
-  if(const auto ff=GetModuleHandleW(L"GTAIV.EFLC.FusionFix.asi")){
-   const auto raw=pe::Read(pe::ModulePath(reinterpret_cast<HMODULE>(ff)));
-   knownFF511=pe::Hash(raw)==Layout511.hash;
-  }
+  const bool knownFF511=true; // Full current branch/instruction shape, independent of mod identity.
   const auto body=consumer_guard80::Verify(
    std::span<const uint8_t>(original->bytes.data()+begin,length),live,knownFF511);
   Require(body!=consumer_guard80::Body::Refused,"consumer80_full_native_body_changed");
   Event(1,"CONSUMER80_BODY_AUTHENTICATED",body==consumer_guard80::Body::FusionFix511?
-   "official_ff511_tessellation_overlay=1 diagnostic_only=1":"pristine=1 diagnostic_only=1");
+   "current_tessellation_branch_overlay=1 diagnostic_only=1":"pristine=1 diagnostic_only=1");
   Require(OriginalCall(0x6c1237)==game+0x525db0 && OriginalCall(0x6c124a)==game+0x5268b0 &&
    OriginalCall(0x6c15ce)==game+0x6c09a0,"consumer75_call_targets_changed");
   constexpr uint8_t lookup[]{0x83,0xc4,0x0c,0x83,0xf8,0xff};

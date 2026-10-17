@@ -74,4 +74,29 @@ template<class Reader> void NormalizeOperands(std::vector<uint8_t>& image,std::s
  for(auto at:SizeOperands)std::copy_n(original.data()+at,4,image.data()+at);
  for(auto at:IntensityOperands)std::copy_n(original.data()+at,4,image.data()+at);
 }
+// Bind current operand values to the actual callback owner, without requiring
+// a module filename, release hash or settings RVA.
+template<class Reader> void NormalizeCurrentOperands233(std::vector<uint8_t>& image,std::span<const uint8_t> original,
+ uint32_t module,size_t moduleBytes,Reader read){
+ Need(image.size()==original.size(),"shadow_copy233_operand_image_bounds");
+ auto scalar=[&](uint32_t bits){const auto f=std::bit_cast<float>(bits);return f>=0.f&&f<=1.f;};
+ uint32_t head{},tail{};
+ for(unsigned i=0;i<SizeOperands.size();++i){const auto at=SizeOperands[i];
+  Need(at>=4&&uint64_t(at)+4<=image.size(),"shadow_copy233_size_operand_bounds");
+  Need(!memcmp(image.data()+at-4,original.data()+at-4,4)&&image[at-4]==0xc7&&image[at-3]==0x44&&image[at-2]==0x24,"shadow_copy233_size_instruction_changed");
+  const auto bits=Word(image.data()+at);Need(scalar(bits),"shadow_copy233_size_value_invalid");
+  if(i==0)head=bits;if(i==2)tail=bits;
+  Need(bits==(i<2?head:tail),"shadow_copy233_size_bindings_disagree");
+ }
+ for(const auto at:IntensityOperands){
+  constexpr uint8_t mul[]{0xf3,0x0f,0x59,0x15};
+  Need(at>=4&&uint64_t(at)+4<=image.size(),"shadow_copy233_intensity_operand_bounds");
+  Need(!memcmp(image.data()+at-4,mul,4)&&!memcmp(original.data()+at-4,mul,4),"shadow_copy233_intensity_instruction_changed");
+  const auto target=Word(image.data()+at);
+  Need(target>=module&&uint64_t(target-module)+4<=moduleBytes,"shadow_copy233_intensity_hook_owner_missing");
+  const auto bytes=read(target,4);Need(bytes.size()==4&&scalar(Word(bytes.data())),"shadow_copy233_intensity_value_invalid");
+ }
+ for(auto at:SizeOperands)std::copy_n(original.data()+at,4,image.data()+at);
+ for(auto at:IntensityOperands)std::copy_n(original.data()+at,4,image.data()+at);
+}
 }

@@ -3,8 +3,11 @@
 #include <psapi.h>
 #include <intrin.h>
 #include <cstdint>
+#include <optional>
 #include "core/ShadowCpuProfile29.hpp"
 #include "MemoryReadProfile46.hpp"
+#include "ImmediateRegion33.hpp"
+#include "ContainedReads236.hpp"
 #pragma comment(lib,"psapi.lib")
 namespace traffic_signal::fresh_page {
 using Check=bool(*)(uintptr_t,size_t) noexcept;
@@ -14,6 +17,9 @@ inline void Configure(bool requested) noexcept {preferRegion=requested;}
 using Query=BOOL(WINAPI*)(HANDLE,PVOID,DWORD);
 // Positive permissions only, borrowed within one SEH-contained read-only hook.
 // No copied data, owner result or authorization survives return to native code.
+inline bool BorrowedRegion231(uintptr_t address,size_t size,Query query) noexcept {
+ return query==QueryWorkingSetEx&&immediate_region33::KnownReadable231(address,size);
+}
 struct Operation44;
 inline thread_local Operation44* operation44=nullptr;
 struct Operation44 {
@@ -23,6 +29,12 @@ struct Operation44 {
  explicit Operation44(unsigned requestedCapacity=8) noexcept:previous(operation44),capacity(requestedCapacity>Maximum147?Maximum147:requestedCapacity){memory_read46::Record(memory_read46::Metric::Operations);if(previous)memory_read46::Record(memory_read46::Metric::NestedOperations);operation44=this;}
  ~Operation44() noexcept{operation44=previous;}
  Operation44(const Operation44&)=delete;Operation44& operator=(const Operation44&)=delete;
+};
+inline std::atomic<bool> readScopes233{true};
+struct LocalReadScope233 {
+ std::optional<Operation44> pages;
+ std::optional<immediate_region33::Scope> regions;
+ LocalReadScope233() noexcept {if(readScopes233.load(std::memory_order_relaxed)){if(!operation44)pages.emplace(32);if(!immediate_region33::current)regions.emplace();}}
 };
 inline bool Known44(uintptr_t address,size_t size,DWORD page,Query query) noexcept {
  if(!operation44||!page||(page&(page-1))||address/page!=(address+size-1)/page)return false;
@@ -50,14 +62,15 @@ __declspec(noinline) inline bool Readable(uintptr_t address,size_t size,Check fa
  // borrow the page size from a successful entry rather than call it here.
  // Profiling retains its complete original guarded path and counters.
  if(!shadow_cpu29::enabled&&!memory_read46::enabled&&!preferRegion&&
-    address>=0x10000&&size&&address<=UINTPTR_MAX-size&&operation44&&operation44->pageSize196&&
-    Known44(address,size,operation44->pageSize196,query))return true;
+    address>=0x10000&&size&&address<=UINTPTR_MAX-size&&
+    ((operation44&&operation44->pageSize196&&Known44(address,size,operation44->pageSize196,query))||BorrowedRegion231(address,size,query)))return true;
  const Preserve preserve;
  memory_read46::Record(memory_read46::Metric::ScalarHelpers);
  const shadow_cpu29::Scope cpu(shadow_cpu29::Phase::PageCheck,256);
  if(address<0x10000||!size||address>UINTPTR_MAX-size)return false;
  // Fresh committed-region query; owner/lifetime checks remain at callers.
  if(preferRegion){memory_read46::Record(memory_read46::Metric::FallbackRequests);return fallback(address,size);}
+ if(BorrowedRegion231(address,size,query)){memory_read46::Record(memory_read46::Metric::ScalarCacheHits);return true;}
  const auto page=PageSize();
  if(!page||(page&(page-1))||address/page!=(address+size-1)/page){memory_read46::Record(memory_read46::Metric::FallbackRequests);return fallback(address,size);}
  if(Known44(address,size,page,query)){memory_read46::Record(memory_read46::Metric::ScalarCacheHits);return true;}

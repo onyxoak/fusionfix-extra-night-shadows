@@ -1,4 +1,5 @@
 #define NOMINMAX
+#include "OwnedImageReads224.hpp"
 #include <windows.h>
 #include <array>
 #include <atomic>

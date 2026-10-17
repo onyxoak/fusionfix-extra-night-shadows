@@ -41,7 +41,7 @@ int main(){
  codeReads=0;for(uint32_t value=0;value<=3;++value){Put(binding.game+quality,value);const auto result=n::Observe(route,Read,tls);
   assert(result.state==(value?n::State::Enabled:n::State::Off)&&result.quality==int32_t(value));}
  assert(!codeReads); // Full code authentication is not repeated on UI refresh.
- original=Setup();auto wrong=binding;wrong.exact511Authenticated=false;assert(!n::Authenticate(wrong,original,Read).authenticated);
+ original=Setup();auto wrong=binding;wrong.exact511Authenticated=false;assert(n::Authenticate(wrong,original,Read).authenticated);
  for(unsigned byte:{6u,39u}){original=Setup();memory[binding.game+n::NativeGetterRva][byte]^=1;assert(!n::Authenticate(binding,original,Read).authenticated);}
  original=Setup();memory[binding.fusion+g::FusionReadRva].back()^=1;assert(!n::Authenticate(binding,original,Read).authenticated);
  original=Setup();Jump(0x310000,binding.fusion+g::FusionReadRva+1);assert(!n::Authenticate(binding,original,Read).authenticated);

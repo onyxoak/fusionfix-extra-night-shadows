@@ -2,7 +2,7 @@
 #include "NativeGraphicsMenu117.hpp"
 #include "MenuChainGuard117.hpp"
 #include "MenuSnapshot117.hpp"
-// Opt-in experimental frontend integration. No UI failure disables lighting.
+// Frontend integration follows current hook ownership. No UI failure disables lighting.
 namespace native_ui117 {
 using namespace native_graphics117;
 namespace image117 {
@@ -45,6 +45,7 @@ std::array<Receipt,2> receipts{};std::array<std::array<wchar_t,66>,ControlCount>
 std::array<Snapshot,2> snapshots{};
 thread_local InputRouter input;bool publishing{},blocked{};
 thread_local unsigned processDepth{};
+bool publicationLogged233{};
 using Fill=int32_t(__cdecl*)(int32_t);using Append=uint32_t(__thiscall*)(void*,int32_t);
 std::optional<unsigned> Slot(int32_t screen) noexcept {if(screen==49)return 0;if(screen==62)return 1;return {};}
 std::optional<int32_t> Current() noexcept {
@@ -85,6 +86,7 @@ void OnFill(SafetyHookContext&) noexcept {
   const auto result=Publish(memory,Address(*current),generation,true,same,AppendOwned);
   if(result.result==Publication::Published||result.result==Publication::AlreadyPublished){previous=result.receipt;
    if(memory.Read(previous.array.data,rows.data(),size_t(previous.array.count)*sizeof(Option)))snapshot.Capture(std::span(rows).first(previous.array.count));else {previous={};snapshot.active=false;}
+   if(previous.active&&!publicationLogged233){publicationLogged233=true;preset117::MenuEvent233("GRAPHICS_MENU233_VISIBLE","quality_row_published=1 native_rows_preserved=1");}
    UpdateValues();}
   else {previous={};snapshot.active=false;if(result.result==Publication::OwnershipLost)blocked=true;
    OutputDebugStringW(L"Liberty's Shadows: Graphics rows refused; lighting remains active.\n");}
@@ -138,25 +140,40 @@ void Refuse() noexcept {
  active=false;for(auto* hook:{&scrollHook,&selectHook,&processHook,&valueHook,&labelHook})if(*hook)(void)hook->disable();if(fillBoundary)(void)fillBoundary.disable();
 }
 void Prepare(uintptr_t base,const uint8_t* original,size_t bytes,HMODULE addon) {
- Require(base<=UINT32_MAX&&bytes==0x1be6400&&original,"menu_native_image_layout");game=uint32_t(base);
- // The UI has its own verified family; refusal never tightens High's lighting detector.
- const auto raw=image117::onyxoak::pe::Read(image117::onyxoak::pe::ModulePath(nullptr));
- Require(compatibility117::Accept(raw,"08759a5516f9837920ea504436236bbab89d0826a8e4d04ff106345177b5345d"),"menu_CE_adapter_not_verified");
+ Require(base>=0x10000&&base<=UINT32_MAX&&original&&uint64_t(base)+bytes<=uint64_t(UINT32_MAX)+1&&
+  bytes>=0x15d3390u+63u*sizeof(Screen32),"menu_required_native_bindings_out_of_range");game=uint32_t(base);
  // Without explicit public settings, legacy flags may differ from High defaults.
  Require(preset117::startup.present&&!preset117::startup.invalid,"menu_applied_settings_snapshot_missing");
  ini=image117::onyxoak::pe::ModulePath(addon).replace_extension(L".ini");controller.emplace(preset117::applied, preset117::startup.state, preset117::backendLimited);UpdateValues();
  auto expected=[&](uint32_t rva,unsigned n){Require(uint64_t(rva)+n<=bytes,"menu_expected_range");return std::span(original+rva,n);};
- uint32_t ffBase{};std::unique_ptr<image117::onyxoak::pe::Image> ffImage;
- if(const auto ff=GetModuleHandleW(L"GTAIV.EFLC.FusionFix.asi")){
-  const auto rawFF=image117::onyxoak::pe::Read(image117::onyxoak::pe::ModulePath(ff));
-  Require(compatibility117::Hash(rawFF)=="9f8a42d996e239c23c24432af4b95c568bfd1c501644a13bb7e9a4f51ed7be60","menu_FusionFix_adapter_not_verified");
-  ffBase=uint32_t(reinterpret_cast<uintptr_t>(ff));ffImage=std::make_unique<image117::onyxoak::pe::Image>(rawFF,ffBase);
+ struct Entry {uint32_t nativeRva;unsigned patch;const char* failure;};
+ constexpr std::array<Entry,4> entries{{{0x4b5e30,6,"menu_fill_hook_missing_or_changed"},{0x4bfe90,5,"menu_scroll_hook_missing_or_changed"},{0x4c0020,8,"menu_select_hook_missing_or_changed"},{0x4bae80,6,"menu_process_hook_missing_or_changed"}}};
+ for(const auto& entry:entries){
+  uint32_t ffBase{};std::unique_ptr<image117::onyxoak::pe::Image> ffImage;
+  const auto native=expected(entry.nativeRva,32);std::array<uint8_t,32> present{};
+  Require(memory.Read(game+entry.nativeRva,present.data(),present.size()),entry.failure);
+  if(std::memcmp(present.data(),native.data(),native.size())){
+   Require(present[0]==0xe9,entry.failure);
+   auto target=menu_chain117::Jump(game+entry.nativeRva,present);
+   auto owner=image117::onyxoak::pe::ModuleAt(target);
+   if(!owner){std::array<uint8_t,5> relay{};Require(memory.Read(target,relay.data(),relay.size())&&relay[0]==0xe9,entry.failure);
+    target=menu_chain117::Jump(target,relay);owner=image117::onyxoak::pe::ModuleAt(target);}
+   Require(owner&&owner!=addon,entry.failure);
+   ffBase=uint32_t(reinterpret_cast<uintptr_t>(owner));
+   ffImage=std::make_unique<image117::onyxoak::pe::Image>(image117::onyxoak::pe::Read(image117::onyxoak::pe::ModulePath(owner)),ffBase);
+  }
+  const auto executable=[&](uint32_t at,size_t n){
+   if(!ffImage)return false;
+   for(const auto& section:ffImage->sections){const auto end=(std::min<uint64_t>)(ffImage->bytes.size(),uint64_t(section.VirtualAddress)+(std::max)(section.Misc.VirtualSize,section.SizeOfRawData));
+    if((section.Characteristics&IMAGE_SCN_MEM_EXECUTE)&&at>=section.VirtualAddress&&uint64_t(at)+n<=end)return true;
+   }return false;
+  };
+  const auto result=menu_chain117::Discover233(memory,game+entry.nativeRva,native,ffBase,
+   ffImage?std::span<const uint8_t>(ffImage->bytes):std::span<const uint8_t>{},executable,entry.patch);
+  Require(result.owner!=menu_chain117::Owner::Refused,entry.failure);
+  if(result.owner==menu_chain117::Owner::FusionFix){HMODULE pinned{};Require(GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS|GET_MODULE_HANDLE_EX_FLAG_PIN,
+   reinterpret_cast<LPCWSTR>(uintptr_t(result.destination)),&pinned)&&uint32_t(reinterpret_cast<uintptr_t>(pinned))==ffBase,"menu_hook_owner_lifetime_failed");}
  }
- struct Entry {uint32_t nativeRva,ffRva;unsigned patch;};
- constexpr std::array<Entry,4> entries{{{0x4b5e30,0xd1410,6},{0x4bfe90,0xd6e90,5},{0x4c0020,0xd6f80,8},{0x4bae80,0xd6860,6}}};
- for(const auto& entry:entries){const auto foreign=ffImage?std::span(ffImage->bytes).subspan(entry.ffRva,32):std::span<uint8_t>{};
-  const auto result=menu_chain117::Authenticate(memory,game+entry.nativeRva,expected(entry.nativeRva,32),ffBase?ffBase+entry.ffRva:0,foreign,entry.patch);
-  Require(result.owner==(ffBase?menu_chain117::Owner::FusionFix:menu_chain117::Owner::Native),"menu_entry_owner_not_ready_or_refused");}
  for(const auto rva:{0x4b5e39u,0x4b7fe0u,0x50a3f0u,0x1beed0u}){std::array<uint8_t,32> live{};
   Require(memory.Executable(game+rva,32)&&memory.Read(game+rva,live.data(),32)&&!std::memcmp(live.data(),expected(rva,32).data(),32),"menu_native_site_changed");}
  Require(original[0x4b5e39]==0xa1,"menu_fill_boundary_instruction");uint32_t scalar{};std::memcpy(&scalar,original+0x4b5e3a,4);Require(scalar==game+0xd60c40,"menu_screen_scalar_binding");
@@ -167,6 +184,7 @@ void Prepare(uintptr_t base,const uint8_t* original,size_t bytes,HMODULE addon) 
  auto hook=[&](SafetyHookInline& destination,uint32_t rva,auto callback){auto ready=SafetyHookInline::create(reinterpret_cast<void*>(uintptr_t(game+rva)),callback,SafetyHookInline::StartDisabled);Require(bool(ready),"menu_hook_prepare");destination=std::move(*ready);};
  hook(scrollHook,0x4bfe90,Scroll);hook(selectHook,0x4c0020,Select);hook(processHook,0x4bae80,Process);hook(valueHook,0x4b7fe0,Value);hook(labelHook,0x50a3f0,Label);
  for(auto* owned:{&scrollHook,&selectHook,&processHook,&valueHook,&labelHook})Require(bool(owned->enable()),"menu_inline_enable");Require(bool(fillBoundary.enable()),"menu_fill_enable");active.store(true,std::memory_order_release);
+ preset117::MenuEvent233("GRAPHICS_MENU233_CONNECTED","live_hook_ownership=1 version_allowlist=0 file_hash_allowlist=0 lighting_unchanged=1");
  OutputDebugStringW(L"Liberty's Shadows: experimental Graphics adapter armed; live validation pending.\n");
 }
 }
@@ -182,17 +200,20 @@ void RetryMenu117(uintptr_t game,const uint8_t* original,size_t bytes) noexcept 
  struct Unlock {~Unlock(){menuAttemptLock117.clear(std::memory_order_release);}} unlock;
  if(!menuPending117.load(std::memory_order_acquire))return;
  const auto now=GetTickCount64();if(menuAttempts117&&now-menuLastAttempt117<500)return;menuLastAttempt117=now;++menuAttempts117;
- if(GetModuleHandleW(L"GTAIV.EFLC.FusionFix.asi")){
+ if(backendOwner233Hook&&backendOwner233Hook()){
   // FF asynchronously installs its frontend hooks. Do not arm competing UI
   // hooks before its known entry chains exist. This bounded poll does no I/O.
-  bool ready=true;for(const auto rva:{0x4b5e30u,0x4bfe90u,0x4c0020u,0x4bae80u}){uint8_t opcode{};
-   ready&=native_ui117::memory.Read(uint32_t(game+rva),&opcode,1)&&opcode==0xe9;
+  bool ready=true,pendingNative=false;for(const auto rva:{0x4b5e30u,0x4bfe90u,0x4c0020u,0x4bae80u}){std::array<uint8_t,32> live{};
+   const bool read=original&&uint64_t(rva)+live.size()<=bytes&&native_ui117::memory.Read(uint32_t(game+rva),live.data(),live.size());
+   const bool native=read&&!std::memcmp(live.data(),original+rva,live.size());
+   ready&=read&&(live[0]==0xe9||native);pendingNative|=native;
   }
+  if(ready&&pendingNative&&menuAttempts117<40)return;
   if(!ready&&menuAttempts117<40)return;
-  if(!ready){menuPending117=false;OutputDebugStringW(L"Liberty's Shadows: frontend owner not ready; lighting stays active.\n");return;}
+  if(!ready){menuPending117=false;MenuEvent233("GRAPHICS_MENU233_REFUSED","menu_entry_chain_unreadable_or_changed lighting_stays_active=1");OutputDebugStringW(L"Liberty's Shadows: frontend owner not ready; lighting stays active.\n");return;}
  }
  menuPending117=false;
- try{std::call_once(native_ui117::once,[&]{try{native_ui117::Prepare(game,original,bytes,module);}catch(...){native_ui117::Refuse();OutputDebugStringW(L"Liberty's Shadows: Graphics integration refused; lighting stays active.\n");}});}catch(...){native_ui117::Refuse();}
+ try{std::call_once(native_ui117::once,[&]{try{native_ui117::Prepare(game,original,bytes,module);}catch(const std::exception& error){native_ui117::Refuse();MenuEvent233("GRAPHICS_MENU233_REFUSED",error.what());}catch(...){native_ui117::Refuse();MenuEvent233("GRAPHICS_MENU233_REFUSED","menu_hook_connection_failed lighting_stays_active=1");}});}catch(...){native_ui117::Refuse();MenuEvent233("GRAPHICS_MENU233_REFUSED","menu_hook_initialization_failed lighting_stays_active=1");}
 }
 void EngineActivated117(uintptr_t game,const uint8_t* original,size_t bytes) noexcept {
  const native_ui117::Preserve preserve;
@@ -210,15 +231,15 @@ DWORD FrontendOnly117(HMODULE addon) noexcept {
   if(::GetPrivateProfileIntW(L"LIBERTY_SHADOWS",L"GraphicsMenu",startup.ownBackend?1:0,ini.c_str())!=1)return 0;
   const auto game=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
   const auto raw=native_ui117::image117::onyxoak::pe::Read(native_ui117::image117::onyxoak::pe::ModulePath(nullptr));
-  if(!compatibility117::Accept(raw,"08759a5516f9837920ea504436236bbab89d0826a8e4d04ff106345177b5345d"))return 1;
   native_ui117::image117::onyxoak::pe::Image image(raw,game);
   constexpr std::array<uint32_t,4> entries{0x4b5e30,0x4bfe90,0x4c0020,0x4bae80};
   bool ready=false;
   for(unsigned attempt=0;attempt<400&&!ready;++attempt){
-   ready=true;const bool ff=GetModuleHandleW(L"GTAIV.EFLC.FusionFix.asi")!=nullptr;
+   ready=true;
    for(auto rva:entries){std::array<uint8_t,32> live{};
-    const bool read=native_ui117::memory.Read(uint32_t(game+rva),live.data(),live.size());
-    ready&=read&&(ff?live[0]==0xe9:!std::memcmp(live.data(),image.bytes.data()+rva,live.size()));
+    const bool inRange=uint64_t(rva)+live.size()<=image.bytes.size();
+    const bool read=inRange&&native_ui117::memory.Read(uint32_t(game+rva),live.data(),live.size());
+    ready&=read&&(live[0]==0xe9||!std::memcmp(live.data(),image.bytes.data()+rva,live.size()));
    }
    if(!ready)Sleep(50);
   }

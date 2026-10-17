@@ -10,6 +10,14 @@ namespace PoleStaticPartition141 {
 struct Binding {uint32_t key{},slot{},kind{},frame{},thread{};bool valid{};PoleVolume142::Volume volume{};};
 thread_local Binding binding;
 bool requested=false,prepared=false;
+// Ordinary geometry outside a live eligible MODE0 pole pass cannot change the
+// native decision. Skip wrapper work there; do not cache or read entity data.
+bool NeedsSlowAdmission224(uintptr_t,uint32_t type,uint32_t mode) noexcept {
+ return requested&&prepared&&type==4&&mode==0&&binding.valid&&
+  addonActive.load(std::memory_order_acquire)&&FusionBackend130::prepared&&
+  FusionBackend130::lease.Owns()&&reinterpret_cast<uintptr_t>(FusionBackend130::pinnedModule)==ff&&
+  binding.thread==GetCurrentThreadId()&&binding.thread==PlayerShadowAllocation::ownerThread.load(std::memory_order_relaxed);
+}
 struct Preserve {DWORD error=GetLastError();fusionfix::shadows::FloatingPointState fp;~Preserve() noexcept{SetLastError(error);}};
 void Prepare(const std::vector<uint8_t>& image) noexcept {
  if(!requested){prepared=false;return;} // Deferred unaccepted pole override is internal opt-in only.
@@ -24,7 +32,7 @@ public:
   binding={};if(!requested||!prepared||!addonActive.load(std::memory_order_acquire)||!FusionBackend130::prepared||!FusionBackend130::lease.Owns())return;
   const Preserve preserve;
   const traffic_signal::fresh_page::Operation44 pages(32);const immediate_region33::Scope regions;
-  if(!ff||reinterpret_cast<uintptr_t>(FusionBackend130::pinnedModule)!=ff||reinterpret_cast<uintptr_t>(GetModuleHandleW(L"GTAIV.EFLC.FusionFix.asi"))!=ff)return;
+  if(!ff||reinterpret_cast<uintptr_t>(FusionBackend130::pinnedModule)!=ff||reinterpret_cast<uintptr_t>(pe::ModuleAt(ff))!=ff)return;
   const auto thread=GetCurrentThreadId();uint8_t deferred{};uint32_t slot{},frame{};std::array<uint8_t,19> map{};
   if(!object||!CShadows::pFrameCounter||thread!=PlayerShadowAllocation::ownerThread.load(std::memory_order_relaxed)||
    !Liberty20::Copy(uintptr_t(CShadows::pFrameCounter),&frame,4)||!Liberty20::Copy(game+0x1193312,&deferred,1)||deferred||
@@ -59,7 +67,7 @@ bool Reclassify(uintptr_t entity,uint32_t type,uint32_t mode,uintptr_t stackFram
  if(!read(uint64_t(entity)+0x2e,&modelHint,2)||modelHint<0||modelHint>=31000||
   !read(uint64_t(game)+0xe95cd8u+uint32_t(modelHint)*4u,&infoHint,4)||
   !read(uint64_t(infoHint)+0x3c,&hashHint,4)||!pole_caster134::SupportedPole(hashHint))return false;
- if(reinterpret_cast<uintptr_t>(GetModuleHandleW(L"GTAIV.EFLC.FusionFix.asi"))!=ff||frame()!=binding.frame)return false;
+ if(reinterpret_cast<uintptr_t>(pe::ModuleAt(ff))!=ff||frame()!=binding.frame)return false;
  uint32_t actualMode{};if(!read(uint64_t(stackFrame)+0x14,&actualMode,4)||actualMode!=0)return false;
  uint32_t pose{};std::array<float,16> matrix{};
  if(!PoleVolume142::Touches(read,uint32_t(entity),binding.volume,pose,matrix))return false;

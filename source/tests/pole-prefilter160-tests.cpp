@@ -28,6 +28,7 @@ namespace Liberty20{bool CopyLocal(uintptr_t at,void* out,size_t n)noexcept{retu
 namespace ShadowTrace34{struct Event{uint32_t stage,frame,tick,key;int32_t a,b,c,d;float x,y,z,w;};void Emit(Event)noexcept{++events160;}}
 void Event(int,const char*,const char*)noexcept{}
 HMODULE Module160(LPCWSTR)noexcept{return FusionBackend130::pinnedModule;}
+namespace pe {inline HMODULE ModuleAt(uintptr_t) noexcept{return Module160(nullptr);}}
 #define GetModuleHandleW Module160
 namespace native_projection66{struct Permission142{bool allowed=true;};inline Permission142 Preflight(uintptr_t,size_t)noexcept{return{};}}
 #define LIBERTY_POLE_TEST_PREFLIGHT142

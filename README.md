@@ -1,10 +1,10 @@
-# Liberty’s Shadows — 2.0.4
+# Liberty's Shadows — 2.0.5
 
-Expanded dynamic-shadow interaction for GTA IV’s existing vehicle, city and environmental lights. Created and maintained by **OnyxOak**, with OpenAI Codex development assistance. Original FusionFix/FusionShaders and dependency attribution and license notices remain applicable.
+Expanded dynamic shadows for GTA IV's existing lights, created and maintained by **OnyxOak** with OpenAI Codex development assistance. FusionFix and third-party attribution and licenses remain applicable.
 
-- **[Download 2.0.4 and matching source](https://github.com/onyxoak/fusionfix-extra-night-shadows/releases/tag/v2.0.4)**
-- **[Nexus page, comparisons and support](https://www.nexusmods.com/gta4/mods/1459)**
-- **[Release history](https://github.com/onyxoak/fusionfix-extra-night-shadows/releases)** · [Changelog](CHANGELOG.md)
+- [Nexus downloads, comparisons and support](https://www.nexusmods.com/gta4/mods/1459)
+- [Current 2.0.5 source](https://github.com/onyxoak/fusionfix-extra-night-shadows/tree/main/source) · [2.0.5 changelog](release-notes/2.0.5.txt)
+- [Release history](https://github.com/onyxoak/fusionfix-extra-night-shadows/releases) · [Changelog](CHANGELOG.md)
 
 ## Credit and link-back request
 
@@ -18,26 +18,28 @@ Suggested credit:
 
 This credit and link-back request adds no restriction to the GPL or other applicable licenses. Existing license obligations, including preservation of required notices and access to corresponding source, remain unchanged.
 
-## Players
+## Editions
 
-Use the explicitly named player ZIP attached to the selected release. It is a full package; follow its included README and preserve your customINI before updating. Other lighting/vehicle/texture mods shown in the gallery are separate. Complete Edition and Legacy are different packages.
+**Full 2.0.5** includes the extra vehicle, traffic, emergency and world-light shadows through its presets, matching shader package, Graphics-menu option and vehicle shadow-box fallback. See [installation](INSTALL.txt) and [full changelog](release-notes/2.0.5.txt).
 
-## Source
+**FusionFix Night Shadows Fix — No Enhancements (2.0.5)** uses the same shared ASI core with the original-fix configuration. Additional lighting features, vehicle fallback and the Liberty's Shadows menu are disabled. No Liberty's Shadows shader replacement or map assets are required. See [installation](INSTALL-FIX-ONLY.txt) and [fix-only changelog](release-notes/2.0.5-fix-only.txt).
 
-`source/` is the exact ASI source for 2.0.4 (candidate213). It includes the renderer adapters, allocator, settings, guarded compatibility code and tests. `config/` contains the matching packaged INI. `shaders/` contains the paired transition-shader assembly and rebuild recipe when applicable.
+Use one edition at a time. They use the same ASI/INI names; do not install duplicate plugins. Replacing the full edition's INI does not undo its previously installed shaders or map files: restore those from your own backup if needed. Both editions require FusionFix and its normal prerequisites.
 
-For the **complete corresponding source**, download `Libertys-Shadows-2.0.4-source.zip` from this release. It also contains the full shader-source component and original build materials. GitHub’s automatic source snapshots do not replace that full source package. See [BUILD.md](BUILD.md), [SOURCE-MANIFEST.json](SOURCE-MANIFEST.json) and [RELEASE-CATALOG.json](RELEASE-CATALOG.json).
+## Source and building
+
+`source/`, `shader-source/` and `Build.cmd` are the exact 735-file corresponding source from the public 2.0.5 source ZIP. They include build dependencies, tests, the vehicle-fallback shader and required upstream notices. `config/` contains each edition's settings. See [BUILD.md](BUILD.md), [source manifest](SOURCE-MANIFEST.json) and [release catalog](RELEASE-CATALOG.json).
+
+The fix-only edition uses this same codebase; its disabled enhancements are configuration choices, not a separate fork. Compile once and use the appropriate edition configuration. Source files are for developers and should not be copied into the game.
 
 ## Validation and remaining work
 
-Corrected official FusionFix 5.0.1/5.1.0 adapters that previously used 5.1.1-specific pool/model/backend/copy addresses, including matching VolumetricLights paths. Added canonical headlight-failure evidence and callback-owner details where available. Includes the camera-weighted indoor 35 ft priority bubble and documented configurableINI/tuning guide. High remains the default; routine diagnostics are off.141 offline checks passed; older modpack compatibility and indoor improvements need broader runtime testing. No new FPS gain, universal conflict fix, physical pole/fire fix or RESC 10 fix is claimed.
+The full release passed 162 offline checks and the source was rebuilt from an extracted package. The fix-only configuration was parser-checked and launched into nighttime gameplay with official FusionFix shaders and enhanced producers disabled. These checks do not establish universal compatibility or complete citywide shadow coverage.
 
-Offline checks do not establish universal mod compatibility, shadow coverage or an FPS guarantee. Heavy nighttime scenes, model-specific pole shadows and further shadow transitions remain active refinement areas. Unfinished research is not represented as released functionality.
+2.0.5 reduces repeated validation/caster work, improves integration through active hooks, adds vehicle shadow-box fallback and repairs the captured negative-index MMA10 shutdown corruption. Special thanks to **MrBulkinAleksey** for the original fallback implementation in his FusionFix fork; OnyxOak adapted and integrated it. The fallback is disabled in Fix Only.
 
-## Earlier code
+Heavy scenes remain demanding. Missing lamppost shadows from headlights, edge-case flicker and some transitions remain unresolved. The approximately 15% FPS improvement in the full changelog is a particular development-build comparison, not a measured 2.0.4-to-2.0.5 improvement or a 60 FPS guarantee. Private lamp diagnostics and unreleased experiments are not part of this source release.
 
-The previous public main-tree CE1.6 snapshot is preserved in `historical/ce-1.6/`. Earlier release assets and existing tags remain intact; new chronological source imports preserve changes through the current release.
+## History and licensing
 
-## Credits and license
-
-Direction, integration and playtesting: OnyxOak. Development assistance: OpenAI Codex. FusionFix: ThirteenAG and contributors; shader/upstream and third-party credits are retained in `licenses/` and source notices. GPL and dependency terms are included with each version.
+Earlier source revisions, tags and release assets remain in Git history. `historical/ce-1.6/` preserves the original imported snapshot. This is an unofficial mod, not an official FusionFix release or endorsement. Retain OnyxOak, FusionFix/FusionShaders, MrBulkinAleksey and dependency notices. See [attribution](ATTRIBUTION.md), [LICENSE](LICENSE), `licenses/` and source/vendor/.

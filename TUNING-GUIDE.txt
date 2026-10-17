@@ -1,106 +1,43 @@
-LIBERTY'S SHADOWS - MAKE IT YOURS
+LIBERTY'S SHADOWS 2.0.5 - SETTINGS GUIDE
 
-INSTALL AND CUSTOMIZE 2.0.4
+INSTALLATION
+Close GTA IV and back up your customized INI. Copy BOTH plugins and update
+folders into the folder containing GTAIV.exe. Keep the ASI and paired shaders
+from the same package together. Restart after editing the INI.
 
-Close GTA IV. Back up plugins/OnyxOak.ExtraNightShadows.ini, then extract the plugins folder into the game folder containing GTAIV.exe.
-The INI sits beside the ASI and starts on High with the tested release defaults. Start GTA IV again after any direct INI edit.
+PRESETS
+High enables the full supported feature set. Medium reduces added light
+families; Low provides the core fixes with fewer extras. Choose in Graphics
+or change Preset in LIBERTY_SHADOWS. Keep the game's shadow settings enabled.
 
-Read the comments immediately above a setting. Edit the value after =, keep each
-setting once, and use 1 for on or 0 for off. Save an INI, not a text file with an
-extra .txt extension. Use decimal dots. Don't put comments after a value.
+CUSTOM SETTINGS
+Set Preset=Custom before changing individual lighting features and reaches.
+BasePreset supplies defaults for omitted fields; explicit values override it.
+Read the comments above each setting. Keep each key once, use decimal dots,
+and put comments on their own lines. Save the file as .ini, not .ini.txt.
 
-MOST PEOPLE SHOULD START HERE
+CASTER CULLING
+SUPPORT / ReceiverCasterCulling=1 enables conservative shadow-caster culling.
+Set it to0 and restart to compare without it. If shadows disappear in reflected
+or offscreen views, disable this option and report the location/camera angle.
+This controls shadow-caster processing, not the lighting preset or illumination.
 
-High: the full supported experience. Choose High in the menu or set Preset=High.
-Medium: fewer light families. Change only Preset=Medium.
-Low: core fixes with fewer extras. Change only Preset=Low.
+VEHICLE FALLBACK
+VEHICLE_BOX_SHADOWS / Enabled=1 keeps fallback vehicle silhouettes when a
+detailed shadow map is unavailable. Set0 and restart to disable the fallback.
+CarsPerLight, LightsPerCar and MaxDistanceMetres are explained in the INI.
+Special thanks to MrBulkinAleksey for the original implementation.
 
-High uses 250 feet for street/scene shadow consideration; Low and Medium use
-200 feet. All use 50 feet for headlight shadow consideration. The actual shadow
-quality and resolution are still controlled by the game and FusionFix.
+PERFORMANCE COMPARISONS
+Compare the same parked view, time, weather, preset and graphics settings.
+Traffic changes load; repeat the comparison and stop recording while measuring.
+Busy nighttime areas can remain demanding. A gain in one view is not universal.
 
-MAKING A CUSTOM MIX
-
-Change Preset=High to Preset=Custom before changing individual features or distances. The five individual switches and the two distance
-values now apply. Named Low/Medium/High presets ignore those custom fields.
-BasePreset provides defaults for omitted fields; explicit fields override it.
-For that reason, BasePreset=Low alone won't disable the five explicit switches.
-
-A LIGHTER CUSTOM MIX WITH DUAL HEADLIGHTS AND SIGNALS
-
-In [LIBERTY_SHADOWS], edit the existing lines to:
-Preset=Custom
-BasePreset=Medium
-DualHeadlights=1
-TaillightShadows=0
-TrafficSignalShadows=1
-EmergencyLightShadows=1
-WorldLighting=0
-StreetlightReachFeet=200
-HeadlightReachFeet=50
-
-This removes the added world-light and taillight features while keeping the
-chosen vehicle/signal/emergency features. It isn't a guaranteed FPS target.
-
-FULL FEATURES WITH A SHORTER SCENE SHADOW REACH
-
-Keep all five feature switches at 1, then use Preset=Custom, BasePreset=High,
-StreetlightReachFeet=200 and HeadlightReachFeet=50. Compare with 250 on the same
-route. A shorter reach reduces distant competition but can increase visible pop-in.
-
-Don't raise every distance together. Use multiples of 5 feet, between 0 and 500.
-Zero uses the original reach behavior; it isn't a universal shadow-off setting.
-
-THE IN-GAME MENU
-
-Custom appears when you use this edited INI profile. Selecting Low, Medium or
-High restores that preset's feature and distance defaults, replacing your custom
-mix. Keep a backup if you want to return to it. Advanced [LIGHTING20] tuning is
-INI-only and remains in place when you choose a named preset. Restore those
-values from the commented defaults if you want to undo advanced changes.
-Feature changes require a game restart; follow the menu's restart label.
-
-PRIORITY, STABILITY AND GLOW
-
-The [LIGHTING20] comments explain traffic-signal preference, scene priority,
-priority-release timing and supported glow-only illumination. These advanced
-values also work with named presets, when the corresponding feature is enabled.
-Start by changing ONE value and compare in the same place and weather.
-
-SignalShadowPriority favors relevant signals; it doesn't brighten them.
-ScenePriorityReleaseMs changes priority release; it isn't visual shadow fading.
-CoronaIntensityScale adjusts reconstructed glow-light spill, not all lights.
-CoronaRadiusPerAuthoredSize only estimates missing physical radii.
-
-The allowed numeric ranges describe what the parser accepts, not a promise that
-extreme values look good or run well. Keep a copy of the unchanged defaults.
-
-HOW TO COMPARE
-
-Use the same save, place, time, weather, camera and graphics options. Change one
-setting, restart and return to the same scene. Compare shadows and responsiveness
-with recording stopped. Don't use daylight versus night as a matched comparison.
-The Graphics preset row can replace Custom feature/distance choices, so check
-the INI again after changing that row.
-
-WHAT THIS FILE DOES NOT FIX OR CONTROL
-
-It doesn't move floating lights, fix physical pole shadows, add shadow maps,
-change Vulkan, provide true shadow fades, or guarantee an FPS increase. There
-are no independent window/neon/floodlight switches in the current shared world
-path. Headlight brightness, fire-only shadow toggles and separate per-family
-distance sliders are not implemented public controls, so no pretend entries
-have been added. 
-
-IF SOMETHING DOESN'T APPLY
-
-Check Preset=Custom for individual features/distances, the exact file name and
-location, and that you restarted. Keep Shadow Quality and Night Shadows enabled
-in Graphics. VolumetricLights.asi is a known incompatible lighting plugin in
-the reported release configuration. Don't disable safety checks to force a
-conflicting lighting mod to load.
-
-For a report, set Logging=1, restart, reproduce the issue once and attach the
-mod's .log with your version, preset, other lighting mods and a screenshot or
-short clip. Put Logging back to 0 for normal play. Leave developer profiling off.
-
+COMPATIBILITY AND SUPPORT
+Requires a working FusionFix install and ASI loader. FusionFix5.1.2 with
+Volumetric Lights2.00 has worked in testing. Integration relies on actual hooks
+and bindings rather than a version-number cutoff; incompatible hook changes
+or conflicting mods may still require an update.
+For a report, set SUPPORT / Logging=1, restart and reproduce the issue.
+Attach plugins/OnyxOak.ExtraNightShadows.log, preset, location and graphics mods.
+Restore Logging=0 afterward. Leave profiling disabled for normal play.

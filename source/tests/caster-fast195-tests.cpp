@@ -1,3 +1,4 @@
+#include "FreshPageReadable.hpp"
 #define NOMINMAX
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -8,6 +9,7 @@
 #include <iostream>
 #include "core/ShadowFloatingPointState.hpp"
 #include "core/HeadlightCasterPolicy.hpp"
+#include "PerformanceWorkAvoidance224.hpp"
 
 namespace standalone {
 uintptr_t game=0x400000;
@@ -35,11 +37,13 @@ void SunCaster(uintptr_t,uint32_t type,uint32_t mode,uintptr_t,bool) noexcept {
 }
 namespace PoleStaticPartition141 {
 bool requested=false;unsigned calls=0;
+bool NeedsSlowAdmission224(uintptr_t,uint32_t type,uint32_t mode) noexcept {return requested&&type==4&&mode==0;}
 bool Reclassify(uintptr_t,uint32_t type,uint32_t mode,uintptr_t,bool excluded,uint32_t* eligibility) noexcept {
  if(!requested||type!=4||mode!=0||excluded)return false;
  ++calls;*eligibility=1;return true;
 }
 }
+bool (*receiverCull226)(uintptr_t,uint32_t) noexcept=nullptr;
 #include "caster189-reference.inc"
 #include "caster134-extracted.inc"
 }

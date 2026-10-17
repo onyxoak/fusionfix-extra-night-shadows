@@ -35,6 +35,6 @@ int main(){
  Setup(b);Put<uint32_t>(b.fusion+0x3365fc,0x300000);Put<uint32_t>(0x300000,2);assert(g::Check(b,Read,0x200000)==g::Reason::QualityPointer);
  Setup(b);memory.erase(b.fusion+0x340000);assert(g::Check(b,Read,0x200000)==g::Reason::ReadFault);
  Setup(b);assert(g::Check(b,Read,0x200000)==g::Reason::Safe);Put<uint32_t>(b.game+0x1899330,0);assert(g::Check(b,Read,0x200000)==g::Reason::NativeInit); // No cached approval between operations.
- uint32_t output=123;assert(!g::runtime::ReadBytes(1,&output,4)&&output==123);assert(!g::runtime::ReadBytes(0x10000,&output,4));
+ uint32_t output=123;assert(!g::runtime::ReadBytes(1,&output,4)&&output==123);auto* denied=VirtualAlloc(nullptr,4096,MEM_RESERVE|MEM_COMMIT,PAGE_NOACCESS);assert(denied);assert(!g::runtime::ReadBytes(uintptr_t(denied),&output,4));assert(VirtualFree(denied,0,MEM_RELEASE));
  std::puts("helper48: initialized routes, relocated bytes, mode/init/TLS/ownership/heap/changed-code/read-fault rejection and fresh operation checks passed; runtime not claimed.");
 }

@@ -1,5 +1,6 @@
 #define NOMINMAX
 #define WIN32_LEAN_AND_MEAN
+#include "PerformanceWorkAvoidance224.hpp"
 #include <windows.h>
 #include <array>
 #include <atomic>
@@ -60,6 +61,7 @@ std::atomic<bool> addonActive{true};
 uintptr_t ff=0x50000000;
 namespace FusionBackend130 {bool prepared=true;HMODULE pinnedModule=reinterpret_cast<HMODULE>(ff);struct Lease{bool owns=true;bool Owns()const noexcept{return owns;}}lease;}
 HMODULE FakeModule141(LPCWSTR) noexcept{return FusionBackend130::pinnedModule;}
+namespace pe {inline HMODULE ModuleAt(uintptr_t) noexcept{return FakeModule141(nullptr);}}
 #define GetModuleHandleW FakeModule141
 namespace native_projection66 {struct Permission142{bool allowed=true;};inline Permission142 Preflight(uintptr_t,size_t) noexcept{return {};}}
 #define LIBERTY_POLE_TEST_PREFLIGHT142
@@ -73,6 +75,7 @@ struct SafetyHookContext {uintptr_t esi{},eax{},esp{},eip{},ebx{},ecx{},edx{},ed
 bool bVehicleNightShadows=true;
 namespace OwnHeadlightCaster {bool diagnosticCounters=true;bool skip=false;bool Exclude(uintptr_t,uint32_t,bool) noexcept{return skip;}}
 namespace PoleDrawWitness145 {void SunCaster(uintptr_t,uint32_t,uint32_t,uintptr_t,bool)noexcept;}
+bool (*receiverCull226)(uintptr_t,uint32_t) noexcept=nullptr;
 #include "caster134-extracted.inc"
 namespace fixture145 {unsigned calls{},inputFP{},outputFP{};DWORD inputError{};uint32_t Native(void*) noexcept;uint32_t Call(void*);}
 struct SafetyHookMid {bool valid{};std::vector<uint8_t> bytes;std::vector<uint8_t> original_bytes()const{return bytes;}};

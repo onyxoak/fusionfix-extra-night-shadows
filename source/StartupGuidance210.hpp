@@ -16,6 +16,7 @@ struct Evidence {
  }
 };
 inline std::string Help(std::string_view error,const Evidence& evidence) {
+ if(error.starts_with("fusionfix_integration_"))return " Liberty's Shadows could not connect to the required function or binding named above. Detection uses actual code, not a FusionFix version allowlist. Game lighting is left unchanged. Send this log, your FusionFix ASI and ASI list so this specific integration can be supported.";
  std::string result;
  if(evidence.volume==Volume::Checking){
   if(error=="volumetric199_unsupported_binary")result=" Unsupported VolumetricLights build.";

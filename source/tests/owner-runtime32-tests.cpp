@@ -19,8 +19,8 @@
 #undef Stage
 void BeforeFinalGroup205() noexcept;
 namespace traffic_signal::fresh_batch30 {
- inline bool Stage(const Span* spans,unsigned count,unsigned char (*bytes)[MaximumBytes]) noexcept {
-  BeforeFinalGroup205();return ProductionStage205(spans,count,bytes);
+ inline bool Stage(const Span* spans,unsigned count,unsigned char (*bytes)[MaximumBytes],bool preserveGuard231=false) noexcept {
+  BeforeFinalGroup205();return ProductionStage205(spans,count,bytes,preserveGuard231);
  }
 }
 #include "FreshReadGroup50.hpp"

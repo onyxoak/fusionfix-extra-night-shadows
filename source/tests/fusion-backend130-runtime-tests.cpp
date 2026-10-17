@@ -62,6 +62,8 @@ SIZE_T WINAPI Query130(LPCVOID at,PMEMORY_BASIC_INFORMATION out,SIZE_T n){
  if(result&&reinterpret_cast<uintptr_t>(out->AllocationBase)==ff)out->Type=MEM_IMAGE;
  return result;
 }
+#include "BackendVersions213.hpp"
+const backend_versions213::Layout* BackendProfile218(){return backend_versions213::Find(layout->version);}
 #define VirtualQuery Query130
 #define GetModuleHandleExW Pin130
 #include "fusion-backend130-runtime.inc"

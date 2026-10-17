@@ -1,0 +1,15 @@
+Liberty's Shadows 2.0.5 - Fix Only (No Enhancements)
+
+- Provides the original night-shadow repair using the current 2.0.5 core.
+- Disables additional headlight, taillight, traffic-signal, emergency and world-light shadows, vehicle fallback, scenery blending and experimental fixture/pole changes.
+- Requires no Liberty's Shadows shader replacement or map assets.
+- Uses hook-based integration instead of rejecting unfamiliar FusionFix version numbers.
+- Includes the shared core's reduced repeated validation and vehicle-table work.
+- Includes the targeted MMA10 shutdown repair for an invalid negative resource index; other memory errors are not claimed fixed.
+
+Requires FusionFix and its normal requirements. See README-Fix-Only.txt for installation, replacing the full edition and support information. No FPS increase is promised for this configuration.
+
+Credits: OnyxOak and the upstream contributors listed in the included attribution and license files. Special thanks to MrBulkinAleksey for his vehicle-shadow fallback contribution to the shared core; that enhancement is disabled in this edition.
+
+Packaging revision: corresponding source is now extracted under Source/
+instead of nested inside another ZIP. Runtime ASI and settings are unchanged.

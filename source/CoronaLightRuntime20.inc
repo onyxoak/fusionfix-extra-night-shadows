@@ -70,9 +70,17 @@ void Submit(SafetyHookContext& regs) noexcept {
   int(packet.dispatch[7]),int(packet.dispatch[8]),int(key));
  ++emitted;if(emission.approximateRadius||emission.approximateIntensity)++approximated;
 }
-void PrepareHooks() {
+void Disable() noexcept;
+void Unavailable221(const char* stage,const char* reason) noexcept {
+ Disable();prepared=false;
+ Event(1,"OPTIONAL_FEATURE_UNAVAILABLE221",std::string("features=authored_corona_reconstruction stage=")+stage+
+  " reason="+reason+" scope=optional core_disabled_by_this_failure=0 native_lighting_unchanged=1");
+}
+void PrepareHooks() noexcept {
  if(!requested)return;
- Require(ModelEffectObserver::prepared&&corona_light20::Valid(settings),"corona_context_or_settings_invalid");
+ try {
+ Require(corona_light20::Valid(settings),"corona_settings_invalid");
+ Require(ModelEffectObserver::prepared,"corona_model_observer_prepare_unavailable");
  for(const auto& [rva,size]:{std::pair<uint32_t,size_t>{0x81ea5a,0x81eb3e-0x81ea5a},{0x81f020,0x81f163-0x81f020}}){
   Require(rva+size<=original->bytes.size(),"corona_image_range");
   auto actual=ReadMemory(game+rva,size);
@@ -112,12 +120,18 @@ void PrepareHooks() {
  Require(OriginalCall(corona_light20::ActiveSite)==game+corona_light20::NativeTarget,"corona_native_target_changed");
  Prepare(activeHook,game+corona_light20::ActiveSite,Submit);
  Require(activeHook.original_bytes().size()==5,"corona_hook_stole_cleanup");prepared=true;
+ }catch(const std::exception& e){Unavailable221("prepare",e.what());}
+ catch(...){Unavailable221("prepare","unknown_preparation_failure");}
 }
-void EnableHooks() {
- if(!requested)return;
- Require(prepared&&ModelEffectObserver::enabled.load()&&ModelLightShadow20::active.load(),"corona_lifetime_context_required");
+void EnableHooks() noexcept {
+ if(!requested||!prepared)return;
+ try {
+ Require(ModelEffectObserver::enabled.load(),"corona_model_observer_enable_unavailable");
+ Require(ModelLightShadow20::active.load(),"corona_model_lifetime_unavailable");
  Require(bool(activeHook.enable()),"corona_hook_enable_failed");active=true;
  Event(1,"CORONA_LIGHT20_ENABLED","authored_type0_only=1 native_rgb_switches=1 approximate_falloff_configured=1 geographic_list=0 native_illumination_claim=0");
+ }catch(const std::exception& e){Unavailable221("enable",e.what());}
+ catch(...){Unavailable221("enable","unknown_enable_failure");}
 }
 void Disable() noexcept {active=false;if(activeHook)(void)activeHook.disable();}
 void Publish() {

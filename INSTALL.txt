@@ -1,51 +1,38 @@
-LIBERTY'S SHADOWS 2.0.4
+Liberty's Shadows 2.0.5
+By OnyxOak
 
-More of Liberty City's existing lights cast moving shadows across people,
-vehicles and the environment. High is the default. Low and Medium offer
-lighter lighting presets; Custom lets you tune individual features.
+INSTALLATION
+Requires GTA IV Complete Edition, an ASI loader and a working FusionFix install.
+Close GTA IV and back up your customized OnyxOak.ExtraNightShadows.ini.
+Copy BOTH plugins and update folders into the folder containing GTAIV.exe.
+Replace the previous Liberty's Shadows files. Keep one copy of the ASI and use
+the matching shaders from this package. No previous Liberty's Shadows release
+is required. FusionFix, Volumetric Lights and DLSS-IV are separate downloads.
 
-INSTALL OR UPDATE
-1. Close GTA IV. Back up your existing Liberty ASI and INI first.
-2. Extract this ZIP beside GTAIV.exe, merging plugins and update.
-3. Keep exactly one OnyxOak.ExtraNightShadows.asi. Remove any duplicate copy
-   from the game root if the new one is in plugins.
-4. Start the game. Keep stock Shadow Quality and Night Shadows enabled.
-   Preset/feature changes marked for restart need a full game restart.
-
-The included INI starts on High. Replacing it resets existing custom tuning;
-copy your chosen values into the new documented INI if needed. See the included
-TUNING-GUIDE for Custom setup, ranges, defaults and individual feature switches.
-Choose Low or Medium before entering the world if performance is a concern.
+SETTINGS
+High is the included preset; vehicle shadow fallback and conservative caster
+culling are enabled. Choose a preset in Graphics or edit the commented INI.
+Restart after changing the INI or any setting marked restart required.
+To disable the new culling path, set ReceiverCasterCulling=0 under SUPPORT.
+To disable vehicle fallback, set Enabled=0 under VEHICLE_BOX_SHADOWS.
 
 COMPATIBILITY
-Uses the existing supported GTA IV Complete Edition and ASI-loader setup.
-Official FusionFix 5.1.1 is the established local test setup. This update also
-corrects version-specific adapters for official 5.0.1 and 5.1.0; actual modpack
-acceptance needs testing. Optional official VolumetricLights 2.00 is supported
-through an authenticated adapter. Unknown modified builds may be refused safely.
-FusionFix, VolumetricLights, DLSS and SISCO are not included in this archive.
+Tested with FusionFix 5.1.2 and Volumetric Lights 2.00. Integration checks actual
+hooks and bindings; unfamiliar version numbers alone do not block it. Different
+calling conventions or conflicting required hooks can still prevent integration.
+Compatibility with every game edition, future release or modpack is not guaranteed.
 
-HAVING ISSUES?
-Send the full fresh plugins/OnyxOak.ExtraNightShadows.log, the exact FusionFix
-version, and ASI filenames from both root and plugins. Startup failures write
-useful details even with routine Logging=0. If asked for a normal session log,
-set SUPPORT Logging=1, restart, reproduce, send the log, then return it to 0.
-The new log can identify an unknown headlight conflict; it does not automatically
-make every conflicting mod compatible. Back up files before changing your setup.
+SUPPORT
+Dense night scenes can remain demanding. Indoor flicker, some pop-in and pole
+shadow issues remain under refinement. Reflected/offscreen shadows with culling
+are still being checked; disable culling and restart if shadows disappear.
+For a report, enable SUPPORT / Logging=1, restart and reproduce the problem.
+Include plugins/OnyxOak.ExtraNightShadows.log, the preset, location, game build
+and installed graphics mods. Return Logging=0 after troubleshooting.
+Official downloads and support: https://www.nexusmods.com/gta4/mods/1459
 
-If RESC10/out-of-video-memory occurs, include renderer (DX9 or Vulkan/DXVK),
-resolution, companion-mod versions, and whether the same spot fails after a
-fresh launch with Liberty's Shadows disabled. Mod Medium does not reduce the
-game's stock shadow resolution. A separate test one step lower in stock Shadow
-Quality/Night Shadows can help identify resource pressure. No memory-limit
-increase is required by this update, and this error is not claimed resolved.
-
-KNOWN LIMITS
-Busy nighttime scenes remain demanding. Shadow maps are limited, so some
-transitions/pop-in remain. Individual lamp-pole shadows and fire shadows remain
-unfinished. This build passed 141 offline checks; those are not a guarantee for
-every modpack or long session. See CHANGELOG-2.0.4.txt.
-
-ROLL BACK
-With GTA IV closed, restore your saved previous ASI and INI. Shader payloads
-are unchanged from 2.0.3. Attribution and license texts are included separately.
+CREDITS
+Created and maintained by OnyxOak. Special thanks to MrBulkinAleksey for the
+vehicle shadow-box fallback. Upstream FusionFix/FusionShaders and dependency
+credits and licenses are included in Libertys-Shadows-licenses.
+Source: https://github.com/onyxoak/fusionfix-extra-night-shadows

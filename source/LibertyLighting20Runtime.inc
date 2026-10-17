@@ -3,6 +3,7 @@
 #include "VehicleLampIdentity20.hpp"
 #include "DualIssuedKeys127.hpp"
 #include "FreshReadBatch30.hpp"
+#include "OwnedImageReads224.hpp"
 namespace Liberty20 {
 bool dualRequested=false,worldRequested=false;
 std::atomic<bool> dualActive{false},worldActive{false};
@@ -20,16 +21,16 @@ uint32_t lastSlot{},lastReference{};
 struct Invocation {bool valid{};uint32_t owner{},frame{},stack{};std::array<liberty20::Vec3,2> positions{};liberty20::VehicleIdentity identity{};};
 thread_local Invocation invocation;
 
-// Keep a current page/protection check and contain races locally. Small reads
-// no longer perform a second kernel transition through ReadProcessMemory.
-// This is not a cached mapping or permission to trust a stale owner.
+// Copies remain fault-contained and fresh in both strategies. Candidate236
+// obtains readability from the data copy; the legacy strategy preflights it.
+// Neither path authorizes owner identity or later use of copied data.
 __declspec(noinline) bool CopyLocal(uintptr_t address,void* output,size_t size) noexcept {
  __try {std::memcpy(output,reinterpret_cast<const void*>(address),size);return true;}
- __except(GetExceptionCode()==EXCEPTION_ACCESS_VIOLATION||
-          GetExceptionCode()==EXCEPTION_IN_PAGE_ERROR||
-          GetExceptionCode()==EXCEPTION_GUARD_PAGE?EXCEPTION_EXECUTE_HANDLER:EXCEPTION_CONTINUE_SEARCH){return false;}
+ __except(owned_image224::CopyException(GetExceptionInformation())){return false;}
 }
 bool Copy(uintptr_t address,void* output,size_t size) noexcept {
+ if(contained_read236::enabled.load(std::memory_order_relaxed))return contained_read236::ReadInto236(address,output,size);
+ if(owned_image224::Contains(address,size))return CopyLocal(address,output,size);
  if(!TrafficSignal::Readable(address,size))return false;
  return CopyLocal(address,output,size);
 }
@@ -38,6 +39,8 @@ bool Copy(uintptr_t address,void* output,size_t size) noexcept {
 #endif
 bool Vehicle(uint32_t owner,liberty20::VehicleIdentity& id) noexcept {
  const immediate_region33::Scope operation;
+ std::optional<traffic_signal::fresh_page::Operation44> vehiclePages233;
+ if(traffic_signal::fresh_page::readScopes233.load(std::memory_order_relaxed)&&!traffic_signal::fresh_page::operation44)vehiclePages233.emplace(32);
  rage::VehiclePool header{};rage::VehiclePool* pool{};
  if(!Copy(reinterpret_cast<uintptr_t>(CVehicle::pool),&pool,sizeof(pool)))return false;
  if(!Copy(reinterpret_cast<uintptr_t>(pool),&header,sizeof(header))||header.m_nSize<=0||header.m_nSize>4096||header.m_nStorageSize<0x1308||header.m_nStorageSize>0x10000)return false;

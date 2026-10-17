@@ -15,6 +15,7 @@ inline Result Copy(const Group* groups,unsigned count,fresh_page::Check fallback
  const shadow_cpu29::Scope cpu(shadow_cpu29::Phase::PageBatch30,256);
  memory_read46::Record(memory_read46::Metric::BatchHelpers);
  Result result{};if(!groups||count>Groups||!fallback||!query)return result;result.groups=count;
+ if(contained_read236::enabled.load(std::memory_order_relaxed)&&query==QueryWorkingSetEx){fresh_batch30::CopyContainedGroups236<Spans>(groups,count,result);return result;}
  const auto page=fresh_page::PageSize();
  PSAPI_WORKING_SET_EX_INFORMATION pages[Total]{};
  struct Item{unsigned page{};bool individual{};};Item items[Groups][Spans]{};

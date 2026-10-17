@@ -53,7 +53,8 @@ void PrepareHooks(bool consumerPrepared) noexcept {
   const auto copyLive=ReadMemory(game+copyBegin,copyLength);
   Require(copyBegin+copyLength<=original->bytes.size()&&!memcmp(copyLive.data(),original->bytes.data()+copyBegin,copyLength),"fade198_vector_copy_changed");
   const auto shader=pe::ModulePath(GetModuleHandleW(nullptr)).parent_path()/L"update/common/shaders/win32_30/deferred_lighting.fxc";
-  Require(pe::Hash(pe::Read(shader))=="2c2c8711e477d0ba2ceb9bdc493fc058f8f0bb3c0d497c8338d0e0e677631cfa","fade198_paired_shader_missing");
+  const auto shaderHash216=pe::Hash(pe::Read(shader));
+  Require(box_shader216::SupportsSceneryFade(shaderHash216),"fade198_paired_shader_missing");
   Prepare(binderHook,game+0x526ad9,Binder);
   Require(binderHook.original_bytes().size()==5,"fade198_stolen_span_changed");
   prepared=true;

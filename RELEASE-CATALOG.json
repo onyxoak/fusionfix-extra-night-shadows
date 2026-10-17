@@ -38,5 +38,15 @@
     "source_sha256": "4bc90f3d029256328f51276ae6e5e5744dd12b83116eb2b83bba9e24025fbde8",
     "asi_sha256": "1c75af594fd2ee757ce35001414eef93cd30db6aedb5474897463dba764b487b",
     "source_files": 496
+  },
+  {
+    "version": "2.0.5",
+    "candidate": 242,
+    "player_sha256": "78718a42c575cc6b9869a6caa1ac1d93b79bced1bbe765392c62d72d2c754a9a",
+    "source_sha256": "fcc82e89ca4b8a8ffe9dfb0eb24f429a851d2b153ca9d01c256482c7155f4381",
+    "asi_sha256": "5b7ec7993a9bd622038de8063ac782de568856fa00a276855e723951dc935f1b",
+    "source_files": 735,
+    "fix_only_config_sha256": "f4c5058a793e4720738835477ab58ef061d81d734bf0a87da5cbef6023b6b782",
+    "fix_only_nexus_sha256": "695221f839808fc7d731b1bb31feececca1c8db301f39e09b8f01dff632e45be"
   }
 ]

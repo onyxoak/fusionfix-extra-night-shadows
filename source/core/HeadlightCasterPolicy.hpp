@@ -16,6 +16,7 @@ namespace fusionfix::shadows::caster
         bool ownBeam = false;
         std::uintptr_t trafficBeamKey = 0; // Validated submitted beam; never dereferenced.
         std::uintptr_t trafficBeamOwner = 0; // Fresh private lamp ownership captured for this pass.
+        uint32_t boxLightKey216=0;
     };
 
     inline bool OwnBeam(std::uint32_t slot, std::uint32_t kind, bool active,

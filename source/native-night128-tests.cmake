@@ -12,3 +12,7 @@ file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/night128-copy.inc" "${NIGHT128_COPY_BODY
 target_include_directories(native-night-runtime128-tests PRIVATE . "${CMAKE_CURRENT_BINARY_DIR}")
 target_compile_options(native-night-runtime128-tests PRIVATE /UNDEBUG /W4 /WX)
 add_test(NAME native-night-runtime128 COMMAND native-night-runtime128-tests)
+add_executable(night-hook236-tests tests/night-hook236-tests.cpp)
+target_include_directories(night-hook236-tests PRIVATE . tests)
+target_compile_options(night-hook236-tests PRIVATE /UNDEBUG /W4 /WX)
+add_test(NAME night-hook236 COMMAND night-hook236-tests)

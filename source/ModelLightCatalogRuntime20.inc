@@ -324,8 +324,8 @@ void PrepareHooks() noexcept {
   Prepare(directHook,game+DirectPoint,Direct);
   Prepare(wrapperSpotHook,game+model_light_submission20::WrapperSpot,WrapperSpot);
   Prepare(directSpotHook,game+model_light_submission20::DirectSpot,DirectSpot);prepared=true;
- }catch(const std::exception& e){DisableHooks();Event(1,"MODEL_OBSERVER_REFUSED",e.what());}
- catch(...){DisableHooks();Event(1,"MODEL_OBSERVER_REFUSED","unknown_preparation_failure");}
+ }catch(const std::exception& e){DisableHooks();Event(1,"MODEL_OBSERVER_REFUSED",std::string(e.what())+" features_unavailable=model_attached_provenance,authored_corona_reconstruction stage=prepare scope=optional core_disabled_by_this_failure=0");}
+ catch(...){DisableHooks();Event(1,"MODEL_OBSERVER_REFUSED","unknown_preparation_failure features_unavailable=model_attached_provenance,authored_corona_reconstruction stage=prepare scope=optional core_disabled_by_this_failure=0");}
 }
 void EnableHooks() noexcept {
  if(!requested||!prepared)return;
@@ -335,8 +335,8 @@ void EnableHooks() noexcept {
    Require(bool(hook->enable()),"model_observer_hook_enable");
   enabled.store(true,std::memory_order_release);
   Event(1,"MODEL_OBSERVER_ACTIVE","sample_hash_mod=64 minimum_frame_interval=10 depth=8 ring=256 point_and_spot=1 authored_gates_preserved=1 promotion=0");
- }catch(const std::exception& e){DisableHooks();Event(1,"MODEL_OBSERVER_REFUSED",e.what());}
- catch(...){DisableHooks();Event(1,"MODEL_OBSERVER_REFUSED","unknown_enable_failure");}
+ }catch(const std::exception& e){DisableHooks();Event(1,"MODEL_OBSERVER_REFUSED",std::string(e.what())+" features_unavailable=model_attached_provenance,authored_corona_reconstruction stage=enable scope=optional core_disabled_by_this_failure=0");}
+ catch(...){DisableHooks();Event(1,"MODEL_OBSERVER_REFUSED","unknown_enable_failure features_unavailable=model_attached_provenance,authored_corona_reconstruction stage=enable scope=optional core_disabled_by_this_failure=0");}
 }
 uint32_t DescriptorWord(const Sample& sample,size_t offset) noexcept {
  uint32_t value{};std::memcpy(&value,sample.descriptor.data()+offset,4);return value;

@@ -1,5 +1,6 @@
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
+#include "OwnedImageReads224.hpp"
 #include <windows.h>
 #include <array>
 #include <atomic>
@@ -32,6 +33,7 @@ dual_keys127::PublishedKeys<> publishedKeys127;
 #include "beam-runtime32-extracted.inc"
 }
 int main(){
+ traffic_signal::fresh_page::readScopes233=false;
  SYSTEM_INFO sys{};GetSystemInfo(&sys);const auto page=sys.dwPageSize;
  auto owner=static_cast<uint8_t*>(VirtualAlloc(nullptr,page*2,MEM_COMMIT|MEM_RESERVE,PAGE_READWRITE));assert(owner);
  uint8_t flags[1]{7};rage::VehiclePool pool{owner,flags,1,0x1308,0,0};poolPointer=&pool;
@@ -40,6 +42,11 @@ int main(){
  uint32_t type36=0;std::memcpy(owner+0x1304,&type36,4); // Resident fast-path fixture; cold pages retain fallback tests.
  liberty20::VehicleIdentity identity{};reads=0;batchQueries36=0;assert(Liberty20::Vehicle(uint32_t(reinterpret_cast<uintptr_t>(owner)),identity));
  assert(reads==3&&batchQueries36==2);std::cout<<"Vehicle36: 3 scalar + 2 batch queries; previous production path used 9 scalar queries.\n";
+ const auto baselineIdentity233=identity;const auto baselineReads233=reads,baselineQueries233=batchQueries36;
+ traffic_signal::fresh_page::readScopes233=true;reads=0;batchQueries36=0;
+ assert(Liberty20::Vehicle(uint32_t(reinterpret_cast<uintptr_t>(owner)),identity)&&identity==baselineIdentity233);
+ assert(reads<=baselineReads233&&batchQueries36<=baselineQueries233);
+ std::cout<<"Callback read scope preserves the actual fresh vehicle identity; query calls "<<baselineQueries233<<" -> "<<batchQueries36<<".\n";
  assert(Liberty20::lampRegistry.Configure(uint32_t(reinterpret_cast<uintptr_t>(Liberty20::keyStorage))));auto pair=Liberty20::lampRegistry.Observe(identity,frame);assert(pair);auto key=pair->keys[0];
  // Allocated-but-unpublished is not our source identity or caster authority.
  reads=0;assert(!Liberty20::VehicleBeam(key,identity.owner));

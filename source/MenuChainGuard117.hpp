@@ -37,4 +37,32 @@ template<class Reader> Result Authenticate(Reader& reader,uint32_t entry,
     std::memcmp(current.data(),ffExpected.data(),ffExpected.size()))return {};
  out.owner=Owner::FusionFix;out.destination=destination;return out;
 }
+// Resolve the actual current owner instead of selecting a DLL by release hash
+// or callback RVA. An unhooked native entry is valid with or without FusionFix.
+// A hook must end in executable code of the loaded module and match that
+// module's relocated image. The native patch and every jump are checked again
+// by Authenticate; changed/foreign chains are never silently overwritten.
+template<class Reader,class Executable> Result Discover233(Reader& reader,uint32_t entry,
+ std::span<const uint8_t> native,uint32_t module,std::span<const uint8_t> image,
+ Executable executable,unsigned patchBytes=5) noexcept {
+ if(!module)return Authenticate(reader,entry,native,0,{},patchBytes);
+ if(module<0x10000||image.size()<32||uint64_t(module)+image.size()>uint64_t(UINT32_MAX)+1)return {};
+ std::array<uint8_t,64> current{};
+ if(native.size()<16||native.size()>current.size()||!reader.Executable(entry,native.size())||
+    !reader.Copy(entry,current.data(),native.size()))return {};
+ if(!std::memcmp(current.data(),native.data(),native.size()))return Authenticate(reader,entry,native,0,{},patchBytes);
+ if(current[0]!=0xe9)return {};
+ const auto first=Jump(entry,std::span(current).first(5));auto destination=first;
+ auto inside=[&](uint32_t at,size_t n){return at>=module&&uint64_t(at-module)+n<=image.size();};
+ if(!inside(destination,32)){
+  std::array<uint8_t,5> thunk{};
+  if(first<0x10000||first==entry||!reader.Executable(first,thunk.size())||
+     !reader.Copy(first,thunk.data(),thunk.size())||thunk[0]!=0xe9)return {};
+  destination=Jump(first,thunk);
+ }
+ if(!inside(destination,32)||!executable(destination-module,32))return {};
+ const auto result=Authenticate(reader,entry,native,destination,image.subspan(destination-module,32),patchBytes);
+ if(result.owner!=Owner::FusionFix||result.first!=first||result.destination!=destination)return {};
+ return result;
+}
 }

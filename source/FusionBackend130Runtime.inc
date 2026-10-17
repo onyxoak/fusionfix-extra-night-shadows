@@ -96,9 +96,9 @@ bool Commit() noexcept {
 // PREPARE_BOUNDARY130: exact guards are startup-only; no per-light hashing.
 void PrepareHooks() {
  if(nativeBackend||!preset117::startup.ownBackend||!preset117::startup.state.enabled)return;
- const auto* profile213=backend_versions213::Find(layout->version);
+ const auto* profile213=BackendProfile218();
  Require(profile213!=nullptr,"fusion_backend130_layout_refused");
- Require(fusionModule213Authenticated,"fusion_backend130_module_hash");
+ Require(fusionModule213Authenticated,"fusion_backend130_integration_unavailable");
  backendExtraCallbackRva=profile213->extraCallback;
  backendAdmissionCallbackRva=profile213->admission;
  backendExtraRva=profile213->extra;

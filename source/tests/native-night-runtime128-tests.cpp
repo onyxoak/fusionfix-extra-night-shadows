@@ -1,5 +1,6 @@
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
+#include "OwnedImageReads224.hpp"
 #include <windows.h>
 #include <memory>
 #include <vector>
@@ -26,6 +27,7 @@ namespace Liberty20 {
 bool modulePresent128=true;
 HMODULE Module128(LPCWSTR) noexcept{return modulePresent128?reinterpret_cast<HMODULE>(ff):nullptr;}
 unsigned long Tls128(unsigned long offset) noexcept{assert(offset==0x2c);return static_cast<unsigned long>(tls128);}
+namespace pe {inline HMODULE ModuleAt(uintptr_t) noexcept{return Module128(nullptr);}}
 #define GetModuleHandleW Module128
 #define __readfsdword Tls128
 #include "NativeNightPrerequisite128Runtime.inc"

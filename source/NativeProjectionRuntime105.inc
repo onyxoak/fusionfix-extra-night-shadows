@@ -119,11 +119,11 @@ void PrepareHooks() {
   Require(!memcmp(bytes.data(),original->bytes.data()+rva,size),"projection66_native_body_guard_failed");
  }
  std::vector<uint8_t> callback;
- const auto* copyProfile213=(!nativeBackend&&layout)?copy_versions213::Find(layout->version):nullptr;
+ const auto* copyProfile213=(!nativeBackend&&layout)?CopyProfile218():nullptr;
  const bool knownVersion213=copyProfile213&&fusionModule213Authenticated;
  if(knownVersion213){
   const auto raw=pe::Read(pe::ModulePath(reinterpret_cast<HMODULE>(ff)));
-  Require(pe::Hash(raw)==layout->hash,"copy70_FusionFix_identity_changed");
+  Require(reinterpret_cast<uintptr_t>(pe::ModuleAt(ff))==ff,"copy70_hook_owner_unavailable");
   const pe::Image expected(raw,ff);
   callback.assign(expected.bytes.begin()+copyProfile213->callback,
    expected.bytes.begin()+copyProfile213->callback+copyProfile213->size);

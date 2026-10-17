@@ -32,7 +32,7 @@ namespace WorldGeometry20 {bool requested{};}
 namespace ConsumerReach136 {bool requested{};}
 namespace ConsumerShadow75 {bool requested{};}
 namespace PlayerShadowAllocation {bool additionalFeatures{};}
-namespace pe {std::filesystem::path path;std::filesystem::path ModulePath(HMODULE){return path;}}
+namespace pe {std::filesystem::path path;std::filesystem::path ModulePath(HMODULE){return path;}HMODULE ModuleAt(uintptr_t){SetLastError(1193);return observedModule119;}}
 HMODULE self{};unsigned shadowStarts{};std::atomic<bool> failed{};
 DWORD StartShadow117(const std::filesystem::path&){++shadowStarts;return 19;}
 void StartupFailure129(const char*) noexcept {}

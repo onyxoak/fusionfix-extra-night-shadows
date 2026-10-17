@@ -10,6 +10,7 @@ namespace OwnHeadlightCaster
     namespace policy = fusionfix::shadows::caster;
     namespace guard = fusionfix::shadows::ce::casterguard;
     static thread_local policy::Context context;
+    static bool (*boxExclude216)(uint32_t,uintptr_t,uint32_t) noexcept=nullptr;
     static std::atomic<bool> enabled{false};
     static bool diagnosticCounters=false; // Startup-only; does not control exclusion policy.
     static uintptr_t base = 0; static void (*labRenderObserver)(uint32_t,uint32_t,uint32_t,bool) noexcept=nullptr;
@@ -27,7 +28,7 @@ namespace OwnHeadlightCaster
     {
         policy::Context result{};
         if (!enabled.load(std::memory_order_acquire) || !renderPass ||
-            ((!bHeadlightShadows || !bVehicleNightShadows) && !additionalCasterOwner))
+            ((!bHeadlightShadows || !bVehicleNightShadows) && !additionalCasterOwner && !boxExclude216))
             return result;
         experiment_perf::Count(diagnosticCounters,passes);
         // TLS identity cannot be carried into the deferred renderer. Observe it
@@ -45,6 +46,7 @@ namespace OwnHeadlightCaster
         const auto key = *reinterpret_cast<const uint32_t*>(base + guard::SlotKeyRva + offset);
         const auto kind = *reinterpret_cast<const uint32_t*>(base + guard::SlotKindRva + offset);
         const bool active = *reinterpret_cast<const uint8_t*>(base + guard::SlotActiveRva + offset) == 1;
+        if(active&&boxExclude216)result.boxLightKey216=key;
         ShadowTrace34::Emit({5,CShadows::pFrameCounter?*CShadows::pFrameCounter:0,GetTickCount(),key,
             static_cast<int>(slot),static_cast<int>(kind),active?1:0,0,0,0,0,0});
         if(labRenderObserver)labRenderObserver(key,slot,kind,active);
@@ -85,6 +87,7 @@ namespace OwnHeadlightCaster
     static bool Exclude(uintptr_t entity, uint32_t type, bool artificial) noexcept
     {
         if (!enabled.load(std::memory_order_acquire)) return false;
+        if(artificial&&context.boxLightKey216&&boxExclude216&&boxExclude216(context.boxLightKey216,entity,type))return true;
         experiment_perf::Count(diagnosticCounters,casterVisits);
         if (((!bHeadlightShadows || !bVehicleNightShadows) && !context.trafficBeamOwner) ||
             !policy::Exclude(context, entity, type, artificial)) return false;

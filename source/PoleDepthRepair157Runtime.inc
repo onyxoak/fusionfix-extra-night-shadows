@@ -20,7 +20,7 @@ uint32_t Word157(const uint8_t* p)noexcept {uint32_t v{};std::memcpy(&v,p,4);ret
 bool Group(uint32_t& id)noexcept {
  int32_t epoch{},group{};uint32_t local{};
  if(!ff||!FusionBackend130::prepared||!FusionBackend130::lease.Owns()||reinterpret_cast<uintptr_t>(FusionBackend130::pinnedModule)!=ff||
-  reinterpret_cast<uintptr_t>(GetModuleHandleW(L"GTAIV.EFLC.FusionFix.asi"))!=ff||!Read(ff+0x3366f0,&epoch,4)||epoch>=-1||
+  reinterpret_cast<uintptr_t>(pe::ModuleAt(ff))!=ff||!Read(ff+0x3366f0,&epoch,4)||epoch>=-1||
   !Read(ff+0x3366ec,&local,4)||local>65535||!Read(game+0xc6b308,&group,4)||group<0||uint32_t(group)!=local)return false;
  id=local;return true;
 }
@@ -86,7 +86,7 @@ void Dispatch(SafetyHookContext& regs)noexcept {
  }
  if(
   !FusionBackend130::prepared||!FusionBackend130::lease.Owns()||reinterpret_cast<uintptr_t>(FusionBackend130::pinnedModule)!=ff||
-  reinterpret_cast<uintptr_t>(GetModuleHandleW(L"GTAIV.EFLC.FusionFix.asi"))!=ff||!MatchBorrowed(b,regs.esp)){
+  reinterpret_cast<uintptr_t>(pe::ModuleAt(ff))!=ff||!MatchBorrowed(b,regs.esp)){
   matchRefused197.fetch_add(1,std::memory_order_relaxed);return;
  }
  // Native6EC830 already writes this same local byte, with unchanged ESP until
@@ -101,7 +101,7 @@ void Publish()noexcept {if(!requested||!prepared)return;static uint32_t last{};c
 void PrepareHooks()noexcept {
  if(!requested){prepared=false;return;} // Failed158 renderer experiment archived; no default hook or reads.
  try{
-  Require(ff&&FusionBackend130::prepared&&reinterpret_cast<uintptr_t>(FusionBackend130::pinnedModule)==ff&&reinterpret_cast<uintptr_t>(GetModuleHandleW(L"GTAIV.EFLC.FusionFix.asi"))==ff,"pole_depth157_owned_ff");
+  Require(ff&&FusionBackend130::prepared&&reinterpret_cast<uintptr_t>(FusionBackend130::pinnedModule)==ff&&reinterpret_cast<uintptr_t>(pe::ModuleAt(ff))==ff,"pole_depth157_owned_ff");
   constexpr uint32_t begin=0x6ec7b0;constexpr size_t size=0x203;
   const auto live=ReadMemory(game+begin,size);Require(!std::memcmp(live.data(),original->bytes.data()+begin,size),"pole_depth157_native_dispatch");
   const auto getter=ReadMemory(game+0x44940,6);Require(getter[0]==0xa1&&getter[5]==0xc3&&Word157(getter.data()+1)==uint32_t(game+0x13f59d4),"pole_depth157_forced_shader_getter");

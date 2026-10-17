@@ -1,3 +1,4 @@
+#include "OwnedImageReads224.hpp"
 #include <windows.h>
 #include <psapi.h>
 #include <array>
@@ -343,6 +344,7 @@ Result Queued(bool scoped,Change requestedChange=Change::None){
  return result;
 }
 #ifndef MODEL_REGION196
+#ifndef CONTAINED_REPLAY236
 int main(){
  memory=static_cast<uint8_t*>(VirtualAlloc(nullptr,4096*4,MEM_COMMIT|MEM_RESERVE,PAGE_READWRITE));assert(memory);
  auto allocate50=[](){auto* p=static_cast<uint8_t*>(VirtualAlloc(nullptr,4096,MEM_COMMIT|MEM_RESERVE,PAGE_READWRITE));assert(p);return p;};
@@ -479,3 +481,4 @@ int main(){
  std::puts("68 extracted production OFF/ON/nonactive/category/fallback/reentrant/frame/ABI/owner-fault/native-args checks passed; simulated66 boundary, no live FPS claim");
 }
 #endif
+#endif // CONTAINED_REPLAY236

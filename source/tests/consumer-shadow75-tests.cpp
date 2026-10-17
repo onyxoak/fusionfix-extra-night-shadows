@@ -36,6 +36,7 @@ bool Copy(uintptr_t p,void* out,size_t n) noexcept {
  }return Contained(p,out,n);
 }
 }
+namespace VehicleBoxes216 {unsigned calls{};inline void Lookup(SafetyHookContext&) noexcept{++calls;}}
 namespace ConsumerReach136 {inline void Observe(consumer_shadow75::Stage,SafetyHookContext&) noexcept{}}
 namespace ConsumerShadow75 {
 std::atomic<bool> active{false};thread_local consumer_shadow75::Context context;thread_local bool busy=false;
@@ -67,6 +68,7 @@ int main(){
  __asm fninit
  __asm fld1
  _fxsave(before);Lookup(l);_fxsave(after);
+ assert(VehicleBoxes216::calls==1);
  assert(GetLastError()==0x12345678&&Liberty20::reads==0&&std::memcmp(&l,&unchanged,sizeof(l))==0);
  assert(std::memcmp(before,after,160)==0);_mm_setcsr(oldMxcsr);__asm {fstp st(0)}
  // Every disabled-gate combination at all three actual hook stages must

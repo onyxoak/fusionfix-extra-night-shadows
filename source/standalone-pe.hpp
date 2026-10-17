@@ -15,6 +15,12 @@ namespace onyxoak::pe {std::filesystem::path ModulePath(HMODULE module) {
  if(!GetModuleFileNameW(module,path.data(),static_cast<DWORD>(path.size())))throw std::runtime_error("module path unavailable");
  return path.data();
 }
+inline HMODULE ModuleAt(uintptr_t address) noexcept {
+ HMODULE module{};
+ if(!address||!GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS|GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+    reinterpret_cast<LPCWSTR>(address),&module))return nullptr;
+ return module;
+}
 std::vector<uint8_t> Read(const std::filesystem::path& path) {
  std::ifstream file(path,std::ios::binary);if(!file)throw std::runtime_error("file unavailable");
  return {(std::istreambuf_iterator<char>(file)),{}};

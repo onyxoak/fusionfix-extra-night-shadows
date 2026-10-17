@@ -1,4 +1,9 @@
+#include "FusionBackendLease130.hpp"
+#include "FusionBackendGuard130.hpp"
+#include "FusionDiscovery218.hpp"
+#include "BackendVersions213.hpp"
 #include "FusionHooks213.hpp"
+#include "BoxShaderIdentity216.hpp"
 #include "CopyVersions213.hpp"
 #include "HeadlightFailure213.hpp"
 // OnyxOak Extra Night Shadows Fix standalone CE adapter. GPL-3.0.
@@ -37,10 +42,12 @@ namespace preset117 { ReadResult startup;State applied;bool backendLimited{},veh
 #include <memory>
 #include <bit>
 #include <cwctype>
+#include "PerformanceWorkAvoidance224.hpp"
+extern "C" {__declspec(dllexport) void* LibertyPerformanceControl224=&work_avoidance224::mode;}
 namespace standalone {
 using namespace onyxoak;
 using pe::U32;
-constexpr char CandidateBuild32[]="candidate213";
+constexpr char CandidateBuild32[]="candidate242";
 HMODULE self{};
 uintptr_t game{},ff{},loop{};
 uint8_t *pauseUser{},*pauseScript{};
@@ -64,7 +71,7 @@ namespace ModelLightShadow20 {
 namespace CoronaLight20 {extern bool requested;}
 namespace PoleCasterDiagnostic134 {extern bool requested;void Observe(uintptr_t,uint32_t,bool,bool) noexcept;}
 namespace PoleDrawWitness145 {void SunCaster(uintptr_t,uint32_t,uint32_t,uintptr_t,bool)noexcept;}
-namespace PoleStaticPartition141 {extern bool requested;bool Reclassify(uintptr_t,uint32_t,uint32_t,uintptr_t,bool,uint32_t*) noexcept;}
+namespace PoleStaticPartition141 {extern bool requested;bool NeedsSlowAdmission224(uintptr_t,uint32_t,uint32_t) noexcept;bool Reclassify(uintptr_t,uint32_t,uint32_t,uintptr_t,bool,uint32_t*) noexcept;}
 int32_t ownWidth=800,ownHeight=600;
 namespace Liberty20 {
  extern bool dualRequested,worldRequested;
@@ -88,10 +95,27 @@ constexpr FFLayout Layout51{"5.1.0",FFHash,0x18af0,0xa7b70,0xa7b60,0x74820,0xa7d
 constexpr FFLayout Layout50{"5.0.1","6c5ac36c9c6ca4aadb9be2fe4efc4ad8a51ca112673150491294cc9eeb18d7c2",0x18c70,0xa1720,0xa1710,0x6fda0,0xa18e0,0xa19b0,0xa0400,0xa04c0,0,0,0x33ab4c,0x33ab50,0x33ab99,0x33ab9a,0x2dfa39,0x6e843,0x265b2c,0xcdae0};
 constexpr FFLayout Layout511{"5.1.1","9f8a42d996e239c23c24432af4b95c568bfd1c501644a13bb7e9a4f51ed7be60",0x18b00,0xa7c40,0xa7c30,0x748c0,0xa7e70,0xa7f40,0xa6a20,0xa6bc0,0x83320,0x332000,0x332108,0x33210c,0x332045,0x332046,0x2d6be1,0x73263,0x25eb94,0xdace0};
 const FFLayout* layout=&Layout51;
+FFLayout detectedLayout218{};
+fusion_hooks213::Layout detectedHooks218{};
+backend_versions213::Layout detectedBackend218{};
+copy_versions213::Layout detectedCopy218{};
+std::string detectedHash218;
+std::unique_ptr<pe::Image> detectedImage218;
+bool structuralFusion218=false;
+const backend_versions213::Layout* BackendProfile218(){
+ if(structuralFusion218)return &detectedBackend218;
+ if(layout)for(const auto& profile:backend_versions213::Layouts)if(profile.extra==layout->extra&&profile.head==layout->headlight&&profile.vehicle==layout->vehicle)return &profile;
+ return nullptr;
+}
+const copy_versions213::Layout* CopyProfile218(){
+ if(structuralFusion218)return &detectedCopy218;
+ const auto* backend=BackendProfile218();if(!backend)return nullptr;
+ return &copy_versions213::Layouts[backend-backend_versions213::Layouts];
+}
+
 const fusion_hooks213::Layout* fusionHooks213=nullptr;
 bool fusionCallbacks213Authenticated=false;
 bool fusionModule213Authenticated=false;
-const FFLayout* SelectLayout(const std::string& hash){for(const auto* item:{&Layout50,&Layout51,&Layout511})if(hash==item->hash)return item;return nullptr;}
 #ifdef STANDALONE_OFFLINE
 struct RecordedRegion { uintptr_t address;std::vector<uint8_t> bytes; };
 std::vector<RecordedRegion> records;
@@ -367,25 +391,39 @@ std::vector<uint8_t> GuardedImage() {
  const auto normalized=NormalizeForOriginalGuards(live,patches,true,true);Require(bool(normalized),"overlay_normalization_failed");return normalized.bytes;
 }
 uintptr_t OriginalCall(size_t rva);
+#include "FusionDiscovery218Runtime.inc"
 void VerifyOfficial() {
- const auto module=GetModuleHandleW(L"GTAIV.EFLC.FusionFix.asi");if(!module){nativeBackend=true;Require(Branch(loop,0xe8)==OriginalCall(uint32_t(loop-game)),"foreign_native_game_process_hook");return;}ff=reinterpret_cast<uintptr_t>(module);
+ const auto process=Branch(loop,0xe8);
+ if(process==OriginalCall(uint32_t(loop-game))){nativeBackend=true;layout=nullptr;return;}
+ const auto module=pe::ModuleAt(process);
+ Require(module&&module!=GetModuleHandleW(nullptr)&&module!=self,"shadow_process_hook_owner_unavailable");
+ ff=reinterpret_cast<uintptr_t>(module);nativeBackend=false;
  const auto raw=pe::Read(pe::ModulePath(module));
- const auto process=Branch(loop,0xe8);layout=nullptr;
- for(const auto* candidate:{&Layout50,&Layout51,&Layout511})if(process==ff+candidate->process){layout=candidate;break;}
- Require(layout!=nullptr,"unsupported_FusionFix_process_layout");
- pe::Image expected(raw,ff);
- for(const auto& sec:expected.sections)if(sec.Characteristics&IMAGE_SCN_MEM_EXECUTE){const auto actual=ReadMemory(ff+sec.VirtualAddress,sec.Misc.VirtualSize);Require(!memcmp(actual.data(),expected.bytes.data()+sec.VirtualAddress,actual.size()),"FusionFix_code_modified");}
- Require(Branch(loop,0xe8)==ff+layout->process,"foreign_game_process_hook");
- fusionModule213Authenticated=pe::Hash(raw)==layout->hash;
- fusionHooks213=fusion_hooks213::Find(layout->version);
- fusionCallbacks213Authenticated=fusionHooks213&&fusion_hooks213::Validate(*fusionHooks213,uint32_t(ff),[](uint32_t address,size_t size){return ReadMemory(address,size);});
- RecordStartupExtra213(std::string("fusionfix_version=")+layout->version+" fusionfix_sha256="+pe::Hash(raw));
- Require(fusionCallbacks213Authenticated,"FusionFix_callback_code_changed");
-
- shortlist_helper48::runtime::binding={game,ff,original->bytes.size(),expected.bytes.size(),
-  layout==&Layout511&&pe::Hash(raw)==Layout511.hash};
+ const auto diagnosticHash=pe::Hash(raw); // Support evidence only; never an activation gate.
+ try{DiscoverFusion218(raw,diagnosticHash,process);return;}
+ catch(const std::exception&){
+  // Older layouts remain eligible through their actual installed process hook,
+  // callback instructions and data bindings, never a release label or hash.
+  layout=nullptr;structuralFusion218=false;
+  for(const auto* candidate:{&Layout50,&Layout51,&Layout511})if(process==ff+candidate->process){layout=candidate;break;}
+  if(!layout)throw;
+ }
+ const pe::Image expected(raw,ff);const auto* backend=BackendProfile218();
+ Require(backend,"shadow_setting_hook_bindings_missing");
+ const auto index=backend-backend_versions213::Layouts;
+ fusionHooks213=&fusion_hooks213::Layouts[index];
+ fusionCallbacks213Authenticated=fusion_hooks213::Validate(*fusionHooks213,uint32_t(ff),[](uint32_t address,size_t size){return ReadMemory(address,size);});
+ Require(fusionCallbacks213Authenticated,"shadow_pool_or_flags_hook_changed");
+ Require(backend_versions213::CallbackBodies(*backend,uint32_t(ff),[](uintptr_t at,void* out,size_t n){try{const auto bytes=ReadMemory(at,n);std::memcpy(out,bytes.data(),n);return true;}catch(...){return false;}}),"shadow_setting_hook_changed");
+ for(const auto rva:{layout->process,layout->player,layout->npc,layout->admission,layout->lookup,layout->render,layout->contact}){
+  Require(uint64_t(rva)+32<=expected.bytes.size(),"shadow_required_hook_out_of_range");
+  const auto live=ReadMemory(ff+rva,32);Require(!std::memcmp(live.data(),expected.bytes.data()+rva,32),"shadow_required_hook_code_changed");
+ }
+ fusionModule213Authenticated=true;
+ shortlist_helper48::runtime::binding={game,ff,original->bytes.size(),expected.bytes.size(),false};
+ Event(1,"SHADOW_HOOK_CAPABILITIES233","detection=current_process_hook_and_bindings version_allowlist=0 file_hash_allowlist=0 module_name_allowlist=0");
 }
-#include "VolumetricCompat199Runtime.inc"
+#include "ShadowCopyChain233Runtime.inc"
 uintptr_t Operand(const char* signature,unsigned offset){return U32(bindings->bytes.data()+bindings->Find(signature)+offset);}
 size_t Binding(const char* first,const char* second){
  try{return bindings->Find(first);}catch(const std::runtime_error& e){if(std::string(e.what()).rfind("pattern count=0:",0)!=0)throw;return bindings->Find(second);}
@@ -432,16 +470,20 @@ void __cdecl NativeStore(SUBMIT_ARGS){
 }
 int __cdecl Lookup(int a,int b,int c){if(!addonActive.load(std::memory_order_acquire))return shsub_925DB0.ccall<int>(a,b,c);return sub_925DB0(a,b,c);}
 void __fastcall Render(void* object,void* edx);
+bool (*receiverCull226)(uintptr_t,uint32_t) noexcept=nullptr;
+#include "FreshPageReadable.hpp"
 void Caster(SafetyHookContext& regs) {
  if(!addonActive.load(std::memory_order_acquire))return;
  // Ordinary geometry cannot be an own vehicle/occupant. With the optional
  // pole observers/override and visit counters off, every remaining check is
  // a no-op. Keep the native allow continuation without touching FP state.
  if(regs.eax!=2&&regs.eax!=3&&!OwnHeadlightCaster::diagnosticCounters&&
-    !PoleCasterDiagnostic134::requested&&!PoleStaticPartition141::requested){
+    !PoleCasterDiagnostic134::requested&&
+    (!PoleStaticPartition141::requested||(work_avoidance224::Enabled()&&!PoleStaticPartition141::NeedsSlowAdmission224(regs.esi,uint32_t(regs.eax),uint32_t(regs.edx))))){
   regs.eip=game+0x6e374f;return;
  }
  const fusionfix::shadows::FloatingPointState fp;
+ const traffic_signal::fresh_page::LocalReadScope233 casterReads233; // Ends before resuming native drawing.
  const bool artificial=!*reinterpret_cast<const uint8_t*>(regs.esp+0x0b);
  bool skip=OwnHeadlightCaster::Exclude(regs.esi,regs.eax,artificial);
  if(!bVehicleNightShadows&&regs.eax==3&&(*reinterpret_cast<const uint8_t*>(regs.esi+620)&4)&&artificial)skip=true;
@@ -493,13 +535,18 @@ template<class Hook,class Function> void Prepare(Hook& hook,uintptr_t target,Fun
 #include "IndoorBubble212Runtime.inc"
 #include "ConsumerReachRuntime136.inc"
 #include "SceneryFade198BRuntime.inc"
+namespace VehicleBoxes216 {void Lookup(SafetyHookContext&) noexcept;}
 #include "ConsumerShadow75Runtime.inc"
 #include "NativeProducerGate116Runtime.inc"
 #include "CoronaLightRuntime20.inc"
 #include "WorldGeometryCatalogRuntime20.inc"
+#include "ReceiverCull226Runtime.inc"
+#include "LateDrawCull228Runtime.inc"
 #include "PresentFrameTime151Runtime.inc"
 #include "FrameBoundary154Runtime.inc"
 #include "GpuProfilingRuntime39.inc"
+#include "VehicleBoxes216Runtime.inc"
+#include "ShutdownResourceGuard235Runtime.inc"
 #include "LightingCapabilities16.inc"
 #include "NativeNightPrerequisite128Runtime.inc"
 #include "FusionBackend130Runtime.inc"
@@ -608,7 +655,7 @@ void RefreshApplied119State() noexcept {
  // gate (nightshadows.ixx121). OwnedSchema3 scalars cannot enable it.
  // No privateCSettings access or write: layout/module were authenticated.
  uint8_t vehicleGate{};
- const bool gateRead=!nativeBackend&&layout&&ff&&reinterpret_cast<uintptr_t>(GetModuleHandleW(L"GTAIV.EFLC.FusionFix.asi"))==ff&&Liberty20::Copy(ff+layout->vehicle,&vehicleGate,1)&&vehicleGate<=1;
+ const bool gateRead=!nativeBackend&&layout&&ff&&reinterpret_cast<uintptr_t>(pe::ModuleAt(ff))==ff&&Liberty20::Copy(ff+layout->vehicle,&vehicleGate,1)&&vehicleGate<=1;
  preset117::backendReadFailed119=!gateRead;
  preset117::vehicleDepthUnavailable119=gateRead&&!vehicleGate;
  if(!gateRead||!vehicleGate){actual.features[size_t(preset117::Feature::DualHeadlights)]=false;actual.features[size_t(preset117::Feature::TailLights)]=false;}
@@ -649,7 +696,8 @@ void __fastcall Render(void* object,void* edx){
  const GpuProfiling39::StageScope gpuSpan(object);
  const PoleCasterDiagnostic134::Scope poleDiagnostic134(object);
  const PoleStaticPartition141::Scope polePartition141(object);
- const WorldGeometry20::Scope geometry(object);sub_D77A00(object,edx);
+ const WorldGeometry20::Scope geometry(object);
+ const ReceiverCull226::Scope receiverCull(object);sub_D77A00(object,edx);
 }
 void PreCacheSelection(SafetyHookContext& regs) noexcept {
  // One hook owns this native boundary. Emergency vacancy runs first; stable
@@ -658,7 +706,8 @@ void PreCacheSelection(SafetyHookContext& regs) noexcept {
  PlayerShadowAllocation::StabilizeMapOrdinals(regs);
 }
 void DisableAll() noexcept {
- EffectAttribution199C::Disable();
+ ShutdownResource235::Disable();
+ VehicleBoxes216::Disable();EffectAttribution199C::Disable();
  ModelReferenceQueue189::Disable();
  FusionBackend130::Close();
  SceneryFade198B::Disable();NativeProducerGate116::Disable();ConsumerShadow75::Disable();
@@ -666,7 +715,7 @@ void DisableAll() noexcept {
  FrameBoundary154::enabled=false;FrameTime151::Disable();GpuProfiling39::Disable();
  CoronaLight20::Disable();
  ModelLightShadow20::active=false;TrafficSignal::ownerClass109Active=false;TrafficSignal::ownerClass114Active=false;
- TailLight20::Disable();Liberty20::Disable();ModelEffectObserver::DisableHooks();WorldGeometry20::Disable();if(nativeSubmit)(void)nativeSubmit.disable();
+ TailLight20::Disable();Liberty20::Disable();ModelEffectObserver::DisableHooks();WorldGeometry20::Disable();LateDrawCull228::Disable();if(nativeSubmit)(void)nativeSubmit.disable();
  if(TrafficSignal::freeHook)(void)TrafficSignal::freeHook.disable();
  if(TrafficSignal::timerRestoreHook)(void)TrafficSignal::timerRestoreHook.disable();TrafficSignal::enabled=false;
  addonActive.store(false,std::memory_order_release);PlayerShadowAllocation::ready=false;OwnHeadlightCaster::enabled=false;NearbyVehicleLighting36::enabled=false;
@@ -675,8 +724,19 @@ void DisableAll() noexcept {
  for(auto* hook:{&playerSubmit,&npcSubmit,&shsub_925DB0,&shsub_D77A00,&PlayerShadowAllocation::selectionHook})if(*hook)(void)hook->disable();
  for(auto* hook:{&caster,&contact,&camera,&brightness,&warning,&PlayerShadowAllocation::collectHook,&PlayerShadowAllocation::finalizeHook,&PlayerShadowAllocation::lampDistanceHook,&PlayerShadowAllocation::compareResultHook,&PlayerShadowAllocation::cacheResultHook,&PlayerShadowAllocation::stableOrdinalsHook})if(*hook)(void)hook->disable();
 }
+void AppendPreparedOptionalRanges221(std::vector<PreparedHookRange>& preparedRanges) {
+ // Failed optional groups retain disabled trampoline allocations for lifetime
+ // safety, but those dormant objects must not reserve active hook ranges.
+ if(ModelEffectObserver::prepared)for(const auto* hook:{&ModelEffectObserver::preHook,&ModelEffectObserver::postHook,
+     &ModelEffectObserver::resolveHook,&ModelEffectObserver::wrapperHook,&ModelEffectObserver::directHook,
+     &ModelEffectObserver::wrapperSpotHook,&ModelEffectObserver::directSpotHook})
+  if(*hook)preparedRanges.push_back({hook->target_address(),hook->original_bytes().size()});
+ if(CoronaLight20::prepared&&CoronaLight20::activeHook)
+  preparedRanges.push_back({CoronaLight20::activeHook.target_address(),CoronaLight20::activeHook.original_bytes().size()});
+}
 void Install() {
- VerifyLightingCapabilities(pe::Read(pe::ModulePath(nullptr)));
+ // Required native hook instruction/binding guards below replace whole-producer hash gates.
+ if(original)Event(1,"OWNED_IMAGE_READ224",("data_ranges="+std::to_string(owned_image224::Configure(game,original->bytes.size(),original->sections))+" fresh_SEH_copies=1 heap_checks_unchanged=1").c_str());
  VerifyOfficial();auto image=GuardedImage();VolumetricCompat199::AuthenticateAndNormalize(image);FusionBackend130::PrepareHooks();PoleStaticPartition141::Prepare(image);PoleDepthRepair157::PrepareHooks();PoleDrawWitness145::PrepareHooks();
  Liberty20::PrepareHooks(image);
  if(ModelLightShadow20::requested||CoronaLight20::requested)Require(ModelLightShadow20::registry.Configure(uint32_t(reinterpret_cast<uintptr_t>(ModelLightShadow20::keyStorage))),"model_shadow_key_storage_invalid");
@@ -727,13 +787,18 @@ void Install() {
  // Steam restores some low-RVA code only after launch. Resolve those game
  // globals from the verified post-init image, never encrypted disk bytes.
  bindings=std::make_unique<pe::Image>(*original);bindings->bytes=image;ResolveGame();
+ // ResolveGame copies only native addresses/values out of this startup image.
+ // No callback retains a pointer into its bytes. Operand/Binding are used only
+ // above, so retire this second full executable copy before hook preparation.
+ const auto releasedBindingBytes234=bindings->bytes.size();bindings.reset();
+ Event(1,"STARTUP_STORAGE234_RELEASED","binding_image_bytes="+std::to_string(releasedBindingBytes234)+" native_bindings_preserved=1 original_guard_image_retained=1");
  // Additional CE44 hooks retain their full original guards.
  const auto cameraCode=ReadMemory(game+0x30c6f,8);
  Require(cameraCode[0]==0x89&&cameraCode[1]==0x0d&&U32(cameraCode.data()+2)==reinterpret_cast<uintptr_t>(rage::pCurrentViewport)&&cameraCode[6]==0xc6&&cameraCode[7]==5,"camera_guard_failed");
  constexpr uint8_t driver[]{0x74,0x33,0x8B,0x8E,0x50,0x0F,0,0,0x85,0xC9,0x74,0x29,0x80,0xB9,0x18,0x02,0,0,0,0x75,0x20,0x80,0xB9,0x19,0x02,0,0,0,0x74,0x17};
  const auto driverCode=ReadMemory(game+0x63fb42,sizeof(driver));const auto brightnessCode=ReadMemory(game+0x63fb77,7);
  Require(!memcmp(driverCode.data(),driver,sizeof(driver))&&brightnessCode[0]==0x80&&brightnessCode[1]==0x3d&&U32(brightnessCode.data()+2)==game+0xc3cc49&&brightnessCode[6]==0,"brightness_guard_failed");
- if(!nativeBackend){
+ if(!nativeBackend&&layout->warningPush){
  const auto warningCall=ReadMemory(ff+layout->warningPush,20);
  const uint8_t warningAfter[]{0x8b,0xf0,0x83,0xc4,0x04,0x66,0x83,0x3e,0x00};
  Require(warningCall[0]==0x68&&U32(warningCall.data()+1)==ff+layout->warningKey&&Branch(ff+(layout->warningPush+5),0xe8)==ff+layout->textLookup&&
@@ -750,14 +815,14 @@ void Install() {
  Prepare(shsub_925DB0,game+0x525db0,Lookup);Prepare(shsub_D77A00,game+0x977a00,Render);
  Prepare(caster,game+0x6e3736,Caster);Prepare(contact,game+0x63de5e,Contact);
  Prepare(camera,game+0x30c6f,Camera);Prepare(brightness,game+0x63fb77,Brightness);
- if(!nativeBackend)Prepare(warning,ff+(layout->warningPush+10),Warning);
+ if(!nativeBackend&&layout->warningPush)Prepare(warning,ff+(layout->warningPush+10),Warning);
  ModelEffectObserver::PrepareHooks();
  CoronaLight20::PrepareHooks();
- WorldGeometry20::PrepareHooks();
- ModelReferenceQueue189::PrepareHooks();
+ WorldGeometry20::PrepareHooks();ReceiverCull226::Prepare();LateDrawCull228::PrepareHooks();
+ ModelReferenceQueue189::PrepareHooks();ShutdownResource235::PrepareHooks();
  NativeProjection66::PrepareHooks();ArcadePlacement197::Prepare();
  EffectAttribution199C::PrepareHooks();
- ConsumerShadow75::PrepareHooks();SceneryFade198B::PrepareHooks(ConsumerShadow75::prepared);NativeProducerGate116::PrepareHooks();
+ ConsumerShadow75::PrepareHooks();SceneryFade198B::PrepareHooks(ConsumerShadow75::prepared);NativeProducerGate116::PrepareHooks();VehicleBoxes216::PrepareHooks();
  if(ownerAuditEnabled){
   // Entire wrapper and candidate producer bodies must remain the exact mapped executable.
   const std::pair<uint32_t,size_t> ranges[]={{0x6bcc50,0x7f},{0x640790,0x1e20},{0x644b36,0x35},{0x640620,0x167}};
@@ -777,13 +842,13 @@ void Install() {
  for(const auto* hook:midPlan)if(*hook)preparedRanges.push_back({hook->target_address(),hook->original_bytes().size()});
  if(ownerProbe)preparedRanges.push_back({ownerProbe.target_address(),ownerProbe.original_bytes().size()});
  if(NativeProjection66::constructorHook)preparedRanges.push_back({NativeProjection66::constructorHook.target_address(),NativeProjection66::constructorHook.original_bytes().size()});
+ AppendPreparedOptionalRanges221(preparedRanges);
  for(const auto* hook:{&Liberty20::dualPre,&Liberty20::dualPost,&Liberty20::singlePre,&Liberty20::freeObserver,
-     &TailLight20::combinedHook,&TailLight20::singleHook,&ModelEffectObserver::preHook,&ModelEffectObserver::postHook,
-     &ModelEffectObserver::resolveHook,&ModelEffectObserver::wrapperHook,&ModelEffectObserver::directHook,
-     &ModelEffectObserver::wrapperSpotHook,&ModelEffectObserver::directSpotHook,
-     &WorldGeometry20::collection,&WorldGeometry20::draw,&WorldGeometry20::mask,&CoronaLight20::activeHook,
+     &TailLight20::combinedHook,&TailLight20::singleHook,
+     &WorldGeometry20::collection,&WorldGeometry20::draw,&WorldGeometry20::mask,
+     &LateDrawCull228::hooks[0],&LateDrawCull228::hooks[1],&LateDrawCull228::hooks[2],
      &ConsumerShadow75::lookupHook,&ConsumerShadow75::gateHook,&ConsumerShadow75::dispatchHook,
-     &NativeProducerGate116::planeHook,&NativeProducerGate116::sphereHook,&EffectAttribution199C::insertionHook,&SceneryFade198B::binderHook})
+     &ShutdownResource235::hook,&NativeProducerGate116::planeHook,&NativeProducerGate116::sphereHook,&EffectAttribution199C::insertionHook,&SceneryFade198B::binderHook,&VehicleBoxes216::handover})
   if(*hook)preparedRanges.push_back({hook->target_address(),hook->original_bytes().size()});
  Require(DisjointPreparedHooks(preparedRanges),"prepared_hook_ranges_overlap");
  GpuProfiling39::PrepareHooks(preparedRanges);
@@ -802,7 +867,7 @@ void Install() {
  OwnHeadlightCaster::enabled.store(true,std::memory_order_release);NearbyVehicleLighting36::enabled.store(true,std::memory_order_release);ready.store(true,std::memory_order_release);
  addonActive.store(true,std::memory_order_release);Event(1,"ACTIVE",std::string("build=")+CandidateBuild32+" game=1.2.0.59 backend="+(nativeBackend?"native":layout->version)+" required_hooks="+std::to_string(requiredHooks)+" shared_pre_cache=1");
  TrafficInstall();
- Liberty20::EnableHooks();TailLight20::EnableHooks(bool(Liberty20::freeObserver));ModelEffectObserver::EnableHooks();WorldGeometry20::EnableHooks();
+ Liberty20::EnableHooks();TailLight20::EnableHooks(bool(Liberty20::freeObserver));ModelEffectObserver::EnableHooks();WorldGeometry20::EnableHooks();LateDrawCull228::Enable();
  OwnHeadlightCaster::additionalCasterOwner=LightCasterOwner;
  ModelLightShadow20::active=(ModelLightShadow20::requested||CoronaLight20::requested)&&ModelEffectObserver::enabled.load()&&bool(Liberty20::freeObserver);
  TrafficSignal::ownerClass109Active=TrafficSignal::ownerClass109Authenticated&&ModelLightShadow20::active.load();
@@ -811,10 +876,12 @@ void Install() {
  WireModelProjection69();
  NativeProjection66::Enable();
  EffectAttribution199C::Enable();
- ConsumerShadow75::Enable();SceneryFade198B::Enable(ConsumerShadow75::active.load(std::memory_order_acquire));NativeProducerGate116::Enable();
+ ConsumerShadow75::Enable();SceneryFade198B::Enable(ConsumerShadow75::active.load(std::memory_order_acquire));NativeProducerGate116::Enable();VehicleBoxes216::Enable();ShutdownResource235::Enable();
  preset117::refreshApplied119Hook=RefreshApplied119State;
  NativeNightPrerequisite128::Prepare();
+ Event(1,"NIGHT_STATE236_ROUTE",NativeNightPrerequisite128::route.authenticated?"setting_hook=connected version_allowlist=0":"setting_getter_hook_unavailable lighting_stays_active=1 version_allowlist=0");
  RefreshApplied119State();
+ preset117::backendOwner233Hook=[]() noexcept {return pe::ModuleAt(ff);};
  preset117::EngineActivated117(game,original->bytes.data(),original->bytes.size());
  PlayerShadowAllocation::bulkModelSources48=(!preset117::startup.present||ModelLightShadow20::requested||CoronaLight20::requested)?ModelLightShadow20::ValidateQueued:nullptr;
  PlayerShadowAllocation::validateModelSource48=(!preset117::startup.present||ModelLightShadow20::requested||CoronaLight20::requested)?ModelLightShadow20::ValidateOne48:nullptr;
@@ -828,6 +895,21 @@ void Install() {
  PlayerShadowAllocation::projectionAlias66=(!preset117::startup.present||NativeProjection66::requested)?NativeProjection66::Alias:nullptr;
  PlayerShadowAllocation::prepareSources=(!preset117::startup.present||PlayerShadowAllocation::additionalFeatures||Liberty20::worldRequested||NativeProjection66::requested)?PrepareLightSources:nullptr;
  PlayerShadowAllocation::liveReachBoundary122=preset117::startup.present?ApplyLiveReach122Boundary:nullptr;
+ contained_read236::enabled.store(contained_read236::requested,std::memory_order_release);
+ Event(1,"CONTAINED_READS236",contained_read236::requested?"active=1 fresh_owner_checks=1 raw_dereference_preflight_unchanged=1 copied_data_cached=0":"active=0 legacy_preflight=1");
+}
+void PublishContainedReads236() {
+ static uint32_t priorAccess{},priorGuard{},priorRestore{},lastTick{};
+ const auto tick=GetTickCount();if(tick-lastTick<5000)return;lastTick=tick;
+ const auto access=contained_read236::accessFaults.load(std::memory_order_relaxed);
+ const auto guard=contained_read236::guardFaults.load(std::memory_order_relaxed);
+ const auto restore=contained_read236::guardRestoreFailures.load(std::memory_order_relaxed);
+ if(access==priorAccess&&guard==priorGuard&&restore==priorRestore)return;
+ priorAccess=access;priorGuard=guard;priorRestore=restore;
+ Event(1,restore?"CONTAINED_READS236_FALLBACK":"CONTAINED_READS236_REFUSED",
+  "access_faults="+std::to_string(access)+" guard_faults="+std::to_string(guard)+
+  " guard_restore_failures="+std::to_string(restore)+" copy_optimization_active="+
+  std::to_string(contained_read236::enabled.load(std::memory_order_relaxed))+" lighting_hooks_unchanged=1");
 }
 void PublishCpuProfile29() {
  if(!shadow_cpu29::enabled)return;
@@ -955,14 +1037,16 @@ void OnFrame(SafetyHookContext&) noexcept {
   }
   ModelReferenceQueue189::Publish();PublishSelectionHelpers48();PoleDepthRepair157::Publish();FrameBoundary154::Publish();FrameTime151::Publish();GpuProfiling39::Publish();PublishRuntimeControls38();PublishCpuProfile29();PublishMemoryReads46();Liberty20::Publish();TailLight20::Publish();ModelEffectObserver::Publish();ModelLightShadow20::Publish();WorldGeometry20::Publish();CoronaLight20::Publish();NativeProjection66::Publish();ArcadePlacement197::Publish();PublishVisibleReceiver133();ConsumerShadow75::Publish();NativeProducerGate116::Publish();
   PublishShadowTransitions69();
-  NearbyVehicleLighting36::Update(); if(policeTestEnabled){UpdateProof();} TrafficPoll(); if(diagnosticsEnabled){PublishNine(); MeasureProofCadence(); PublishChurn(); PublishPolicePackets(); PublishProofTransition(); PublishLightAudit(); PublishOwnerAudit();PublishCombinedStatus();}
+  ReceiverCull226::Publish();VehicleBoxes216::Publish();PublishContainedReads236();NearbyVehicleLighting36::Update(); if(policeTestEnabled){UpdateProof();} TrafficPoll(); if(diagnosticsEnabled){PublishNine(); MeasureProofCadence(); PublishChurn(); PublishPolicePackets(); PublishProofTransition(); PublishLightAudit(); PublishOwnerAudit();PublishCombinedStatus();}
   static uint64_t last{};const auto now=GetTickCount64();if(hotCountersEnabled&&now-last>=5000){last=now;Event(2,"COUNTERS","passes="+std::to_string(PlayerShadowAllocation::appliedPasses.load())+" caster="+std::to_string(OwnHeadlightCaster::casterVisits.load())+" own="+std::to_string(OwnHeadlightCaster::ownPasses.load())+" deferred="+std::to_string(OwnHeadlightCaster::deferredPasses.load())+" proofRequested="+std::to_string(proofRequested.load())+" proofRetired="+std::to_string(proofRetired.load())+" proofPromoted="+std::to_string(proofPromoted.load())+" proofSelected="+std::to_string(proofSelected.load())+" proofRenderCalls="+std::to_string(proofRenderCalls.load())+" policeMode="+std::to_string(policePolicy.load())+" policeOverrides="+std::to_string(policeOverrides.load())+" vacancy="+std::to_string(vacancyRequested.load())+" vacancySuppressed="+std::to_string(vacancySuppressed.load())+" packetDropped="+std::to_string(policeDropped.load())+" graceComparisons="+std::to_string(proofGraceComparisons.load())+" proofFrames="+std::to_string(proofFrames.load())+" maxSlots="+std::to_string(proofMaxSlots.load())+" collected="+std::to_string(PlayerShadowAllocation::labCollected.load())+" observed="+std::to_string(PlayerShadowAllocation::labObserved.load())+" nativeChosen="+std::to_string(PlayerShadowAllocation::labNativeChosen.load())+" finalChosen="+std::to_string(PlayerShadowAllocation::labFinalChosen.load())+" cmp0="+std::to_string(PlayerShadowAllocation::labComparisons[0].load())+" cmp1="+std::to_string(PlayerShadowAllocation::labComparisons[1].load())+" cmp2="+std::to_string(PlayerShadowAllocation::labComparisons[2].load())+" result0="+std::to_string(PlayerShadowAllocation::labResults[0].load())+" result1="+std::to_string(PlayerShadowAllocation::labResults[1].load())+" result2="+std::to_string(PlayerShadowAllocation::labResults[2].load())+" claimLoss="+std::to_string(PlayerShadowAllocation::labClaimLoss.load())+" ownLoss="+std::to_string(PlayerShadowAllocation::labOwnLoss.load())+" warningHidden="+std::to_string(warningHidden.load()));}return;
  }
  if(attempted.exchange(true))return;
  try{Install();}catch(const std::exception& e){DisableAll();failed=true;Event(1,"DISABLED",e.what());StartupFailure129(e.what());}
 }
 void PrepareNativeBaseModelStore(const std::filesystem::path& ini) {
- if(GetModuleHandleW(L"GTAIV.EFLC.FusionFix.asi")||GetPrivateProfileIntW(L"LIGHTING20",L"NativeBaseModelStore",0,ini.c_str())!=1)return;
+ if(GetPrivateProfileIntW(L"LIGHTING20",L"NativeBaseModelStore",0,ini.c_str())!=1)return;
+ const auto processCall233=original->Find("E8 ? ? ? ? E8 ? ? ? ? E8 ? ? ? ? B9 ? ? ? ? E8 ? ? ? ? E8 ? ? ? ? E8 ? ? ? ? E8 ? ? ? ? B9")+5;
+ if(Branch(game+processCall233,0xe8)!=OriginalCall(uint32_t(processCall233)))return;
  // Two captured native startup failures reached entry 101 in a capacity-100
  // base-model store, before lighting activation. This copy's asset set needs
  // the same 200 base entries it had with official ExtendedLimits. Other
@@ -989,14 +1073,23 @@ DWORD StartShadow117(const std::filesystem::path& ini) {
   shadow_cpu29::Configure(mode!=0&&GetPrivateProfileIntW(L"SUPPORT",L"CpuProfiling",1,ini.c_str())==1);
   memory_read46::Configure(mode!=0&&GetPrivateProfileIntW(L"SUPPORT",L"MemoryProfiling",0,ini.c_str())==1);
   traffic_signal::fresh_page::Configure(GetPrivateProfileIntW(L"SUPPORT",L"WorkingSetValidation",1,ini.c_str())==0);
+  ReceiverCull226::requested242=GetPrivateProfileIntW(L"SUPPORT",L"ReceiverCasterCulling",0,ini.c_str())==1;
+  contained_read236::requested=GetPrivateProfileIntW(L"SUPPORT",L"ContainedReads236",1,ini.c_str())==1;
+  const auto regionReusePath232=pe::ModulePath(nullptr);
+  const bool regionReuseLocal232=
+   _wcsicmp(regionReusePath232.c_str(),L"D:\\Codex-Work\\Libertys-Shadows-2.0\\game\\GTAIV\\GTAIV.exe")==0||
+   _wcsicmp(regionReusePath232.c_str(),L"D:\\SteamLibrary\\steamapps\\common\\Grand Theft Auto IV\\GTAIV\\GTAIV.exe")==0;
+  immediate_region33::borrowWorkingSet231.store(mode!=0&&regionReuseLocal232,std::memory_order_release);
   ModelLightShadow20::ConfigureQueuedScratch59(ini.c_str());
   publicSettings93=liberty_settings93::ReadPublic(ini.c_str());
   log=std::make_unique<SupportLog>(pe::ModulePath(self).replace_extension(L".log"),mode,GetPrivateProfileIntW(L"SUPPORT",L"MaxLogKiB",256,ini.c_str()));
+  preset117::menuEvent233Hook=[](const char* code,const char* fields) noexcept {Event(1,code,fields);};
   FrameTime151::requested=mode!=0&&GetPrivateProfileIntW(L"SUPPORT",L"FrameTimeProfiling151",0,ini.c_str())==1;
   FrameBoundary154::requested=GetPrivateProfileIntW(L"SUPPORT",L"FrameBoundaryProfiling154",0,ini.c_str())==1;
   GpuProfiling39::requested=mode!=0&&GetPrivateProfileIntW(L"SUPPORT",L"GpuProfiling",0,ini.c_str())==1;
   GpuProfiling39::shadowStages=GpuProfiling39::requested&&GetPrivateProfileIntW(L"SUPPORT",L"GpuShadowStages",0,ini.c_str())==1;
   Event(1,"START",std::string("build=")+CandidateBuild32);
+  Event(1,"REGION_REUSE231",immediate_region33::borrowWorkingSet231.load()?"enabled=1 local_test=1 current_callback_native_permissions=1 fresh_bytes=1 owner_checks_unchanged=1":"enabled=0");
   Event(1,"GPU_REQUESTED48",GpuProfiling39::requested?(GpuProfiling39::shadowStages?"requested=1 span=shadow_command_span":"requested=1 span=BeginScene_EndScene"):"requested=0 default_off=1");
   if(memory_read46::enabled)Event(1,"MEMORY_READ_PROFILE46_CONFIG","enabled=1 startup_opt_in=1 helper_tls_flush=4096 worker_tail_max_helpers=4095 thread_exit_tail_unreported=1 publish_interval_ms=5000 actual_working_set_queries=1 fallback_requests_not_os_queries=1");
   Event(1,"VALIDATION31",traffic_signal::fresh_page::preferRegion?"fresh_region=1 current_permissions owner_checks_unchanged=1":"fresh_region=0 working_set_override=1");
@@ -1091,6 +1184,12 @@ DWORD StartShadow117(const std::filesystem::path& ini) {
    Event(1,"SETTINGS117","schema=3 single_shared_manager=1 restart_required=1 migrated="+std::to_string(preset117::startup.migrated)+" invalid_values="+std::to_string(preset117::startup.invalid));
   }
   PlayerShadowAllocation::additionalFeatures=PlayerShadowAllocation::additionalFeatures||TrafficSignal::requested||nearbyPoliceEnabled;
+  VehicleBoxes216::requested=ownExtra&&GetPrivateProfileIntW(L"VEHICLE_BOX_SHADOWS",L"Enabled",0,ini.c_str())==1;
+  VehicleBoxes216::settings.perLight=std::clamp<unsigned>(GetPrivateProfileIntW(L"VEHICLE_BOX_SHADOWS",L"CarsPerLight",3,ini.c_str()),1,3);
+  VehicleBoxes216::settings.perCar=std::clamp<unsigned>(GetPrivateProfileIntW(L"VEHICLE_BOX_SHADOWS",L"LightsPerCar",2,ini.c_str()),1,2);
+  VehicleBoxes216::settings.maxDistance=float(std::clamp<unsigned>(GetPrivateProfileIntW(L"VEHICLE_BOX_SHADOWS",L"MaxDistanceMetres",60,ini.c_str()),5,100));
+  if(VehicleBoxes216::requested)ConsumerShadow75::requested=true;
+
   Event(1,"FEATURES",std::string("traffic=")+std::to_string(TrafficSignal::requested)+" nearby_emergency="+std::to_string(nearbyPoliceEnabled)+" diagnostic_counters="+std::to_string(hotCountersEnabled)+" owner_telemetry="+std::to_string(ownerTelemetryEnabled)+" quality_unchanged=1 native_slots=7 no_time_expiry=1");
   auditEnabled=!preset117::startup.present && mode==2 && GetPrivateProfileIntW(L"LAB",L"ObserveLights",0,ini.c_str())==1;
   ownerAuditEnabled=TrafficSignal::requested||policeTestEnabled || (!preset117::startup.present && mode==2 && GetPrivateProfileIntW(L"LAB",L"ObserveOwners",0,ini.c_str())==1);

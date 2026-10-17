@@ -14,15 +14,23 @@ inline bool Copy(const Span* spans,unsigned count,fresh_page::Check fallback,
  memory_read46::Record(memory_read46::Metric::BatchHelpers);
  const shadow_cpu29::Scope cpu(shadow_cpu29::Phase::PageBatch30,256);
  if(!spans||!count||count>Capacity||!fallback||!query)return false;
+ if(contained_read236::enabled.load(std::memory_order_relaxed)&&query==QueryWorkingSetEx){
+  for(unsigned i=0;i<count;++i)if(!contained_read236::Span(spans[i].address,spans[i].output,spans[i].size)||spans[i].size>MaximumBytes)return false;
+  unsigned char bytes[Capacity][MaximumBytes];
+  if(!fresh_batch30::Stage(spans,count,bytes,true)){if(readFault)*readFault=true;memory_read46::Record(memory_read46::Metric::BatchReadFaults);return false;}
+  for(unsigned i=0;i<count;++i)std::memcpy(spans[i].output,bytes[i],spans[i].size);
+  return true;
+ }
  const auto page=fresh_page::PageSize();
  PSAPI_WORKING_SET_EX_INFORMATION entries[Capacity]{};
- unsigned indices[Capacity]{},used=0;bool individual[Capacity]{},known[Capacity]{};
+ unsigned indices[Capacity]{},used=0;bool individual[Capacity]{},known[Capacity]{};bool borrowedRegion231=false;
  for(unsigned i=0;i<count;++i){
   const auto& s=spans[i];
   if(!s.output||s.address<0x10000||!s.size||s.size>MaximumBytes||s.address>UINTPTR_MAX-s.size)return false;
   // Respect the configured region strategy even when this primitive is
   // exercised directly; no QWS or borrowed page certificate in that mode.
   if(fresh_page::preferRegion){individual[i]=true;continue;}
+  if(fresh_page::BorrowedRegion231(s.address,s.size,query)){known[i]=true;borrowedRegion231=true;memory_read46::Record(memory_read46::Metric::BatchSpanCacheHits);continue;}
   if(!page||(page&(page-1))||s.address/page!=(s.address+s.size-1)/page){individual[i]=true;continue;}
   if(fresh_page::Known44(s.address,s.size,page,query)){known[i]=true;memory_read46::Record(memory_read46::Metric::BatchSpanCacheHits);continue;}
   unsigned j=0;
@@ -50,7 +58,7 @@ inline bool Copy(const Span* spans,unsigned count,fresh_page::Check fallback,
   }
  }
  unsigned char bytes[Capacity][MaximumBytes];
- if(!fresh_batch30::Stage(spans,count,bytes)){if(readFault)*readFault=true;memory_read46::Record(memory_read46::Metric::BatchReadFaults);return false;}
+ if(!fresh_batch30::Stage(spans,count,bytes,borrowedRegion231)){if(readFault)*readFault=true;memory_read46::Record(memory_read46::Metric::BatchReadFaults);return false;}
  // Outputs belong to the hook's local sample. Publish only after EVERY read
  // succeeds; a raced mapping failure never exposes a partly updated packet.
  for(unsigned i=0;i<count;++i)std::memcpy(spans[i].output,bytes[i],spans[i].size);

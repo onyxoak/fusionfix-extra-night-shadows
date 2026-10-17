@@ -1,0 +1,53 @@
+Liberty's Shadows 2.0.5 - Changes since 2.0.4
+
+PERFORMANCE
+- Added conservative shadow-caster culling to avoid processing geometry that
+  cannot shadow the current view. Full lighting and vehicle fallback stay enabled.
+- The latest culling change measured approximately 15% higher median FPS in a
+  nighttime Fishmarket test: about 47-48 FPS to 55 FPS. This compares the new
+  culling path with the preceding development build, not directly with 2.0.4.
+  Results vary by location, settings and mod setup; 60 FPS is not guaranteed.
+- Reduced repeated memory-permission queries and validation work during light,
+  caster and vehicle processing. Owner, generation and fresh-data checks remain.
+- Reduced unnecessary vehicle-table scans and caster checks in ineligible passes.
+
+COMPATIBILITY
+- Integration follows actual hooks, callback owners and required bindings rather
+  than refusing unfamiliar FusionFix version numbers or file hashes.
+- Updated Graphics-menu integration to discover the active hook chains.
+- Improved handling of layered light-copy callbacks, including the tested
+  FusionFix 5.1.2 and Volumetric Lights 2.00 combination.
+- A model-observer conflict no longer escalates through its dependent corona
+  feature and unnecessarily disables the entire mod.
+- More specific connection failures and feature-refusal messages in support logs.
+  Compatible future hook layouts can be discovered; changed interfaces and
+  conflicting hooks can still require an update. Not every modpack is verified.
+
+SHADOWS AND SETTINGS
+- Added vehicle shadow-box fallback when a light cannot obtain a detailed shadow
+  map, helping preserve vehicle silhouettes as detailed maps change owners.
+  Special thanks to MrBulkinAleksey for the original implementation in his
+  FusionFix fork. Adapted and integrated into Liberty's Shadows by OnyxOak.
+- Skips fallback calculations for pixels without native light contribution,
+  retaining the original rounded-box shadow method.
+- Corrected the fallback device-wrapper handling and paired shader resources.
+  Install both plugins and update folders together.
+- Restored scenery-fade integration with the paired fallback shader.
+- Night Shadows status now uses the active getter hook, addressing the previous
+  version-dependent 'night state unknown' display.
+- Added SUPPORT / ReceiverCasterCulling to enable or disable the new culling
+  path after restarting. Enabled in the included High configuration.
+- Included High defaults with vehicle fallback enabled and routine diagnostics off.
+
+STABILITY
+- Fixed the captured MMA10 shutdown corruption caused by releasing an invalid
+  negative resource index. Verified in watched cleanup and a subsequent normal
+  Steam exit. This is a targeted repair, not a fix for every memory error.
+
+REMAINING LIMITATIONS
+- Dense nighttime scenes remain demanding. Indoor shadow competition/flicker,
+  some shadow pop-in and missing lamppost shadows remain under refinement.
+- Offscreen/reflection coverage with the new culling path is still being tested.
+  Set SUPPORT / ReceiverCasterCulling=0 and restart if shadows disappear.
+- DLSS/DLAA interruptions and unrelated RESC10 or other memory failures are not
+  claimed fixed by this update. Third-party visual mods are not bundled.

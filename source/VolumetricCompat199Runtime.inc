@@ -21,7 +21,7 @@ void AuthenticateAndNormalize(std::vector<uint8_t>& image){
  volumetric199::Node volume{base+volumetric199::Callback,base+volumetric199::Allocation,{callback,volumetric199::CallbackSize}};
  std::vector<uint8_t> fusionBytes;volumetric199::Node fusion;
  if(!nativeBackend){
-  const auto* profile=layout?copy_versions213::Find(layout->version):nullptr;
+  const auto* profile=layout?CopyProfile218():nullptr;
   Require(profile&&fusionModule213Authenticated,"volumetric199_unsupported_fusionfix");
   const auto ffRaw=pe::Read(pe::ModulePath(reinterpret_cast<HMODULE>(ff)));
   Require(pe::Hash(ffRaw)==layout->hash,"volumetric199_fusionfix_identity_changed");

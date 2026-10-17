@@ -1,0 +1,4 @@
+MrBulkinAleksey/GTAIV.EFLC.FusionFix
+GPL-3.0
+Commit16318f97a79939c53bb0abda1c6aa247dc6078e0
+Reference originals retained for attribution/review; runtime adaptation is VehicleBoxFallback216.hpp.

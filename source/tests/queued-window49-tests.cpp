@@ -1,3 +1,4 @@
+#include "OwnedImageReads224.hpp"
 #include <optional>
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX

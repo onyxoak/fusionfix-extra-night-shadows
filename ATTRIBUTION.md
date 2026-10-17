@@ -71,3 +71,8 @@ prerequisite status and bounded startup-conflict reporting. The source and
 approval remain pending. Matching ASI and complete unchanged shader source
 are in Libertys-Shadows-2.0.1-test132-source.zip. No new dependency, geometry
 walker, native shadow-map capacity or universal FPS/lighting claim is added.
+
+
+## Liberty's Shadows 2.0.5 — vehicle-shadow fallback
+
+Special thanks to **MrBulkinAleksey** for the original vehicle shadow-box fallback implementation in his FusionFix fork. Adapted and integrated into Liberty's Shadows by OnyxOak. See `source/vendor/MrBulkinAleksey/` and `licenses/2.0.5/` for the preserved source and GPL notices. This enhancement is enabled in the Full package and disabled in Fix Only.
